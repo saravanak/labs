@@ -1,0 +1,15 @@
+#include <uuid/uuid.h>
+#include "stdio.h"
+
+int main() {
+    uuid_t uuid;
+    // then we generate the random string. I use the random form
+    // but you can use other generate methods.
+    uuid_generate_random(uuid);
+    // To get a uuid string, we need to "unparse"
+    char uuid_str[37];
+    uuid_unparse_lower(uuid, uuid_str);
+
+    printf("%s", uuid_str);
+}
+
