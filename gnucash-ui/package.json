@@ -1,0 +1,32 @@
+{
+  "name": "gnucash-ui",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@nozbe/microfuzz": "^1.0.0",
+    "classnames": "^2.5.1",
+    "lodash": "^4.17.21",
+    "next": "14.2.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-feather": "^2.0.10",
+    "react-select": "^5.8.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.4",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}

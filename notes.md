@@ -68,3 +68,4 @@ Using this and
  - Datasette can be used. Plugins/ etc can be used to build a system quickly. Eg charting etc. 
  - Using custom made queries, plus CTEs we can build a frontend in things we like.
  - unified DSL language for querying across all these formats
+ - [ ] Write filtering typeahead for account names.
