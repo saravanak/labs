@@ -8,5 +8,5 @@ export default function() {
     useEffect(() => {
         setIsClient(true)
       }, [])
- return <>{isClient ? <Puzzle15/>: null}</>
+ return <div className="w-full flex flex-col justify-center align-center items-center">{isClient ? <Puzzle15/>: null}</div>
 }

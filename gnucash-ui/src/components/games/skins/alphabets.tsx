@@ -1,7 +1,6 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useRef } from "react";
 import { LettersContext } from "../puzzle-15";
 
-//https://openclipart.org/image/800px/172241
 export default function ({ sequence, index }: any) {
   const letters:any = useContext(LettersContext);
 
@@ -16,15 +15,9 @@ export default function ({ sequence, index }: any) {
   return (
     <>
       
-      <div className="table-cell align-middle">
+      <div className="table-cell align-middle w-24 w-24 md:w-28 md:h-28">
         <img src={currentLetter } />
       </div>
     </>
   );
 }
-
-
-
-// rabbit 
-// zebra 
-// tiger
