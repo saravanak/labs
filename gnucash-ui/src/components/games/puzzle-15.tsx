@@ -146,8 +146,6 @@ export default function () {
    * Create the words components .
    * generate words on the server using server action .
    *
-   * Make settings fixed height
-   * Add click behaviour for mouse / mobile usage
    * Bring in remix.js into here/there
    * Deply everything
    * Start Applying
