@@ -33,6 +33,8 @@ const options = {
   isPlayingBgm: true,
   viewSize: { x: 100, y: 50 },
   isReplayEnabled: true,
+  isCapturing: false,
+  isCapturingGameCanvasOnly: false,
   seed: 8,
 };
 
@@ -117,7 +119,7 @@ function update() {
   if (!ticks) {
     p = vec(playerLimits.initial);
     slidingNumbers = [newNumber()];
-    addScore(1000);
+    addScore(1);
   }
 
   drawRuledPage();

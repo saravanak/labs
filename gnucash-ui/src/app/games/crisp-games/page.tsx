@@ -1,13 +1,6 @@
 "use client";
 
 export default function () {
-  // return  <div className="relative">
-  //     <div className="grid grid-flow-col grid-rows-3 h-screen">
-  //     <h2 >  Jump over/on the numbers to increase your score </h2>
-  //
-  // </div>
-  // </div>
-
   return (
     <div className="relative rounded-xl overflow-auto p-8 h-screen">
       <div className="grid grid-rows-3 grid-flow-col gap-4 font-mono text-sm text-center rounded-lg ">

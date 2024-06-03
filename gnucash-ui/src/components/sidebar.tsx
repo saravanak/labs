@@ -20,6 +20,13 @@ export default function Sidebar() {
         <ChevronDown />
       </Link>
       <Link
+        className={computedClass("projects")}
+        href="/projects"
+      >
+        Projects
+        <ChevronDown />
+      </Link>
+      <Link
         className={computedClass("games")}
         href="/games"
       >

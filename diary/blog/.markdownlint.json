@@ -1,0 +1,13 @@
+{
+  "default": true,
+  "MD033": { "allowed_elements": ["em", "span"] },
+ "MD001": true,
+  "no-hard-tabs": false,
+  "MD013": {
+    // Number of characters
+    "line_length": 80,
+    "strict": true,
+    // Stern length checking
+    "stern": true
+  }
+}

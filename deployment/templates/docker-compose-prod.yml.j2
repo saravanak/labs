@@ -1,0 +1,83 @@
+version: '3'
+
+services:
+  reverse-proxy:
+    image: traefik:2.1.1
+    command: --api.insecure=true --providers.docker --accesslog=true --log.level=DEBUG
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8167:80"
+      - "8168:8080"
+
+  app:
+    image: "{{ server_prod_tag }}"
+    command: rails server -p 3030 -b '0.0.0.0' #We also have a cmd in docker-compose-prod.yml
+    logging:
+      driver: "journald"
+    links:
+      - postgres
+    environment:
+      - SECRET_KEY_BASE=test_me
+      - GITHUB_OAUTH_ACCESS_TOKEN_REQUEST_URL=https://github.com/login/oauth/access_token
+      - GITHUB_API_ENDPOINT=https://api.github.com
+      - GITHUB_OAUTH_CLIENT_ID={{github_oauth_client_id}}
+      - GITHUB_OAUTH_CLIENT_SECRET={{github_oauth_client_secret}}
+      - DISCORD_WEB_HOOK_URL={{discord_web_hook_url}}
+      - DB_HOST=postgres
+    ports:
+      - "3030:3030"
+    labels:
+      - "traefik.http.routers.router1.rule=Host(`server.oldweaver.co.in`)"
+
+  worker:
+    image: "{{ server_prod_tag }}"
+    logging:
+      driver: "journald"
+    links:
+      - postgres
+    command: que
+    environment:
+      - SECRET_KEY_BASE=test_me
+    volumes:
+      - .:/app
+
+  postgres:
+    image: "{{pg_master_tag}}"
+    logging:
+      driver: "journald"
+    restart: always
+    volumes:
+      - "{{cassette}}/data/postgresql_master/data:/var/lib/postgresql/data"
+    ports:
+      - "5432"
+    networks:
+      default:
+        aliases:
+          - pg_cluster
+
+  pg_slave:
+    image: "{{pg_slave_tag}}"
+    logging:
+      driver: "journald"
+    restart: always
+    volumes:
+      - "{{cassette}}/data/postgresql_slave/data:/var/lib/postgresql/data"
+    environment:
+      - PG_MASTER_HOST=postgres
+    networks:
+      default:
+        aliases:
+         - pg_cluster
+
+  monitoring:
+    image: nicolargo/glances:latest-alpine
+    restart: always
+    pid: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - "GLANCES_OPT=-w"
+    labels:
+      - "traefik.port=61208"
+      - "traefik.http.routers.router0.rule=Host(`glances.oldweaver.co.in`)"

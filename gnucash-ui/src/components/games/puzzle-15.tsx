@@ -142,14 +142,6 @@ export default function () {
     }
   }
 
-  /**
-   * Create the words components .
-   * generate words on the server using server action .
-   *
-   * Bring in remix.js into here/there
-   * Deply everything
-   * Start Applying
-   */
 
   let SkinComponent;
   if (selectedStrategy == "numbers") {

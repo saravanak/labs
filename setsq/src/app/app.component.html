@@ -1,0 +1,17 @@
+<div style="width: 50%; height: 5em">
+  <app-svg-circle [circlesCount]=4 [activeCircle]="activeCircle" [colors]="colors"
+    (circleChosen)="isUserClicked($event)" 
+    [gameSequence]="gameId"    />
+</div>
+<div style="display: flex; justify-content: center;">
+  Time Remaining {{timeRemaining}}
+
+  <br />
+  Score: {{score}}
+
+
+</div>
+
+<audio #audioOption>
+  <source src='./assets/buzzer.mp3' type="audio/mp3">
+</audio>

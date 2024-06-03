@@ -1,0 +1,3 @@
+{
+  "build_or_image": "image: weaver_dev:latest"
+}
