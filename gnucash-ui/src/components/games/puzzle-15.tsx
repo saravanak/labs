@@ -74,6 +74,24 @@ export default function () {
     }
   }, [selectedStrategy]);
 
+  const getRLTB = () => {
+    const indexOfEmptySpace = numbers.indexOf(null);
+    const row = Math.floor(indexOfEmptySpace / 4);
+    const column = indexOfEmptySpace % rows;
+    const { top, left, bottom, right } = {
+      top: row == 0 ? null : [row - 1, column],
+      bottom: row == rows - 1 ? null : [row + 1, column],
+      left: column == 0 ? null : [row, column - 1],
+      right: column == columns - 1 ? null : [row, column + 1],
+    };
+    return {
+      indexOfEmptySpace,
+      top,
+      bottom,
+      left,
+      right,
+    };
+  };
   useEffect(() => {
     if (isGameWon) {
       console.log("Removing event listener");
@@ -100,15 +118,7 @@ export default function () {
     e.stopPropagation();
     e.preventDefault();
 
-    const indexOfEmptySpace = numbers.indexOf(null);
-    const row = Math.floor(indexOfEmptySpace / 4);
-    const column = indexOfEmptySpace % rows;
-    const { top, left, bottom, right } = {
-      top: row == 0 ? null : [row - 1, column],
-      bottom: row == rows - 1 ? null : [row + 1, column],
-      left: column == 0 ? null : [row, column - 1],
-      right: column == columns - 1 ? null : [row, column + 1],
-    };
+    const { indexOfEmptySpace, top, left, bottom, right } = getRLTB();
 
     let numberToMove = null;
     switch (e.key) {
@@ -133,9 +143,9 @@ export default function () {
   }
 
   /**
-   * Create the words components .             
+   * Create the words components .
    * generate words on the server using server action .
-   * 
+   *
    * Make settings fixed height
    * Add click behaviour for mouse / mobile usage
    * Bring in remix.js into here/there
@@ -151,7 +161,7 @@ export default function () {
   }
   return (
     <div className="flex flex-col w-full">
-      <LettersContext.Provider value={alphabetSkin} >
+      <LettersContext.Provider value={alphabetSkin}>
         <div className="grid align-center row-span-5 place-content-center	 w-full basis-5/12">
           <table
             className="grid grid-cols-4 outline-none	text-center  aspect-square grow "
@@ -172,6 +182,29 @@ export default function () {
                                 isGameWon ? "bg-lime-500" : "bg-gray-300"
                               } text-red-800 m-2 rounded-sm md:text-2xl lg:text-5xl table`}
                               key={`${row + "," + column}`}
+                              onClick={() => {
+                                const {
+                                  indexOfEmptySpace,
+                                  top,
+                                  left,
+                                  bottom,
+                                  right,
+                                } = getRLTB();
+                                const allowedMoves = [top, left, bottom, right];
+
+                                const canClickedElementMove = allowedMoves.filter( v=> v).find(
+                                  ([moveableRow, moveableColumn]: any) => {
+                                    return (
+                                      moveableRow == row &&
+                                      moveableColumn == column
+                                    );
+                                  }
+                                );
+
+                                if (canClickedElementMove) {
+                                  swap(row * 4 + column, indexOfEmptySpace);
+                                }
+                              }}
                             >
                               <SkinComponent
                                 index={row * rows + column}
@@ -188,47 +221,46 @@ export default function () {
         </div>
       </LettersContext.Provider>
       <div className="basis-7/12">
-      {selectedStrategy == "alphabets" ? (
-        < img
-          ref={sourceImage}
-          src="/letters-resized.png"
-          style={{ display: "none" }}
+        {selectedStrategy == "alphabets" ? (
+          <img
+            ref={sourceImage}
+            src="/letters-resized.png"
+            style={{ display: "none" }}
+          />
+        ) : null}
+        <ButtonGroup
+          options={[
+            {
+              value: "numbers",
+              label: "Arrange numbers",
+              subText: "The gud 'old that we've always enjoyed",
+            },
+            {
+              value: "alphabets",
+              label: "Arrange alphabets",
+              subText: "Also form words while you arrange",
+            },
+          ]}
+          selectedOption={selectedStrategy}
+          onSelectedChange={(v: any) => setSelectedStrategy(v)}
         />
-      ) : null}
-      <ButtonGroup
-        options={[
-          {
-            value: "numbers",
-            label: "Arrange numbers",
-            subText: "The gud 'old that we've always enjoyed",
-          },
-          {
-            value: "alphabets",
-            label: "Arrange alphabets",
-            subText: "Also form words while you arrange",
-          },
-        ]}
-        selectedOption={selectedStrategy}
-        onSelectedChange={(v: any) => setSelectedStrategy(v)}
-      />
-      {selectedStrategy == "alphabets" ? (
-        <AlphabetConfigurer
-          ref={sourceImage}
-          winType={alphabetWinType}
-          onWinTypeChanged={setAlphabetWinType}
-          sequence={numbers}
-          onGameWon={setGameWon}
-          isGameWon={isGameWon}
-        />
-      ) : (
-        <NumberManager
-          sequence={numbers}
-          onGameWon={setGameWon}
-          isGameWon={isGameWon}
-        />
-      )}
+        {selectedStrategy == "alphabets" ? (
+          <AlphabetConfigurer
+            ref={sourceImage}
+            winType={alphabetWinType}
+            onWinTypeChanged={setAlphabetWinType}
+            sequence={numbers}
+            onGameWon={setGameWon}
+            isGameWon={isGameWon}
+          />
+        ) : (
+          <NumberManager
+            sequence={numbers}
+            onGameWon={setGameWon}
+            isGameWon={isGameWon}
+          />
+        )}
       </div>
-     
     </div>
   );
 }
