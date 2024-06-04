@@ -1,0 +1,16 @@
+[{
+    "name": "Flutter", 
+    "description": "A simple language tutor. Developed on EmberJS as a hobby project",
+    "url": "https://www.flutter.oldweaver.co.in/",
+    "image": "assets/images/screenshots/flutter.png"
+}, {
+    "name": "Whatsnow", 
+    "description": "A sales reporting app implemented in React",
+    "url": "https://play.google.com/store/apps/details?id=com.gofrugal.whatsnow&hl=en",
+    "image": "assets/images/screenshots/whatsnow.png"
+}, {
+    "name": "XBE", 
+    "description": "Part of the team behind XBE mobile app for 2 years",
+    "url": "https://play.google.com/store/search?q=XBE&c=apps&hl=en",
+    "image": "assets/images/screenshots/xbe.png"
+}] 

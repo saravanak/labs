@@ -1,0 +1,21 @@
+{% if portfolio.length %}
+<ol class="portfolio">
+    {% for portfolioItem in portfolio %}
+        <li >
+            {% if portfolioItem.url %}            
+                <a href="{{ portfolioItem.url }}"> <b> {{ portfolioItem.name }} </b></a>
+            {% endif %}
+
+            {% if portfolioItem.description %}
+                <p >{{ portfolioItem.description }}</p>
+            {% endif %}
+            
+            <img src={{portfolioItem.image}} />
+             
+            
+            
+
+        </li>
+    {% endfor %}
+</ol>
+{% endif %}

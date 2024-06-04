@@ -1,0 +1,30 @@
+<aside class="sidebar">
+    <div class="container">
+
+        <div class="actions">
+            {% if author.email %}
+                <a class="actions__btn has-tooltip" aria-label="{{ strings.labels.email }}" href="mailto:{{ author.email | obfuscate | safe }}">
+                    {% icon "email" %}
+                </a>
+            {% endif %}
+            {% if author.telephone %}
+                <a class="actions__btn has-tooltip" aria-label="{{ strings.labels.telephone }}" href="tel:{{ author.telephone | stripSpaces }}">
+                    {% icon "telephone" %}
+                </a>
+            {% endif %}
+            <button class="actions__btn js-print utl-screen-only has-tooltip" aria-label="{{ strings.labels.print }}">
+                {% icon "print" %}
+            </button>
+            <ul>
+        <li><a href="#section-introduction" style="color:white"> Introduction </a></li>
+        <li><a href="#section-skills" style="color:white"> Skills </a></li>        
+        <li><a href="#section-portfolio" style="color:white"> Portfolio </a></li>        
+        <li><a href="#section-experience" style="color:white"> Experience </a></li>        
+        <li><a href="#section-education" style="color:white"> Education </a></li>        
+        <li><a href="#section-oss" style="color:white"> Open source </a></li>
+        <li><a href="#section-custom" style="color:white"> The Other Life </a></li>
+        </div>
+
+
+    </div>
+</aside>

@@ -1,0 +1,35 @@
+{
+    "name": "Saravana Kumar (Saro)",
+    "occupation": "Front-End Developer",
+    "location": "India, Coimbatore (IST)",
+    "avatar": "avatar.jpg",
+    "pronouns": "bfs/dfs",
+    "email": "vsk62.gate@gmail.com",
+    "telephone": "+91 956 608 2416",
+    "website": "https://oldweaver.co.in",
+    "skills": [
+        "Modern JS frameworks: React, Angular, Ember",
+        "CSS",
+        "Java",
+        "Redux",
+        "Cypress",
+        "Entry level Devops: Docker/DigitalOcean/AWS"
+    ],
+    "languages": [
+        {
+            "name": "English",
+            "level": "conversant"
+        },
+        {
+            "name": "Tamil",
+            "level": "native"
+        }
+    ],
+    "social": [
+        {
+            "name": "Github",
+            "user": "@saravanak",
+            "url": "https://github.com/saravanak"
+        }
+    ]
+}
