@@ -31,7 +31,6 @@ module.exports = (eleventyConfig) => (collectionApi) => {
     .filter((item) => Array.isArray(item.data.tags))
     .flatMap((item) => item.data.tags)
     .filter((tag, idx, list) => list.indexOf(tag) === idx)
-    .filter((tag, idx, list) => tag != "posts")
     .map((tag) => {
       const convertedTag = convertTag(tag);
 
@@ -54,6 +53,5 @@ module.exports = (eleventyConfig) => (collectionApi) => {
     return acc;
   }, {});
 
-  console.log({ tagsFromPosts });
   return tagsFromPosts;
 };

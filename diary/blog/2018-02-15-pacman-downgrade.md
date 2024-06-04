@@ -43,8 +43,8 @@ machine, to my happiness, it was indeed !!. :innocent: :gun:.
 
 Fixing this was easy and speasy, just boot in with a liveboot USB and do:
 
-```
-pacman -U <path to the old jsonlibtar file in the cache>
+```bash
+pacman -U #<path to the old jsonlibtar file in the cache>
 ```
 
 ## Why this post?
@@ -52,6 +52,21 @@ pacman -U <path to the old jsonlibtar file in the cache>
 This is just a rubber ducking post. Over the course, I learnt to find how to
 find all the packages that are dependant on a given one:
 
-```
+```bash
 pactree -r <package>
 ```
+
+## Dependant packages
+
+```bash
+pacman -Qil #Package Name
+```
+
+Lists all the files and other meta information for an installed package on the system
+
+## Changes
+
+| Date | Comments |
+| ------ | ----------- |
+|2018-02-15|Initial Content|
+|2024-06-04|Add heading `Dependant packages` |

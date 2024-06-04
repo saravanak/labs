@@ -4,6 +4,7 @@ module.exports = {
    * @param {import("@11ty/eleventy").UserConfig} config
    */
   setup(config) {
+
     // When `permalink` is false, the file is not written to disk
     config.addGlobalData("eleventyComputed.permalink", function() {
       return (data) => {
@@ -34,6 +35,11 @@ module.exports = {
         process.env.BUILD_DRAFTS = true;
       }
     });
+
+    config.addFilter('htmlDateString', (dateObj) => {
+      // dateObj input: https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
+      return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat('yyyy-LL-dd');
+    }); 
 
     
   },

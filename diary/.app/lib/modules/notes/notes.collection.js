@@ -15,10 +15,7 @@ module.exports = (eleventyConfig) => (collectionApi) => {
     date: note.date,
     url: note.url,
     data: note.data,
-  })).filter((note) => {
-      console.log('A',note.data.draft);
-      return !note.data.eleventyExcludeFromCollections
-  });
+  }));
 };
 
 function parseTags(tags) {

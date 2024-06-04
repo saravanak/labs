@@ -1,18 +1,16 @@
 ---
 layout: "core/base.layout.njk"
-eleventyNavigation:
-  key: Archive
-  order: 2
----
+tags: ["posts-listing"]
+----
 
 <div class="page">
   <main class="page__main" id="app-content">
-  These are my recordings of things that I have done. The will be terse. As you can see the chronology, 
+  These are my recordings of things that I have done. The will be terse. As you can see the chronology,
 I've been a bit under the cloud on this. But hey, thats how organic is.
 
 <h3> Posts </h3>
 
-{% set postslist = collections.posts %}
+{% set postslist = collections.notes %}
 {% include "core/layouts/posts-list.njk" %}
 
 </main>

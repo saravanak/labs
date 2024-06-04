@@ -4,8 +4,8 @@
 <aside class="stack" data-stack="6">
   {% set toc = content | toc %}
   {% if (toc | length) and app.panel.tableOfContents %}
-  <div class="toc">
-    <h2 class="toc__label" id="app-panel-toc">Table of Contents</h2>
+  <div class="toc" data-pagefind-ignore>
+    <h2 class="toc__label" id="app-panel-toc" lang="en">Table of Contents</h2>
     <ul class="toc__list" role="list" aria-labelledby="app-panel-toc">
       {% for item in toc %}
       <li style="--level: {{ item.level }}" class="toc__item">
@@ -21,7 +21,7 @@
   {% set props = app.customProperties.properties | resolveCustomProps %}
   {% if props | length and app.panel.customProperties %}
   <div class="custom-props">
-    <h2 class="custom-props__label" id="app-panel-props">Properties</h2>
+    <h2 class="custom-props__label" id="app-panel-props" data-pagefind-ignore lang="en">Properties</h2>
     <dl class="custom-props__list stack" data-stack="4" role="list" aria-labelledby="app-panel-props">
       {% for prop in props %}
       <div>
@@ -51,12 +51,14 @@
 
   {% if tags | length and app.panel.tags %}
   <div class="grouped-links">
-    <h2 class="grouped-links__label" id="app-panel-tags">Tags</h2>
+    <h2 class="grouped-links__label" id="app-panel-tags" lang="en">Tags</h2>
     <ul class="grouped-links__list" role="list" aria-labelledby="app-panel-tags">
       {% for tag in tags %}
       {% set tagConfig = collections.tags.byId[tag] %}
       <li>
-        <a href="{{ tagConfig.url }}" class="grouped-links__link">
+        <a
+          href="{{ tagConfig.url }}" class="grouped-links__link"
+          data-pagefind-filter="tags:{{ tag }}">
           {{ 'hash' | featherRef | safe }}
           <span>{{ tagConfig.label }}</span>
         </a>
@@ -66,28 +68,26 @@
   </div>
   {% endif %}
 
-  {% if page.url %}
-    {% set links = collections._links[page.url]() %}
-    {% if links.incoming | length and app.panel.incomingLinks %}
-    <div class="grouped-links">
-      <h2 class="grouped-links__label" id="app-panel-incoming">Incoming</h2>
-      <ul class="grouped-links__list" role="list" aria-labelledby="app-panel-incoming">
-        {% for incoming in links.incoming %}
-          <li>
-            <a href="{{ incoming.url }}" class="grouped-links__link">
-              {{ 'arrow-left' | feather | safe }}
-              <span>{{ incoming.title }}</span>
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
+  {% set links = collections._links[page.url]() %}
+  {% if links.incoming | length and app.panel.incomingLinks %}
+  <div class="grouped-links" data-pagefind-ignore>
+    <h2 class="grouped-links__label" id="app-panel-incoming" lang="en">Incoming</h2>
+    <ul class="grouped-links__list" role="list" aria-labelledby="app-panel-incoming">
+      {% for incoming in links.incoming %}
+        <li>
+          <a href="{{ incoming.url }}" class="grouped-links__link">
+            {{ 'arrow-left' | feather | safe }}
+            <span>{{ incoming.title }}</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
   {% endif %}
 
   {% if links.outgoing | length and app.panel.outgoingLinks %}
-  <div class="grouped-links">
-    <h2 class="grouped-links__label" id="app-panel-outgoing">Outgoing</h2>
+  <div class="grouped-links" data-pagefind-ignore>
+    <h2 class="grouped-links__label" id="app-panel-outgoing" lang="en">Outgoing</h2>
     <ul class="grouped-links__list" role="list" aria-labelledby="app-panel-outgoing">
       {% for outgoing in links.outgoing %}
         <li>
@@ -102,8 +102,8 @@
   {% endif %}
   
   {% if links.external | length and app.panel.externalLinks %}
-  <div class="grouped-links">
-    <h2 class="grouped-links__label" id="app-panel-external">External</h2>
+  <div class="grouped-links" data-pagefind-ignore>
+    <h2 class="grouped-links__label" id="app-panel-external" lang="en">External</h2>
     <ul class="grouped-links__list" role="list" aria-labelledby="app-panel-external">
       {% for external in links.external %}
         <li>
@@ -117,7 +117,7 @@
   </div>
   {% endif %}
 
-  <div class="inline">
+  <div class="inline" data-pagefind-ignore>
     {{ bookmarkToggle(page.url | htmlBaseUrl ) }}
     {{ editThisNote(app.editThisNote, page) }}
   </div>

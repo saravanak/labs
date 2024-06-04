@@ -1,8 +1,8 @@
-const { defineConfig } = require(".app/app-config");
+const { defineConfig, createNotesQuery } = require("./.app/app-config");
 
 module.exports = defineConfig({
-  title: "John's Notes",
-  description: "The personal notes of John Doe",
+  title: "Saro's Thoughts",
+  description: "The personal notes of Saro",
   lang: "en",
   wikilinks: {
     autoLabel: "title",
@@ -17,10 +17,27 @@ module.exports = defineConfig({
         openInNewTab: false,
       },
     ],
-    notes: [
+    sections: [
       {
-        pattern: "^/aws-certs/index$",
-      },      
+        groups: [
+          {
+            query: createNotesQuery({
+              tags: ["posts-listing"],              
+            }),
+          },
+        ]
+      },
+      {
+        label: "Tech notes",
+        groups: [
+          {
+            label: "AWS",
+            query: createNotesQuery({
+              pattern: "/aws-certs/",
+            }),
+          },
+        ]
+      },
     ],
     tags: {
       showOnSidebar: false,

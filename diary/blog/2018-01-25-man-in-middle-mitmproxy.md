@@ -2,6 +2,7 @@
 title: "Man-in-the-middle for mitmproxy"
 date: 2018-01-25T19:47:51+05:30
 tags: ["posts", "mitmproxy", "debugging", "python"]
+panel: false
 ---
 
 This is about how I analyzed

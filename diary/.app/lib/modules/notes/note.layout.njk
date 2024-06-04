@@ -1,16 +1,19 @@
 ---js
 {
   layout: "core/base.layout.njk",
-  permalink: function({ page }) {
+  permalink: function({ page, app }) {
     const url = this.slugifyPath(page.filePathStem).replace(/\/index$/, '');
     const isRoot = url === "";
-    return isRoot ? "/" : `/n/${url}/`;
+    if (isRoot) return "/";
+
+    const pathPrefix = app.notes.pathPrefix.replace(/^\/|\/$/, '');
+    return `/${[pathPrefix, url].filter(Boolean).join('/')}/`;
   }
 }
 ---
 
-<div class="page">
-  <main class="page__main" id="app-content">
+<div class="page" data-pagefind-body>
+  <main class="page__main" id="app-content" >
     <article>
       <h1 class="page__title">{{ headline or title or page.fileSlug }}</h1>
       <div class="article">
