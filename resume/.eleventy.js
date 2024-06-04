@@ -6,6 +6,7 @@ const transforms = require('./utils/transforms.js')
 const shortcodes = require('./utils/shortcodes.js')
 const iconsprite = require('./utils/iconsprite.js')
 
+
 module.exports = function (config) {
     // Plugins
     config.addPlugin(pluginRss)
@@ -75,6 +76,15 @@ module.exports = function (config) {
 
     // Deep-Merge
     config.setDataDeepMerge(true)
+
+    /** Upgrade helper 0-1 changes
+     *
+     *
+     */
+    config.setLiquidOptions({
+        strictFilters: false,
+        dynamicPartials: false
+    })
 
     // Base Config
     return {
