@@ -13,4 +13,10 @@
     "description": "Part of the team behind XBE mobile app for 2 years",
     "url": "https://play.google.com/store/search?q=XBE&c=apps&hl=en",
     "image": "assets/images/screenshots/xbe.png"
-}] 
+}, {
+    "name": "Advent Of Code", 
+    "description": "Yearly Christmas time Programming context as an advent calendar",
+    "url": "https://adventofcode.com/2023/events",
+    "image": "assets/images/screenshots/advent-of-code.png"
+}
+] 

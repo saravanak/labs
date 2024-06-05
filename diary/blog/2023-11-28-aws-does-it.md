@@ -1,7 +1,7 @@
 ---
 title: "AWS - Does it?"
 date: 2023-11-28
-draft: true
+draft: false
 tags: ["posts", "aws", "cloud"]
 ---
 

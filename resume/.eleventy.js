@@ -1,4 +1,6 @@
 const pluginRss = require('@11ty/eleventy-plugin-rss')
+const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
+
 const markdownIt = require('markdown-it')
 
 const filters = require('./utils/filters.js')
@@ -85,6 +87,8 @@ module.exports = function (config) {
         strictFilters: false,
         dynamicPartials: false
     })
+    
+    config.addPlugin(EleventyHtmlBasePlugin);
 
     // Base Config
     return {
@@ -97,6 +101,7 @@ module.exports = function (config) {
         },
         templateFormats: ['njk', 'md', '11ty.js'],
         htmlTemplateEngine: 'njk',
-        markdownTemplateEngine: 'njk'
+        markdownTemplateEngine: 'njk',
+        pathPrefix: '/resume/'
     }
 }

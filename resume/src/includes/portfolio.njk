@@ -3,17 +3,17 @@
     {% for portfolioItem in portfolio %}
         <li >
             {% if portfolioItem.url %}            
-                <a href="{{ portfolioItem.url }}"> <b> {{ portfolioItem.name }} </b></a>
+                <a href="{{ portfolioItem.url }}"> <b> {{ portfolioItem.name }} </b>
             {% endif %}
 
             {% if portfolioItem.description %}
                 <p >{{ portfolioItem.description }}</p>
             {% endif %}
-            
-            <img src={{portfolioItem.image}} />
+
+            <img class="portfolio__img" src={{portfolioItem.image}} />
              
             
-            
+            </a>
 
         </li>
     {% endfor %}

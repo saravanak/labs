@@ -14,8 +14,10 @@ export default function () {
       "font-bold": pathname == `/${routeName}` ? "font-bold" : "",
     });
   return (
+    <>
+    <img src="/game-shots/wip.jpg " className="w-1/2 object-cover"/>
     <ul>
-      <li className="self-start sticky top-16 w-[248px] list-none mt-16">
+      <li className="self-start sticky top-16 w-[248px] list-none mt-16 ">
         <Link className={computedClass("html-extractor")} href="/projects/html-extractor">
           HTML Extractor
         </Link>
@@ -24,6 +26,7 @@ export default function () {
         </Link>
       </li>
     </ul>
+    </>
   );
 }
 
