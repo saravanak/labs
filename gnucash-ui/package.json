@@ -10,8 +10,9 @@
   },
   "dependencies": {
     "@nozbe/microfuzz": "^1.0.0",
+    "@types/react-table": "^7.7.20",
     "@uidotdev/usehooks": "^2.4.1",
-    "blockly": "^11.1.0",
+    "blockly": "^9.2.0",
     "classnames": "^2.5.1",
     "lodash": "^4.17.21",
     "next": "14.2.3",
@@ -20,7 +21,9 @@
     "react": "^18",
     "react-dom": "^18",
     "react-feather": "^2.0.10",
-    "react-select": "^5.8.0"
+    "react-select": "^5.8.0",
+    "react-table": "^7.8.0",
+    "sharp": "^0.33.4"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.4",

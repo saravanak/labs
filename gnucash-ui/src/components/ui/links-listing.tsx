@@ -2,8 +2,9 @@
 import classNames from "classnames";
 import { ExternalLink } from "react-feather";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
-export default function ({
+export default function LinkListingComponent({
   links,
   isSimpleLinks,
   additionalStyles,
@@ -30,7 +31,7 @@ export default function ({
           anchorClasses = { ...anchorClasses, ...computedClass };
         }
         return (
-          <a
+          <Link
             key={href+index}
             target={isExternal ? "_blank" : "_self"}
             className={classNames(anchorClasses)}
@@ -41,7 +42,7 @@ export default function ({
               <ExternalLink size={18} className="relative -top-1 inline ml-1" />
             ) : null}
             {isSimpleLinks && index < links.length - 1 ? ", " : null}
-          </a>
+          </Link>
         );
       })}
     </>

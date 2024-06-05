@@ -1,4 +1,4 @@
-export default function ({ options, selectedOption, onSelectedChange }: any) {
+export default function ButtonGroup({ options, selectedOption, onSelectedChange }: any) {
   const _selectedOption = options.find((o: any) => o.value == selectedOption);
 
   return (

@@ -1,6 +1,5 @@
-import { BlocklyOptions } from "blockly";
-import { BlockNames } from "~/language/blockly-constants";
-const toolboxConfig: BlocklyOptions = {
+import { BlockNames } from "../language/blockly-constants";
+const toolboxConfig: any = {
   kind: "flyoutToolbox",
   contents: [
     {

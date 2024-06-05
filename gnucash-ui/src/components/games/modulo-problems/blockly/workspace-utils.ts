@@ -156,10 +156,10 @@ export class WorkspaceUtils {
       case inputTypes.DUMMY:
         return 0;
       case inputTypes.VALUE:
-        input.connection?.connect(currentBlock.outputConnection);
+        input.connection?.connect(currentBlock.outputConnection as any);
         break;
       case inputTypes.STATEMENT:
-        input.connection?.connect(currentBlock.previousConnection);
+        input.connection?.connect(currentBlock.previousConnection as any);
         break;
     }
   }

@@ -3,7 +3,7 @@ import { Menu } from "react-feather";
 import LinksListing from "../ui/links-listing";
 
 
-export default function ({setSidebarShown}:any) {
+export default function NavbarComponent({setSidebarShown}:any) {
   const links = [
     {
       href: `${process.env.NEXT_PUBLIC_DIARY_URL}/resume`,

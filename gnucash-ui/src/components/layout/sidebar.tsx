@@ -1,6 +1,4 @@
 "use client";
-import Link from "next/link";
-import classNames from "classnames";
 import LinksListing from "../ui/links-listing";
 
 export default function Sidebar({sidebarShown}:any) {

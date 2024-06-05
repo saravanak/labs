@@ -2,7 +2,7 @@ import { dropRight, isEqual } from "lodash";
 import { useEffect } from "react";
 
 
-export default function (  { sequence, onGameWon, isGameWon: isGameWonAlready }: any) {
+export default function NumberManager(  { sequence, onGameWon, isGameWon: isGameWonAlready }: any) {
   const targetWinCriteria = Array(15)
     .fill(0)
     .map((_, i) => i+1);

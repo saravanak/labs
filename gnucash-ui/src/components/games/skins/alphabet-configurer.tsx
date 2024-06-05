@@ -1,9 +1,10 @@
 import ButtonGroup from "@/components/ui/button-group";
 import { reverse, isEqual, dropRight } from "lodash";
+import Image from "next/image";
 import { forwardRef, useEffect } from "react";
 reverse;
 
-export default forwardRef(function (
+export default forwardRef(function AlphabetConfigurer(
   { winType, onWinTypeChanged, sequence, onGameWon }: any,
   ref: any
 ) {
@@ -21,7 +22,7 @@ export default forwardRef(function (
 
   return (
     <>
-      <img ref={ref} src="/letters-resized.png" style={{ display: "none" }} />
+      <Image alt="" ref={ref} src="/letters-resized.png" style={{ display: "none" }} />
 
       <ButtonGroup
         options={[

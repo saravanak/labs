@@ -23,7 +23,7 @@ Explore later aka Codewalkthrus
 - [ ] https://github.com/uidotdev/usehooks
 - [ ] https://github.com/keystonejs/keystone/issues
    https://components.guide/react+typescript/forms
-https://www.youtube.com/@LayoutLand/videos
+//www.youtube.com/@LayoutLand/videos
 https://www.smashingmagazine.com/2020/01/understanding-css-grid-container/
 https://refine.dev/blog/tailwind-grid/#basic-tailwind-grid-example
 

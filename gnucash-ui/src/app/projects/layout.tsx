@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 
-export default function ({ children }:Readonly<{
+export default function ProjectsLayout({ children }:Readonly<{
   children: React.ReactNode;
 }>) {
   const [isClient, setIsClient] = useState(false);

@@ -5,6 +5,7 @@ import AlphabetConfigurer from "./skins/alphabet-configurer";
 import AlphabetSkin from "./skins/alphabets";
 import NumberManager from "./skins/number-manager";
 import NumberSkin from "./skins/numbers";
+import Image from "next/image";
 
 const initPuzzle = () => {
   return shuffle(
@@ -18,7 +19,7 @@ const initPuzzle = () => {
 
 export const LettersContext = createContext(null);
 
-export default function () {
+export default function Puzzle15Component() {
   const rows = 4;
   const columns = 4;
 
@@ -212,7 +213,8 @@ export default function () {
       </LettersContext.Provider>
       <div className="basis-7/12">
         {selectedStrategy == "alphabets" ? (
-          <img
+          <Image
+            alt=""
             ref={sourceImage}
             src="/letters-resized.png"
             style={{ display: "none" }}

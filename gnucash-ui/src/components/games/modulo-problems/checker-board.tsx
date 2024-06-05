@@ -14,7 +14,7 @@ type Props = {
   onCompletedRender?: any;
 };
 
-function generateCheckerBoard({
+function GenerateCheckerBoard({
   colorMap,
   onSelect,
   onHover,
@@ -118,10 +118,10 @@ function generateCheckerBoard({
         {row == 0 ? (
           <div
             key={"rm" + row.toString()}
-            justify="div-start"
-            align="div-start"
-            direction="row"
-            wrap="wrap"
+            // justify="div-start"
+            // align="div-start"
+            // direction="row"
+            // wrap="wrap"
           >
             {showAxes && columnMarkers}
           </div>
@@ -129,19 +129,19 @@ function generateCheckerBoard({
 
         <div
           key={"r" + row.toString()}
-          justify="div-start"
-          align="div-start"
-          direction="row"
-          wrap="wrap"
+          // justify="div-start"
+          // align="div-start"
+          // direction="row"
+          // wrap="wrap"
         >
           {showAxes && (
             <div
               key={"rb" + row.toString()}
-              sx={{
-                ...divStlyes,
-                borderLeft: divBorder,
-                borderBottom: row == gridSize - 1 ? divBorder : "",
-              }}
+              // sx={{
+              //   ...divStlyes,
+              //   borderLeft: divBorder,
+              //   borderBottom: row == gridSize - 1 ? divBorder : "",
+              // }}
             >
               {row + 1}
             </div>
@@ -173,12 +173,12 @@ function generateCheckerBoard({
                 key={"c" + col.toString()}
                 onClick={() => (onSelect ? onSelect(row, col) : null)}
                 onMouseMove={() => (onHover ? onHover(row, col) : null)}
-                sx={{
-                  backgroundColor: bgColor,
-                  borderLeft: showAxes ? "" : col == 0 ? divBorder : "",
-                  borderBottom: row == gridSize - 1 ? divBorder : "",
-                  ...divStlyes,
-                }}
+                // sx={{
+                //   backgroundColor: bgColor,
+                //   borderLeft: showAxes ? "" : col == 0 ? divBorder : "",
+                //   borderBottom: row == gridSize - 1 ? divBorder : "",
+                //   ...divStlyes,
+                // }}
               >
                 &nbsp;
               </div>
@@ -205,18 +205,18 @@ export default function CheckerBoard({
     [number, number]
   >([0, 0]);
 
-  const listItems = generateCheckerBoard({
-    colorMap,
-    onSelect,
-    onHover,
-    showAxes,
-    aliasColor,
-    cellSize,
-    showEvaluationAnimations,
-    currentAnimatedCell,
-    setCurrentAnimatedCell,
-    onCompletedRender,
-  });
+  const listItems = <GenerateCheckerBoard
+    colorMap={colorMap}
+    onSelect={onSelect}
+    onHover={onHover}
+    showAxes={showAxes}
+    aliasColor={aliasColor}
+    cellSize={cellSize}
+    showEvaluationAnimations={showEvaluationAnimations}
+    currentAnimatedCell={currentAnimatedCell}
+    setCurrentAnimatedCell={setCurrentAnimatedCell}
+    onCompletedRender={onCompletedRender}
+  />
 
   return (
     <div

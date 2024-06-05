@@ -1,6 +1,6 @@
 "use client";
 
-export default function () {
+export default function CrispGamesPage() {
   return (
     <div className="relative rounded-xl overflow-auto p-8 h-screen">
       <div className="grid grid-rows-3 grid-flow-col gap-4 font-mono text-sm text-center rounded-lg ">

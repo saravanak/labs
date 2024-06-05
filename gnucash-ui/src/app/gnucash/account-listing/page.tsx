@@ -1,5 +1,5 @@
 import AccountsListing from "@/components/accounts";
 
-export default function () {
+export default function AccountListingPage() {
     return <AccountsListing/>
 }

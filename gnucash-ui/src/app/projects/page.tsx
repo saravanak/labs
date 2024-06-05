@@ -2,10 +2,11 @@
 "use client";
 
 import classNames from "classnames";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function () {
+export default function ProjectsPage() {
   const pathname = usePathname();
   const computedClass = (routeName: string) =>
     classNames({
@@ -15,7 +16,7 @@ export default function () {
     });
   return (
     <>
-    <img src="/game-shots/wip.jpg " className="w-1/2 object-cover"/>
+    <Image alt="" src="/game-shots/wip.jpg " className="w-1/2 object-cover"/>
     <ul>
       <li className="self-start sticky top-16 w-[248px] list-none mt-16 ">
         <Link className={computedClass("html-extractor")} href="/projects/html-extractor">

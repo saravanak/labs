@@ -1,10 +1,11 @@
 "use client";
 
 import classNames from "classnames";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function () {
+export default function GamesPage() {
   const pathname = usePathname();
   const computedClass = (routeName: string) =>
     classNames({
@@ -48,7 +49,9 @@ export default function () {
                 <div className="font-bold text-lg border-b-2 w-full text-center py-4   inverted-color hover:inverted-color-hover">
                   {label}
                 </div>
-                <img
+                <Image
+                  alt=""
+                  unoptimized={image.endsWith("gif")}
                   className="font-bold text-lg border-b-2 w-[300px] h-[300px] text-center object-contain "
                   src={image}
                 />

@@ -1,4 +1,4 @@
-import { BlockNames, BLOCKLY_COLORS } from "~/language/blockly-constants";
+import { BlockNames, BLOCKLY_COLORS } from "../language/blockly-constants";
 import { FieldGridDropdown } from "@blockly/field-grid-dropdown";
 
 export default (Blockly: any, colors: string[]) => {
