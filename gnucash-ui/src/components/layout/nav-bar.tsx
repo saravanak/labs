@@ -6,16 +6,19 @@ import LinksListing from "../ui/links-listing";
 export default function ({setSidebarShown}:any) {
   const links = [
     {
-      href: "",
+      href: `${process.env.NEXT_PUBLIC_DIARY_URL}/resume`,
       label: "Resume",
+      isExternal: true
     },
     {
-      href: "",
+      href: `${process.env.NEXT_PUBLIC_DIARY_URL}/resume?#section-portfolio`,
       label: "Portfolio",
+      isExternal: true
     },
     {
-      href: "",
+      href: `${process.env.NEXT_PUBLIC_DIARY_URL}/blog`,
       label: "Blog",
+      isExternal: true
     },
   ];
   const homeLink ={
