@@ -12,6 +12,8 @@
    - Convert src/app/blog/page.tsx into env variable.
    - [ ] Externalize src/components/projects/html-exractor.tsx
 - [ ] Start Applying
+- [ ] extract grid component for games
+
 
 - [ ] setsq into games,by adding a modifier. 
 - [ ] coderwars profile on resume page.

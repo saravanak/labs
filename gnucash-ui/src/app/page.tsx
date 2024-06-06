@@ -34,13 +34,14 @@ export default function Home() {
 
   return (
     <div className="px-4">
-      <p>Hi I am Saro, your host! I live in Coimbatore, India and I do coding for living.</p>
+      <p>Hi I am Saro, your host! I live in Coimbatore, India and I do coding for living. <b> I am currently open to work</b></p>
+
       <p>        
-          Welcome to my sandbox environment where I keep by hobby projects.{" "}
+          Welcome to my sandbox environment where I keep by hobby projects. And yes, none of this was borrowed from AI. 
         
       </p>
       <p>
-        If you are a recruiter, please directly jump to my{" "}
+        If you are a recruiter, see {" "}
         <LinksListing isSimpleLinks={true} links={recruiterLinks} />. You can also &nbsp;
         <LinksListing isSimpleLinks={true} links={[{ href: "bts", label: "look through "}]} /> how my online presence is setup
 
