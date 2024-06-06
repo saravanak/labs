@@ -18,7 +18,6 @@ export default function Sidebar({sidebarShown}:any) {
     }
   ]
 
-  console.log({sidebarShown});
   
   return (
     <div className={`inverted-color col-span-2 pl-8 md:pl-4 md:col-span-1 md:block md:left-0 h-[calc(100vh-75px)] ${sidebarShown ? "block" : "hidden"}`}>

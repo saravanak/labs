@@ -27,18 +27,18 @@ export default function GamesPage() {
       label: "15 Puzzle",
       shortDescription: "Slide to the empty space to order the numbers",
       image: "/game-shots/15-puzzle.png",
-    },
-    
+    },    
     {
-      urlSlug: "art-gen",
+      urlSlug: "multiply",
       label: "Math art",
-      shortDescription: "Generate art using mathematical equations",      
+      image: "/game-shots/multiply.png",
+      shortDescription: "Display detailed multiplication steps",
     },
     {
       urlSlug: "seven-segment",
       label: "LCD - gud'ol days",
       image: "/game-shots/hello-react.png",
-      shortDescription: "Display LCDs using Grid system!",      
+      shortDescription: "Display LCDs using Grid system!",
     },
   ];
   
