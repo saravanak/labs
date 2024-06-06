@@ -16,7 +16,7 @@ export default function ProjectsPage() {
     });
   return (
     <>
-    <Image alt="" src="/game-shots/wip.jpg " className="w-1/2 object-cover"/>
+    <Image alt="" src="/game-shots/wip.jpg " width={100} height={100} className="w-1/2 object-cover"/>
     <ul>
       <li className="self-start sticky top-16 w-[248px] list-none mt-16 ">
         <Link className={computedClass("html-extractor")} href="/projects/html-extractor">

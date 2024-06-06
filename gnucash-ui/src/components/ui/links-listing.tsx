@@ -17,7 +17,7 @@ export default function LinkListingComponent({
       {links.map(({ href, label, isExternal }: any, index: any) => {
         let anchorClasses: any = {};
         const computedClass = {
-          "bg-sky-600": pathname == href ? true : null,
+          "bg-sky-600": pathname.startsWith(href) ? true : null,
         };
         if (additionalStyles) {
           anchorClasses[additionalStyles] = true;

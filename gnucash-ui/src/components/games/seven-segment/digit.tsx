@@ -93,9 +93,10 @@ export default function SevenSegmentDigit({ input, color }: any) {
   let content: any = null;
 
   if (segmentCommand.length) {
-    content = <>{segments.map(({ letter, isLit }: any) => {
+    content = <>{segments.map(({ letter, isLit }: any, index:any) => {
       return isLit ? (
         <div
+          key={index}
           className={`${classNamesMapping[letter]} ${
             color ? color : "bg-red-500"
           }`}
@@ -107,8 +108,8 @@ export default function SevenSegmentDigit({ input, color }: any) {
   if (input == ":") {
     content = (
       <>
-        <div className="row-start-2 col-start-2 bg-red-500 w-1 h-1 self-center justify-self-center	">&nbsp;</div>
-        <div className="row-start-4 col-start-2 bg-red-500 w-1 h-1 self-center justify-self-center	">&nbsp;</div>
+        <div key="upper" className="row-start-2 col-start-2 bg-red-500 w-1 h-1 self-center justify-self-center	">&nbsp;</div>
+        <div key="lower" className="row-start-4 col-start-2 bg-red-500 w-1 h-1 self-center justify-self-center	">&nbsp;</div>
       </>
     )
   }
@@ -121,7 +122,6 @@ export default function SevenSegmentDigit({ input, color }: any) {
         gridTemplateRows: `${segmentThickness} ${segmentHeight} ${segmentThickness} ${segmentHeight} ${segmentThickness}`,
       }}
     >
-      {" "}
       {content}
     </div>
   );

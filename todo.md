@@ -28,6 +28,7 @@ Explore later aka Codewalkthrus
 //www.youtube.com/@LayoutLand/videos
 https://www.smashingmagazine.com/2020/01/understanding-css-grid-container/
 https://refine.dev/blog/tailwind-grid/#basic-tailwind-grid-example
+http://www.pythonchallenge.com/pc/def/0.html?example
 
 ### More projects
 
