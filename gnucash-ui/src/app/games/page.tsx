@@ -40,6 +40,12 @@ export default function GamesPage() {
       image: "/game-shots/hello-react.png",
       shortDescription: "Display LCDs using Grid system!",
     },
+    {
+      urlSlug: "seven-segment",
+      label: "2048",
+      image: "/game-shots/2048.png",
+      shortDescription: "Implemented in React",
+    },
   ];
   
   return (

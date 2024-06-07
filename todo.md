@@ -31,6 +31,10 @@ https://refine.dev/blog/tailwind-grid/#basic-tailwind-grid-example
 http://www.pythonchallenge.com/pc/def/0.html?example
 https://bbuis.org/chapters/02-the-building-blocks-of-interfaces/
 - fizz buzz with ducking down on numbers flowing from right
+https://ui.shadcn.com/docs/components/input#form
+https://www.react-spring.dev/docs/getting-started
+https://gsap.com/
+Add animations to 2048
 
 ### More projects
 

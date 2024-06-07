@@ -15,6 +15,10 @@ export default function Sidebar({sidebarShown}:any) {
     {
       href: "/games",
       label: "Games"
+    },
+    {
+      href: "/d3",
+      label: "D3 showcase"
     }
   ]
 
