@@ -14,7 +14,7 @@ export default function LinkListingComponent({
 
   return (
     <>
-      {links.map(({ href, label, isExternal }: any, index: any) => {
+      {links.map(({ href, label, isExternal, markActive: linksMarkActive }: any, index: any) => {
         let anchorClasses: any = {};
         const computedClass = {
           "bg-sky-600": pathname.startsWith(href) ? true : null,
@@ -27,7 +27,7 @@ export default function LinkListingComponent({
             "text-blue-500 active:text-blue-600 visited:text-purple-600 leading-6"
           ] = true;
         }
-        if (markActive) {
+        if (markActive && linksMarkActive != false) {
           anchorClasses = { ...anchorClasses, ...computedClass };
         }
         return (

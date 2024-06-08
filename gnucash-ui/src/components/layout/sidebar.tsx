@@ -9,6 +9,11 @@ export default function Sidebar({sidebarShown}:any) {
     //   label: "Gnucash"
     // },
     {
+      href: "/",
+      label: "Home",
+      markActive: false
+    },
+    {
       href: "/projects",
       label: "Projects"
     },
