@@ -1,19 +1,19 @@
 ## TODOs
 
 - [ ] Deply everything
-   - [ ] Install software on ansible
+   - [ ]  Add Images to html extractor
+   - [ ] Environment vars 
+      - Convert src/app/blog/page.tsx into env variable.
+      - Externalize src/components/projects/html-exractor.tsx
+   - [ ] Domain mapping
    - [ ] certs linking render and digital ocean
          https://oldweaver.co.in -> Diary ; Blog and notes
          https://sanbox.oldweaver.co.in -> Mavic aka gnucash-ui
          https://flutter.oldweaver.co.in -> Flutter codebase 
-         https://resume.oldweaver.co.in -> Resume ; Neovim configuration; Password management; Accounting.
-   - [ ] Read about app user and nginx user for deployment.
-- [ ] Environment vars 
-   - Convert src/app/blog/page.tsx into env variable.
-   - [ ] Externalize src/components/projects/html-exractor.tsx
+         https://resume.oldweaver.co.in -> Resume ; Neovim configuration; Password management; Accounting.   
+   - [ ] PM2 -systemd
 - [ ] Start Applying
-- [ ] extract grid component for games
-
+- [ ] cloudfront CDN
 
 - [ ] setsq into games,by adding a modifier. 
 - [ ] coderwars profile on resume page.
@@ -28,7 +28,7 @@ Explore later aka Codewalkthrus
 //www.youtube.com/@LayoutLand/videos
 https://www.smashingmagazine.com/2020/01/understanding-css-grid-container/
 https://refine.dev/blog/tailwind-grid/#basic-tailwind-grid-example
-http://www.pythonchallenge.com/pc/def/0.html?example
+
 https://bbuis.org/chapters/02-the-building-blocks-of-interfaces/
 - fizz buzz with ducking down on numbers flowing from right
 https://ui.shadcn.com/docs/components/input#form
@@ -39,6 +39,7 @@ Add animations to 2048
 ### More projects
 
  - [ ] /home/saro/projects/elevator-challenge-py
+ - [ ] http://www.pythonchallenge.com/pc/def/0.html?example
  - [ ] /home/saro/projects/distributed-advent
  - [ ] /home/saro/projects/hanukkah-of-data
  - [ ] /home/saro/projects/js - promises
@@ -46,4 +47,4 @@ Add animations to 2048
       - https://github.com/saravanak/slingmemory/blob/master/src/normal_memory/components/GameApp.js
  - [ ] Write about template merging for multi-tenanted apps 
  - [ ] https://kazuhikoarase.github.io/
- - [ ]  Lang server for react..?  auto edit end tags ; create missing component. vs snippets vs neovim
+ - [ ]  Lang server for react..?  auto edit end tags ; create missing component. vs snippets vs neovim vs linked editing

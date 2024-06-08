@@ -4,10 +4,10 @@ import LinksListing from "../ui/links-listing";
 export default function Sidebar({sidebarShown}:any) {
 
   const links = [
-    {
-      href: "/gnucash",
-      label: "Gnucash"
-    },
+    // {
+    //   href: "/gnucash",
+    //   label: "Gnucash"
+    // },
     {
       href: "/projects",
       label: "Projects"
@@ -16,10 +16,10 @@ export default function Sidebar({sidebarShown}:any) {
       href: "/games",
       label: "Games"
     },
-    {
-      href: "/d3",
-      label: "D3 showcase"
-    }
+    // {
+    //   href: "/d3",
+    //   label: "D3 showcase"
+    // }
   ]
 
   

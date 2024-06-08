@@ -1,3 +1,4 @@
+'use client';
 import { getStroke } from "perfect-freehand";
 import { PointerEvent, useState } from "react";
 const average = (a: number, b: number) => (a + b) / 2;
@@ -42,6 +43,8 @@ export default function PerfectFreeHandDemo() {
   const [points, setPoints] = useState([[] as any[]]);
 
   const handlePointerDown = (e: PointerEvent<SVGSVGElement>) => {
+    console.log("handlePointerMove");
+     
     (e.target as Element).setPointerCapture(e.pointerId);
     setPoints([[e.pageX - 300, e.pageY - 100, e.pressure]]);
   };
@@ -53,27 +56,28 @@ export default function PerfectFreeHandDemo() {
     setPoints([...points, [e.pageX - 300, e.pageY - 100, e.pressure]]);
   };
 
-  const stroke = getStroke(points, {
-    size: 10,
-    thinning: 2,
-    smoothing: 0.5,
-    streamline: 0.5,
-  });
+    const stroke = getStroke(points, {
+      size: 10,
+      thinning: 2,
+      smoothing: 0.5,
+      streamline: 0.5,
+    });
+  
+    const pathData = getSvgPathFromStroke(stroke);
+    console.log({ points, stroke, pathData });
+  
 
-  const pathData = getSvgPathFromStroke(stroke);
-  console.log({ points, stroke, pathData });
-
+  
   return (
-    <div className="grid grid-rows-2 gap-4 font-mono text-sm text-center rounded-lg w-full place-content-stretch">
+    <div className="grid grid-rows-[5%__1fr] gap-4 font-mono text-sm text-center rounded-lg w-full place-content-stretch">
       <h3>
-        {" "}
         A freehand drawing on SVG, powered by{" "}
         <a href="https://perfect-freehand-example.vercel.app/">
           https://perfect-freehand-example.vercel.app/
         </a>
       </h3>
       <svg
-        className="w-full h-screen"
+        className="w-full h-[600px]"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         style={{
@@ -84,7 +88,7 @@ export default function PerfectFreeHandDemo() {
           top: 0,
         }}
       >
-        {points && <path d={pathData} />}
+        {points.length>0 && points[0].length>0 && <path d={pathData} />}
       </svg>
     </div>
   );

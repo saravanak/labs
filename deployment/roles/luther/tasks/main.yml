@@ -30,21 +30,35 @@
 #     name: pm2
 #     global: true
     
-- name: Rsync files
-  become: true
-  become_user: "{{app_user_name}}"
-  ansible.posix.synchronize:
-    src: ../gnucash-ui/
-    dest: "{{app_dir}}"
-    rsync_opts: 
-      - "-FF"
+# - name: Rsync files
+#   become: true
+#   become_user: "{{app_user_name}}"
+#   ansible.posix.synchronize:
+#     src: ../gnucash-ui/
+#     dest: "{{app_dir}}"
+#     rsync_opts: 
+#       - "-FF"
 
+# - name: Copy ecosystem file
+#   become: true
+#   become_user: "{{app_user_name}}"
+#   ansible.posix.synchronize:
+#     src: ecosystem.config.js
+#     dest: "{{app_dir}}"    
       
-- name: Build luther app
+# - name: Build luther app
+#   become: true
+#   become_user: "{{app_user_name}}"
+#   ansible.builtin.shell: pwd && ./build-luther.sh
+#   args:
+#     chdir: "{{app_dir}}"
+#   environment:
+#     NEXT_PUBLIC_DIARY_URL: http://localhost:3020
+
+- name: Start pm2
   become: true
   become_user: "{{app_user_name}}"
-  ansible.builtin.shell: pwd && ./build-luther.sh
+  ansible.builtin.shell: pm2 start     
   args:
     chdir: "{{app_dir}}"
-  environment:
-    NEXT_PUBLIC_DIARY_URL: http://localhost:3020
+     
