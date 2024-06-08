@@ -1,18 +1,11 @@
 ---
-- name: Update web servers
+- name: Install oldweaver apps
   hosts: all
   vars_files:
     - ./vars/main.yml
 
   # tasks: 
-  # - name: Update apt repo and cache
-  #   apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
-    
-  # - name: Install nodejs and npm
-  #   apt: 
-  #     pkg:
-  #     - nodejs
-  #     - npm
+  
 
   # - name: install nginx
   #   apt: name=nginx state=latest
@@ -20,6 +13,7 @@
   roles:
     # - blog
     - luther #sanbox app.
+    # - geerlingguy.swap #sanbox app.
 
 
   

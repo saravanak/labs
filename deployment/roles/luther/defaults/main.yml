@@ -1,2 +1,4 @@
 app_user_name:  luther
 app_user_group: "{{app_user_name}}"
+app_dir: /home/luther/app-src
+
