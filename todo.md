@@ -18,6 +18,8 @@
 - [ ] coderwars profile on resume page.
 - [ ] flutter
 - [ ] server hardening: ssl, firewalls etc
+- [ ] Fix bugs on 2048
+- [ ] Add animations to 2048
 
 Explore later aka Codewalkthrus 
 - [ ] https://tanstack.com/
@@ -34,7 +36,6 @@ https://bbuis.org/chapters/02-the-building-blocks-of-interfaces/
 https://ui.shadcn.com/docs/components/input#form
 https://www.react-spring.dev/docs/getting-started
 https://gsap.com/
-Add animations to 2048
 
 ### More projects
 
