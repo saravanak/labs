@@ -1,21 +1,17 @@
 ## TODOs
 
 - [ ] Deply everything
-   - [ ] Environment vars   
-   - [ ] PM2 -systemd
    - [ ] Make nginx run as non-root user.
 
 - [ ] Start Applying
 - [ ] Seven segment Wordle
 - [ ] setsq into games,by adding a modifier. 
 - [ ] flutter
-- [ ] server hardening: ssl, firewalls etc
 - [ ] 2048
    - [ ] Fix bugs on 2048
    - [ ] Add animations to 2048
 - [ ] Markdown content on sandbox
-- [ ] Add pipe-app on portfolio.
-- [ ] coderwars profile on resume page.
+    - https://codemirror.net/docs/guide/
 
 Explore later aka Codewalkthrus 
 - [ ] https://tanstack.com/

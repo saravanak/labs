@@ -1,22 +1,37 @@
-[{
-    "name": "Flutter", 
-    "description": "A simple language tutor. Developed on EmberJS as a hobby project",
-    "url": "https://www.flutter.oldweaver.co.in/",
-    "image": "assets/images/screenshots/flutter.png"
-}, {
-    "name": "Whatsnow", 
-    "description": "A sales reporting app implemented in React",
-    "url": "https://play.google.com/store/apps/details?id=com.gofrugal.whatsnow&hl=en",
-    "image": "assets/images/screenshots/whatsnow.png"
-}, {
-    "name": "XBE", 
-    "description": "Part of the team behind XBE mobile app for 2 years",
-    "url": "https://play.google.com/store/search?q=XBE&c=apps&hl=en",
-    "image": "assets/images/screenshots/xbe.png"
-}, {
-    "name": "Advent Of Code", 
-    "description": "Yearly Christmas time Programming context as an advent calendar",
-    "url": "https://adventofcode.com/2023/events",
-    "image": "assets/images/screenshots/advent-of-code.png"
-}
-] 
+[
+    {
+        "name": "Flutter - Side Project",
+        "description": "A simple language tutor. Developed on EmberJS as a hobby project",
+        "url": "https://www.flutter.oldweaver.co.in/",
+        "image": "assets/images/screenshots/flutter.png"
+    },
+    {
+        "name": "Whatsnow - Career",
+        "description": "A sales reporting app implemented in React",
+        "url": "https://play.google.com/store/apps/details?id=com.gofrugal.whatsnow&hl=en",
+        "image": "assets/images/screenshots/whatsnow.png"
+    },
+    {
+        "name": "XBE - Career",
+        "description": "Part of the team behind XBE mobile app for 2 years",
+        "url": "https://play.google.com/store/search?q=XBE&c=apps&hl=en",
+        "image": "assets/images/screenshots/xbe.png"
+    },
+    {
+        "name": "Advent Of Code - Hobby",
+        "description": "Yearly Christmas time Programming context as an advent calendar",
+        "url": "https://adventofcode.com/2023/events",
+        "image": "assets/images/screenshots/advent-of-code.png"
+    },
+    {
+        "name": "Pipe App - Career",
+        "description": "Job Management Software",
+        "url": "https://www.pipeapp.co.uk/",
+        "image": "assets/images/screenshots/pipe.png"
+    },{
+        "name": "Codewars - Hobby",
+        "description": "Practice programming",
+        "url": "https://www.codewars.com/users/saravanak",
+        "image": "assets/images/screenshots/codewars.png"
+    }
+]
