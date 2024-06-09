@@ -4,16 +4,25 @@
   vars_files:
     - ./vars/main.yml
 
-  # tasks: 
-  
+  tasks:   
+    - name: Install firewall tools 
+      apt: 
+        pkg:
+        - iptables-persistent 
+        - net-tools 
 
-  # - name: install nginx
-  #   apt: name=nginx state=latest
+    - name: Copy firewall state
+      ansible.builtin.copy:
+        src: files/firewall/iptables-saved.txt
+        dest: "{{iptables_state_file}}"    
+
+    - name: harden port 80  using firewall
+      ansible.builtin.shell: iptables -F INPUT && iptables-restore "{{iptables_state_file}}" 
 
   roles:
-    # - blog
+    - geerlingguy.swap #sanbox app.
+    - blog
     - luther #sanbox app.
-    # - geerlingguy.swap #sanbox app.
 
 
   

@@ -1,0 +1,24 @@
+# see https://docs.gocd.org/current/installation/configure-reverse-proxy.html
+server {
+ server_name  {{luther_deploy_host}};
+
+ location / {
+       proxy_pass http://localhost:{{luther_deploy_port}};
+       proxy_set_header Host $host;
+       proxy_set_header X-Real-IP $remote_addr;
+       proxy_set_header X-Forwarded-Proto https;
+ }
+
+#  include /etc/nginx/includes/ssl-config-old-weaver;
+}
+
+
+server {
+ server_name  "{{blog_deploy_host}}";
+ root /var/www/html/blog;
+ index index.html;
+ location / {
+   try_files $uri $uri/ =404;
+ }
+}
+

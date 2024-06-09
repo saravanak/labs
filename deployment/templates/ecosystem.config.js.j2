@@ -1,0 +1,12 @@
+module.exports = {
+    apps: [
+      {
+        name: "luther",
+        script: "npm run start",
+        env: {
+          PORT: "{{luther_deploy_port}}" // See deployment/files/server_nginx_conf
+        }
+      }
+    ],
+  };
+  

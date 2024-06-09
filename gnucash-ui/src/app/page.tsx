@@ -1,5 +1,5 @@
 import LinksListing from "@/components/ui/links-listing";
-import AccountsListing from "../components/accounts";
+
 
 export default function Home() {
   const recruiterLinks = [

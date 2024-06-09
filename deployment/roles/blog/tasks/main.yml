@@ -1,4 +1,9 @@
 ---
+- name: Install nginx
+  apt: 
+    pkg:
+    - nginx    
+
 - name: Create directory for static content
   file:
     path: /var/www/html/weaver-portfolio
@@ -12,11 +17,9 @@
     mode: 0755        
 
 - name: Copy nginx config file
-  # become: yes
-  copy:
-    src: server_nginx_conf
+  ansible.builtin.template:
+    src: "server_nginx_conf.j2"
     dest: /etc/nginx/sites-available/weaver-portfolio
-    # owner: "nginx"
 
 - name: Enable default Nginx website
   file:
@@ -27,13 +30,13 @@
 - name: Rsync files
   ansible.posix.synchronize:
     src: ../diary/.app/dist/
-    dest: /var/www/html/blog        
+    dest: /var/www/html/blog
 
 - name: Expose the site
   become: yes
-  file: src=/etc/nginx/sites-available/server dest=/etc/nginx/sites-enabled/server state=link
+  file: src=/etc/nginx/sites-available/weaver-portfolio dest=/etc/nginx/sites-enabled/weaver-portfolio state=link
 
 - name: restart nginx
   service:
-      name: nginx
-      state: restarted
+    name: nginx
+    state: restarted

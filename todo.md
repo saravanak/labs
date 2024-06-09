@@ -1,25 +1,21 @@
 ## TODOs
 
 - [ ] Deply everything
-   - [ ] Environment vars 
-      - Convert src/app/blog/page.tsx into env variable.
-      - Externalize src/components/projects/html-exractor.tsx
-   - [ ] Domain mapping
-   - [ ] certs linking render and digital ocean
-         https://oldweaver.co.in -> Diary ; Blog and notes
-         https://sanbox.oldweaver.co.in -> Mavic aka gnucash-ui
-         https://flutter.oldweaver.co.in -> Flutter codebase 
-         https://resume.oldweaver.co.in -> Resume ; Neovim configuration; Password management; Accounting.   
+   - [ ] Environment vars   
    - [ ] PM2 -systemd
-- [ ] cloudfront CDN
+   - [ ] Make nginx run as non-root user.
+
 - [ ] Start Applying
 - [ ] Seven segment Wordle
 - [ ] setsq into games,by adding a modifier. 
-- [ ] coderwars profile on resume page.
 - [ ] flutter
 - [ ] server hardening: ssl, firewalls etc
-- [ ] Fix bugs on 2048
-- [ ] Add animations to 2048
+- [ ] 2048
+   - [ ] Fix bugs on 2048
+   - [ ] Add animations to 2048
+- [ ] Markdown content on sandbox
+- [ ] Add pipe-app on portfolio.
+- [ ] coderwars profile on resume page.
 
 Explore later aka Codewalkthrus 
 - [ ] https://tanstack.com/
@@ -49,3 +45,6 @@ https://gsap.com/
  - [ ] Write about template merging for multi-tenanted apps 
  - [ ] https://kazuhikoarase.github.io/
  - [ ]  Lang server for react..?  auto edit end tags ; create missing component. vs snippets vs neovim vs linked editing
+ https://letsencrypt.org/docs/client-options/
+
+
