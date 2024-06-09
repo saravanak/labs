@@ -105,7 +105,7 @@ export default function HtmlExtractorComponent() {
 
   return (
     <>
-      <h3>
+      <div className="font-bold">
         {" "}
         For notes see &nbsp;
         <span className="font-bold">
@@ -119,17 +119,17 @@ export default function HtmlExtractorComponent() {
             ]}
           />
         </span>
-      </h3>
+      </div>
       <div className="grid grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 gap-4 font-mono text-sm text-center rounded-lg w-full place-content-stretch">
         <div className="flex flex-col justify-center items-center h-full">
           <div className="flex justify-center h-full w-full flex-col">
             <div className="flex flex-col h-5/6 border ">
-              <h3 className="inverted-color p-2">
+              <div className="inverted-color p-2 font-bold">
                 Input HTML{" "}
                 <span className="text-xs">
                   (adopted from AWS SDK Documentation)
                 </span>
-              </h3>
+              </div>
               <textarea
                 className="h-full"
                 value={value}
@@ -137,13 +137,13 @@ export default function HtmlExtractorComponent() {
               />
             </div>
             <div className="flex flex-col border ">
-              <h3 className="inverted-color p-2">Selector DSL</h3>
+              <div className="inverted-color p-2 font-bold">Selector DSL</div>
               <input
                 className="p-2"
                 value={selector}
                 onChange={(event) => setSelector(event.target.value)}
               />
-              <h3 className="inverted-color p-2">Formatted DSL</h3>
+              <div className="inverted-color p-2">Formatted DSL</div>
               <p className="text-wrap bg-gray-300 text-left p-2">
                 {selector.split("|").map((v, index) => (
                   <span key={index}>
@@ -156,7 +156,7 @@ export default function HtmlExtractorComponent() {
           </div>
         </div>
         <div className="flex flex-col border ">
-          <h3 className="inverted-color p-2"> Here is the output</h3>
+          <div className="inverted-color p-2 font-bold"> Here is the output</div>
 
           <div
             className="text-left pl-4 p-2"

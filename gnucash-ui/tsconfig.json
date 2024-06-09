@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/games/puzzle.-15tsx", "__tests__/combine-results.test.ts", "jest.setup.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/games/puzzle.-15tsx", "__tests__/combine-results.test.ts", "jest.setup.js", "src/app/projects/html-extractor/page.mdx"],
   "exclude": ["node_modules"]
 }

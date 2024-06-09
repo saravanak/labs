@@ -1,0 +1,29 @@
+import HtmlExtractorComponent from "@/components/projects/html-exractor";
+
+## Introduction 
+
+ This is a exploratory idea of using a DSL for extracting information in a structured way from HTML documents. <span class="font-bold"> Best viewed </span> on a wide screen 
+
+### Input HTML 
+
+  This contains the data that we'd like to parse.
+
+### DSL 
+
+This is a custom DSL in the format of `jq` using the pipe format. Each segment of a pipe can be a selector or a print statement. 
+The selector needs to return a list of nodes (`TBODY TD`) and the print statement will iterate thru the array and return a text for each of the nodes selected `map(## Set ${this.idx})`. The print statement will receive `this.idx` and `this.item` which is the index of the DOM node and the DOM node itself. 
+
+ ```jq
+ TBODY td | map(## Set ${this.idx}) | p | map(- ${this.item.textContent})
+ ```
+
+This is a live demo, and you can change the html or the DSL input string and see the changes. 
+
+### Implementation Notes
+
+  Currently this is impelmented using React client components, just as a simple POC. Not tested. Pre-Alpha.
+
+
+<HtmlExtractorComponent />
+
+

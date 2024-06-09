@@ -10,8 +10,8 @@
 - [ ] 2048
    - [ ] Fix bugs on 2048
    - [ ] Add animations to 2048
-- [ ] Markdown content on sandbox
-    - https://codemirror.net/docs/guide/
+- [ ] https://www.codewars.com/kata/521c2db8ddc89b9b7a0000c1
+
 
 Explore later aka Codewalkthrus 
 - [ ] https://tanstack.com/
