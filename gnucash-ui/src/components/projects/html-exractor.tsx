@@ -1,16 +1,13 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
-/*
-
-"TBODY td" | map("\n Set ${idx}") | "p" | map("- ${first}\n")
-*/
+import LinksListing from "@/components/ui/links-listing";
 
 export default function HtmlExtractorComponent() {
   let outputCurrent = "";
 
   const [value, setValue] = useState<string>("Hi");
   const [selector, setSelector] = useState<string>(
-    "TBODY td | map(Set ${this.idx}) | p | map(- ${this.item.textContent})"
+    "TBODY td | map(## Set ${this.idx}) | p | map(- ${this.item.textContent})"
   );
   const [output, setOutput] = useState<string>("");
 
@@ -107,29 +104,67 @@ export default function HtmlExtractorComponent() {
   //   );
 
   return (
-    <div className="grid grid-rows-2 gap-4 font-mono text-sm text-center rounded-lg w-full place-content-stretch">
-        <h3> For notes see http://localhost:3020/blog/n/blog/dom-selector-queue/ </h3>
-      <div className="flex flex-col justify-center items-center	mt-4">
-        <div className="flex justify-center h-full w-full flex-col">
-          <input
-            className="p-2"
-            value={selector}
-            onChange={(event) => setSelector(event.target.value)}
+    <>
+      <h3>
+        {" "}
+        For notes see &nbsp;
+        <span className="font-bold">
+          <LinksListing
+            isSimpleLinks={true}
+            links={[
+              {
+                href: `${process.env.NEXT_PUBLIC_DIARY_URL}/n/blog/dom-selector-queue/`,
+                label: "notes",
+              },
+            ]}
           />
+        </span>
+      </h3>
+      <div className="grid grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 gap-4 font-mono text-sm text-center rounded-lg w-full place-content-stretch">
+        <div className="flex flex-col justify-center items-center h-full">
+          <div className="flex justify-center h-full w-full flex-col">
+            <div className="flex flex-col h-5/6 border ">
+              <h3 className="inverted-color p-2">
+                Input HTML{" "}
+                <span className="text-xs">
+                  (adopted from AWS SDK Documentation)
+                </span>
+              </h3>
+              <textarea
+                className="h-full"
+                value={value}
+                onChange={onUpdateValue}
+              />
+            </div>
+            <div className="flex flex-col border ">
+              <h3 className="inverted-color p-2">Selector DSL</h3>
+              <input
+                className="p-2"
+                value={selector}
+                onChange={(event) => setSelector(event.target.value)}
+              />
+              <h3 className="inverted-color p-2">Formatted DSL</h3>
+              <p className="text-wrap bg-gray-300 text-left p-2">
+                {selector.split("|").map((v, index) => (
+                  <span key={index}>
+                    <span>{v} |</span>
+                    <br />
+                  </span>
+                ))}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col border ">
+          <h3 className="inverted-color p-2"> Here is the output</h3>
 
-          <textarea
-            className="h-5/6 border pt-2"
-            value={value}
-            onChange={onUpdateValue}
-          />
+          <div
+            className="text-left pl-4 p-2"
+            dangerouslySetInnerHTML={{ __html: output }}
+          ></div>
         </div>
       </div>
-      <div>
-        <h3> Here is the output</h3>
-
-        <div dangerouslySetInnerHTML={{ __html: output }}></div>
-      </div>
-    </div>
+    </>
   );
 }
 

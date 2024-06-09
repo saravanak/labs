@@ -1,7 +1,6 @@
 ## TODOs
 
 - [ ] Deply everything
-   - [ ]  Add Images to html extractor
    - [ ] Environment vars 
       - Convert src/app/blog/page.tsx into env variable.
       - Externalize src/components/projects/html-exractor.tsx
@@ -12,12 +11,13 @@
          https://flutter.oldweaver.co.in -> Flutter codebase 
          https://resume.oldweaver.co.in -> Resume ; Neovim configuration; Password management; Accounting.   
    - [ ] PM2 -systemd
-- [ ] Start Applying
 - [ ] cloudfront CDN
-
+- [ ] Start Applying
+- [ ] Seven segment Wordle
 - [ ] setsq into games,by adding a modifier. 
 - [ ] coderwars profile on resume page.
 - [ ] flutter
+- [ ] server hardening: ssl, firewalls etc
 
 Explore later aka Codewalkthrus 
 - [ ] https://tanstack.com/
