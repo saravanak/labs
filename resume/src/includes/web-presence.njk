@@ -1,0 +1,37 @@
+<div>
+  <p>My web presence includes two sites</p>
+  <ol>
+    <li>
+        <div > 
+          <a href="https://oldweaver.co.in">oldweaver.co.in</a>
+          <div  style="padding-left: 2em">
+          <p > Contains my blogs, notes, and this resume that you are reading.  This is statically rendered.
+          <ol >
+            <li>
+            The blog portion is adapted from  <a href="https://eleventy-notes.sandroroth.com/">Eleventy Notes </a>. This is an awesome package of eleventy 
+            and fits my requirement of a detailed online presence with search, themes and lot of other goodies!            
+            I've customized it to add the <a href="https://oldweaver.co.in/blog">blog listing page</a> 
+          </li>
+          <li>
+            Resume  is adapted from  <a href="https://github.com/maxboeck/resume/">Maxboeck's Resume</a>. 
+            I've added sidebar links to sections on scroll; a screen-only portfolio page
+          </li>
+        </ol>
+      
+        <p> The <i>resume</i> is built as a eleventy bundle and is embedded within the assets of the <i> blog </i> section using <code>Path Prefixes</code></p>
+      </div>
+        </div></li>
+    <li>
+
+      <div> 
+        <a href="https://labs.oldweaver.co.in">labs.oldweaver.co.in</a>
+        <p style="padding-left: 2em"> Contains my hobby projects, working demos etc. This is a  Next.js based React app.        
+    </p>
+      </div>
+    </li>
+  </ol>
+  <b> Deployment </b>
+  <p> Both the sites are deployed on a Digital Ocean droplet, served via nginx. <i>Labs</i> is proxied to the next.js server. The nginx
+     server acts as an Origin server to Cloudflare. Cloudflare caches the responses and also provides SSL for the sites. 
+     Deployment is automated through Ansible</p>
+</div>

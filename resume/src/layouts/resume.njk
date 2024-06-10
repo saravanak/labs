@@ -36,6 +36,10 @@ layout: base
             {% include "portfolio.njk" %}
         </section>
     {% endif %}
+    <section class="section" id="section-web-presence">
+            <h2 class="section__title">{{ strings.titles.web_presence }}</h2>
+            {% include "web-presence.njk" %}
+    </section>
     <section class="section" id="section-experience">
         <h2 class="section__title">{{ strings.titles.experience }}</h2>
         {% set entries = collections.work %}

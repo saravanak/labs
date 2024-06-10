@@ -9,8 +9,8 @@ export default function CrispGamesPage() {
         </div>
         <div className="p-4 rounded-lg  grid place-content-center  row-span-2" >
           <iframe
-            className="grid place-content-center"
-            style={{height: '500px', width: '700px'}}
+            className="grid place-content-center w-[100%] md:w-[700px]"
+            style={{height: '500px'}}
             src="/crisp-games.html?number-jump"
             sandbox="allow-scripts "
           ></iframe>

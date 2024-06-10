@@ -9,6 +9,7 @@ export default function LinkListingComponent({
   isSimpleLinks,
   additionalStyles,
   markActive,
+  onClick
 }: any) {
   const pathname = usePathname();
 
@@ -36,6 +37,7 @@ export default function LinkListingComponent({
             target={isExternal ? "_blank" : "_self"}
             className={classNames(anchorClasses)}
             href={href}
+            onClick={() => onClick ? onClick() : {}}
           >
             {label}
             {isExternal ? (

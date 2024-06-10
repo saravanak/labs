@@ -1,9 +1,9 @@
 {% if portfolio.length %}
-<ol class="portfolio">
+
+        <div class="portfolio">
     {% for portfolioItem in portfolio %}
-        <li >
             {% if portfolioItem.url %}            
-                <a href="{{ portfolioItem.url }}"> <b> {{ portfolioItem.name }} </b>
+                <a class="portfolio__a"  href="{{ portfolioItem.url }}"> <b class="portfolio__name"> {{ portfolioItem.name }} </b>
             {% endif %}
 
             {% if portfolioItem.description %}
@@ -15,7 +15,7 @@
             
             </a>
 
-        </li>
     {% endfor %}
-</ol>
+        </div>
+
 {% endif %}

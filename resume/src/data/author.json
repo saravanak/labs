@@ -8,12 +8,13 @@
     "telephone": "+91 956 608 2416",
     "website": "https://oldweaver.co.in",
     "skills": [
-        "Modern JS frameworks: React, Angular, Ember",
-        "CSS",
-        "Java",
-        "Redux",
-        "Cypress",
-        "Entry level Devops: Docker/DigitalOcean/AWS"
+        "Modern JS frameworks: React Redux, Angular, Ember",
+        "CSS, D3, Chart.js",
+        "Java, R - DataFrame, Data.Table, Python",
+        "Cypress, Cucumber",
+        "Entry level Devops: Docker/DigitalOcean/AWS",
+        "CDN: Cloudfront & Cloudflare",
+        "Ansible, LetsEncrypt"
     ],
     "languages": [
         {
@@ -30,6 +31,19 @@
             "name": "Github",
             "user": "@saravanak",
             "url": "https://github.com/saravanak"
-        }
+        },
+        {
+
+            "name": "Code",
+            "user": "Codewars",
+            "url": "https://www.codewars.com/users/saravanak"
+        }   ,
+        {
+
+            "name": "Code",
+            "user": "Stackoverflow",
+            "url": "https://stackoverflow.com/users/2799561/jacquard"
+        }        
+        
     ]
 }

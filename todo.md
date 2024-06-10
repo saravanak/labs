@@ -1,12 +1,17 @@
 ## TODOs
 
-- [ ] Deply everything
-   - [ ] Make nginx run as non-root user.
 
+- [ ] Open to work badge.
+- [ ] Tailwind css across all sites?
+- [ ]  Labs
+   - [ ] Fix canvas for number jumper on mobile 
+   - [ ] Fix burger menu click on mobile for mobile
+   - [ ] Fix scroll up on opened menu for mobile.
 - [ ] Start Applying
-- [ ] Seven segment Wordle
+- [ ] Seven segment Wordle: show HN
+- [ ] Deploy everything
+   - [ ] Make nginx run as non-root user
 - [ ] setsq into games,by adding a modifier. 
-- [ ] flutter
 - [ ] 2048
    - [ ] Fix bugs on 2048
    - [ ] Add animations to 2048
@@ -22,12 +27,15 @@ Explore later aka Codewalkthrus
 //www.youtube.com/@LayoutLand/videos
 https://www.smashingmagazine.com/2020/01/understanding-css-grid-container/
 https://refine.dev/blog/tailwind-grid/#basic-tailwind-grid-example
-
+https://programminghistorian.org/en/lessons/understanding-creating-word-embeddings#:~:text=Corpus%20Size,-Word%20embeddings%20require&text=That%20said%2C%20there%20is%20no,a%20variety%20of%20other%20factors.
 https://bbuis.org/chapters/02-the-building-blocks-of-interfaces/
 - fizz buzz with ducking down on numbers flowing from right
 https://ui.shadcn.com/docs/components/input#form
 https://www.react-spring.dev/docs/getting-started
 https://gsap.com/
+https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-terminals and associated UI for it
+Piku video
+Geometry editor
 
 ### More projects
 

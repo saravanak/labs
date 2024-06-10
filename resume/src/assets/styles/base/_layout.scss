@@ -52,7 +52,7 @@ body {
 .grid {
     display: grid;
     column-gap: $spacing-x * 2;
-    page-break-inside: avoid;
+    // page-break-inside: avoid;
 
     &--2col {
         grid-template-columns: 1fr 1fr;

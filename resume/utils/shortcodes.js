@@ -3,6 +3,7 @@ module.exports = {
         const id = name.toLowerCase().replace(/\s/g, '')
         const availableSocialIcons = [
             'github',
+            'code',
             'twitter',
             'linkedin',
             'skype',

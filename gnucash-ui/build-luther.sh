@@ -1,2 +1,2 @@
-# npm ci 
+npm ci 
 npm run build

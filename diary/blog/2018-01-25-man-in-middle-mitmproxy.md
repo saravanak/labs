@@ -26,7 +26,7 @@ lines of codes did the trick for me:
 Then, on a seperate window, trigger telnet to listen on the port `4444`. Voila,
 a clean, non-cluttered debugging environment for you to explore.
 
-![My helpful screenshot](./images/periscope.jpg)
+![My helpful screenshot](./images/debug-mitmproxy.jpg)
 
 Here, you can see the entire process setup on my machine. This enabled me to
 have a detailed look at the bug.

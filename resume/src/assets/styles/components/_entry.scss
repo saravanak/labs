@@ -42,14 +42,40 @@
 
 .portfolio{
     display: grid;        
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     grid-auto-rows: auto;
     grid-gap: 1rem;    
+    place-items: center;
+    justify-content: center;
+    &__a {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        height: 100%;
+        align-self: center;
+        text-align: center;
+        border: 2px solid gray;
+        border-radius: 2px;
+        margin: 2rem 0px;
+        
+    }
+    &__name{
+        background-color: skyblue;
+        border-bottom: 1px solid blue;
+    }
+
     &__img {
-        float: left;
-        width:  300px;
-        height: 300px;
+        
+        width:  100%;
+        height:  100%;
         object-fit: scale-down;
+        align-self: center;
+        
+        
+    }
+    @include mq(lg) {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 34rem; 
     }
 
 

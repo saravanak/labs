@@ -21,7 +21,7 @@
         "name": "An Ember addon I authoured - Degrading ember apps gracefully when offline",
         "description": "This app was used in Ember Conf Chennai 2020",
         "showStars": false,
-        "innerHTML": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/1K712YagFE8?si=XjI80Lb_loLoDJ5z\"      frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; \"      referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
+        "innerHTML": "<iframe width=\"100%\" height=\"315\" src=\"https://www.youtube.com/embed/1K712YagFE8?si=XjI80Lb_loLoDJ5z\"      frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; \"      referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
     }, {
         "github_url": "https://gist.github.com/saravanak/8f0a158d5727435fdda9c6ea680925e8",
         "name": "Ember Helper: Moves all component templates to their respective component locations (colocation)",

@@ -5,7 +5,8 @@
         "skills": "Skills",
         "languages": "Languages",
         "open_source": "Open Source",
-        "portfolio": "Portfolio"
+        "portfolio": "Portfolio",
+        "web_presence": "Web presence"
     },
     "labels": {
         "email": "Email",

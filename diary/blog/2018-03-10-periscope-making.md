@@ -26,10 +26,4 @@ the periscope look at what's behind - by making a `C` shaped periscope!
 
 Happy making!
 
-### Model
-
-#### TEst
-
-Some place holde tRj3EoDhY00nn2uP2hsRxgYGi5mLQ5TimKav0a9Lrpd4deE
-
 ![The Model](./images/periscope.jpg)
