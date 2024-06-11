@@ -22,6 +22,7 @@ const SCRIPT_ROUTE = new URLPattern({ pathname: "/script" });
 const PROXY_ROUTE = new URLPattern({ pathname: "/proxy" });
 
 async function handler(req: Request) {
+  
   if (SCRIPT_ROUTE.exec(req.url)) {
     // TODO: stop users sending gigabytes of source code
     const code = await req.text();
@@ -75,15 +76,16 @@ async function handler(req: Request) {
     }
     delete inFlightScriptIds[scriptId];
 
-    return new Response(
-      JSON.stringify({
-        status,
-        stdout: new TextDecoder().decode(stdout),
-        stderr: new TextDecoder().decode(stderr),
-      }),
+    const parsedStdout = JSON.parse(new TextDecoder().decode(stdout))
+    
+    
+    return Response.json(
       {
-        status: 200,
-      },
+        status,
+        stdout: parsedStdout,
+        stderr: new TextDecoder().decode(stderr),
+      }
+      
     );
   }
 

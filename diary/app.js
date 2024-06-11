@@ -37,6 +37,18 @@ module.exports = defineConfig({
             }),
           },
         ]
+        
+      },
+      {
+        label: "Codewalkthru",
+        groups: [
+          {
+            query: createNotesQuery({
+              pattern: "/code-walkthrus/",
+            }),
+          },
+        ]
+        
       },
     ],
     tags: {

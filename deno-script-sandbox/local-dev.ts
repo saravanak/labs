@@ -3,7 +3,9 @@
 fetch("http://localhost:3001/script", {
   method: "POST",
   body: `
-console.log("hi!");
+export function logic(x,y) {
+  return x == 3 ? "blue" : "black" ;
+};
 `,
 })
   .then((res) => res.text())

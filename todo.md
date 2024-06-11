@@ -50,5 +50,7 @@ Geometry editor
  - [ ] https://kazuhikoarase.github.io/
  - [ ]  Lang server for react..?  auto edit end tags ; create missing component. vs snippets vs neovim vs linked editing
  https://letsencrypt.org/docs/client-options/
-
+https://spacy.io/usage/rule-based-matching
+https://codemirror.net/examples/
+https://github.com/piku/webapp-tutorial?tab=readme-ov-file#build-a-web-app-fast-with-piku
 

@@ -28,7 +28,58 @@ globalThis.fetch = (
 
 try {
   // Here's where we run user code
-  await import(scriptPath);
+  const {logic} = await import(scriptPath);
+
+  const bitmap = Array(100).fill(0)
+  .map((v,i) => {
+    return logic(Math.floor(i/10), i%10)
+  }).map(v => {
+    switch (v) {
+      case "blue": 
+        return "B";
+      case "black": 
+        return "b";
+    }
+  })
+  .reduce( ({rle, streakChar, runningLength}:any,v, index ) => {
+
+    if(streakChar == null) {
+      return {
+        rle, 
+        streakChar: v , 
+        runningLength: 1
+      }
+    }
+    if(streakChar == v) {
+      if(index== 100-1) {
+        return {
+          rle: rle+`${streakChar}${runningLength}`, 
+          streakChar: v , 
+          runningLength: 1
+        }
+      } else {
+        return {
+          rle, 
+          streakChar , 
+          runningLength: runningLength+1
+        }
+      }
+      
+    }
+    
+    return {
+      rle: rle+`${streakChar}${runningLength}`, 
+      streakChar: v , 
+      runningLength: 1
+    }
+
+  }, {
+    rle: "",
+    streakChar: null, 
+    runningLength: 0
+  })
+
+  console.log(JSON.stringify(bitmap))
 } catch (e) {
   console.error(e);
 }
