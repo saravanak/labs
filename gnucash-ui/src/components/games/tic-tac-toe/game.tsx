@@ -1,7 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
-import { Board } from "./misc";
+import Board from "./board";
 import GameJoiner from "./game-joiner";
 
 export interface GameState {
@@ -97,7 +97,7 @@ export default function Game() {
     case "their_move":
     case "won":
     case "lost":
-    case "watching":      
+    case "watching":
       gameContent = (
         <>
           <p>
