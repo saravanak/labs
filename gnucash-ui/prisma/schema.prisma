@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator zod {
+  provider                 = "zod-prisma"
+  output                   = "./zod" // (default) the directory where generated zod schemas will be saved
+
+  relationModel            = true // (default) Create and export both plain and related models.
+  // relationModel         = "default" // Do not export model without relations.
+  // relationModel         = false // Do not generate related model
+
+  modelCase                = "PascalCase" // (default) Output models using pascal case (ex. UserModel, PostModel)
+  // modelCase             = "camelCase" // Output models using camel case (ex. userModel, postModel)
+
+  modelSuffix              = "Model" // (default) Suffix to apply to your prisma models when naming Zod schemas
+
+  // useDecimalJs          = false // (default) represent the prisma Decimal type using as a JS number
+  useDecimalJs             = true // represent the prisma Decimal type using Decimal.js (as Prisma does)
+
+  imports                  = null // (default) will import the referenced file in generated schemas to be used via imports.someExportedVariable
+
+  // https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-by-null-values
+  prismaJsonNullability    = true // (default) uses prisma's scheme for JSON field nullability
+  // prismaJsonNullability = false // allows null assignment to optional JSON fields
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Shelf {
+  id Int @id @default(autoincrement())
+
+  /// @zod.max(255, { message: "Name must be shorter than 256 characters" })
+  rackLocation String
+  
+  luggages Luggage[]  
+  partOf Rack @relation(fields:[shelfId], references:[id])
+  shelfId Int 
+}
+
+model Rack {
+  id Int @id @default(autoincrement())
+  /// @zod.max(255, { message: "Name must be shorter than 256 characters" })
+  name String 
+
+  /// @z.enum(["Cabinet", "Loft", "SteelBero","Open Shelf"]);
+  type String 
+
+  shelves Shelf[]
+  comment String
+}
+
+model Luggage {
+  id Int @id @default(autoincrement())
+  /// @zod.max(255, { message: "Name must be shorter than 256 characters" })
+  name String
+  comment String 
+
+  /// @z.enum(["Books", "Suitcase", "Cardboard Box","Others"]);
+  type String
+
+  length Int 
+  width Int 
+  height Int 
+  storedAt Shelf @relation(fields:[rackId], references:[id])
+  rackId Int
+}
+

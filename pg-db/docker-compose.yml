@@ -1,0 +1,28 @@
+# starts a postgres instance on port 5451 to use as a local db
+version: "3.6"
+services:
+  postgres:
+    image: postgres:13-alpine
+    ports:
+      - "5451:5432" # expose pg on port 5451 to not collide with pg from elswhere
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: "loft-store"
+      POSTGRES_PASSWORD: ""
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_USER: "postgres"
+      PGUSER: "postgres"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  postgres_is_ready:
+    image: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+volumes:
+  db_data:
