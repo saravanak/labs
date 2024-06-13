@@ -1,10 +1,12 @@
 "use client";
 
-export function Square({ value, onSquareClick, disabled, isWinningSquare }: any) {
+export function Square({ value, onSquareClick, disabled, isWinningSquare, style }: any) {
+  
   return (
     <button
-      className={`square ${disabled ? "disabled" : ''} ${isWinningSquare ? "winning": ''}`}
-      disabled={disabled}
+      style={style}
+      disabled={disabled || value != null}
+      className={`square h-100 w-100 bg-gray-200 aspect-square	 ${disabled ? "disabled" : ''} ${isWinningSquare ? "winning": ''}`}      
       onClick={onSquareClick}
     >
       {value ?  value : <span>&nbsp;</span>}

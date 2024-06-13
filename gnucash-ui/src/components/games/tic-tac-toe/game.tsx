@@ -1,8 +1,10 @@
+
 "use client";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import Board from "./board";
 import GameJoiner from "./game-joiner";
+
 
 export interface GameState {
   canStart: boolean;
