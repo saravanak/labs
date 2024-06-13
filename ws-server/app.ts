@@ -33,15 +33,24 @@ app.ws("/", function (ws: T3WebSocket, req: any) {
     switch (parsedMessage.command) {
       case "join_game":
         console.log("Processing join game command..", game.canJoin());
-        if (game.canJoin()) {
-          game.join(ws);          
-          game.intimateNextMove();          
+        if (game.canJoin() && !game.gameState.isStarted) {
+          console.log("Joining as a fresh player");          
+          game.join(ws);
+          game.intimateNextMove();
+        } else if (
+          parsedMessage.payload &&
+          parsedMessage.payload.playerId &&
+          game.gameState.isStarted
+        ) {
+          console.log("Rejoining the disconnected player");          
+          game.join(ws);
+          game.intimateNextMove();
         } else {
           game.addAsAudience(ws);
         }
         break;
       case "my_move":
-        if(ws.playerId) {
+        if (ws.playerId) {
           const movingPlayer = game.playerById(ws.playerId);
           if (movingPlayer?.symbol != game.nextMove) {
             console.warn(
@@ -57,12 +66,12 @@ app.ws("/", function (ws: T3WebSocket, req: any) {
             game.intimateNextMove();
           }
         }
-        
+
         break;
     }
   });
   ws.on("close", function close() {
-    if(ws.playerId){
+    if (ws.playerId) {
       game.resetPlayerById(ws.playerId);
     }
   });
@@ -70,10 +79,9 @@ app.ws("/", function (ws: T3WebSocket, req: any) {
 
 app.listen(3001);
 
-
-/** 
- * From Server: 
- * 
+/**
+ * From Server:
+ *
  *  welcome
  *  you_joined_game
  *  someone_joined_game
@@ -82,9 +90,9 @@ app.listen(3001);
  *  not_your_move
  *  someone_moved
  *  lost
- * 
- * From client: 
- * 
+ *
+ * From client:
+ *
  *  join_game
  *   my_move
  *   watch_game

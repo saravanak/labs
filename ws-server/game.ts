@@ -42,8 +42,7 @@ export default class Game {
     return this.players[1];
   }
 
-  join(connection: T3WebSocket) {
-    console.log("Joining the player...");
+  join(connection: T3WebSocket) {  
     const index = this.players.findIndex((v) => !v.id);
 
     const id = v4();
@@ -94,7 +93,7 @@ export default class Game {
 
   get gameState() {
     const canStart = !this.canJoin();
-    const isStarted = this.allPlayersJoined;
+    const isStarted = this.allPlayersJoined || this.moveIndex > 0;
     const winner = this.getWinningPlayer();
     const gameState = {
       canStart,
@@ -151,6 +150,7 @@ export default class Game {
             payload: {
               ...gameState,
               yourStatus: "joined",
+              yourId: player.socket.playerId,
               yourSymbol,
               serverMessage: "Waiting for another player to join...",
             },

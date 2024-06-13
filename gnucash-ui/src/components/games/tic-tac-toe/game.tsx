@@ -4,6 +4,8 @@ import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import Board from "./board";
 import GameJoiner from "./game-joiner";
+import { useLocalStorage } from "@uidotdev/usehooks";
+import useReactPath from "@/hooks/use-location";
 
 
 export interface GameState {
@@ -15,11 +17,13 @@ export interface GameState {
   streak?: number[];
   yourStatus?: string;
   yourSymbol?: "x" | "o";
+  yourId?: string, 
   serverMessage?: string;
 }
 
 export default function Game() {
   const [isClient, setIsClient] = useState(false);
+  const [playerId, setPlayerId] = useLocalStorage("tw_player_id", null);
   const [gameState, setGameState] = useState<GameState>({
     canStart: false,
     isStarted: false,
@@ -28,17 +32,29 @@ export default function Game() {
     moves: [],
   });
 
-  let socket;
+  let socket :any;
 
   const socketRef = useRef<any>();
+  const path = useReactPath();
 
   useEffect(() => {
     if (isClient) {
       socket = new WebSocket("ws://localhost:3001");
       socketRef.current = socket;
-      socket.onopen = function (e) {};
+      socket.onopen = function () {
+        if(playerId) {
+          socketRef.current.send(
+            JSON.stringify({
+              command: "join_game",
+              payload: {
+                playerId
+              }
+            })
+          );
+        }
+      };
 
-      socket.onmessage = function (event) {
+      socket.onmessage = function (event:any) {
         console.log(`[message] Data received from server: ${event.data}`);
         const message = JSON.parse(event.data);
         switch (message.type) {
@@ -53,6 +69,11 @@ export default function Game() {
           case "their_move":
           case "game_over":
           case "game_status_changed":
+            if(message.type == "you_joined_game") {
+              setPlayerId(message.payload.yourId)
+            }
+            console.log('Setting new game state after receiveing', message.type, message.payload);
+            
             setGameState({
               ...message.payload,
             });
@@ -62,7 +83,7 @@ export default function Game() {
         }
       };
 
-      socket.onclose = function (event) {
+      socket.onclose = function (event:any) {
         if (event.wasClean) {
           console.log(
             `[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`
@@ -75,10 +96,21 @@ export default function Game() {
       };
     }
     setIsClient(true);
-  }, [isClient]);
+    return  (() => {
+      if(socket) {
+        socket.close();
+        console.log('Clearing event handlers on socket');        
+        socket.onopen = null;
+        socket.onmessage = null;
+        socket.onclose = null;
+      }
+    })
+  }, [isClient, path]);
 
   let gameContent;
 
+  console.log('Redner', gameState.yourStatus);
+  
   switch (gameState.yourStatus) {
     case "not_joined":
       gameContent = (
