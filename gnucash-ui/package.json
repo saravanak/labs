@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "generate-schemas": "prisma generate"
   },
   "dependencies": {
     "@babel/preset-env": "^7.24.7",
@@ -23,6 +24,11 @@
     "@nozbe/microfuzz": "^1.0.0",
     "@prisma/client": "^5.15.0",
     "@react-spring/web": "^9.7.3",
+    "@tanstack/react-query": "^5.44.0",
+    "@trpc/client": "^11.0.0-rc.401",
+    "@trpc/next": "^11.0.0-rc.401",
+    "@trpc/react-query": "^11.0.0-rc.401",
+    "@trpc/server": "^11.0.0-rc.401",
     "@types/mdx": "^2.0.13",
     "@types/react-table": "^7.7.20",
     "@uidotdev/usehooks": "^2.4.1",
@@ -62,6 +68,7 @@
     "postcss": "^8",
     "prisma": "^5.15.0",
     "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5",
     "zod": "^3.23.8",
     "zod-prisma": "^0.5.4"
