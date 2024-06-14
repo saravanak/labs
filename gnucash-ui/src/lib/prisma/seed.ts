@@ -1,38 +1,29 @@
-import { PrismaClient } from '@prisma/client'
-import getLuggages from './data'
-const prisma = new PrismaClient()
-async function main() {
-  const rLoftKE = await prisma.rack.upsert({
-    where: { shortName: 'L-KE' },
-    update: {},
-    create: {
-      name: 'kitchen east facing' ,
-      type: 'loft',
-      comment: "A sample comment",
-      shortName: 'L-KE'
-      
-    },
-  })
-  const  shelfKEPartA = await prisma.shelf.upsert({
-    where: { shortName: 'A' },
-    update: {},
-    create: {
-      shelfId: rLoftKE.id,
-      shortName: 'A',
-      comment: "A sample comment",      
-      
-    },
-  })
+import { PrismaClient } from "@prisma/client";
+import getLuggages from "./data";
+import { fakeRack, fakeShelf } from "./fake-data";
+import { times } from "lodash";
 
-  await prisma.luggage.createMany({data:getLuggages(shelfKEPartA)})
-  console.log({ rLoftKE, shelfKEPartA })
+const prisma = new PrismaClient();
+async function main() {
+  times(5, async () => {
+    const rack = await prisma.rack.create({ data: fakeRack() });
+
+    times(4, async () => {
+      const shelfData = fakeShelf();
+      shelfData.rackId = rack.id;
+      const shelf = await prisma.shelf.create({ data: shelfData });
+      times(3, async () => {
+        await prisma.luggage.createMany({ data: getLuggages(shelf) });
+      });
+    });
+  });
 }
 main()
   .then(async () => {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   })
   .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });

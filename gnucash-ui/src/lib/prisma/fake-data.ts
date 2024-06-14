@@ -1,5 +1,6 @@
 import {  } from '@prisma/client';
 import { faker } from '@faker-js/faker';
+import Decimal from 'decimal.js';
 
 
 
@@ -13,7 +14,7 @@ export function fakeShelfComplete() {
   return {
     id: faker.number.int(),
     shortName: faker.lorem.words(5),
-    shelfId: faker.number.int(),
+    rackId: faker.number.int(),
     comment: faker.lorem.words(5),
   };
 }

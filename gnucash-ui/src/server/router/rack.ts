@@ -2,6 +2,7 @@ import { z } from "zod";
 import { t } from "@/utils/trpc-server";
 import { prisma } from "@/lib/prisma/client";
 import { TRPCError } from "@trpc/server";
+import { RackModel } from "@/lib/prisma/zod";
 
 export const rackRouter = t.router({
   count: t.procedure
@@ -37,7 +38,13 @@ export const rackRouter = t.router({
       });
     }
   }),
+  create: t.procedure
+    .input(RackModel.omit({ id: true }))
+    .mutation(async (opts) => {
+      return prisma.rack.create({
+        data: opts.input,
+      });
+    }),
 });
 // export type definition of API
-export type AppRouter = typeof rackRouter;
 

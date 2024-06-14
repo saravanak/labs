@@ -25,6 +25,9 @@
    - [ ] Add animations to 2048
 - [ ] https://www.codewars.com/kata/521c2db8ddc89b9b7a0000c1
 
+## TRPC 
+
+      https://github.com/wpcodevo/nextjs14-trpc-react-query
 
 Explore later aka Codewalkthrus 
 - [ ] https://tanstack.com/

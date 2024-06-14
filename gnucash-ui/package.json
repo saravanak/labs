@@ -10,7 +10,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "db:generate-schemas": "npx dotenv -e .env.local -- prisma generate",
-    "db:seed": "dotenv -e .env.local -- ts-node --transpile-only prisma/seed.ts",
+    "db:seed": "dotenv -e .env.local -- ts-node --transpile-only ./src/lib/prisma/seed.ts",
+    "db:reset": "dotenv -e .env.local -- npx prisma migrate reset",
     "db:push": "dotenv -e .env.local -- npx prisma db push",
     "db:studio": "dotenv -e .env.local -- npx prisma  studio",
     "db:repl": "dotenv -e .env.local -- npx prisma-repl"
@@ -21,6 +22,8 @@
     "@codemirror/lang-javascript": "^6.2.2",
     "@codemirror/state": "^6.4.1",
     "@codemirror/view": "^6.28.0",
+    "@hookform/error-message": "^2.0.1",
+    "@hookform/resolvers": "^3.6.0",
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
     "@next/bundle-analyzer": "^14.2.3",
@@ -38,21 +41,27 @@
     "@uidotdev/usehooks": "^2.4.1",
     "blockly": "^9.2.0",
     "canvas-sketch": "^0.7.7",
+    "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
+    "clsx": "^2.1.1",
     "codemirror": "^6.0.1",
     "codemirror-readonly-ranges": "^0.1.0-alpha.2",
     "d3": "^7.9.0",
     "lodash": "^4.17.21",
+    "lucide-react": "^0.394.0",
     "next": "14.2.3",
     "ohm-js": "^17.1.0",
     "perfect-freehand": "^1.2.2",
     "react": "^18",
     "react-dom": "^18",
     "react-feather": "^2.0.10",
+    "react-hook-form": "^7.51.5",
     "react-select": "^5.8.0",
     "react-table": "^7.8.0",
     "react-transition-group": "^4.4.5",
-    "sharp": "^0.33.4"
+    "sharp": "^0.33.4",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.24.7",
@@ -82,7 +91,7 @@
     "zod-prisma": "^0.5.4"
   },
   "prisma": {
-    "seed": "ts-node --transpile-only prisma/seed.ts",
+    "seed": "ts-node --transpile-only ./src/lib/prisma/seed.ts",
     "schema": "./src/lib/prisma/schema.prisma"
   }
 }

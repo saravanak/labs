@@ -46,15 +46,17 @@ datasource db {
 model Shelf {
   id Int @id @default(autoincrement())
 
-  /// @zod.max(255, { message: "Name must be shorter than 256 characters" })
+  /// @zod.max(12, { message: "Name must be shorter than 256 characters" })
   shortName String @unique
   
   luggages Luggage[]  
-  partOf Rack @relation(fields:[shelfId], references:[id])
-  shelfId Int 
+  partOf Rack? @relation(fields:[rackId], references:[id])
+
+  rackId Int 
+  comment String
+  
   @@map(name: "shelves")
 
-  comment String
 }
 
 model Rack {
@@ -65,7 +67,7 @@ model Rack {
   /// @zod.max(12, { message: "shortNames are unique ids for identification and they should be shorter than 12 characters" })
   shortName String @unique
 
-  /// @z.enum(["cabinet", "loft", "steel-bero","open-shelf"]);
+  // @zod.enum(["cabinet", "loft", "steel-bero","open-shelf"])
   type String 
 
   shelves Shelf[]
@@ -86,7 +88,7 @@ model Luggage {
   length Int? 
   width Int? 
   height Int? 
-  storedAt Shelf @relation(fields:[shelfId], references:[id])
+  storedAt Shelf? @relation(fields:[shelfId], references:[id])
   shelfId Int
 
   @@map(name: "luggages")
