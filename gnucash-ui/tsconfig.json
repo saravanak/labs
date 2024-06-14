@@ -18,10 +18,10 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],      
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/games/puzzle.-15tsx", "__tests__/combine-results.test.ts", "jest.setup.js", "src/app/projects/html-extractor/page.mdx", "prisma/enum-generator.mts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/games/puzzle.-15tsx", "__tests__/combine-results.test.ts", "jest.setup.js", "src/app/projects/html-extractor/page.mdx", "prisma/enum-generator.mts", "custom.d.ts"],
   "exclude": ["node_modules"],
   "ts-node": {
     "compilerOptions": {

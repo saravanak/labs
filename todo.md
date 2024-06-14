@@ -9,6 +9,14 @@
    - [ ] Fix scroll up on opened menu for mobile.
 - [ ] Start Applying
 - [ ] Seven segment Wordle: show HN
+   - [ ] Implement as long polling
+- [ ] T3 
+    - Deploy 
+    - Show player names; save in localstorage. 
+    - Fix animations 
+    - Show clock controls and loose on time. 
+    - Refine audience view 
+- [ ] Loft storage 
 - [ ] Deploy everything
    - [ ] Make nginx run as non-root user
 - [ ] setsq into games,by adding a modifier. 

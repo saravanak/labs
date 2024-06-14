@@ -77,7 +77,7 @@ export default function Twenty48() {
         Math.pow(2, randomInt(0, Math.max(0, Math.log2(max(newMatrix)) - 2))());
       setNumbers([...newMatrix]);
     },
-    [numbers]
+    [numbers, getNumbers]
   );
 
   useEffect(() => {

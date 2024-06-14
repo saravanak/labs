@@ -84,7 +84,7 @@ export default function ArtCanvas({ data }: any) {
         extensions: [
           keymap.of(defaultKeymap),
           EditorView.updateListener.of((update: ViewUpdate) => {
-            setUserCode(update.state.doc.text.join("\n"));
+            setUserCode((update.state.doc as any).text.join("\n"));
           }),
           readOnlyRangesExtension(getReadOnlyRanges),
         ],

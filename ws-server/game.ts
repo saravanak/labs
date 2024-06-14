@@ -1,5 +1,6 @@
 import type WebSocket from "ws";
 import { v4 } from "uuid";
+import generateName from "./t3/names";
 
 declare class T3WebSocket extends WebSocket {
   playerId?: string;
@@ -10,6 +11,7 @@ interface Player {
   id?: string;
   symbol?: string;
   socket?: T3WebSocket;
+  name?: string
 }
 
 export type { T3WebSocket, Player };
@@ -52,6 +54,7 @@ export default class Game {
         id,
         symbol: index == 0 ? "o" : "x",
         socket: connection,
+        name: generateName()
       };
       connection.playerId = id;
     }
@@ -152,6 +155,7 @@ export default class Game {
               yourStatus: "joined",
               yourId: player.socket.playerId,
               yourSymbol,
+              yourName: player.name,
               serverMessage: "Waiting for another player to join...",
             },
           });
@@ -164,6 +168,7 @@ export default class Game {
             ...gameState,
             yourStatus: playerStatus,
             yourSymbol,
+            yourName: player.name,
           },
         });
       }
@@ -175,7 +180,7 @@ export default class Game {
             type: "game_status_changed",
             payload: {
               ...gameState,
-              yourStatus: "watching"
+              yourStatus: "watching",
             }
           })
         }

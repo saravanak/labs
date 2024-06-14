@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import AppContainer from "@/components/layout/app-container";
+import { TrpcProvider } from "@/utils/trpc-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AppContainer>{children}</AppContainer>
+        <TrpcProvider>
+          <AppContainer>{children}</AppContainer>
+        </TrpcProvider>
       </body>
     </html>
   );

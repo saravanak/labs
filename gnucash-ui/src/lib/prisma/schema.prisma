@@ -30,7 +30,12 @@ generator zod {
 }
 
 generator enums {
-  provider = "ts-node --transpile-only ./prisma/enum-generator"
+  provider = "ts-node --transpile-only ./src/lib/prisma/enum-generator"
+}
+
+generator fake-data {
+    provider = "prisma-generator-fake-data"
+    output   = "./fake-data.ts"
 }
 
 datasource db {
@@ -42,11 +47,14 @@ model Shelf {
   id Int @id @default(autoincrement())
 
   /// @zod.max(255, { message: "Name must be shorter than 256 characters" })
-  rackLocation String
+  shortName String @unique
   
   luggages Luggage[]  
   partOf Rack @relation(fields:[shelfId], references:[id])
   shelfId Int 
+  @@map(name: "shelves")
+
+  comment String
 }
 
 model Rack {
@@ -54,26 +62,33 @@ model Rack {
   /// @zod.max(255, { message: "Name must be shorter than 256 characters" })
   name String 
 
-  /// @z.enum(["Cabinet", "Loft", "SteelBero","Open Shelf"]);
+  /// @zod.max(12, { message: "shortNames are unique ids for identification and they should be shorter than 12 characters" })
+  shortName String @unique
+
+  /// @z.enum(["cabinet", "loft", "steel-bero","open-shelf"]);
   type String 
 
   shelves Shelf[]
+  
   comment String
+  @@map(name: "racks")
 }
 
 model Luggage {
   id Int @id @default(autoincrement())
   /// @zod.max(255, { message: "Name must be shorter than 256 characters" })
   name String
-  comment String 
+  comment String?
 
-  /// @z.enum(["Books", "Suitcase", "Cardboard Box","Others"]);
+  /// @z.enum(["books", "suitcase", "cardboard-box","others"]);
   type String
 
-  length Int 
-  width Int 
-  height Int 
-  storedAt Shelf @relation(fields:[rackId], references:[id])
-  rackId Int
+  length Int? 
+  width Int? 
+  height Int? 
+  storedAt Shelf @relation(fields:[shelfId], references:[id])
+  shelfId Int
+
+  @@map(name: "luggages")
 }
 
