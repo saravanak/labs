@@ -24,7 +24,10 @@
    - [ ] Fix bugs on 2048
    - [ ] Add animations to 2048
 - [ ] https://www.codewars.com/kata/521c2db8ddc89b9b7a0000c1
-
+https://tkdodo.eu/blog/using-web-sockets-with-react-query
+https://colinhacks.com/essays/zod
+https://neokoenig.github.io/jQuery-gridmanager/demo/fluid.html
+https://github.com/react-grid-layout/react-grid-layout?tab=readme-ov-file#features
 ## TRPC 
 
       https://github.com/wpcodevo/nextjs14-trpc-react-query
