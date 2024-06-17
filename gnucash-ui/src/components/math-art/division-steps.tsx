@@ -193,7 +193,7 @@ export default function DivisionSteps() {
                           <div style={{ width: `0em` }}>&nbsp;</div>
                           <NumberWithDigits
                             number={currentStep.dividendPart}
-                            className="justify-start border-b-2 border-black"
+                            className="justify-start "
                           />
                         </div>
                       ) : null}
@@ -210,7 +210,7 @@ export default function DivisionSteps() {
                           <div style={{ width: `0em` }}>&nbsp;</div>
                           <NumberWithDigits
                             number={currentStep.remainder}
-                            className="justify-start border-b-2 border-black  text-red-600 p-2"
+                            className="justify-start border-b-2 border-black  text-red-600 "
                           />
                         </div>
                       ) : null}

@@ -9,7 +9,6 @@
    - [ ] Fix scroll up on opened menu for mobile.
 - [ ] Start Applying
 - [ ] Seven segment Wordle: show HN
-   - [ ] Implement as long polling
 - [ ] T3 
     - Deploy 
     - Show player names; save in localstorage. 
@@ -28,6 +27,7 @@ https://tkdodo.eu/blog/using-web-sockets-with-react-query
 https://colinhacks.com/essays/zod
 https://neokoenig.github.io/jQuery-gridmanager/demo/fluid.html
 https://github.com/react-grid-layout/react-grid-layout?tab=readme-ov-file#features
+- []  Implement tabs for maths page. 
 ## TRPC 
 
       https://github.com/wpcodevo/nextjs14-trpc-react-query
@@ -50,6 +50,8 @@ https://gsap.com/
 https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-terminals and associated UI for it
 Piku video
 Geometry editor
+https://juliannakunstler.com/art1_tessellations.html
+https://www.mathsisfun.com/geometry/tessellation-artist.html
 
 ### More projects
 
@@ -68,3 +70,4 @@ https://spacy.io/usage/rule-based-matching
 https://codemirror.net/examples/
 https://github.com/piku/webapp-tutorial?tab=readme-ov-file#build-a-web-app-fast-with-piku
 
+https://www.linkedin.com/in/kumar-amresh-1017a7161/
