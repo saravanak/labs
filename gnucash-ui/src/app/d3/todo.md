@@ -2,10 +2,11 @@
 
 
 - Implement next-auth with gihub API as 'it' is for developers. 
-- Implement email code generation via HTTP providers. 
-- sandbox JS 
 - save as parameters 
-- function (x,y) as version 1 
+    f(ShapeId, color, iteration, row, columns, codeRef) 
+- Gallery 
+- Fork gallery 
+
 
 
 

@@ -71,3 +71,7 @@ https://codemirror.net/examples/
 https://github.com/piku/webapp-tutorial?tab=readme-ov-file#build-a-web-app-fast-with-piku
 
 https://www.linkedin.com/in/kumar-amresh-1017a7161/
+
+## Auth 
+
+https://github.com/weehongkoh/nextjs-app-router-nextauth/blob/main/src/components/Provider.tsx

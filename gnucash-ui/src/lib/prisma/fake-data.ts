@@ -57,3 +57,110 @@ export function fakeLuggageComplete() {
     shelfId: faker.number.int(),
   };
 }
+export function fakeUser() {
+  return {
+    name: undefined,
+    email: faker.internet.email(),
+    emailVerified: undefined,
+    image: undefined,
+    updatedAt: faker.date.anytime(),
+  };
+}
+export function fakeUserComplete() {
+  return {
+    id: faker.string.uuid(),
+    name: undefined,
+    email: faker.internet.email(),
+    emailVerified: undefined,
+    image: undefined,
+    createdAt: new Date(),
+    updatedAt: faker.date.anytime(),
+  };
+}
+export function fakeAccount() {
+  return {
+    type: faker.lorem.words(5),
+    provider: faker.lorem.words(5),
+    providerAccountId: faker.lorem.words(5),
+    refresh_token: undefined,
+    refresh_token_expires_in: faker.number.int(),
+    access_token: undefined,
+    expires_at: undefined,
+    token_type: undefined,
+    scope: undefined,
+    id_token: undefined,
+    session_state: undefined,
+    updatedAt: faker.date.anytime(),
+  };
+}
+export function fakeAccountComplete() {
+  return {
+    userId: faker.string.uuid(),
+    type: faker.lorem.words(5),
+    provider: faker.lorem.words(5),
+    providerAccountId: faker.lorem.words(5),
+    refresh_token: undefined,
+    refresh_token_expires_in: faker.number.int(),
+    access_token: undefined,
+    expires_at: undefined,
+    token_type: undefined,
+    scope: undefined,
+    id_token: undefined,
+    session_state: undefined,
+    createdAt: new Date(),
+    updatedAt: faker.date.anytime(),
+  };
+}
+export function fakeSession() {
+  return {
+    sessionToken: faker.lorem.words(5),
+    expires: faker.date.anytime(),
+    updatedAt: faker.date.anytime(),
+  };
+}
+export function fakeSessionComplete() {
+  return {
+    sessionToken: faker.lorem.words(5),
+    userId: faker.string.uuid(),
+    expires: faker.date.anytime(),
+    createdAt: new Date(),
+    updatedAt: faker.date.anytime(),
+  };
+}
+export function fakeVerificationToken() {
+  return {
+    identifier: faker.lorem.words(5),
+    token: faker.lorem.words(5),
+    expires: faker.date.anytime(),
+  };
+}
+export function fakeVerificationTokenComplete() {
+  return {
+    identifier: faker.lorem.words(5),
+    token: faker.lorem.words(5),
+    expires: faker.date.anytime(),
+  };
+}
+export function fakeAuthenticator() {
+  return {
+    credentialID: faker.lorem.words(5),
+    providerAccountId: faker.lorem.words(5),
+    credentialPublicKey: faker.lorem.words(5),
+    counter: faker.number.int(),
+    credentialDeviceType: faker.lorem.words(5),
+    credentialBackedUp: faker.datatype.boolean(),
+    transports: undefined,
+  };
+}
+export function fakeAuthenticatorComplete() {
+  return {
+    credentialID: faker.lorem.words(5),
+    userId: faker.string.uuid(),
+    providerAccountId: faker.lorem.words(5),
+    credentialPublicKey: faker.lorem.words(5),
+    counter: faker.number.int(),
+    credentialDeviceType: faker.lorem.words(5),
+    credentialBackedUp: faker.datatype.boolean(),
+    transports: undefined,
+  };
+}
