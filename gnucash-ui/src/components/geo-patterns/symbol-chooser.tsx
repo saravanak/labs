@@ -21,20 +21,20 @@ export default function SymbolChooser({
   const colorContextState = useContext(ColorPaletteContext);
   const { currentColors } = colorContextState.colorState;
 
-  console.log(currentColors);
+  const symbolSize = 50;
 
   return (
-    <div className="flex flex-wrap ">
+    <div className="flex flex-wrap place-content-start">
       {availableShapes.map((paths: any, index) => {
         const colors: any = currentColors;
         return (
             <div
                 key={index}
-                className="flex-auto p-1"
+                className="p-1"
             >
           <svg
-            width={80}
-            height={80}
+            width={symbolSize}
+            height={symbolSize}
             viewBox="0 0 40 40"
             className={`border-2 rounded-md ${currentSymbol === paths ? "border-red-600" : "border-blue-200"} hover:border-red-700`}
           >
@@ -42,8 +42,8 @@ export default function SymbolChooser({
               <rect
                 x={0}
                 y={0}
-                width={40}
-                height={40}
+                width={symbolSize}
+                height={symbolSize}
                 fill="white"
                 stroke="none"
               />
