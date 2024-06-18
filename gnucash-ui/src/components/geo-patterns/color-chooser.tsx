@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { ColorPaletteContext } from "./palette-context-provider";
 import { Check } from "react-feather";
+import ColorRow from "./color-row";
 
 export default function ColorChooser() {
   const colorContextState = useContext(ColorPaletteContext);
@@ -24,23 +25,21 @@ export default function ColorChooser() {
               onClick={() => setColorSchemeIndex(thisColorSchemaIndex)}
               className="aspect-square w-[2rem] h-[2rem]"
             >
-              {thisColorSchemaIndex == colorSchemeIndex ?  <Check /> : null}
+              {thisColorSchemaIndex == colorSchemeIndex ? <Check /> : null}
             </div>
             {schemeMeta.scheme.map((color: any, colorIndex: any) => {
               const isSelectedColor =
                 selectedColorIndices.includes(colorIndex) &&
                 colorSchemeIndex == thisColorSchemaIndex;
               return (
-                <div
-                  key={colorIndex}
-                  className={`aspect-square p-2 w-[30px] h-[30px] rounded-md   ml-2 ${
-                    isSelectedColor ? "ring-2 ring-zinc-500 shadow-xl" : "border-gray-300 border-[1px] "
-                  }`}
-                  style={{ backgroundColor: color }}
-                  onClick={() => toggleColor(thisColorSchemaIndex, colorIndex)}
-                >
-                  &nbsp;
-                </div>
+                <ColorRow
+                  isSelectedColor={isSelectedColor}
+                  onClickColor={() =>
+                    toggleColor(thisColorSchemaIndex, colorIndex)
+                  }
+                  colorIndex={colorIndex}
+                  color={color}
+                />
               );
             })}
           </div>

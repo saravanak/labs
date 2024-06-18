@@ -1,6 +1,6 @@
 import { useToggle } from "@uidotdev/usehooks";
 import * as d3 from "d3";
-import { shuffle, take, without } from "lodash";
+import { without } from "lodash";
 import { createContext, useCallback, useMemo, useRef, useState } from "react";
 const schemes = [
   d3.schemeAccent,
@@ -15,6 +15,8 @@ export const ColorPaletteContext = createContext<any>(null);
 export default function ColorPaletteProvider({ children }: any) {
   const [colorSchemeIndex, setColorSchemeIndex] = useState(0);
   const [contextRefresh, setContextRefresh] = useToggle(false);
+
+  const [userColors, setUserColors] = useState([]);
 
   const previousColorSchemes = useRef(
     schemes.map(
@@ -84,8 +86,8 @@ export default function ColorPaletteProvider({ children }: any) {
       colorSchemeIndex,
       selectedColorIndices:
         currentColorScheme.selectedColorIndices,
-      currentColors: currentColorScheme.scheme.filter((_:any, i:any) => currentColorScheme.selectedColorIndices.includes(i)),
-      colorSchemes: newColorSchemeState,
+      currentColors: userColors.length > 0 ?  userColors : currentColorScheme.scheme.filter((_:any, i:any) => currentColorScheme.selectedColorIndices.includes(i)),
+      colorSchemes: newColorSchemeState,      
     };
   }, [
     colorSchemeIndex,
@@ -102,6 +104,8 @@ export default function ColorPaletteProvider({ children }: any) {
         setColorSchemeIndex,
         toggleColor,
         contextRefresh,
+        userColors, 
+        setUserColors,        
       }}
     >
       {children}

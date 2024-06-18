@@ -1,7 +1,4 @@
-import {
-  useMemo,
-  useState
-} from "react";
+import { useMemo, useState } from "react";
 import "ses";
 
 import { useSession } from "next-auth/react";
@@ -10,10 +7,14 @@ import ColorPaletteProvider from "./palette-context-provider";
 import PatternCanvas from "./pattern-canvas";
 import SymbolChooser from "./symbol-chooser";
 import * as parts from "./parts";
+import { Shuffle } from "react-feather";
+import CanvasOptions from "./canvas-options";
 
 export default function Tessellation() {
   const { data: session, status } = useSession();
   const [symbol, setSymbol] = useState(parts.flowerParts);
+  const [ currentZoomLevel, setCurrentZoomLevel] = useState(10);
+  const [ background, setBackground] = useState("white");
 
   const [userCode, setUserCode] = useState(`
   
@@ -52,13 +53,16 @@ export default function Tessellation() {
         setUserCode={setUserCode}
         codeError={codeError}
       /> */}
-      <div className="grid grid-cols-auto">
-        <div className="grid grid-cols-2 grid-rows-auto">
-          <ColorChooser />
-          <SymbolChooser setSymbol={setSymbol} currentSymbol={symbol}/>
+        <div className="grid grid-cols-auto">
+          <div className="grid grid-cols-2 grid-rows-auto">
+            <ColorChooser />
+            <div>
+              <SymbolChooser setSymbol={setSymbol} currentSymbol={symbol} />
+              <CanvasOptions currentZoomLevel={currentZoomLevel} setCurrentZoomLevel={setCurrentZoomLevel} background={background} setBackground={setBackground}/>
+            </div>
+          </div>
+          <PatternCanvas currentSymbol={symbol} currentZoomLevel={currentZoomLevel} background={background}/>
         </div>
-        <PatternCanvas currentSymbol={symbol}/>
-      </div>
       </ColorPaletteProvider>
     </>
   );
