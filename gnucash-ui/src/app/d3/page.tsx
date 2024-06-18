@@ -1,5 +1,5 @@
 "use client";
-import Tessellation from "@/components/d3/tessallation";
+import Tessellation from "@/components/geo-patterns/tessallation";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 

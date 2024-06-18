@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import { ColorPaletteContext } from "../geo-patterns/palette-context-provider";
+import { ColorPaletteContext } from "./palette-context-provider";
 import { useCallback, useContext, useState } from "react";
 import * as parts from "./parts";
 import { shuffle, take } from "lodash";

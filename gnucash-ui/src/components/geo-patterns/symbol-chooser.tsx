@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import * as parts from "./parts";
-import { ColorPaletteContext } from "../geo-patterns/palette-context-provider";
+import { ColorPaletteContext } from "./palette-context-provider";
 const availableShapes = [
   parts.flowerParts,
   parts.hex,

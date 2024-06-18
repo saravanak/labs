@@ -5,8 +5,8 @@ import {
 import "ses";
 
 import { useSession } from "next-auth/react";
-import ColorChooser from "../geo-patterns/color-chooser";
-import ColorPaletteProvider from "../geo-patterns/palette-context-provider";
+import ColorChooser from "./color-chooser";
+import ColorPaletteProvider from "./palette-context-provider";
 import PatternCanvas from "./pattern-canvas";
 import SymbolChooser from "./symbol-chooser";
 import * as parts from "./parts";
