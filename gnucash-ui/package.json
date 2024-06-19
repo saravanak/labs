@@ -61,7 +61,6 @@
     "ohm-js": "^17.1.0",
     "perfect-freehand": "^1.2.2",
     "react": "^18",
-    "react-color": "^2.19.3",
     "react-dom": "^18",
     "react-feather": "^2.0.10",
     "react-hook-form": "^7.51.5",

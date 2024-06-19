@@ -1,19 +1,18 @@
-import { useContext, useEffect, useRef } from "react";
-import { Shuffle } from "react-feather";
-import { ColorPaletteContext } from "./palette-context-provider";
-import { debounce, defer, shuffle } from "lodash";
-import { Toggle } from "@/components/ui/toggle";
-import { useToggle } from "@uidotdev/usehooks";
-import { Slider } from "@/components/ui/slider";
-import { SwatchesPicker } from "react-color";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import ColorRow from "./color-row";
+import { Slider } from "@/components/ui/slider";
+import { Toggle } from "@/components/ui/toggle";
+import { useToggle } from "@uidotdev/usehooks";
 import * as d3 from "d3";
+import { debounce, shuffle } from "lodash";
+import { useContext, useEffect, useRef } from "react";
+import { Shuffle } from "react-feather";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import ColorRow from "./color-row";
+import { ColorPaletteContext } from "./palette-context-provider";
 
 export default function CanvasOptions({
   setCurrentZoomLevel,

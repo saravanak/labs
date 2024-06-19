@@ -54,7 +54,7 @@ export default function PatternCanvas({
 
   return (
     <svg width={width} height={height} viewBox="0 0  500 500" className="block">
-      <g fill="skyblue" stroke="skyblue">
+      <g fill={background} stroke={background}>
         <rect x={0} y={0} width={500} height={500} fill={background || "white"} rx={10} ry={10}/>
         {array.map((d: any, i: any) => {
           const xOrg = x(i % totalItems);
