@@ -1,6 +1,7 @@
 "use client";
 import { Menu } from "react-feather";
 import LinksListing from "../ui/links-listing";
+import { useSession } from "next-auth/react";
 
 export default function NavbarComponent({
   setSidebarShown,
@@ -27,6 +28,9 @@ export default function NavbarComponent({
     href: "/",
     label: "Old Weaver",
   };
+
+  
+
   return (
     <div className="col-span-2 inverted-color p-2 justify-between items-center grid grid-rows-[4rem] md:flex align-center sticky top-0 z-10 ">
       <div className="flex items-center">
@@ -47,6 +51,7 @@ export default function NavbarComponent({
       <div className="">
         <LinksListing links={links} additionalStyles="p-4" />
       </div>
+      
     </div>
   );
 }

@@ -75,3 +75,14 @@ https://www.linkedin.com/in/kumar-amresh-1017a7161/
 ## Auth 
 
 https://github.com/weehongkoh/nextjs-app-router-nextauth/blob/main/src/components/Provider.tsx
+
+ECOWISE
+https://www.geeksforgeeks.org/how-to-deploy-django-application-in-aws-lambda/
+https://romandc.com/zappa-django-guide/walk_database/
+https://www.freecodecamp.org/news/how-to-create-a-serverless-service-in-15-minutes-b63af8c892e5/
+https://www.velotio.com/engineering-blog/deploy-serverless-event-driven-python-applications-using-zappa
+
+Will get the heck out of formspsaveal
+- form loading state / error state styling 
+- form validation on async issues 
+- form generation dynamic 
