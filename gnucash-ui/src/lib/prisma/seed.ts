@@ -1,7 +1,8 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Rack, Shelf } from "@prisma/client";
 import getLuggages from "./data";
 import { fakeRack, fakeShelf } from "./fake-data";
 import { times } from "lodash";
+import { CompleteShelf } from "./zod";
 
 const prisma = new PrismaClient();
 async function main() {
@@ -9,7 +10,7 @@ async function main() {
     const rack = await prisma.rack.create({ data: fakeRack() });
 
     times(4, async () => {
-      const shelfData = fakeShelf();
+      const shelfData = fakeShelf() as Shelf;
       shelfData.rackId = rack.id;
       const shelf = await prisma.shelf.create({ data: shelfData });
       times(3, async () => {

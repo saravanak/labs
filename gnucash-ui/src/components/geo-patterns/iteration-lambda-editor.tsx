@@ -45,7 +45,7 @@ const getReadOnlyRanges = (
 
 export default function IterationLambdaEditor({ setUserCode, userCode, codeError }: any) {
   const codeEditorRef = useRef(null);
-  const [edtiorView, setEditorView] = useState<EditorView>(null);
+  const [edtiorView, setEditorView] = useState<any>(null);
 
   console.log({codeError});
   

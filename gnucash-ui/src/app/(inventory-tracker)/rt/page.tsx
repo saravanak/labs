@@ -46,7 +46,7 @@ export default function RTPageComponent() {
 
   
 
-  function handleChange(e) {
+  function handleChange(e:any) {
     setSearchFor(e.target.value);
   }
 

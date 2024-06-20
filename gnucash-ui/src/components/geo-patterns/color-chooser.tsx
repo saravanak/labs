@@ -33,6 +33,7 @@ export default function ColorChooser() {
                 colorSchemeIndex == thisColorSchemaIndex;
               return (
                 <ColorRow
+                  key={colorIndex}
                   isSelectedColor={isSelectedColor}
                   onClickColor={() =>
                     toggleColor(thisColorSchemaIndex, colorIndex)

@@ -8,7 +8,7 @@ import prisma from "@/lib/prisma";
 import { t } from "@/utils/trpc-server";
 import { appRouter } from "../../trpc/trpc-router";
 
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
 
   providers: [

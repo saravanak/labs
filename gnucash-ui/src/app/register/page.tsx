@@ -25,7 +25,6 @@ export default function RegisterPage() {
   const utils = trpc.useUtils();
   
   const debouncedAsync = useCallback(AwesomeDebouncePromise(async (email) => {
-
       const result = await utils.user.findBy.fetch(
         { email },
         {
@@ -35,10 +34,7 @@ export default function RegisterPage() {
       );
       console.log({ result });
       return result?.count == 0;
-
-  
-    
-  }, 500), []) 
+  }, 500), []);
 
   const form = useForm({
     mode: "onChange",

@@ -79,6 +79,7 @@ export default function CanvasOptions({
                 ].map((v: any, i: any) => {
                   return (
                     <ColorRow
+                      key={i}
                       color={v}
                       isSelectedColor={v == background}
                       onClickColor={() => setBackground(v)}
