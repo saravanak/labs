@@ -7,6 +7,7 @@ import { useToggle } from "@uidotdev/usehooks";
 import { useState } from "react";
 import { SessionProvider } from "next-auth/react";
 
+
 export default function AppContainer({ children }: any) {
   const [sidebarShown, setSidebarShown] = useToggle(false);
   const [burgerClicked, setBurgerClicked] = useState(false);

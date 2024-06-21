@@ -21,25 +21,37 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],      
+      "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", 
-  "**/*.ts", 
-  "**/*.tsx", 
-  ".next/types/**/*.ts", 
-  "__tests__/combine-results.test.ts", 
-  "jest.setup.js", 
-  "src/app/projects/html-extractor/page.mdx", 
-  "prisma/enum-generator.mts", 
-  "custom.d.ts",
-  "environment.d.ts"
-],
-  "exclude": ["node_modules"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "__tests__/combine-results.test.ts",
+    "jest.setup.js",
+    "src/app/projects/html-extractor/page.mdx",
+    "prisma/enum-generator.mts",
+    "custom.d.ts",
+    "environment.d.ts"
+  ],
+  "types": [
+    // Other types...
+    // This allows Serwist to type `window.serwist`.
+    "@serwist/next/typings"
+  ],
+  "lib": [
+    // Other libs...
+    // Add this! Doing so adds WebWorker and ServiceWorker types to the global.
+    "webworker"
+  ],
+  "exclude": ["node_modules", "public/sw.js"],
   "ts-node": {
     "compilerOptions": {
       "module": "NodeNext",
       "moduleResolution": "NodeNext"
     }
-  },
+  }
 }
+

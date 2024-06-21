@@ -4,6 +4,37 @@ import { createServerSideHelpers } from '@trpc/react-query/server';
 import SuperJSON from 'superjson';
 import { appRoutes } from '@/server/router/_app';
 
+
+import createSubscriber from "pg-listen"
+
+// Accepts the same connection config object that the "pg" package would take
+const subscriber = createSubscriber({ connectionString: process.env.DATABASE_URL })
+const CHANNEL_NAME = "my-channel";
+
+
+subscriber.notifications.on(CHANNEL_NAME, (payload) => {
+  // Payload as passed to subscriber.notify() (see below)
+  console.log("Received notification in 'my-channel':", payload)
+})
+
+subscriber.events.on("error", (error) => {
+  console.error("Fatal database connection error:", error)
+  process.exit(1)
+})
+
+process.on("exit", () => {
+  subscriber.close()
+})
+
+export async function connect () {
+  console.log('Connect called...');  
+  await subscriber.connect()
+  await subscriber.listenTo(CHANNEL_NAME)
+}
+
+(async ()=> {await connect()})();
+
+
 const healthCheckerRouter = t.router({
   healthchecker: t.procedure.query(({ ctx }) => {
     return {

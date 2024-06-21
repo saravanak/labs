@@ -1,24 +1,22 @@
+
 "use client";
-import { UserModel } from "@/lib/prisma/zod";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { trpc } from "@/utils/trpc";
-import { ErrorMessage } from "@hookform/error-message";
-import { signIn } from "next-auth/react";
-import { useCallback, useEffect, useRef } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { z } from "zod";
+import { trpc } from "@/utils/trpc";
+import { zodResolver } from "@hookform/resolvers/zod";
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import { signIn } from "next-auth/react";
+import { useCallback, useEffect, useRef } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 
 export default function RegisterPage() {
@@ -104,15 +102,18 @@ export default function RegisterPage() {
           </form>
         </Form>
 
-        {/* <form onSubmit={handleSubmit(onSubmit)}>
-          <input {...register("name")} />
-          <ErrorMessage errors={errors} name="name" />
-
-          <input {...register("email")} />
-          <ErrorMessage errors={errors} name="email" />
-
-          <input type="submit" />
-        </form> */}
+        <button onClick={() => {
+            Notification.requestPermission().then((result) => {
+              if (result === "granted") {
+                navigator.serviceWorker.ready.then((registration) => {
+                  registration.showNotification("Vibration Sample", {
+                    body: "Buzz! Buzz!",                    
+                    tag: "vibration-sample",
+                  });
+                });
+              }
+            });
+        }}> Get Notification permissions</button>
       </div>
     </>
   );

@@ -1,8 +1,9 @@
 "use client";
-import { signOut, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import LinksListing from "../ui/links-listing";
+import { Button } from "../ui/button";
 
 
 export default function Sidebar({
@@ -11,6 +12,9 @@ export default function Sidebar({
   burgerClicked,
 }: any) {
   const { data: session, status } = useSession();
+
+  console.log({session, status});
+  
 
   const links = [
     // {
@@ -60,13 +64,13 @@ export default function Sidebar({
           Signout {session?.user?.name}
         </button>
       ) : (
-        <Link
-          href="/register"
+        <Button
+          onClick={() => (signIn("github"))}
           title="Signin"
           className="flex w-full justify-stretch pl-2 py-4 md:py-2 hover:inverted-color-hover text-yellow-600 font-bold"
         >
           Login
-        </Link>
+        </Button>
       )}
     </div>
   );

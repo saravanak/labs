@@ -9,23 +9,23 @@ generator client {
 }
 
 generator zod {
-  provider                 = "zod-prisma"
-  output                   = "./zod" // (default) the directory where generated zod schemas will be saved
+  provider = "zod-prisma"
+  output   = "./zod" // (default) the directory where generated zod schemas will be saved
 
-  relationModel            = true // (default) Create and export both plain and related models.
+  relationModel = true // (default) Create and export both plain and related models.
   // relationModel         = "default" // Do not export model without relations.
   // relationModel         = false // Do not generate related model
 
-  modelCase                = "PascalCase" // (default) Output models using pascal case (ex. UserModel, PostModel)
+  modelCase = "PascalCase" // (default) Output models using pascal case (ex. UserModel, PostModel)
   // modelCase             = "camelCase" // Output models using camel case (ex. userModel, postModel)
 
-  modelSuffix              = "Model" // (default) Suffix to apply to your prisma models when naming Zod schemas
+  modelSuffix = "Model" // (default) Suffix to apply to your prisma models when naming Zod schemas
 
   // useDecimalJs          = false // (default) represent the prisma Decimal type using as a JS number
-  useDecimalJs             = true // represent the prisma Decimal type using Decimal.js (as Prisma does)
+  useDecimalJs = true // represent the prisma Decimal type using Decimal.js (as Prisma does)
 
   // https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-by-null-values
-  prismaJsonNullability    = true // (default) uses prisma's scheme for JSON field nullability
+  prismaJsonNullability = true // (default) uses prisma's scheme for JSON field nullability
   // prismaJsonNullability = false // allows null assignment to optional JSON fields
 }
 
@@ -34,8 +34,8 @@ generator enums {
 }
 
 generator fake-data {
-    provider = "prisma-generator-fake-data"
-    output   = "./fake-data.ts"
+  provider = "prisma-generator-fake-data"
+  output   = "./fake-data.ts"
 }
 
 datasource db {
@@ -48,53 +48,51 @@ model Shelf {
 
   /// @zod.max(12, { message: "Name must be shorter than 256 characters" })
   shortName String @unique
-  
-  luggages Luggage[]  
-  partOf Rack? @relation(fields:[rackId], references:[id])
 
-  rackId Int 
+  luggages Luggage[]
+  partOf   Rack?     @relation(fields: [rackId], references: [id])
+
+  rackId  Int
   comment String
-  
-  @@map(name: "shelves")
 
+  @@map(name: "shelves")
 }
 
 model Rack {
-  id Int @id @default(autoincrement())
+  id   Int    @id @default(autoincrement())
   /// @zod.max(255, { message: "Name must be shorter than 256 characters" })
-  name String 
+  name String
 
   /// @zod.max(12, { message: "shortNames are unique ids for identification and they should be shorter than 12 characters" })
   shortName String @unique
 
   // @zod.enum(["cabinet", "loft", "steel-bero","open-shelf"])
-  type String 
+  type String
 
   shelves Shelf[]
-  
+
   comment String
+
   @@map(name: "racks")
 }
 
 model Luggage {
-  id Int @id @default(autoincrement())
+  id      Int     @id @default(autoincrement())
   /// @zod.max(255, { message: "Name must be shorter than 256 characters" })
-  name String
+  name    String
   comment String?
 
   /// @z.enum(["books", "suitcase", "cardboard-box","others"]);
   type String
 
-  length Int? 
-  width Int? 
-  height Int? 
-  storedAt Shelf? @relation(fields:[shelfId], references:[id])
-  shelfId Int
+  length   Int?
+  width    Int?
+  height   Int?
+  storedAt Shelf? @relation(fields: [shelfId], references: [id])
+  shelfId  Int
 
   @@map(name: "luggages")
 }
-
-
 
 model User {
   id            String          @id @default(cuid())
@@ -104,60 +102,61 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  country       Country?        @relation(fields: [countryId], references: [id])
+  countryId     Int?
   // Optional for WebAuthn support
   Authenticator Authenticator[]
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map(name: "users")
 }
- 
-model Account {
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  refresh_token_expires_in Int
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
 
- 
+model Account {
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String?
+  refresh_token_expires_in Int
+  access_token             String?
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String?
+  session_state            String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
- 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
-  @@id([provider, providerAccountId])
 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
   @@map(name: "accounts")
 }
- 
+
 model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
   @@map(name: "sessions")
 }
- 
+
 model VerificationToken {
   identifier String
   token      String
   expires    DateTime
- 
+
   @@id([identifier, token])
   @@map(name: "verification_tokens")
 }
- 
+
 // Optional for WebAuthn support
 model Authenticator {
   credentialID         String  @unique
@@ -168,9 +167,16 @@ model Authenticator {
   credentialDeviceType String
   credentialBackedUp   Boolean
   transports           String?
- 
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@id([userId, credentialID])
   @@map(name: "authenticators")
+}
+
+model Country {
+  id   Int    @id @default(autoincrement())
+  name String
+  hdi  Float
+  User User[]
 }

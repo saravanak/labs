@@ -164,3 +164,16 @@ export function fakeAuthenticatorComplete() {
     transports: undefined,
   };
 }
+export function fakeCountries() {
+  return {
+    name: faker.person.fullName(),
+    hdi: faker.number.float(),
+  };
+}
+export function fakeCountriesComplete() {
+  return {
+    id: faker.number.int(),
+    name: faker.person.fullName(),
+    hdi: faker.number.float(),
+  };
+}
