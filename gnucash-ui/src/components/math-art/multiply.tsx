@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import TwoNumberEditor from "./two-number-editor";
 import { CardTitle } from "../ui/card";
+import useTwoNumbers from "./two-number-hook";
 
 export const digits = (num: number) => {
   return num == 0 ? 1 : Math.floor(Math.log10(num)) + 1;
@@ -34,33 +35,33 @@ export function orderNumbers(lhs: any, rhs: any) {
 }
 
 export default function MultiplicationSteps() {
-  const [firstNumber, setFirstNumber] = useState(34);
-  const [secondNumber, setSecondNumber] = useState(2312);
+  const twoNumberMeta = useTwoNumbers(34, 2312);
 
-  const [topNumber, bottomNumber] = orderNumbers(firstNumber, secondNumber);
+  const [topNumber, bottomNumber] = orderNumbers(
+    twoNumberMeta.firstNumber,
+    twoNumberMeta.secondNumber
+  );
 
   const { rows } = multiplicationSteps(topNumber, bottomNumber);
   const maps: any = {
     firstNumber: {
       label: "A number to multiply",
       type: "number",
-      onValueChange: setSecondNumber,
+      onValueChange: twoNumberMeta.setSecondNumber,
     },
     secondNumber: {
       label: "Another number to multiply",
       type: "number",
-      onValueChange: setFirstNumber,
+      onValueChange: twoNumberMeta.setFirstNumber,
     },
   };
-  
+
   return (
     <>
-      <TwoNumberEditor
-        firstNumber={firstNumber}
-        secondNumber={secondNumber}
-        maps={maps}
-      />
-      <CardTitle className="bg-gray-300 p-2 mt-2 rounded-md">Solution</CardTitle>
+      <TwoNumberEditor twoNumberMeta={twoNumberMeta} maps={maps} />
+      <CardTitle className="bg-gray-300 p-2 mt-2 rounded-md">
+        Solution
+      </CardTitle>
       <div className="flex">
         <div className="flex-grow">&nbsp;</div>
         <div className="rounded-md border-2 p-4 mt-4 text-2xl">

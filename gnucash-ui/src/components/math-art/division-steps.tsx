@@ -7,6 +7,7 @@ import { clone, last } from "lodash";
 
 import { cn } from "@/lib/utils";
 import TwoNumberEditor from "./two-number-editor";
+import useTwoNumbers from "./two-number-hook";
 
 function leadingNDigits(value: number, n: number) {
   return parseInt(value.toString().split("").slice(0, n).join(""));
@@ -81,10 +82,9 @@ export function computeDivisionSteps({ dividend, divisor }: any) {
 }
 
 export default function DivisionSteps() {
-  const [firstNumber, setFirstNumber] = useState<number>(3);
-  const [secondNumber, setSecondNumber] = useState<number>(23167);
-
-  const [dividend, divisor] = orderNumbers(firstNumber, secondNumber);
+  const twoNumberMeta = useTwoNumbers(3, 23167);
+  
+  const [dividend, divisor] = orderNumbers(twoNumberMeta.firstNumber, twoNumberMeta.secondNumber);
 
   const steps = computeDivisionSteps({ dividend, divisor });
 
@@ -99,17 +99,17 @@ export default function DivisionSteps() {
     firstNumber: {
       label: "A number to divide",
       type: "number",
-      onValueChange: setFirstNumber
+      onValueChange: twoNumberMeta.setFirstNumber
     },
     secondNumber: {
       label: "Another number to divide",
       type: "number",
-      onValueChange: setSecondNumber
+      onValueChange: twoNumberMeta.setSecondNumber
     },
   };
   return (
     <>
-      <TwoNumberEditor firstNumber={firstNumber} secondNumber={secondNumber} maps={maps} />
+      <TwoNumberEditor twoNumberMeta={twoNumberMeta} maps={maps} />
 
       <CardTitle className="bg-gray-300 p-2 mt-2 rounded-md">Solution</CardTitle>
       <div className="grid place-content-center ">

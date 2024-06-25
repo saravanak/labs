@@ -1,22 +1,17 @@
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { z } from "zod";
-export default function TwoNumberEditor({
-  firstNumber,
-  secondNumber,
-  maps,
-}: any) {
+export default function TwoNumberEditor({ maps, twoNumberMeta }: any) {
   const divideMeta = z.coerce.number().gt(0).lt(999999);
 
   const divisionSchema = z.object({
@@ -28,8 +23,8 @@ export default function TwoNumberEditor({
     resolver: zodResolver(divisionSchema),
     mode: "onChange",
     defaultValues: {
-      firstNumber,
-      secondNumber,
+      firstNumber: twoNumberMeta.firstNumber,
+      secondNumber: twoNumberMeta.secondNumber,
     },
   });
 
@@ -68,3 +63,4 @@ export default function TwoNumberEditor({
     </>
   );
 }
+
