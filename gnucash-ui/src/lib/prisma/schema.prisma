@@ -112,6 +112,7 @@ model User {
 
   carbonFootprint CarbonFootprint? @relation(fields: [footprintId], references: [id])
   footprintId     Int?
+  Todo            Todo[]
 
   @@map(name: "users")
 }
@@ -185,26 +186,25 @@ model Country {
 }
 
 model CarbonFootprint {
-  id       Int                @id @default(autoincrement())
-  userId   String
-  vehicles EmissionVehicles[]
-  User     User[]
+  id           Int                @id @default(autoincrement())
+  userId       String
+  vehicles     EmissionVehicles[]
+  User         User[]
   demographics Demographics?
   /// @z.enum(["metric", "standard"]);  
-  unit String 
+  unit         String
 }
 
 model Demographics {
-  id   Int     @id @default(autoincrement())
-  
-  footprintId Int @unique
-  country String 
-  houseSize Int 
-  householdIncome Int 
-  
+  id Int @id @default(autoincrement())
+
+  footprintId     Int    @unique
+  country         String
+  houseSize       Int
+  householdIncome Int
+
   footprint CarbonFootprint @relation(fields: [footprintId], references: [id])
 }
-
 
 model EmissionVehicles {
   id   Int     @id @default(autoincrement())
@@ -222,5 +222,49 @@ model EmissionVehicles {
   footprint CarbonFootprint @relation(fields: [footprintId], references: [id])
 }
 
+model Todo {
+  id Int @id @default(autoincrement())
+
+  /// @zod.max(255, { message: "Name must be shorter than 256 characters" }).min(3, {message: "Atleast 3 characters on the title are required"})
+  title String
+
+  descritpion String
+
+  statusMetaId Int
+
+  statusMeta StatusMeta @relation(fields: [statusMetaId], references: [id])
+  userId     String
+  user       User       @relation(fields: [userId], references: [id])
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  StatusTransitions StatusTransitions[]
+  Comment           Comment[]
+}
+
+model Comment {
+  id      Int    @id @default(autoincrement())
+  comment String
+  todoId  Int
+  todo    Todo   @relation(fields: [todoId], references: [id])
+}
+
+model StatusMeta {
+  id       Int    @id @default(autoincrement())
+  statuses String
+  Todo     Todo[]
+}
+
+model StatusTransitions {
+  id        Int      @id @default(autoincrement())
+  taskId    Int
+  task      Todo     @relation(fields: [taskId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  status    String
+  comment   String
+}
+
 //\copy "Country"(name,hdi)  from 'src/app/ecowise/countries.csv' delimiter ',';
 // alternative: https://github.com/chrishoermann/zod-prisma-types?tab=readme-ov-file#installation
+// Shared todos; Reminders

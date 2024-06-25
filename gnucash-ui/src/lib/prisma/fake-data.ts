@@ -192,10 +192,20 @@ export function fakeCarbonFootprintComplete() {
     unit: faker.lorem.words(5),
   };
 }
+export function fakeDemographics() {
+  return {
+    country: faker.lorem.words(5),
+    houseSize: faker.number.int(),
+    householdIncome: faker.number.int(),
+  };
+}
 export function fakeDemographicsComplete() {
   return {
     id: faker.number.int(),
     footprintId: faker.number.int(),
+    country: faker.lorem.words(5),
+    houseSize: faker.number.int(),
+    householdIncome: faker.number.int(),
   };
 }
 export function fakeEmissionVehicles() {
@@ -214,5 +224,63 @@ export function fakeEmissionVehiclesComplete() {
     milesPerYear: faker.number.float(),
     footprintId: faker.number.int(),
     fuelType: faker.lorem.words(5),
+  };
+}
+export function fakeTodo() {
+  return {
+    title: faker.lorem.words(5),
+    descritpion: faker.lorem.words(5),
+    updatedAt: faker.date.anytime(),
+  };
+}
+export function fakeTodoComplete() {
+  return {
+    id: faker.number.int(),
+    title: faker.lorem.words(5),
+    descritpion: faker.lorem.words(5),
+    statusMetaId: faker.number.int(),
+    userId: faker.string.uuid(),
+    createdAt: new Date(),
+    updatedAt: faker.date.anytime(),
+  };
+}
+export function fakeComment() {
+  return {
+    comment: faker.lorem.words(5),
+  };
+}
+export function fakeCommentComplete() {
+  return {
+    id: faker.number.int(),
+    comment: faker.lorem.words(5),
+    todoId: faker.number.int(),
+  };
+}
+export function fakeStatusMeta() {
+  return {
+    statuses: faker.lorem.words(5),
+  };
+}
+export function fakeStatusMetaComplete() {
+  return {
+    id: faker.number.int(),
+    statuses: faker.lorem.words(5),
+  };
+}
+export function fakeStatusTransitions() {
+  return {
+    updatedAt: faker.date.anytime(),
+    status: faker.lorem.words(5),
+    comment: faker.lorem.words(5),
+  };
+}
+export function fakeStatusTransitionsComplete() {
+  return {
+    id: faker.number.int(),
+    taskId: faker.number.int(),
+    createdAt: new Date(),
+    updatedAt: faker.date.anytime(),
+    status: faker.lorem.words(5),
+    comment: faker.lorem.words(5),
   };
 }

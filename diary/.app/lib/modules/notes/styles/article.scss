@@ -20,9 +20,28 @@
     --flow-space: 0.75em;
   }
 
+  // pre {
+  //   // Overwrite prism styles
+  //   margin-block: 0;
+  // }
+
   pre {
-    // Overwrite prism styles
-    margin-block: 0;
+    counter-reset: lineNumber;
+  }
+  code .highlight-line:before {
+    position: sticky; /*added*/
+    left: 0; /*added*/
+    -webkit-user-select: none;
+    border-right: 1px solid #404040;
+    color: #858585;
+    content: counter(lineNumber);
+    counter-increment: lineNumber;
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+    margin-right: 1.2em;
+    padding-right: 1.2em;
+    text-align: right;
+    width: 2.4em;
   }
 }
 
@@ -193,3 +212,5 @@
     color: var(--color-neutral-text);
   }
 }
+
+

@@ -1,8 +1,7 @@
-import { PrismaClient, Rack, Shelf } from "@prisma/client";
+import { PrismaClient, Shelf } from "@prisma/client";
+import { times } from "lodash";
 import getLuggages from "./data";
 import { fakeRack, fakeShelf } from "./fake-data";
-import { times } from "lodash";
-import { CompleteShelf } from "./zod";
 
 const prisma = new PrismaClient();
 async function main() {
@@ -18,6 +17,10 @@ async function main() {
       });
     });
   });
+
+  await prisma.statusMeta.create({
+    data: {statuses: ['todo', 'in-progress','done'].join(",")}
+  })
 }
 main()
   .then(async () => {

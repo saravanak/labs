@@ -3,6 +3,7 @@ const syntaxHighlightPlugin = require("@11ty/eleventy-plugin-syntaxhighlight");
 const blogTools = require("eleventy-plugin-blog-tools");
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const { DateTime } = require("luxon");
+const linenumber = require('prismjs/plugins/line-numbers/prism-line-numbers')
 
 module.exports = {
   mdLibrary: require("./md.library"),
@@ -22,7 +23,13 @@ module.exports = {
     config.setLibrary("md", this.mdLibrary(config));
 
     config.addPlugin(EleventyHtmlBasePlugin);
-    config.addPlugin(syntaxHighlightPlugin);
+    config.addPlugin(syntaxHighlightPlugin, {
+      alwaysWrapLineHighlights: true,
+      init: function({Prism}) {
+        Prism.plugins =['line-numbers']
+      }
+
+    });
     config.addPlugin(blogTools);
     config.addPlugin(pluginRss);
 

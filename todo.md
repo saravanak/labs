@@ -92,3 +92,5 @@ Kafka,
 Pinot, 
 Trino and 
 Spark
+
+Write a proper syntax highlighting plugin for 11ty using Prism and JsDom. 
