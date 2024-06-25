@@ -26,13 +26,13 @@ process.on("exit", () => {
   subscriber.close()
 })
 
-export async function connect () {
-  console.log('Connect called...');  
-  await subscriber.connect()
-  await subscriber.listenTo(CHANNEL_NAME)
-}
+// export async function connect () {
+//   console.log('Connect called...');  
+//   await subscriber.connect()
+//   await subscriber.listenTo(CHANNEL_NAME)
+// }
 
-(async ()=> {await connect()})();
+// (async ()=> {await connect()})();
 
 
 const healthCheckerRouter = t.router({

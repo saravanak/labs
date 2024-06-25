@@ -110,6 +110,9 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  carbonFootprint CarbonFootprint? @relation(fields: [footprintId], references: [id])
+  footprintId     Int?
+
   @@map(name: "users")
 }
 
@@ -180,3 +183,44 @@ model Country {
   hdi  Float
   User User[]
 }
+
+model CarbonFootprint {
+  id       Int                @id @default(autoincrement())
+  userId   String
+  vehicles EmissionVehicles[]
+  User     User[]
+  demographics Demographics?
+  /// @z.enum(["metric", "standard"]);  
+  unit String 
+}
+
+model Demographics {
+  id   Int     @id @default(autoincrement())
+  
+  footprintId Int @unique
+  country String 
+  houseSize Int 
+  householdIncome Int 
+  
+  footprint CarbonFootprint @relation(fields: [footprintId], references: [id])
+}
+
+
+model EmissionVehicles {
+  id   Int     @id @default(autoincrement())
+  name String?
+
+  mileage Float /// @zod.custom(z.coerce.number())
+
+  milesPerYear Float /// @zod.custom(z.coerce.number())
+
+  footprintId Int
+
+  /// @z.enum(["gasoline", "diesel", "electric"]);  
+  fuelType String
+
+  footprint CarbonFootprint @relation(fields: [footprintId], references: [id])
+}
+
+//\copy "Country"(name,hdi)  from 'src/app/ecowise/countries.csv' delimiter ',';
+// alternative: https://github.com/chrishoermann/zod-prisma-types?tab=readme-ov-file#installation

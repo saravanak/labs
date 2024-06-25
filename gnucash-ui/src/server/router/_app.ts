@@ -4,6 +4,7 @@ import { shelfRouter } from './shelf';
 import { luggageRouter } from './luggage';
 import { userRouter } from './user';
 import { countryRouter } from './country';
+import { carbonFootprintRouter } from './carbon-fp';
 
 
 export const appRoutes = t.router({  
@@ -11,5 +12,6 @@ export const appRoutes = t.router({
   shelf: shelfRouter,
   luggage: luggageRouter,
   user: userRouter,
-  country: countryRouter
+  country: countryRouter,
+  carbonFootprint: carbonFootprintRouter
 });

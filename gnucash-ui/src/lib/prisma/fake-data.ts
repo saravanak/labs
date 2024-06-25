@@ -73,8 +73,10 @@ export function fakeUserComplete() {
     email: faker.internet.email(),
     emailVerified: undefined,
     image: undefined,
+    countryId: undefined,
     createdAt: new Date(),
     updatedAt: faker.date.anytime(),
+    footprintId: undefined,
   };
 }
 export function fakeAccount() {
@@ -164,16 +166,53 @@ export function fakeAuthenticatorComplete() {
     transports: undefined,
   };
 }
-export function fakeCountries() {
+export function fakeCountry() {
   return {
     name: faker.person.fullName(),
     hdi: faker.number.float(),
   };
 }
-export function fakeCountriesComplete() {
+export function fakeCountryComplete() {
   return {
     id: faker.number.int(),
     name: faker.person.fullName(),
     hdi: faker.number.float(),
+  };
+}
+export function fakeCarbonFootprint() {
+  return {
+    userId: faker.lorem.words(5),
+    unit: faker.lorem.words(5),
+  };
+}
+export function fakeCarbonFootprintComplete() {
+  return {
+    id: faker.number.int(),
+    userId: faker.lorem.words(5),
+    unit: faker.lorem.words(5),
+  };
+}
+export function fakeDemographicsComplete() {
+  return {
+    id: faker.number.int(),
+    footprintId: faker.number.int(),
+  };
+}
+export function fakeEmissionVehicles() {
+  return {
+    name: undefined,
+    mileage: faker.number.float(),
+    milesPerYear: faker.number.float(),
+    fuelType: faker.lorem.words(5),
+  };
+}
+export function fakeEmissionVehiclesComplete() {
+  return {
+    id: faker.number.int(),
+    name: undefined,
+    mileage: faker.number.float(),
+    milesPerYear: faker.number.float(),
+    footprintId: faker.number.int(),
+    fuelType: faker.lorem.words(5),
   };
 }

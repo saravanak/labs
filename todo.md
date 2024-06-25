@@ -87,3 +87,8 @@ Will get the heck out of formspsaveal
 - form validation on async issues 
 - form generation dynamic 
 
+Flink, 
+Kafka, 
+Pinot, 
+Trino and 
+Spark

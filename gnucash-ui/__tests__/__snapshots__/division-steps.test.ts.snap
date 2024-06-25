@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Division steps  computes correctly 10/2 1`] = `
+{
+  "divisionModel": [
+    {
+      "closestMultiple": 10,
+      "cumDigitsConsumed": 3,
+      "currentDividend": 0,
+      "currentDividendRemainingStringStr": "",
+      "digitsConsumed": 2,
+      "dividendPart": 10,
+      "previousRemainder": null,
+      "remainder": 0,
+    },
+  ],
+  "quotient": 5,
+  "remainder": 0,
+}
+`;
+
+exports[`Division steps  computes correctly 100/2 1`] = `
+{
+  "divisionModel": [
+    {
+      "closestMultiple": 10,
+      "cumDigitsConsumed": 3,
+      "currentDividend": 0,
+      "currentDividendRemainingStringStr": "0",
+      "digitsConsumed": 2,
+      "dividendPart": 10,
+      "previousRemainder": null,
+      "remainder": 0,
+    },
+    {
+      "closestMultiple": 0,
+      "cumDigitsConsumed": 4,
+      "currentDividend": 0,
+      "currentDividendRemainingStringStr": "",
+      "digitsConsumed": 1,
+      "dividendPart": 0,
+      "previousRemainder": 0,
+      "remainder": 0,
+    },
+  ],
+  "quotient": 50,
+  "remainder": 0,
+}
+`;
+
+exports[`Division steps  computes correctly 101/2 1`] = `
+{
+  "divisionModel": [
+    {
+      "closestMultiple": 10,
+      "cumDigitsConsumed": 3,
+      "currentDividend": 1,
+      "currentDividendRemainingStringStr": "1",
+      "digitsConsumed": 2,
+      "dividendPart": 10,
+      "previousRemainder": null,
+      "remainder": 0,
+    },
+    {
+      "closestMultiple": 0,
+      "cumDigitsConsumed": 4,
+      "currentDividend": 1,
+      "currentDividendRemainingStringStr": "1",
+      "digitsConsumed": 1,
+      "dividendPart": 1,
+      "previousRemainder": 0,
+      "remainder": 1,
+    },
+  ],
+  "quotient": 50,
+  "remainder": 1,
+}
+`;
+
+exports[`Division steps  computes correctly 1001/2 1`] = `
+{
+  "divisionModel": [
+    {
+      "closestMultiple": 10,
+      "cumDigitsConsumed": 3,
+      "currentDividend": 1,
+      "currentDividendRemainingStringStr": "01",
+      "digitsConsumed": 2,
+      "dividendPart": 10,
+      "previousRemainder": null,
+      "remainder": 0,
+    },
+    {
+      "closestMultiple": 0,
+      "cumDigitsConsumed": 4,
+      "currentDividend": 1,
+      "currentDividendRemainingStringStr": "1",
+      "digitsConsumed": 1,
+      "dividendPart": 0,
+      "previousRemainder": 0,
+      "remainder": 0,
+    },
+    {
+      "closestMultiple": 0,
+      "cumDigitsConsumed": 5,
+      "currentDividend": 1,
+      "currentDividendRemainingStringStr": "1",
+      "digitsConsumed": 1,
+      "dividendPart": 1,
+      "previousRemainder": 0,
+      "remainder": 1,
+    },
+  ],
+  "quotient": 500,
+  "remainder": 1,
+}
+`;

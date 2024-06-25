@@ -27,10 +27,12 @@ export type SearchItem = {
 const AutoComplete = React.forwardRef(
   (
     {
-      frameworks,
+      options,
       onChange,
       value,
-    }: { frameworks: SearchItem[]; onChange: (v: any) => void; value: unknown },
+      placeholder,
+      noMatches
+    }: { options: SearchItem[]; onChange: (v: any) => void; value: unknown,  placeholder: string, noMatches: string } ,
     ref: any
   ) => {
     const [open, setOpen] = React.useState(false);
@@ -46,24 +48,21 @@ const AutoComplete = React.forwardRef(
             className="w-[200px] justify-between"
           >
             {value
-              ? frameworks.find((framework) => framework.value.toLowerCase() === value)?.label
-              : "Select framework..."}
+              ? options.find((option) => option.value.toLowerCase() === value)?.label
+              : placeholder}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[200px] p-0">
           <Command>
-            <CommandInput placeholder="Search framework..." />
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandInput placeholder={placeholder} />
+            <CommandEmpty>{noMatches}</CommandEmpty>
             <CommandGroup>
-              {frameworks.map((framework) => (
+              {options.map((framework) => (
                 <CommandItem
                   key={framework.value}
                   value={framework.value}
                   onSelect={(currentValue) => {
-                    console.log(currentValue);
-
-                    // setValue(currentValue === value ? "" : currentValue);
                     onChange(currentValue);
                     setOpen(false);
                   }}

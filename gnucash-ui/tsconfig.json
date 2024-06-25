@@ -34,7 +34,8 @@
     "src/app/projects/html-extractor/page.mdx",
     "prisma/enum-generator.mts",
     "custom.d.ts",
-    "environment.d.ts"
+    "environment.d.ts",
+    "zod.d.ts"
   ],
   "types": [
     // Other types...

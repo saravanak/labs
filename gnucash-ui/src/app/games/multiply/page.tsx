@@ -1,17 +1,10 @@
 "use client";
-import dynamic from "next/dynamic";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 
-import MultiplicationSteps from "@/components/math-art/multiply";
 import DivisionSteps from "@/components/math-art/division-steps";
-import { useEffect, useRef, useState } from "react";
+import MultiplicationSteps from "@/components/math-art/multiply";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import SimpleCard from "@/components/ui/ui-hoc/simple-card";
+import { useRef, useState } from "react";
 
 export default function MathPage() {
   const [currentLabel, setCurrentLabel] = useState<any>(null);
@@ -27,7 +20,7 @@ export default function MathPage() {
       contentText: "Show Division of two numbers",
       Component: DivisionSteps,
     },
-  ];
+  ].map((v) => ({ ...v, value: v.label.toLowerCase() }));
 
   const ComponentToRender = useRef<any>(null);
 
@@ -40,21 +33,24 @@ export default function MathPage() {
       break;
   }
   return (
-    <div>
-      {components.map(({ label,  contentText }, index) => {
-        return (
-          <Card
-            key={index}
-            onClick={() => setCurrentLabel(label)}
-            className={`${label === currentLabel ? "bg-yellow-300" : ""}`}
-          >
-            <CardHeader>{label}</CardHeader>
-            <CardContent>{contentText}</CardContent>
-          </Card>
-        );
-      })}
-      {ComponentToRender.current ? <ComponentToRender.current /> : null}
-    </div>
+      <Tabs defaultValue="multiply" className="w-5/6">
+        <TabsList className="grow">
+          {components.map(({ label, value }, index: number) => (
+            <TabsTrigger key={index} value={value}>
+              {label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        {components.map(({ label, value, Component }, index: number) => (          
+          <TabsContent  key={index} value={value}>
+            <SimpleCard  title={label}>
+            <Component />
+            </SimpleCard>
+          </TabsContent>
+        ))}
+
+        <TabsContent value="password">Change your password here.</TabsContent>
+      </Tabs>
   );
 }
 

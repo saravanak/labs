@@ -5,7 +5,7 @@ import { z } from "zod";
 export const countryRouter = t.router({
   list: t.procedure
     .query(async () => {
-      return await prisma.countries.findMany()
+      return await prisma.country.findMany()
     }),  
 });
 
