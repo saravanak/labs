@@ -1,4 +1,4 @@
-import {  } from '@prisma/client';
+import { CommentableType } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import Decimal from 'decimal.js';
 
@@ -64,6 +64,7 @@ export function fakeUser() {
     emailVerified: undefined,
     image: undefined,
     updatedAt: faker.date.anytime(),
+    spaceid: undefined,
   };
 }
 export function fakeUserComplete() {
@@ -77,6 +78,20 @@ export function fakeUserComplete() {
     createdAt: new Date(),
     updatedAt: faker.date.anytime(),
     footprintId: undefined,
+    spaceid: undefined,
+  };
+}
+export function fakeSpaceComplete() {
+  return {
+    id: faker.number.int(),
+    ownerId: faker.string.uuid(),
+  };
+}
+export function fakeSpaceSharingComplete() {
+  return {
+    id: faker.number.int(),
+    spaceId: faker.number.int(),
+    userId: faker.string.uuid(),
   };
 }
 export function fakeAccount() {
@@ -239,7 +254,7 @@ export function fakeTodoComplete() {
     title: faker.lorem.words(5),
     descritpion: faker.lorem.words(5),
     statusMetaId: faker.number.int(),
-    userId: faker.string.uuid(),
+    spaceId: faker.number.int(),
     createdAt: new Date(),
     updatedAt: faker.date.anytime(),
   };
@@ -253,7 +268,8 @@ export function fakeCommentComplete() {
   return {
     id: faker.number.int(),
     comment: faker.lorem.words(5),
-    todoId: faker.number.int(),
+    commentableId: faker.number.int(),
+    userId: faker.string.uuid(),
   };
 }
 export function fakeStatusMeta() {
@@ -282,5 +298,16 @@ export function fakeStatusTransitionsComplete() {
     updatedAt: faker.date.anytime(),
     status: faker.lorem.words(5),
     comment: faker.lorem.words(5),
+  };
+}
+export function fakeCommentable() {
+  return {
+    commentableType: faker.lorem.words(5),
+  };
+}
+export function fakeCommentableComplete() {
+  return {
+    id: faker.number.int(),
+    commentableType: faker.lorem.words(5),
   };
 }

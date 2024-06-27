@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { t } from "@/utils/trpc-server";
+import { t, shieldedProcedure } from "@/utils/trpc-server";
 import { prisma } from "@/lib/prisma/client";
 import { TRPCError } from "@trpc/server";
 import { RackModel } from "@/lib/prisma/zod";
@@ -22,23 +22,15 @@ export const rackRouter = t.router({
 
       return { count: rackCount };
     }),
-  list: t.procedure.query(async (opts) => {
+  listRacks: shieldedProcedure.query(async (opts) => {
     // const { limit, page } = filterQuery;
     // const take = limit || 10;
     // const skip = (page - 1) * limit;
 
-    try {
-      const racks = await prisma.rack.findMany();
-
-      return { racks };
-    } catch (err: any) {
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: err.message,
-      });
-    }
+    const racks = await prisma.rack.findMany();
+    return { racks };
   }),
-  create: t.procedure
+  create: shieldedProcedure
     .input(RackModel.omit({ id: true }))
     .mutation(async (opts) => {
       return prisma.rack.create({

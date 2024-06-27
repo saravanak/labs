@@ -1,14 +1,13 @@
-import NextAuth, { AuthOptions } from "next-auth";
-import GithubProvider from "next-auth/providers/github";
-import EmailProvider from "next-auth/providers/email";
+import NextAuth, { AuthOptions, getServerSession } from "next-auth";
 import type { Adapter } from "next-auth/adapters";
+import EmailProvider from "next-auth/providers/email";
+import GithubProvider from "next-auth/providers/github";
 
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "@/lib/prisma";
 import { t } from "@/utils/trpc-server";
-import { appRouter } from "../../trpc/trpc-router";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import { NextRequest } from "next/server";
-import { remove } from "lodash";
+import { appRouter } from "../../trpc/trpc-router";
 
 const githubProvider = GithubProvider({
   clientId: process.env.GITHUB_CLIENT_ID,
@@ -25,16 +24,14 @@ export const authOptions: AuthOptions = {
 
   providers: [],
   callbacks: {
-    async signIn({ user, account, email, provider }: any) {
+    async signIn({ user, account, email }: any) {
       const { createCallerFactory } = t;
       console.log({ user, account, email });
 
       let verificationRequest = email?.verificationRequest;
 
-      console.log("Iam the flow", user, account, email);
-
       const createCaller = createCallerFactory(appRouter);
-      const caller = createCaller({});
+      const caller = createCaller({} as any);
 
       const userWithEmail = await caller.user.findBy({ email: user.email });
 
@@ -48,6 +45,13 @@ export const authOptions: AuthOptions = {
       } else {
         return true;
       }
+    },
+    session({ session, token, user }:any) {
+        console.log('inside session callback');
+      
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        session.user = user;
+      return session;
     },
   },
 };
@@ -68,7 +72,9 @@ const auth = async (req: NextRequest, ctx: any) => {
 };
 
 export { auth as GET, auth as POST };
-// const handler = NextAuth(authOptions);
 
-// export { handler as GET, handler as POST };
-
+export const getServerAuthSession = () => {
+  console.log(`getServerAuthSession`);
+  
+  return getServerSession(authOptions);
+}

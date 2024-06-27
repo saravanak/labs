@@ -25,10 +25,6 @@ module.exports = {
     config.addPlugin(EleventyHtmlBasePlugin);
     config.addPlugin(syntaxHighlightPlugin, {
       alwaysWrapLineHighlights: true,
-      init: function({Prism}) {
-        Prism.plugins =['line-numbers']
-      }
-
     });
     config.addPlugin(blogTools);
     config.addPlugin(pluginRss);
