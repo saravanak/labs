@@ -1,11 +1,10 @@
 import { z } from "zod";
-import { t, shieldedProcedure } from "@/utils/trpc-server";
+import { t, shieldedProcedure, publicProcedure } from "@/utils/trpc-server";
 import { prisma } from "@/lib/prisma/client";
-import { TRPCError } from "@trpc/server";
 import { RackModel } from "@/lib/prisma/zod";
 
 export const rackRouter = t.router({
-  count: t.procedure
+  count: publicProcedure
     .input(
       z.object({
         s: z.string(),

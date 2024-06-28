@@ -42,8 +42,8 @@ export const createInnerTRPCContext = async (opts: CreateContextOptions) => {
   
   const magicToken = opts.headers.get("X-MAGIC-TOKEN");
   
-  console.log('createInnerTRPCContext', magicToken);
   let session = await getServerAuthSession() || {} as any;
+  console.log('createInnerTRPCContext', session);
   if(magicToken == "apple") {
     session.user = {
       name: "test",

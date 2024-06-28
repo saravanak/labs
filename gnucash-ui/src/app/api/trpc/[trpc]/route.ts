@@ -1,10 +1,9 @@
 import {
-  FetchCreateContextFnOptions,
-  fetchRequestHandler,
+  fetchRequestHandler
 } from "@trpc/server/adapters/fetch";
+import { type NextRequest } from "next/server";
 import { appRouter } from "../trpc-router";
 import { createTRPCContext } from "@/utils/trpc-server";
-import { type NextRequest } from "next/server";
 
 const handler = (req: NextRequest) => {
   console.log(`incoming request ${req.url}`);

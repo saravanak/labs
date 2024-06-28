@@ -2,12 +2,13 @@ import NextAuth, { AuthOptions, getServerSession } from "next-auth";
 import type { Adapter } from "next-auth/adapters";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
-
-import prisma from "@/lib/prisma";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { t } from "@/utils/trpc-server";
+import prisma from "@/lib/prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { NextRequest } from "next/server";
 import { appRouter } from "../../trpc/trpc-router";
+import { UserService } from "@/server/services/user";
 
 const githubProvider = GithubProvider({
   clientId: process.env.GITHUB_CLIENT_ID,
@@ -19,9 +20,39 @@ const emailProvider = EmailProvider({
   from: process.env.EMAIL_FROM,
 });
 
+const credentialProvider = CredentialsProvider({
+  name: "CYPRESS_ONLY",
+  credentials: {
+    email: { label: "email", type: "text", placeholder: "enter your email" },
+  },
+  async authorize(credentials, req) {
+    const user = await prisma.user.upsert({
+      where: {
+        email: credentials?.email,
+      },
+      update: {},
+      create: {
+        email: credentials?.email as string,
+        name: "CYP_" + credentials?.email,
+      },
+    });
+
+    if (user) {
+      console.log(`CYPRESS_ONLY: ${user}`);
+      
+      return user;
+    }
+
+    return null;
+  },
+});
+
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
 
+  session: {
+    strategy : process.env.CYPRESS_TESTING_E2E ? "jwt" : 'database'
+  }, 
   providers: [],
   callbacks: {
     async signIn({ user, account, email }: any) {
@@ -46,11 +77,12 @@ export const authOptions: AuthOptions = {
         return true;
       }
     },
-    session({ session, token, user }:any) {
-        console.log('inside session callback');
-      
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        session.user = user;
+    async session({ session, token, user }: any) {
+      console.log("inside session callback", session, token, user);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      session.user.id = token ? token.sub : user.id;
+
+      await UserService.defaultOrCreateOwnerSpace(session.user);
       return session;
     },
   },
@@ -61,12 +93,16 @@ const auth = async (req: NextRequest, ctx: any) => {
 
   console.log({ params, url: req.url });
 
-  authOptions.providers= []
+  authOptions.providers = [];
   if (params.nextauth.includes("github")) {
     authOptions.providers = [githubProvider];
   }
 
   authOptions.providers.push(emailProvider);
+
+  if (process.env.CYPRESS_TESTING_E2E) {
+    authOptions.providers = [credentialProvider];
+  }
 
   return await NextAuth(req, ctx, authOptions);
 };
@@ -75,6 +111,6 @@ export { auth as GET, auth as POST };
 
 export const getServerAuthSession = () => {
   console.log(`getServerAuthSession`);
-  
+
   return getServerSession(authOptions);
-}
+};

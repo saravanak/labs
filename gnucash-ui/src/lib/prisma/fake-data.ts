@@ -1,4 +1,4 @@
-import { CommentableType } from '@prisma/client';
+import {  } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import Decimal from 'decimal.js';
 
@@ -63,8 +63,8 @@ export function fakeUser() {
     email: faker.internet.email(),
     emailVerified: undefined,
     image: undefined,
-    updatedAt: faker.date.anytime(),
-    spaceid: undefined,
+    updated_at: faker.date.anytime(),
+    space_id: undefined,
   };
 }
 export function fakeUserComplete() {
@@ -74,31 +74,37 @@ export function fakeUserComplete() {
     email: faker.internet.email(),
     emailVerified: undefined,
     image: undefined,
-    countryId: undefined,
-    createdAt: new Date(),
-    updatedAt: faker.date.anytime(),
-    footprintId: undefined,
-    spaceid: undefined,
+    country_id: undefined,
+    created_at: new Date(),
+    updated_at: faker.date.anytime(),
+    footprint_id: undefined,
+    space_id: undefined,
+  };
+}
+export function fakeSpace() {
+  return {
+    name: faker.person.fullName(),
   };
 }
 export function fakeSpaceComplete() {
   return {
     id: faker.number.int(),
-    ownerId: faker.string.uuid(),
+    owner_id: faker.string.uuid(),
+    name: faker.person.fullName(),
   };
 }
 export function fakeSpaceSharingComplete() {
   return {
     id: faker.number.int(),
-    spaceId: faker.number.int(),
-    userId: faker.string.uuid(),
+    space_id: faker.number.int(),
+    user_id: faker.string.uuid(),
   };
 }
 export function fakeAccount() {
   return {
     type: faker.lorem.words(5),
     provider: faker.lorem.words(5),
-    providerAccountId: faker.lorem.words(5),
+    provider_account_id: faker.lorem.words(5),
     refresh_token: undefined,
     refresh_token_expires_in: faker.number.int(),
     access_token: undefined,
@@ -107,15 +113,15 @@ export function fakeAccount() {
     scope: undefined,
     id_token: undefined,
     session_state: undefined,
-    updatedAt: faker.date.anytime(),
+    updated_at: faker.date.anytime(),
   };
 }
 export function fakeAccountComplete() {
   return {
-    userId: faker.string.uuid(),
+    user_id: faker.string.uuid(),
     type: faker.lorem.words(5),
     provider: faker.lorem.words(5),
-    providerAccountId: faker.lorem.words(5),
+    provider_account_id: faker.lorem.words(5),
     refresh_token: undefined,
     refresh_token_expires_in: faker.number.int(),
     access_token: undefined,
@@ -124,24 +130,24 @@ export function fakeAccountComplete() {
     scope: undefined,
     id_token: undefined,
     session_state: undefined,
-    createdAt: new Date(),
-    updatedAt: faker.date.anytime(),
+    created_at: new Date(),
+    updated_at: faker.date.anytime(),
   };
 }
 export function fakeSession() {
   return {
     sessionToken: faker.lorem.words(5),
     expires: faker.date.anytime(),
-    updatedAt: faker.date.anytime(),
+    updated_at: faker.date.anytime(),
   };
 }
 export function fakeSessionComplete() {
   return {
     sessionToken: faker.lorem.words(5),
-    userId: faker.string.uuid(),
+    user_id: faker.string.uuid(),
     expires: faker.date.anytime(),
-    createdAt: new Date(),
-    updatedAt: faker.date.anytime(),
+    created_at: new Date(),
+    updated_at: faker.date.anytime(),
   };
 }
 export function fakeVerificationToken() {
@@ -161,7 +167,7 @@ export function fakeVerificationTokenComplete() {
 export function fakeAuthenticator() {
   return {
     credentialID: faker.lorem.words(5),
-    providerAccountId: faker.lorem.words(5),
+    provider_account_id: faker.lorem.words(5),
     credentialPublicKey: faker.lorem.words(5),
     counter: faker.number.int(),
     credentialDeviceType: faker.lorem.words(5),
@@ -172,8 +178,8 @@ export function fakeAuthenticator() {
 export function fakeAuthenticatorComplete() {
   return {
     credentialID: faker.lorem.words(5),
-    userId: faker.string.uuid(),
-    providerAccountId: faker.lorem.words(5),
+    user_id: faker.string.uuid(),
+    provider_account_id: faker.lorem.words(5),
     credentialPublicKey: faker.lorem.words(5),
     counter: faker.number.int(),
     credentialDeviceType: faker.lorem.words(5),
@@ -196,14 +202,14 @@ export function fakeCountryComplete() {
 }
 export function fakeCarbonFootprint() {
   return {
-    userId: faker.lorem.words(5),
+    user_id: faker.lorem.words(5),
     unit: faker.lorem.words(5),
   };
 }
 export function fakeCarbonFootprintComplete() {
   return {
     id: faker.number.int(),
-    userId: faker.lorem.words(5),
+    user_id: faker.lorem.words(5),
     unit: faker.lorem.words(5),
   };
 }
@@ -217,7 +223,7 @@ export function fakeDemographics() {
 export function fakeDemographicsComplete() {
   return {
     id: faker.number.int(),
-    footprintId: faker.number.int(),
+    footprint_id: faker.number.int(),
     country: faker.lorem.words(5),
     houseSize: faker.number.int(),
     householdIncome: faker.number.int(),
@@ -237,26 +243,26 @@ export function fakeEmissionVehiclesComplete() {
     name: undefined,
     mileage: faker.number.float(),
     milesPerYear: faker.number.float(),
-    footprintId: faker.number.int(),
+    footprint_id: faker.number.int(),
     fuelType: faker.lorem.words(5),
   };
 }
 export function fakeTodo() {
   return {
     title: faker.lorem.words(5),
-    descritpion: faker.lorem.words(5),
-    updatedAt: faker.date.anytime(),
+    description: faker.lorem.words(5),
+    updated_at: faker.date.anytime(),
   };
 }
 export function fakeTodoComplete() {
   return {
     id: faker.number.int(),
     title: faker.lorem.words(5),
-    descritpion: faker.lorem.words(5),
+    description: faker.lorem.words(5),
     statusMetaId: faker.number.int(),
-    spaceId: faker.number.int(),
-    createdAt: new Date(),
-    updatedAt: faker.date.anytime(),
+    space_id: faker.number.int(),
+    created_at: new Date(),
+    updated_at: faker.date.anytime(),
   };
 }
 export function fakeComment() {
@@ -267,9 +273,9 @@ export function fakeComment() {
 export function fakeCommentComplete() {
   return {
     id: faker.number.int(),
+    user_id: faker.string.uuid(),
     comment: faker.lorem.words(5),
-    commentableId: faker.number.int(),
-    userId: faker.string.uuid(),
+    created_at: new Date(),
   };
 }
 export function fakeStatusMeta() {
@@ -285,7 +291,7 @@ export function fakeStatusMetaComplete() {
 }
 export function fakeStatusTransitions() {
   return {
-    updatedAt: faker.date.anytime(),
+    updated_at: faker.date.anytime(),
     status: faker.lorem.words(5),
     comment: faker.lorem.words(5),
   };
@@ -293,21 +299,24 @@ export function fakeStatusTransitions() {
 export function fakeStatusTransitionsComplete() {
   return {
     id: faker.number.int(),
-    taskId: faker.number.int(),
-    createdAt: new Date(),
-    updatedAt: faker.date.anytime(),
+    todo_id: faker.number.int(),
+    created_at: new Date(),
+    updated_at: faker.date.anytime(),
     status: faker.lorem.words(5),
     comment: faker.lorem.words(5),
   };
 }
 export function fakeCommentable() {
   return {
-    commentableType: faker.lorem.words(5),
+    commentee_type: faker.lorem.words(5),
+    commentee_id: faker.number.int(),
   };
 }
 export function fakeCommentableComplete() {
   return {
     id: faker.number.int(),
-    commentableType: faker.lorem.words(5),
+    commentee_type: faker.lorem.words(5),
+    commentee_id: faker.number.int(),
+    comment_id: faker.number.int(),
   };
 }

@@ -94,3 +94,17 @@ Trino and
 Spark
 
 Write a proper syntax highlighting plugin for 11ty using Prism and JsDom. 
+
+- testing 
+- CRUD tasks
+- Filtering, Sorting by title, description and status, pagination 
+- Subscribe user to your space
+- animations 
+
+- Choose display columns for tasks
+- status transitions 
+- Add space chooser 
+- Security: Implement basic security measures to protect the application from common vulnerabilities.
+
+
+

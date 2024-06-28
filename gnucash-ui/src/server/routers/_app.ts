@@ -5,7 +5,7 @@ import { luggageRouter } from './luggage';
 import { userRouter } from './user';
 import { countryRouter } from './country';
 import { carbonFootprintRouter } from './carbon-fp';
-
+import { todoRouter } from './todo';
 
 export const appRoutes = t.router({  
   rack: rackRouter,
@@ -13,5 +13,6 @@ export const appRoutes = t.router({
   luggage: luggageRouter,
   user: userRouter,
   country: countryRouter,
-  carbonFootprint: carbonFootprintRouter
+  carbonFootprint: carbonFootprintRouter,
+  todo: todoRouter
 });

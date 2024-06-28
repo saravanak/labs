@@ -1,0 +1,13 @@
+{
+    "transforms": [      
+      {
+        "mode": "ts", 
+        "include": "./lib/typed-queries/**/action.ts", 
+        "emitTemplate": "{{dir}}/{{name}}.types.ts" 
+      }
+    ],
+    "srcDir": "./src/", 
+    "failOnError": false, 
+    "camelCaseColumnNames": false
+    
+  }
