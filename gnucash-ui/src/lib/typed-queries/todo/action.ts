@@ -19,7 +19,10 @@ LEFT OUTER JOIN (
 INNER JOIN spaces sp on 
     sp.id = t.space_id
 INNER JOIN users u on 
-    sp.owner_id = u.id and u.email = $userEmail;
+    sp.owner_id = u.id and u.email = $userEmail
+order by t.id
+limit $limit
+offset $offset    ;
 `;
 
 // Insert a bunch of comments by returning the ids created. 

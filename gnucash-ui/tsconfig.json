@@ -31,7 +31,7 @@
     ".next/types/**/*.ts",
     "__tests__/combine-results.test.ts",
     "jest.setup.js",
-    "src/app/projects/html-extractor/page.mdx",
+    "src/app/(sandbox)/projects/html-extractor/page.mdx",
     "prisma/enum-generator.mts",
     "custom.d.ts",
     "environment.d.ts",
@@ -47,7 +47,9 @@
     // Add this! Doing so adds WebWorker and ServiceWorker types to the global.
     "webworker"
   ],
-  "exclude": ["node_modules", "public/sw.js"],
+  
+  "exclude": ["cypress.config.ts", "cypress", "node_modules", "public/sw.js"],
+
   "ts-node": {
     "compilerOptions": {
       "module": "NodeNext",

@@ -19,6 +19,6 @@ export const permissions = shield<Context>(
     },
     mutation: {},
   },
-  { fallbackRule: deny }
+  { fallbackRule: isAuthenticated }
 );
 

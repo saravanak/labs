@@ -89,6 +89,7 @@ model User {
   carbonFootprint CarbonFootprint? @relation(fields: [footprint_id], references: [id])
   space_id        Int?
   space           Space?
+  api_key         String?
   comments        Comment[]
   spaceSharing    SpaceSharing[]
 

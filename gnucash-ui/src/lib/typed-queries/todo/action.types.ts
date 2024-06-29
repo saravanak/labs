@@ -1,7 +1,10 @@
 /** Types generated for queries found in "src/lib/typed-queries/todo/action.ts" */
+export type NumberOrString = number | string;
 
 /** 'GetTodosWithLatestStatuses' parameters type */
 export interface IGetTodosWithLatestStatusesParams {
+  limit?: NumberOrString | null | void;
+  offset?: NumberOrString | null | void;
   userEmail?: string | null | void;
 }
 

@@ -65,8 +65,9 @@ export default function Sidebar({
         </button>
       ) : (
         <Button
-          onClick={() => (signIn("github", {callbackUrl: "/todos"}))}
+          onClick={() => (signIn("github", {callbackUrl: "/todos/dashboard"}))}
           title="Signin"
+          data-test-action="login"
           className="flex w-full justify-stretch pl-2 py-4 md:py-2 hover:inverted-color-hover text-yellow-600 font-bold"
         >
           Login

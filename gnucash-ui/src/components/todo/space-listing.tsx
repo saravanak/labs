@@ -4,26 +4,25 @@ import { useInViewport } from "ahooks";
 import { useRouter } from "next/navigation";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
-import { Card } from "../ui/card";
+import { Card, CardTitle } from "../ui/card";
 
-export default function TodoListing() {
-
+export default function SpaceListing() {
   const ref = useRef(null);
   const [inView, threshold] = useInViewport(ref, {
     threshold: 1,
   });
 
-
-  const { fetchNextPage, data, error, hasNextPage } = trpc.todo.getOwnTodos.useInfiniteQuery(
-    {
-      limit: 9,
-    },
-    {
-      getNextPageParam: (lastPage: any) => {
-        return lastPage.nextCursor;
+  const { fetchNextPage, data, error, hasNextPage } =
+    trpc.todoUser.getUserSpaces.useInfiniteQuery(
+      {
+        limit: 9,
       },
-    }
-  );
+      {
+        getNextPageParam: (lastPage: any) => {
+          return lastPage.nextCursor;
+        },
+      }
+    );
   console.log(data);
 
   useEffect(() => {
@@ -33,7 +32,6 @@ export default function TodoListing() {
       fetchNextPage();
     }
   }, [inView]);
-
 
   if (error) {
     return <h1 data-test-data="not-logged-in"> Please login</h1>;
@@ -54,21 +52,21 @@ export default function TodoListing() {
     }
 
     return (
-      <Card>
-        <div className="w-[3/6] h-[80svh] rounded overflow-hidden shadow-[0_2px_10px] shadow-blackA4 bg-white">
-          <div  className="w-full h-full rounded overflow-scroll">
-            <div className="py-[15px] px-5">
-              <div className="text-violet11 text-[15px] leading-[18px] font-medium">
-                Tags
-              </div>
-
+      <Card className="my-8">
+        <CardTitle className="m-4">Spaces you own</CardTitle>
+        <div className="w-[3/6] max-h-[80svh] overflow-hidden mx-2">
+          <div className="w-full h-full  overflow-auto">
+            <div className="">
               {todos.pages.map((todo, index) => {
                 return (
                   <Fragment key={index}>
                     {todo.items.map((v: any, itemindex) => {
                       return (
-                        <div key={itemindex} className="border-b border-gray-600 py-4">
-                          {v.StatusTransitions[0].status}
+                        <div
+                          key={itemindex}
+                          className="border-b border-gray-200 py-4"
+                        >
+                          <i>{v.name}</i> has {v._count.todos} Todos
                         </div>
                       );
                     })}
@@ -76,22 +74,14 @@ export default function TodoListing() {
                 );
               })}
             </div>
-            {hasNextPage ? 
-            <Button
+            <div
               ref={ref}
-              onClick={() => {
-                console.log("Calling nextpage");
-
-                fetchNextPage();
-              }}
-              className="mb-8"
-            >
-              Load more 
-            </Button>: null}
+              >
+                &nbsp;
+                </div>
           </div>
         </div>
-        {inView}{threshold}
-      </Card>      
+      </Card>
     );
   }
 

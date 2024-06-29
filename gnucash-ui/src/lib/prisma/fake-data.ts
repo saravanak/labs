@@ -65,6 +65,7 @@ export function fakeUser() {
     image: undefined,
     updated_at: faker.date.anytime(),
     space_id: undefined,
+    api_key: undefined,
   };
 }
 export function fakeUserComplete() {
@@ -79,6 +80,7 @@ export function fakeUserComplete() {
     updated_at: faker.date.anytime(),
     footprint_id: undefined,
     space_id: undefined,
+    api_key: undefined,
   };
 }
 export function fakeSpace() {

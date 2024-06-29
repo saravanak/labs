@@ -26,6 +26,8 @@ const credentialProvider = CredentialsProvider({
     email: { label: "email", type: "text", placeholder: "enter your email" },
   },
   async authorize(credentials, req) {
+    console.log('credentialss authorize');
+    
     const user = await prisma.user.upsert({
       where: {
         email: credentials?.email,
@@ -55,28 +57,28 @@ export const authOptions: AuthOptions = {
   }, 
   providers: [],
   callbacks: {
-    async signIn({ user, account, email }: any) {
-      const { createCallerFactory } = t;
-      console.log({ user, account, email });
+    // async signIn({ user, account, email }: any) {
+    //   const { createCallerFactory } = t;
+    //   console.log({ user, account, email });
 
-      let verificationRequest = email?.verificationRequest;
+    //   let verificationRequest = email?.verificationRequest;
 
-      const createCaller = createCallerFactory(appRouter);
-      const caller = createCaller({} as any);
+    //   const createCaller = createCallerFactory(appRouter);
+    //   const caller = createCaller({} as any);
 
-      const userWithEmail = await caller.user.findBy({ email: user.email });
+    //   const userWithEmail = await caller.user.findBy({ email: user.email });
 
-      console.log({ userWithEmail });
+    //   console.log({ userWithEmail });
 
-      if (verificationRequest && userWithEmail.count == 1) {
-        //Only send emails for users who'e email is already present
-        return true;
-      } else if (verificationRequest) {
-        return "/register";
-      } else {
-        return true;
-      }
-    },
+    //   if (verificationRequest && userWithEmail.count == 1) {
+    //     //Only send emails for users who'e email is already present
+    //     return true;
+    //   } else if (verificationRequest) {
+    //     return "/register";
+    //   } else {
+    //     return true;
+    //   }
+    // },
     async session({ session, token, user }: any) {
       console.log("inside session callback", session, token, user);
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

@@ -8,7 +8,7 @@ inner join spaces s on
     s.owner_id = u.id 
 where u.id = $userId and 
 ($spaceName :: TEXT is null or s.name ILIKE  '%'||$spaceName||'%' ) and
-($spaceId :: NUMBER is null or s.id = $spaceId )
+($spaceId :: NUMERIC is null or s.id = $spaceId )
 `
 
 export const getSharedUserSpaces = sql`
@@ -20,6 +20,6 @@ inner join spaces s on
     us.space_id = s.id 
 where u.id = $userId and 
 ($spaceName :: TEXT is null or s.name ILIKE  '%'||$spaceName||'%' ) and
-($spaceId :: NUMBER is null or s.id = $spaceId )
+($spaceId :: NUMERIC is null or s.id = $spaceId )
 `
 

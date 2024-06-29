@@ -130,6 +130,7 @@ model User {
 
   space_id   Int? 
   space Space?  
+  api_key   String? 
 
 	comments Comment[]
 	spaceSharing SpaceSharing[]

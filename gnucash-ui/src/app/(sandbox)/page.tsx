@@ -1,7 +1,7 @@
 import LinksListing from "@/components/ui/links-listing";
 import Hydrate from "@/utils/hydrate-client";
 import { dehydrate } from "@tanstack/react-query";
-import { createSSRHelper } from "./api/trpc/trpc-router";
+import { createSSRHelper } from "../api/trpc/trpc-router";
 
 export default async function Home() {
   const recruiterLinks = [

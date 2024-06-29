@@ -8,14 +8,14 @@ const globalForPrisma = globalThis as unknown as {
   pgClient?: any;
 };
 
-export const prisma = enhance(
+export const prisma: PrismaClient = enhance(
   globalForPrisma.prisma || new PrismaClient({ log: ["query"] }),
   {},
   { kinds: ["delegate"] }
 );
 
 if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = prisma as any;
+  globalForPrisma.prisma = prisma;
 }
 
 const client = new Client({ connectionString: process.env.DATABASE_URL });

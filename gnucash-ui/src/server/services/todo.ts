@@ -9,15 +9,69 @@ import {
 } from "@/lib/typed-queries/todo/action";
 import { seed_insertManyCommentsIntoTodo } from "@/lib/typed-queries/todo/action";
 import { pgClient } from "@/lib/prisma/client";
+import { space } from "postcss/lib/list";
+import { orderBy } from "lodash";
+
+export const returnPaginatedQuery = (baseQuery: any, {limit, cursor}:any) => {
+  const queryInput = {
+    take: limit,
+    skip: 0,
+    orderBy: {
+      id: "asc",
+    },
+   ...baseQuery
+  } as any;
+
+  if (cursor) {
+    queryInput.cursor = {
+      id: cursor,
+    };
+    queryInput.skip = 1;
+  }
+  return queryInput
+}
 
 export const TodoService = {
-  async getTodosForUser(user: z.infer<typeof UserModel>) {
+  async getTodosForUser(
+    user: z.infer<typeof UserModel>,
+    { limit, cursor }: any
+  ) {
     console.log(user);
 
-    return await getTodosWithLatestStatuses.run(
-      { userEmail: user.email },
-      pgClient
-    );
+
+   const queryInput = returnPaginatedQuery({
+    select: {
+      space: {
+        select: {
+          name: true,
+          user: {
+            select: {
+              email: true,
+            },
+          },
+        },
+      },
+      StatusTransitions: {
+        select: {
+          status: true,
+          todo_id: true
+        },
+        orderBy: {
+          created_at: 'desc',
+        },
+        distinct: ["todo_id"],
+      },
+    },
+    where: {
+      title: {
+        contains: "chan",
+        mode: 'insensitive'
+
+      }
+    }
+   },  {limit, cursor })
+
+    return await prisma.todo.findMany(queryInput);
   },
 
   async createDefaultTodos(userSpace: Space, user: User) {
@@ -133,7 +187,7 @@ export const TodoService = {
     });
   },
 
-  async addComment(todoId: number, user: User, commentContent: string)  {
+  async addComment(todoId: number, user: User, commentContent: string) {
     return await seed_insertManyCommentsIntoTodo.run(
       {
         todos: [

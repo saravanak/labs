@@ -43,22 +43,23 @@ export const createInnerTRPCContext = async (opts: CreateContextOptions) => {
   const magicToken = opts.headers.get("X-MAGIC-TOKEN");
   
   let session = await getServerAuthSession() || {} as any;
-  console.log('createInnerTRPCContext', session);
-  if(magicToken == "apple") {
-    session.user = {
-      name: "test",
-      id: 1
-    } as any
+
+  
+  if(magicToken) {
+    const user = await prisma.user.findFirst({
+      where: {
+        api_key: magicToken
+      }
+    })
+    if(user) {
+      session.user = user;  
+    }     
   }
   
-  const enhancedPrisma = enhance(prisma, {
-    user: session?.user ? session.user : null,
-  },  { kinds: ['delegate'] });
-
   return {
     session,
     headers: opts.headers,
-    prisma: enhancedPrisma,
+    prisma,
   };
 };
 

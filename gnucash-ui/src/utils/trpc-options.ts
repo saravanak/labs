@@ -4,7 +4,7 @@ import { ZodError } from "zod";
 export default  {
     transformer: SuperJSON,
     errorFormatter({ shape, error }:any) {
-      console.log({shape, error});
+      console.error("Got error",  error.message);
       
       return {
         ...shape,

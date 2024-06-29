@@ -3,11 +3,23 @@ import { TodoService } from "@/server/services/todo";
 import { shieldedProcedure, t } from "@/utils/trpc-server";
 import prisma from "@/lib/prisma";
 import { Space, User } from "@prisma/client";
+import { last } from "lodash";
 
 export const todoRouter = t.router({
-  getOwnTodos: shieldedProcedure.query(async (opts) => {
+  getOwnTodos: shieldedProcedure
+    .input(
+      z.object({
+        limit: z.number(),
+        cursor: z.number().nullish(),
+      })
+    )
+  .query(async (opts) => {
     const { session } = opts.ctx;
-    return TodoService.getTodosForUser(session.user);
+    const items = await TodoService.getTodosForUser(session.user, opts.input)
+    return {
+      items , 
+      nextCursor: last(items)?.id
+    }
   }),
   getDetailedView: shieldedProcedure
     .input(
