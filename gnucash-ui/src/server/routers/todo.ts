@@ -70,6 +70,17 @@ export const todoRouter = t.router({
         opts.input.todoCreateArgs
       );
     }),
+  updateTodo: shieldedProcedure
+    .input(
+      z.object({
+        field: z.string(),
+        value: z.string(),
+        todoId: z.number(),
+      })
+    )
+    .mutation((opts) => {
+      return TodoService.updateTodo(opts.input);
+    }),
   changeStatus: shieldedProcedure
     .input(
       z.object({

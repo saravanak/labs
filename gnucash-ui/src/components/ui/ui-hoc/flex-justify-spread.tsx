@@ -1,3 +1,6 @@
-export function FlexJustifySpread({children}:any) {
-    return <div className="flex justify-between">{children}</div>
+import { cn } from "@/lib/utils";
+
+export function FlexJustifySpread({ children, className }: any) {
+  const defaultClassNames = "flex justify-between";
+  return <div className={cn(defaultClassNames, className)}>{children}</div>;
 }

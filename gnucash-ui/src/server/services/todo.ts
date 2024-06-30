@@ -147,7 +147,6 @@ export const TodoService = {
           select: {
             statuses: true,
           },
-          
         },
       },
       where: {
@@ -158,11 +157,11 @@ export const TodoService = {
   },
   async getStatusHistory(todoId: number) {
     return prisma.todo.findFirst({
-      select: {        
+      select: {
         StatusTransitions: {
           select: {
             status: true,
-            created_at: true
+            created_at: true,
           },
           orderBy: {
             created_at: "desc",
@@ -170,7 +169,7 @@ export const TodoService = {
         },
       },
       where: {
-        id: todoId
+        id: todoId,
       },
     });
   },
@@ -214,6 +213,16 @@ export const TodoService = {
         status: statusMeta?.statuses.split(",")[0] as string,
         todo_id: newTodo.id,
         comment: `Changed by ${user.email}`,
+      },
+    });
+  },
+  async updateTodo({ field, value, todoId }: any) {
+    return await prisma.todo.update({
+      where: {
+        id: todoId,
+      },
+      data: {
+        [field]: value,
       },
     });
   },

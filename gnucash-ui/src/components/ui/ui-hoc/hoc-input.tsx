@@ -6,6 +6,7 @@ import {
   FormMessage,
 } from "../form";
 import { Input } from "../input";
+import { TextArea } from "../text-area";
 import HocSelect from "./hoc-select";
 
 const inputByType = function ({ formMeta, field }: any) {
@@ -16,8 +17,9 @@ const inputByType = function ({ formMeta, field }: any) {
     case "email":
     case "number":
       return <Input type={fieldMeta.type} {...field} />;
+    case "textarea":
+      return <TextArea type={fieldMeta.type} {...field} />;      
     case "select":
-      console.log({ fieldMeta });
       return (
         <HocSelect
           selectLabelInline={null}
@@ -38,7 +40,9 @@ export default function HocInput({ name, formMeta }: any) {
       render={({ field }: any) => {
         return (
           <FormItem>
-            <FormLabel>{formMeta[name].label}</FormLabel>
+            {formMeta[name].label ? (
+              <FormLabel>{formMeta[name].label}</FormLabel>
+            ) : null}
             <FormControl>{inputByType({ formMeta, field })}</FormControl>
             <FormMessage />
           </FormItem>
