@@ -1,6 +1,7 @@
 "use client";
 
-import CreatCommentForTodoForm from "@/components/todo/create-comment-for-todo-form";
+import ChangeStatusForm from "@/components/todo/change-status-form";
+import CreateCommentForTodoForm from "@/components/todo/create-comment-for-todo-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { trpc } from "@/utils/trpc";
 import { DateTime } from "luxon";
@@ -22,7 +23,8 @@ export default function TaskDetailPage({ params }: any) {
           </CardHeader>
 
           <CardContent>
-            <CreatCommentForTodoForm  todoId={todo?.id}/>
+            <ChangeStatusForm todoId={todo?.id} todoStatus={todo?.StatusTransitions[0]?.status}/>
+            <CreateCommentForTodoForm  todoId={todo?.id}/>
             {comments.map((c, index) => {
               return <div key={index}>{c.comment}</div>;
             })}

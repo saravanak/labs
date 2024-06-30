@@ -68,6 +68,7 @@
     "awesome-debounce-promise": "^2.1.0",
     "blockly": "^9.2.0",
     "canvas-sketch": "^0.7.7",
+    "change-case-all": "^2.1.0",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",

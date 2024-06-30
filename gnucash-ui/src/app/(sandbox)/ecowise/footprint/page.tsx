@@ -1,21 +1,16 @@
 "use client";
 import CarbonFootprintCalculator from "@/components/ecowise/carbon-footprint";
+import {
+  QueryClient
+} from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
 export default function FoorPrintPage() {
   const router = useRouter();
   const pathName = usePathname();
-  
 
   const { data: session, status } = useSession();
 
@@ -24,10 +19,11 @@ export default function FoorPrintPage() {
   }
 
   if (status == "unauthenticated") {
-    router.push(`/api/auth/signin/email?callbackUrl=${pathName}`)
+    router.push(`/api/auth/signin/email?callbackUrl=${pathName}`);
   }
 
   if (status == "authenticated") {
-    return <CarbonFootprintCalculator/>;
+    return <CarbonFootprintCalculator />;
   }
 }
+

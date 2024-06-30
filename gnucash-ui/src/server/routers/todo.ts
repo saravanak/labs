@@ -31,7 +31,26 @@ export const todoRouter = t.router({
       return {
         comments: await TodoService.getDetailedTodo(opts.input.taskId),
         statusHistory: await TodoService.getStatusHistory(opts.input.taskId),
-        todo: await prisma.todo.findFirst({ where: { id: opts.input.taskId } }),
+        todo: await prisma.todo.findFirst({
+          select: {
+            StatusTransitions: {
+              select: {
+                status: true,
+                todo_id: true,
+              },
+              orderBy: {
+                created_at: "desc",
+              },
+              distinct: ["todo_id"],
+            },
+            id: true,
+            title: true,
+            description: true,
+          },
+          where: {
+            id: opts.input.taskId,
+          },
+        }),
       };
     }),
   createTodo: shieldedProcedure

@@ -2,7 +2,7 @@ import { trpc } from "@/utils/trpc";
 import { z } from "zod";
 import HocForm from "../ui/ui-hoc/hoc-form";
 
-export default function CreatCommentForTodoForm({ todoId }: any) {
+export default function CreateCommentForTodoForm({ todoId }: any) {
   const formSchema = z.object({
     commentString: z.string(),
   });
