@@ -34,6 +34,19 @@ export const todoUserRouter = t.router({
         nextCursor: last(items)?.id,
       };
     }),
+    addUserToSpace: shieldedProcedure
+    .input(
+      z.object({
+        inviteeEmail: z.string(),
+        spaceId: z.number(),        
+      })
+    )
+    .mutation(async (opts) => {
+      const { session } = opts.ctx;
+      const items = await SpaceService.addUserToSpace(session.user, opts.input.spaceId, opts.input.inviteeEmail);
+      return {     
+      };
+    }),
 });
 
 

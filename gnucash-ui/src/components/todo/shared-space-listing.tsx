@@ -23,11 +23,9 @@ export default function SharedSpaceListing() {
         },
       }
     );
-  console.log(data);
 
   useEffect(() => {
     if (inView) {
-      console.log("Fetching next state from inview handler");
 
       fetchNextPage();
     }

@@ -7,33 +7,28 @@ import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 
 export default function TodoListing() {
-
   const ref = useRef(null);
   const [inView, threshold] = useInViewport(ref, {
     threshold: 1,
   });
 
-
-  const { fetchNextPage, data, error, hasNextPage } = trpc.todo.getOwnTodos.useInfiniteQuery(
-    {
-      limit: 9,
-    },
-    {
-      getNextPageParam: (lastPage: any) => {
-        return lastPage.nextCursor;
+  const { fetchNextPage, data, error, hasNextPage } =
+    trpc.todo.getOwnTodos.useInfiniteQuery(
+      {
+        limit: 9,
       },
-    }
-  );
-  console.log(data);
+      {
+        getNextPageParam: (lastPage: any) => {
+          return lastPage.nextCursor;
+        },
+      }
+    );
 
   useEffect(() => {
     if (inView) {
-      console.log("Fetching next state from inview handler");
-
       fetchNextPage();
     }
   }, [inView]);
-
 
   if (error) {
     return <h1 data-test-data="not-logged-in"> Please login</h1>;
@@ -56,7 +51,7 @@ export default function TodoListing() {
     return (
       <Card>
         <div className="w-[3/6] h-[80svh] rounded overflow-hidden shadow-[0_2px_10px] shadow-blackA4 bg-white">
-          <div  className="w-full h-full rounded overflow-scroll">
+          <div className="w-full h-full rounded overflow-scroll">
             <div className="py-[15px] px-5">
               <div className="text-violet11 text-[15px] leading-[18px] font-medium">
                 Tags
@@ -67,7 +62,10 @@ export default function TodoListing() {
                   <Fragment key={index}>
                     {todo.items.map((v: any, itemindex) => {
                       return (
-                        <div key={itemindex} className="border-b border-gray-600 py-4">
+                        <div
+                          key={itemindex}
+                          className="border-b border-gray-600 py-4"
+                        >
                           {v.StatusTransitions[0].status}
                         </div>
                       );
@@ -76,22 +74,24 @@ export default function TodoListing() {
                 );
               })}
             </div>
-            {hasNextPage ? 
-            <Button
-              ref={ref}
-              onClick={() => {
-                console.log("Calling nextpage");
+            {hasNextPage ? (
+              <Button
+                ref={ref}
+                onClick={() => {
+                  console.log("Calling nextpage");
 
-                fetchNextPage();
-              }}
-              className="mb-8"
-            >
-              Load more 
-            </Button>: null}
+                  fetchNextPage();
+                }}
+                className="mb-8"
+              >
+                Load more
+              </Button>
+            ) : null}
           </div>
         </div>
-        {inView}{threshold}
-      </Card>      
+        {inView}
+        {threshold}
+      </Card>
     );
   }
 

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { Card, CardTitle } from "../ui/card";
+import AddUserToSpace from "./add-user-to-space";
 
 export default function SpaceListing() {
   const ref = useRef(null);
@@ -23,7 +24,6 @@ export default function SpaceListing() {
         },
       }
     );
-  console.log(data);
 
   useEffect(() => {
     if (inView) {
@@ -57,16 +57,17 @@ export default function SpaceListing() {
         <div className="w-[3/6] max-h-[80svh] overflow-hidden mx-2">
           <div className="w-full h-full  overflow-auto">
             <div className="">
-              {todos.pages.map((todo, index) => {
+              {todos.pages.map((space, index) => {
                 return (
                   <Fragment key={index}>
-                    {todo.items.map((v: any, itemindex) => {
+                    {space.items.map((v: any, itemindex) => {
                       return (
                         <div
-                          key={itemindex}
-                          className="border-b border-gray-200 py-4"
+                        key={itemindex}
+                        className="border-b border-gray-200 py-4"
                         >
                           <i>{v.name}</i> has {v._count.todos} Todos
+                        <AddUserToSpace spaceId={v.id} />
                         </div>
                       );
                     })}

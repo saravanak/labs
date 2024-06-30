@@ -15,7 +15,7 @@ export const SpaceService = {
     });
   },
 
-  async addUserToSpace(owner: User, spaceId: number, invitee: User) {
+  async addUserToSpace(owner: User, spaceId: number, invitee: string) {
     const userSpace = getUserSpaces.run(
       {
         userId: owner.id,
@@ -33,7 +33,7 @@ export const SpaceService = {
 
     const inviteeExists = await prisma.user.findFirst({
       where: {
-        id: invitee.id,
+        email: invitee,
       },
     });
 
@@ -46,7 +46,7 @@ export const SpaceService = {
     const space = await prisma.spaceSharing.create({
       data: {
         space_id: spaceId,
-        user_id: invitee.id,
+        user_id: inviteeExists.id,
       },
     });
   },
@@ -63,7 +63,8 @@ export const SpaceService = {
           _count: {
             select: { todos: true },
           },
-          name: true
+          name: true,
+          id: true,
         },
       },
       { limit, cursor }
@@ -76,9 +77,9 @@ export const SpaceService = {
         where: {
           spaceSharing: {
             some: {
-              user_id: user.id
-            }
-          },          
+              user_id: user.id,
+            },
+          },
         },
         orderBy: {
           id: "asc",
@@ -87,13 +88,12 @@ export const SpaceService = {
           _count: {
             select: { todos: true },
           },
-          name: true
+          name: true,
         },
       },
       { limit, cursor }
     );
     return prisma.space.findMany(queryInput);
-  }
-  
+  },
 };
 
