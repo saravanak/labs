@@ -97,8 +97,7 @@ Write a proper syntax highlighting plugin for 11ty using Prism and JsDom.
 
 - testing 
 - CRUD tasks
-- Filtering, Sorting by title, description and status, pagination 
-- Subscribe user to your space
+- Filtering, Sorting by title, description and status  
 - animations 
 
 - Choose display columns for tasks

@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import { seed_insertManyCommentsIntoTodo } from "./../typed-queries/todo/action";
 import { Shelf } from "@prisma/client";
 import { enhance } from "@zenstackhq/runtime";
-import { times } from "lodash";
+import { omit, times } from "lodash";
 import getLuggages from "./data";
 import { fakeComment, fakeRack, fakeShelf, fakeUser } from "./fake-data";
 import prisma from "./index";
@@ -31,7 +31,7 @@ async function main() {
   const statusMeta = await prisma.statusMeta.findFirst();
   console.log(fakeUser());
 
-  const user = await prisma.user.create({ data: fakeUser() });
+  const user = await prisma.user.create({ data: omit(fakeUser(), ['space_id']) });
 
   const userSpace = await prisma.space.create({
     data: { owner_id: user.id, name: "DEFAULT" },

@@ -6,12 +6,17 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { Card, CardTitle } from "../ui/card";
 import AddUserToSpace from "./add-user-to-space";
+import { FlexJustifySpread } from "../ui/ui-hoc/flex-justify-spread";
+import { Plus } from "lucide-react";
+import SpaceCreateForm from "./space-create-form";
 
 export default function SpaceListing() {
   const ref = useRef(null);
   const [inView, threshold] = useInViewport(ref, {
     threshold: 1,
   });
+
+  const [showSpaceCreateForm ,  setShowSpaceCreateForm ] = useState(false)
 
   const { fetchNextPage, data, error, hasNextPage } =
     trpc.todoUser.getUserSpaces.useInfiniteQuery(
@@ -53,7 +58,14 @@ export default function SpaceListing() {
 
     return (
       <Card className="my-8">
-        <CardTitle className="m-4">Spaces you own</CardTitle>
+        <CardTitle className="m-4">
+          <FlexJustifySpread>
+            <div>Spaces you own</div>
+            <Button onClick={() => setShowSpaceCreateForm(true)}> <Plus /></Button>
+
+            {showSpaceCreateForm ? <SpaceCreateForm /> : null}
+          </FlexJustifySpread>
+        </CardTitle>
         <div className="w-[3/6] max-h-[80svh] overflow-hidden mx-2">
           <div className="w-full h-full  overflow-auto">
             <div className="">
@@ -63,11 +75,11 @@ export default function SpaceListing() {
                     {space.items.map((v: any, itemindex) => {
                       return (
                         <div
-                        key={itemindex}
-                        className="border-b border-gray-200 py-4"
+                          key={itemindex}
+                          className="border-b border-gray-200 py-4"
                         >
                           <i>{v.name}</i> has {v._count.todos} Todos
-                        <AddUserToSpace spaceId={v.id} />
+                          <AddUserToSpace spaceId={v.id} />
                         </div>
                       );
                     })}
@@ -75,11 +87,7 @@ export default function SpaceListing() {
                 );
               })}
             </div>
-            <div
-              ref={ref}
-              >
-                &nbsp;
-                </div>
+            <div ref={ref}>&nbsp;</div>
           </div>
         </div>
       </Card>

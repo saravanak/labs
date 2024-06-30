@@ -88,7 +88,7 @@ model User {
   footprint_id    Int?
   carbonFootprint CarbonFootprint? @relation(fields: [footprint_id], references: [id])
   space_id        Int?
-  space           Space?
+  space           Space[]
   api_key         String?
   comments        Comment[]
   spaceSharing    SpaceSharing[]
@@ -97,22 +97,24 @@ model User {
 }
 
 model Space {
-  id           Int            @id() @default(autoincrement())
-  owner_id     String         @unique()
+  ///FAKE:faker.number.int()
+  id           Int            @unique() @default(autoincrement())
+  owner_id     String
   name         String
   user         User           @relation(fields: [owner_id], references: [id])
   todos        Todo[]
   spaceSharing SpaceSharing[]
 
+  @@id([owner_id, name])
   @@map(name: "spaces")
 }
 
 model SpaceSharing {
   id       Int    @id() @default(autoincrement())
   space_id Int
-  space    Space  @relation(fields: [space_id], references: [id])
+  space    Space  @relation(fields: [space_id], references: [id], onDelete: Cascade)
   user_id  String
-  user     User   @relation(fields: [user_id], references: [id])
+  user     User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map(name: "user_space")
 }
@@ -228,7 +230,7 @@ model Todo {
   statusMetaId      Int
   statusMeta        StatusMeta          @relation(fields: [statusMetaId], references: [id])
   space_id          Int
-  space             Space               @relation(fields: [space_id], references: [id])
+  space             Space               @relation(fields: [space_id], references: [id], onDelete: Cascade)
   created_at        DateTime            @default(now())
   updated_at        DateTime            @updatedAt()
   StatusTransitions StatusTransitions[]

@@ -47,6 +47,19 @@ export const todoUserRouter = t.router({
       return {     
       };
     }),
+    createSpace: shieldedProcedure
+    .input(
+      z.object({
+        spaceName: z.string(),
+        
+      })
+    )
+    .mutation(async (opts) => {
+      const { session } = opts.ctx;
+      const items = await SpaceService.createSpace(session.user, opts.input.spaceName);
+      return {     
+      };
+    }),
 });
 
 
