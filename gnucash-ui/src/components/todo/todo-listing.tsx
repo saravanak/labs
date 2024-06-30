@@ -50,9 +50,9 @@ export default function TodoListing() {
 
     return (
       <Card>
-        <div className="w-[3/6] h-[80svh] rounded overflow-hidden shadow-[0_2px_10px] shadow-blackA4 bg-white">
-          <div className="w-full h-full rounded overflow-scroll">
-            <div className="py-[15px] px-5">
+        <div className="w-[3/6] max-h-[80svh] overflow-hidden mx-2">
+          <div className="w-full max-h-[80svh] overflow-auto">
+            <div className="">
               <div className="text-violet11 text-[15px] leading-[18px] font-medium">
                 Tags
               </div>
@@ -65,8 +65,11 @@ export default function TodoListing() {
                         <div
                           key={itemindex}
                           className="border-b border-gray-600 py-4"
+                          onClick={() => router.push(`./${v.id}`)}
                         >
-                          {v.StatusTransitions[0].status}
+                          {v.title}
+                          {v.desciption}
+                          {index*9+itemindex+1} {v.StatusTransitions[0].status}
                         </div>
                       );
                     })}
@@ -89,8 +92,6 @@ export default function TodoListing() {
             ) : null}
           </div>
         </div>
-        {inView}
-        {threshold}
       </Card>
     );
   }

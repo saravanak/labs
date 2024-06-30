@@ -13,14 +13,14 @@ export const todoRouter = t.router({
         cursor: z.number().nullish(),
       })
     )
-  .query(async (opts) => {
-    const { session } = opts.ctx;
-    const items = await TodoService.getTodosForUser(session.user, opts.input)
-    return {
-      items , 
-      nextCursor: last(items)?.id
-    }
-  }),
+    .query(async (opts) => {
+      const { session } = opts.ctx;
+      const items = await TodoService.getTodosForUser(session.user, opts.input);
+      return {
+        items,
+        nextCursor: last(items)?.id,
+      };
+    }),
   getDetailedView: shieldedProcedure
     .input(
       z.object({
@@ -28,8 +28,11 @@ export const todoRouter = t.router({
       })
     )
     .query(async (opts) => {
-      const { session } = opts.ctx;
-      return TodoService.getDetailedTodo(opts.input.taskId);
+      return {
+        comments: await TodoService.getDetailedTodo(opts.input.taskId),
+        statusHistory: await TodoService.getStatusHistory(opts.input.taskId),
+        todo: await prisma.todo.findFirst({ where: { id: opts.input.taskId } }),
+      };
     }),
   createTodo: shieldedProcedure
     .input(

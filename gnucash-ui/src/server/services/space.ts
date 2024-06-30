@@ -61,7 +61,7 @@ export const SpaceService = {
         },
         select: {
           _count: {
-            select: { todos: true },
+            select: { todos: true, spaceSharing: true },
           },
           name: true,
           id: true,

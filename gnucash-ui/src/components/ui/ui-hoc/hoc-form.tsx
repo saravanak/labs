@@ -2,17 +2,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { getPropertyPaths } from "@/utils/zod/extract-keys-from-type";
-import {
-    Form
-} from "../form";
+import { Form } from "../form";
 import HocInput from "./hoc-input";
+import { Button } from "../button";
 
-export default function HocForm({ formSchema, onSubmit, formMeta }: any) {
+export default function HocForm({
+  formSchema,
+  onSubmit,
+  formMeta,
+  defaultValues,
+}: any) {
   const form = useForm({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-    },
+    defaultValues,
   });
 
   const additionalContext = {
@@ -24,6 +26,8 @@ export default function HocForm({ formSchema, onSubmit, formMeta }: any) {
     <Form {...additionalContext}>
       <form
         onSubmit={form.handleSubmit((d) => {
+          console.log("Handle submit");
+
           onSubmit(d);
         })}
         className="space-y-8"
@@ -33,6 +37,7 @@ export default function HocForm({ formSchema, onSubmit, formMeta }: any) {
             <HocInput key={property} name={property} formMeta={formMeta} />
           );
         })}
+        <Button type="submit">{formMeta?.submit?.label || "Submit"}</Button>
       </form>
     </Form>
   );

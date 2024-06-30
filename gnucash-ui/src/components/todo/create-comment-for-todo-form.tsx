@@ -2,24 +2,24 @@ import { trpc } from "@/utils/trpc";
 import { z } from "zod";
 import HocForm from "../ui/ui-hoc/hoc-form";
 
-export default function AddUserToSpace({ spaceId }: any) {
+export default function CreatCommentForTodoForm({ todoId }: any) {
   const formSchema = z.object({
-    email: z.string().email(),
+    commentString: z.string(),
   });
 
   const formMeta: Record<string, any> = {
-    email: {
-      label: "Enter the email of the person you want to share this space to",
-      type: "email",
+    commentString: {
+      label: "Enter comment",
+      type: "text",
     },
   };
 
-  const mutation = trpc.todoUser.addUserToSpace.useMutation({});
+  const mutation = trpc.todo.addComment.useMutation({});
 
   function onSubmit(formState: any) {
     mutation.mutate({
-      spaceId,
-      inviteeEmail: formState.email,
+      todoId,
+      ...formState,
     });
   }
 
@@ -28,8 +28,7 @@ export default function AddUserToSpace({ spaceId }: any) {
       formSchema={formSchema}
       onSubmit={onSubmit}
       formMeta={formMeta}
-      defaultValues={{ email: "" }}
+      defaultValues={{ commentString: "" }}
     />
   );
 }
-

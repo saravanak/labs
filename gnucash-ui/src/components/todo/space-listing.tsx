@@ -9,6 +9,7 @@ import AddUserToSpace from "./add-user-to-space";
 import { FlexJustifySpread } from "../ui/ui-hoc/flex-justify-spread";
 import { Plus } from "lucide-react";
 import SpaceCreateForm from "./space-create-form";
+import TodoEditForm from "./todo-edit-form";
 
 export default function SpaceListing() {
   const ref = useRef(null);
@@ -16,7 +17,8 @@ export default function SpaceListing() {
     threshold: 1,
   });
 
-  const [showSpaceCreateForm ,  setShowSpaceCreateForm ] = useState(false)
+  const [showSpaceCreateForm, setShowSpaceCreateForm] = useState(false);
+  const [showTodoForm, setShowTodoForm] = useState(false);
 
   const { fetchNextPage, data, error, hasNextPage } =
     trpc.todoUser.getUserSpaces.useInfiniteQuery(
@@ -61,7 +63,10 @@ export default function SpaceListing() {
         <CardTitle className="m-4">
           <FlexJustifySpread>
             <div>Spaces you own</div>
-            <Button onClick={() => setShowSpaceCreateForm(true)}> <Plus /></Button>
+            <Button onClick={() => setShowSpaceCreateForm(true)}>
+              {" "}
+              <Plus />
+            </Button>
 
             {showSpaceCreateForm ? <SpaceCreateForm /> : null}
           </FlexJustifySpread>
@@ -78,8 +83,17 @@ export default function SpaceListing() {
                           key={itemindex}
                           className="border-b border-gray-200 py-4"
                         >
-                          <i>{v.name}</i> has {v._count.todos} Todos
+                          <i>{v.name}</i> has {v._count.todos} Todos You are
+                          sharing this with {v._count.spaceSharing} users
+                          <Button
+                            onClick={() => setShowTodoForm(true)}
+                            variant="outline"
+                            size="sm"
+                          >
+                            <Plus></Plus>Todo
+                          </Button>
                           <AddUserToSpace spaceId={v.id} />
+                          {showTodoForm ?  <TodoEditForm spaceId={v.id}/> : null}
                         </div>
                       );
                     })}

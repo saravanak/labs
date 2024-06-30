@@ -12,14 +12,17 @@ import { pgClient } from "@/lib/prisma/client";
 import { space } from "postcss/lib/list";
 import { orderBy } from "lodash";
 
-export const returnPaginatedQuery = (baseQuery: any, {limit, cursor}:any) => {
+export const returnPaginatedQuery = (
+  baseQuery: any,
+  { limit, cursor }: any
+) => {
   const queryInput = {
     take: limit,
     skip: 0,
     orderBy: {
       id: "asc",
     },
-   ...baseQuery
+    ...baseQuery,
   } as any;
 
   if (cursor) {
@@ -28,8 +31,8 @@ export const returnPaginatedQuery = (baseQuery: any, {limit, cursor}:any) => {
     };
     queryInput.skip = 1;
   }
-  return queryInput
-}
+  return queryInput;
+};
 
 export const TodoService = {
   async getTodosForUser(
@@ -38,38 +41,47 @@ export const TodoService = {
   ) {
     console.log(user);
 
-
-   const queryInput = returnPaginatedQuery({
-    select: {
-      space: {
+    const queryInput = returnPaginatedQuery(
+      {
         select: {
-          name: true,
-          user: {
+          space: {
             select: {
-              email: true,
+              name: true,
+              user: {
+                select: {
+                  email: true,
+                },
+              },
+            },
+          },
+          id: true,
+          title: true,
+          description: true,
+          StatusTransitions: {
+            select: {
+              status: true,
+              todo_id: true,
+            },
+            orderBy: {
+              created_at: "desc",
+            },
+            distinct: ["todo_id"],
+          },
+        },
+        where: {
+          space: {
+            is: {
+              user: {
+                is: {
+                  email: user.email,
+                },
+              },
             },
           },
         },
       },
-      StatusTransitions: {
-        select: {
-          status: true,
-          todo_id: true
-        },
-        orderBy: {
-          created_at: 'desc',
-        },
-        distinct: ["todo_id"],
-      },
-    },
-    where: {
-      title: {
-        contains: "chan",
-        mode: 'insensitive'
-
-      }
-    }
-   },  {limit, cursor })
+      { limit, cursor }
+    );
 
     return await prisma.todo.findMany(queryInput);
   },
@@ -135,6 +147,7 @@ export const TodoService = {
           select: {
             statuses: true,
           },
+          
         },
       },
       where: {
@@ -142,6 +155,24 @@ export const TodoService = {
       },
     });
     return result?.statusMeta?.statuses?.split(",");
+  },
+  async getStatusHistory(todoId: number) {
+    return prisma.todo.findFirst({
+      select: {        
+        StatusTransitions: {
+          select: {
+            status: true,
+            created_at: true
+          },
+          orderBy: {
+            created_at: "desc",
+          },
+        },
+      },
+      where: {
+        id: todoId
+      },
+    });
   },
   async changeStatus(todoId: number, newStatus: string, user: User) {
     const availableStatuses = await this.getStatuses(todoId);
@@ -188,7 +219,7 @@ export const TodoService = {
   },
 
   async addComment(todoId: number, user: User, commentContent: string) {
-    return await seed_insertManyCommentsIntoTodo.run(
+    const insertedComment = await seed_insertManyCommentsIntoTodo.run(
       {
         todos: [
           {
@@ -199,6 +230,14 @@ export const TodoService = {
       },
       pgClient
     );
+
+    return prisma.commentable.create({
+      data: {
+        commentee_id: todoId,
+        commentee_type: "Todo",
+        comment_id: insertedComment[0].id,
+      },
+    });
   },
 };
 

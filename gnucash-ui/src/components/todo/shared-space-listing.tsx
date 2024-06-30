@@ -51,7 +51,7 @@ export default function SharedSpaceListing() {
 
     return (
       <Card className="my-8">
-        <CardTitle className="m-4">Shared spaces</CardTitle>
+        <CardTitle className="m-4">Spaces Shared with you</CardTitle>
         <div className="w-[3/6] max-h-[80svh] overflow-hidden mx-2">
           <div className="w-full h-full  overflow-auto">
             <div className="">

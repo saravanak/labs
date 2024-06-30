@@ -22,12 +22,15 @@ export const UserService = {
     });
 
     const todosForUser = await TodoService.getTodosForUser(user, {
-      limit: 1,
-      cursor: 0,
+      limit: 5,
+      cursor: undefined,
     });
 
+    console.log(`defaultOrCreateOwnerSpace:${todosForUser}`);
+    
+
     if (todosForUser?.length == 0) {
-      for (var i = 1; i < 500; i++) {
+      for (var i = 1; i < 5; i++) {
         TodoService.createDefaultTodos(space, user);
       }
     }
