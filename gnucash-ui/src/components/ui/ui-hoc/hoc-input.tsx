@@ -41,7 +41,7 @@ export default function HocInput({ name, formMeta }: any) {
         return (
           <FormItem>
             {formMeta[name].label ? (
-              <FormLabel>{formMeta[name].label}</FormLabel>
+              <FormLabel className="text-lg font-bold">{formMeta[name].label}</FormLabel>
             ) : null}
             <FormControl>{inputByType({ formMeta, field })}</FormControl>
             <FormMessage />

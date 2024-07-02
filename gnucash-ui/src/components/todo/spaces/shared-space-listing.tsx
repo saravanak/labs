@@ -1,18 +1,21 @@
 "use client";
+import { Progress } from "@/components/ui/progress";
 import { trpc } from "@/utils/trpc";
 import { useInViewport } from "ahooks";
+import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Fragment, useEffect, useRef } from "react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
+import { FlexJustifySpread } from "../../ui/ui-hoc/flex-justify-spread";
 
-export default function TodoListing() {
+export default function SharedSpaceListing() {
   const ref = useRef(null);
   const [inView, threshold] = useInViewport(ref, {
     threshold: 1,
   });
 
-  const { fetchNextPage, data, error, hasNextPage } =
-    trpc.todo.getOwnTodos.useInfiniteQuery(
+  const { fetchNextPage, data, error, isLoading } =
+    trpc.todoUser.getSharedSpaces.useInfiniteQuery(
       {
         limit: 9,
       },
@@ -33,27 +36,24 @@ export default function TodoListing() {
     return <h1 data-test-data="not-logged-in"> Please login</h1>;
   }
 
+  
   const router = useRouter();
   let components = <></>;
   if (data) {
     const todos = data;
 
-    if (todos?.pages?.length == 0) {
+    if (todos?.pages[0].items.length == 0) {
       return (
-        <div>
-          you have no todos
-          <Button onClick={() => {}}>Click here to create some!</Button>{" "}
-        </div>
+        <FlexJustifySpread>
+          You have no todos
+          <Button variant="outline" size="sm" onClick={() => {}}><Plus/> Space </Button>
+        </FlexJustifySpread>
       );
     }
 
     return (
-      <div className="w-full  box-border ">
+      <div className="w-full h-full  overflow-auto">
         <div className="">
-          <div className="text-violet11 text-[15px] leading-[18px] font-medium">
-            Tags
-          </div>
-
           {todos.pages.map((todo, index) => {
             return (
               <Fragment key={index}>
@@ -61,13 +61,9 @@ export default function TodoListing() {
                   return (
                     <div
                       key={itemindex}
-                      className="border-b border-gray-600 py-4 px-2"
-                      onClick={() => router.push(`./todos/${v.id}`)}
+                      className="border-b border-gray-200 py-4"
                     >
-                      {v.title}
-                      {v.desciption}
-                      {index * 9 + itemindex + 1}{" "}
-                      {v.StatusTransitions[0].status}
+                      <i>{v.name}</i> has {v._count.todos} Todos
                     </div>
                   );
                 })}
@@ -75,21 +71,12 @@ export default function TodoListing() {
             );
           })}
         </div>
-        {hasNextPage ? (
-          <Button
-            ref={ref}
-            onClick={() => {
-              console.log("Calling nextpage");
-
-              fetchNextPage();
-            }}
-            className="mb-8"
-          >
-            Load more
-          </Button>
-        ) : null}
+        <div ref={ref}>&nbsp;</div>
       </div>
     );
+  }
+  if (isLoading) {
+    return <Progress data-state="indeterminate" />;
   }
 
   return <>{components}</>;

@@ -5,6 +5,25 @@ import { User } from "@prisma/client";
 import { returnPaginatedQuery } from "./todo";
 import { orderBy } from "lodash";
 
+const SpaceWhereQueries = {
+  ownedBy: (user: User) => ({
+    where: {
+      owner_id: user.id,
+    },
+  }),
+  shared: (user: User) => {
+    return {
+      where: {
+        spaceSharing: {
+          some: {
+            user_id: user.id,
+          },
+        },
+      },
+    };
+  },
+};
+
 export const SpaceService = {
   async createSpace(user: User, spaceName: string) {
     const space = await prisma.space.create({
@@ -50,12 +69,16 @@ export const SpaceService = {
       },
     });
   },
+  async getSpaceCounts(user: User) : Promise<{ owningSpaces: number, sharedSpaces: number}>{
+    return {
+      owningSpaces: await prisma.space.count(SpaceWhereQueries.ownedBy(user)),
+      sharedSpaces: await prisma.space.count(SpaceWhereQueries.shared(user)),
+    };
+  },
   async getUserSpaces(user: User, { limit, cursor }: any) {
     const queryInput = returnPaginatedQuery(
       {
-        where: {
-          owner_id: user.id,
-        },
+        ...SpaceWhereQueries.ownedBy(user),
         orderBy: {
           id: "asc",
         },
@@ -74,13 +97,7 @@ export const SpaceService = {
   async getSharedSpaces(user: User, { limit, cursor }: any) {
     const queryInput = returnPaginatedQuery(
       {
-        where: {
-          spaceSharing: {
-            some: {
-              user_id: user.id,
-            },
-          },
-        },
+        ...SpaceWhereQueries.shared(user),
         orderBy: {
           id: "asc",
         },

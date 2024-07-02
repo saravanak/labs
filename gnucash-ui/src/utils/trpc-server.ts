@@ -40,7 +40,7 @@ declare module "next-auth" {
 
 export const createInnerTRPCContext = async (opts: CreateContextOptions) => {
   
-  const magicToken = opts.headers.get("X-MAGIC-TOKEN");
+  const magicToken = opts.headers && opts.headers.get("X-MAGIC-TOKEN");
   
   let session = await getServerAuthSession() || {} as any;
 

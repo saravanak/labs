@@ -1,14 +1,13 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Case } from "change-case-all";
 import { Edit, Save, X } from "lucide-react";
-import { FlexJustifySpread } from "./flex-justify-spread";
-import { Button } from "../button";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { getPropertyPaths } from "@/utils/zod/extract-keys-from-type";
+import { Button } from "../button";
 import { Form } from "../form";
+import { FlexJustifySpread } from "./flex-justify-spread";
 import HocInput from "./hoc-input";
-import { Case } from "change-case-all";
 
 export default function EditableText({
   model,
@@ -18,12 +17,10 @@ export default function EditableText({
   fieldName,
 }: any) {
   const [isEditing, setIsEditing] = useState(false);
-  const iconSize = 20;
+  const iconSize = 15;
 
   const fieldEditorSchema = z.object({
-    // field: z.string(),
     [fieldName]: z.string(),
-    // value: z.string(),
   });
 
   const form = useForm({

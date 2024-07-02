@@ -1,8 +1,10 @@
+import SessionWrapper from "@/components/todo/session-wrapper";
+import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { TrpcProvider } from "@/utils/trpc-provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
-import AppContainer from "@/components/layout/app-container";
-import { TrpcProvider } from "@/utils/trpc-provider";
 
 // import { getServerSession } from "next-auth/next"
 
@@ -55,12 +57,14 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        
-      </head>
-      <body className={inter.className}>
+      <head></head>
+      <body className={cn(inter.className, "")}>
         <TrpcProvider>
-          <AppContainer>{children}</AppContainer>
+          <div className="md:container md:px-auto w-full md:w-4/6 ">
+            <Card className="border-none bg-gray-100">
+              <SessionWrapper>{children}</SessionWrapper>
+            </Card>
+          </div>
         </TrpcProvider>
       </body>
     </html>

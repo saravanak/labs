@@ -1,23 +1,21 @@
 "use client";
+import ListItem from "@/components/ui/lists/list-item";
 import { trpc } from "@/utils/trpc";
 import { useInViewport } from "ahooks";
-import { useRouter } from "next/navigation";
-import { Fragment, useEffect, useRef, useState } from "react";
-import { Button } from "../ui/button";
-import { Card, CardTitle } from "../ui/card";
-import AddUserToSpace from "./add-user-to-space";
-import { FlexJustifySpread } from "../ui/ui-hoc/flex-justify-spread";
 import { Plus } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { Button } from "../../ui/button";
 import SpaceCreateForm from "./space-create-form";
-import TodoEditForm from "./todo-edit-form";
 
 export default function SpaceListing() {
   const ref = useRef(null);
   const [inView, threshold] = useInViewport(ref, {
     threshold: 1,
   });
-
-  const [showSpaceCreateForm, setShowSpaceCreateForm] = useState(false);
+  
+  const router = useRouter();
+  const pathname = usePathname();
   const [showTodoForm, setShowTodoForm] = useState(false);
 
   const { fetchNextPage, data, error, hasNextPage } =
@@ -43,8 +41,7 @@ export default function SpaceListing() {
   if (error) {
     return <h1 data-test-data="not-logged-in"> Please login</h1>;
   }
-
-  const router = useRouter();
+  
   let components = <></>;
   if (data) {
     const todos = data;
@@ -59,32 +56,30 @@ export default function SpaceListing() {
     }
 
     return (
-      <Card className="my-8">
-        <CardTitle className="m-4">
-          <FlexJustifySpread>
-            <div>Spaces you own</div>
-            <Button onClick={() => setShowSpaceCreateForm(true)}>
-              {" "}
-              <Plus />
-            </Button>
-
-            {showSpaceCreateForm ? <SpaceCreateForm /> : null}
-          </FlexJustifySpread>
-        </CardTitle>
-        <div className="w-[3/6] max-h-[80svh] overflow-hidden mx-2">
-          <div className="w-full h-full  overflow-auto">
+      <div>
+        <ListItem>
+          <div className="font-bold">Create a new Space</div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => router.push(`${pathname}/create-space`)}
+          >
+            <Plus />
+            Space
+          </Button>
+        </ListItem>        
+        <div className="w-[3/6] max-h-full overflow-hidden">
+          <div className="w-full h-full overflow-auto">
             <div className="">
               {todos.pages.map((space, index) => {
                 return (
-                  <Fragment key={index}>
+                  <div key={index}>
                     {space.items.map((v: any, itemindex) => {
                       return (
-                        <div
-                          key={itemindex}
-                          className="border-b border-gray-200 py-4"
-                        >
-                          <i>{v.name}</i> has {v._count.todos} Todos You are
-                          sharing this with {v._count.spaceSharing} users
+                        <ListItem key={itemindex}>
+                          <div>{v.name}</div>
+                          <div>{v._count.todos} Todos </div>
+                          <div>{v._count.spaceSharing} Members </div>
                           <Button
                             onClick={() => setShowTodoForm(true)}
                             variant="outline"
@@ -92,19 +87,21 @@ export default function SpaceListing() {
                           >
                             <Plus></Plus>Todo
                           </Button>
-                          <AddUserToSpace spaceId={v.id} />
-                          {showTodoForm ?  <TodoEditForm spaceId={v.id}/> : null}
-                        </div>
+                          {/* <AddUserToSpace spaceId={v.id} />
+                          {showTodoForm ? (
+                            <TodoEditForm spaceId={v.id} />
+                          ) : null} */}
+                        </ListItem>
                       );
                     })}
-                  </Fragment>
+                  </div>
                 );
               })}
             </div>
             <div ref={ref}>&nbsp;</div>
           </div>
         </div>
-      </Card>
+      </div>
     );
   }
 

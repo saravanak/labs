@@ -16,6 +16,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, InputProps>(
         )}
         ref={ref}
         {...props}
+        rows={10}
       />
     )
   }

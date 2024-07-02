@@ -105,5 +105,13 @@ Write a proper syntax highlighting plugin for 11ty using Prism and JsDom.
 - Add space chooser 
 - Security: Implement basic security measures to protect the application from common vulnerabilities.
 
+https://github.com/poundifdef/SmoothMQ/tree/main
 
 
+
+Transfer server errors 
+Validate space name if present. 
+Wall time for db saves.
+SCroll to error for a complex error field
+Autofocus on first field on form 
+Accessibilty issues - reader. 
