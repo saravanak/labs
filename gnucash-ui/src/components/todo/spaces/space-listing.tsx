@@ -1,14 +1,12 @@
 "use client";
 import ListItem from "@/components/ui/lists/list-item";
+import ListActionButtons from "@/components/ui/ui-hoc/list-action-buttons";
 import { trpc } from "@/utils/trpc";
 import { useInViewport } from "ahooks";
-import { Plus, TicketSlash } from "lucide-react";
+import { Plus } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../../ui/button";
-import SpaceCreateForm from "./space-create-form";
-import { Case } from "change-case-all";
-import ListActionButtons from "@/components/ui/ui-hoc/list-action-buttons";
 
 export default function SpaceListing() {
   const ref = useRef(null);
@@ -72,18 +70,16 @@ export default function SpaceListing() {
         </ListItem>
         <div className="w-[3/6] max-h-full overflow-hidden">
           <div className="w-full h-full overflow-auto">
-            {currentSpace?.id}
             {todos.pages.map((space, index) => {
               return (
                 <div key={index}>
                   {space.items.map((v: any, itemindex) => {
                     return (
-                      <>
+                      <div className={currentSpace?.id == v.id ? "border-2 border-yellow-500" : " "}>
                         <ListItem
                           key={itemindex}
-                          drawBorder={true}
+                          drawBorder={true}                          
                           onClick={() => {
-                            console.log("clicking..", space);
                             setCurrentSpace(v);
                           }}
                         >
@@ -121,6 +117,7 @@ export default function SpaceListing() {
                         </ListItem>
                         {currentSpace?.id == v.id ? (
                           <ListActionButtons
+                            heading="Pick your path"
                             actions={[
                               {
                                 onClick: () =>
@@ -134,7 +131,7 @@ export default function SpaceListing() {
                             ]}
                           />
                         ) : null}
-                      </>
+                      </div>
                     );
                   })}
                 </div>

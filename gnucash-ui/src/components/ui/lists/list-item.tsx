@@ -9,6 +9,7 @@ const listVariants = cva("p-2 min-h-[4em]", {
       header:
         "font-bold justify-center border-b-2 border-gray-200 bg-card text-lg",
       heading2: "font-bold border-b-2 border-gray-200 bg-card text-lg",
+      selected: "border-2 border-yellow-500"
     },
 
     size: {
@@ -30,11 +31,17 @@ export default function ListItem({
   size,
   ...props
 }: any) {
+  const additionalClassNames = [
+    className,
+    onClick ? "cursor-pointer" : "",
+  ].join(" ");
   return (
     <>
       <FlexJustifySpread
         {...props}
-        className={cn(listVariants({ className, variant }))}
+        className={cn(
+          listVariants({ className: additionalClassNames, variant })
+        )}
         onClick={onClick}
       >
         {children}
