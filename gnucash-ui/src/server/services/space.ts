@@ -42,6 +42,7 @@ export const SpaceService = {
         owner_id: user.id,
       },
     });
+    return space;
   },
 
   async getMembers(user: User, spaceId: number) {

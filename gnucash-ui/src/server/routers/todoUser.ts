@@ -79,37 +79,7 @@ export const todoUserRouter = t.router({
     .mutation(async (opts) => {
       const { session } = opts.ctx;
 
-      try {
-        const items = await SpaceService.createSpace(
-          session.user,
-          opts.input.spaceName
-        );
-        throw new Error("");
-      } catch (error) {
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "An unexpected error occurred, please try again later.",
-          // optional: pass the original error to retain stack trace
-          cause: {
-            errors: [
-              {
-                key: "spaceName",
-                error: {
-                  type: "validation",
-                  message: "The field error that is",
-                },
-              },
-              {
-                key: "root",
-                error: {
-                  type: "form validation",
-                  message: "The global error that is",
-                },
-              },
-            ],
-          },
-        });
-      }
+      return SpaceService.createSpace(session.user, opts.input.spaceName);
     }),
 });
 

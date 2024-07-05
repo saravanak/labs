@@ -142,3 +142,4 @@ Todos listing
 - Deploy 
 
 Too many clients already...
+Remove public folder from git and prune git size (mp4 , secrets)

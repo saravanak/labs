@@ -2,8 +2,14 @@ import useAsyncValidation from "@/components/ui/ui-hoc/debounced-matcher";
 import { trpc } from "@/utils/trpc";
 import { z } from "zod";
 import HocForm from "../../ui/ui-hoc/hoc-form";
+import { toast } from "sonner";
+import { navigateToParentRoute } from "@/utils/router/parent-go-back";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function SpaceCreateForm() {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const [debouncedAsync, matches] = useAsyncValidation({
     validatorUrlFor: (spaceName: any) => {
       console.log("Generating fetch url");
@@ -35,11 +41,16 @@ export default function SpaceCreateForm() {
     spaceName: {
       label: "Space name",
       type: "text",
-      matches
+      matches,
     },
   };
 
-  const mutation = trpc.todoUser.createSpace.useMutation();
+  const mutation = trpc.todoUser.createSpace.useMutation({
+    onSuccess: (d, { spaceName }) => {
+      toast(`Created the new space ${spaceName}`);
+      navigateToParentRoute({ router, pathname });
+    },
+  });
 
   async function onSubmit({ spaceName }: any) {
     mutation.mutate({
