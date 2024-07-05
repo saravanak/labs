@@ -44,6 +44,14 @@ export const SpaceService = {
     });
     return space;
   },
+  async getSpace(user: User, { spaceId }: any) {
+    const space = await prisma.space.findFirst({
+      where: {
+        id: spaceId,
+      },
+    });
+    return space;
+  },
 
   async getMembers(user: User, spaceId: number) {
     return prisma.space.findFirst({

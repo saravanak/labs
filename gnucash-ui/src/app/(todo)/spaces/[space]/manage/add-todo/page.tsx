@@ -1,10 +1,12 @@
 "use client";
 
+import ListItem from "@/components/ui/lists/list-item";
+import LoaderListItem from "@/components/ui/lists/loader-list";
 import HocForm from "@/components/ui/ui-hoc/hoc-form";
 import { trpc } from "@/utils/trpc";
-import { z } from "zod";
-import { toast } from "sonner";
 import { usePathname, useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { z } from "zod";
 
 export default function AddMemberToSpace({ params }: any) {
   const formSchema = z
@@ -13,6 +15,10 @@ export default function AddMemberToSpace({ params }: any) {
       description: z.string(),
     })
     .required();
+
+  const { isLoading, data: spaceDetails } = trpc.space.getSpace.useQuery({
+    spaceId: parseInt(params.space),
+  });
 
   const router = useRouter();
   const pathname = usePathname();
@@ -44,15 +50,23 @@ export default function AddMemberToSpace({ params }: any) {
     });
   }
 
+  if (isLoading) {
+    return <LoaderListItem />;
+  }
+
   return (
-    <HocForm
-      formSchema={formSchema}
-      title="Create Space"
-      onSubmit={onSubmit}
-      formMeta={formMeta}
-      defaultValues={{ spaceName: "" }}
-      mutation={mutation}
-    />
+    <>
+      <ListItem variant="header">{spaceDetails?.name}</ListItem>
+
+      <HocForm
+        formSchema={formSchema}
+        title="New Todo"
+        onSubmit={onSubmit}
+        formMeta={formMeta}
+        defaultValues={{ spaceName: "" }}
+        mutation={mutation}
+      />
+    </>
   );
 }
 

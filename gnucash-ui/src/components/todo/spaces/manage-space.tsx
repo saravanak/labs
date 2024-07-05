@@ -8,16 +8,16 @@ import { usePathname, useRouter } from "next/navigation";
 import { Fragment, useState } from "react";
 import { toast } from "sonner";
 import TodoListing from "../todo-listing";
+import LoaderListItem from "@/components/ui/lists/loader-list";
+import CircledNumber from "@/components/ui/minions/circled-number";
 
 export default function ManageSpace({ spaceWithUsers }: any) {
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const router = useRouter();
   const pathname = usePathname();
 
-  console.log({ spaceWithUsers });
-
   if (!spaceWithUsers) {
-    return null; //Loading ..??
+    return <LoaderListItem />;
   }
 
   const { id, name } = spaceWithUsers;
@@ -29,22 +29,28 @@ export default function ManageSpace({ spaceWithUsers }: any) {
       toast(`Removed the user from ${name}`);
     },
   });
+
   return (
     <>
       <ListItem variant="header">{name}</ListItem>
       <ListItem variant="heading2">
-        Members
+        <div className="flex">
+          <div className="mr-4">Members</div>
+          <CircledNumber value={spaceWithUsers?.spaceSharing.length} />{" "}
+        </div>
         <Button
           variant={"outline"}
           onClick={() => router.push(`${pathname}/add-member`)}
         >
-          {" "}
-          Add Member{" "}
+          Add Member
         </Button>
       </ListItem>
       {spaceWithUsers?.spaceSharing.map(({ user }: any) => {
         return (
-          <Fragment key={user.id}>
+          <div
+            key={user.id}
+            className={selectedUser == user ? "border-2 border-yellow-500" : ""}
+          >
             <ListItem>
               <div className="flex"> {user.email}</div>
               <Button variant="outline" onClick={() => setSelectedUser(user)}>
@@ -82,7 +88,7 @@ export default function ManageSpace({ spaceWithUsers }: any) {
                 ]}
               />
             ) : null}
-          </Fragment>
+          </div>
         );
       })}
       <ListItem variant="heading2">
@@ -91,8 +97,7 @@ export default function ManageSpace({ spaceWithUsers }: any) {
           variant={"outline"}
           onClick={() => router.push(`${pathname}/add-todo`)}
         >
-          {" "}
-          Add New Todo{" "}
+          Add New Todo
         </Button>
       </ListItem>
       <TodoListing space={spaceWithUsers} statuses={[]} />

@@ -33,7 +33,7 @@ export const spaceRouter = t.router({
     .input(
       z.object({
         limit: z.number(),
-        cursor: z.number().nullish(),        
+        cursor: z.number().nullish(),
       })
     )
     .query(async (opts) => {
@@ -43,6 +43,18 @@ export const spaceRouter = t.router({
         items,
         nextCursor: last(items)?.id,
       };
+    }),
+  getSpace: shieldedProcedure
+    .input(
+      z.object({
+        spaceId: z.number(),
+      })
+    )
+    .query(async (opts) => {
+      const {
+        session: { user },
+      } = opts.ctx;
+      return SpaceService.getSpace(user, opts.input);
     }),
 });
 // export type definition of API

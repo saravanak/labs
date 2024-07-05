@@ -1,9 +1,11 @@
 "use client";
+import { clamp } from "@/utils/string";
 import { trpc } from "@/utils/trpc";
 import { useInViewport } from "ahooks";
 import { useRouter } from "next/navigation";
 import { Fragment, useEffect, useRef } from "react";
 import { Button } from "../ui/button";
+import PropertyListItem from "../ui/lists/property-list-item";
 
 export default function TodoListing({
   space = {},
@@ -43,10 +45,6 @@ export default function TodoListing({
     }
   }, [inView]);
 
-  if (error) {
-    return <h1 data-test-data="not-logged-in"> Please login</h1>;
-  }
-
   let components = <></>;
   if (data) {
     const todos = data;
@@ -55,7 +53,7 @@ export default function TodoListing({
       return (
         <div>
           you have no todos
-          <Button onClick={() => {}}>Click here to create some!</Button>{" "}
+          <Button onClick={() => {}}>Click here to create some!</Button>
         </div>
       );
     }
@@ -67,15 +65,21 @@ export default function TodoListing({
             <Fragment key={index}>
               {todo.items.map((v: any, itemindex) => {
                 return (
-                  <div
-                    key={itemindex}
-                    className="border-b border-gray-600 py-4 px-2"
+                  <PropertyListItem
+                    propertyRenderer={() => {
+                      return (
+                        <div className="flex flex-col text-ellipsis overflow-hidden w-3/4">
+                          <div className="font-bold">#{v.id} {v.title} </div>
+                          
+                          <div>{clamp(v.description, 72)}</div>
+                        </div>
+                      );
+                    }}
                     onClick={() => router.push(`/todos/${v.id}`)}
-                  >
-                    {v.title}
-                    {v.desciption}
-                    {index * 9 + itemindex + 1} {v.StatusTransitions[0].status}
-                  </div>
+                    value={v.StatusTransitions[0].status}
+                    asTag={true}
+                    tagColor="bg-green-600 text-gray-200 font-bold"
+                  />
                 );
               })}
             </Fragment>
@@ -86,8 +90,6 @@ export default function TodoListing({
           <Button
             ref={ref}
             onClick={() => {
-              console.log("Calling nextpage");
-
               fetchNextPage();
             }}
             className="mb-8"

@@ -5,6 +5,8 @@ import { trpc } from "@/utils/trpc";
 import { z } from "zod";
 import { toast } from "sonner";
 import { usePathname, useRouter } from "next/navigation";
+import LoaderListItem from "@/components/ui/lists/loader-list";
+import ListItem from "@/components/ui/lists/list-item";
 
 export default function AddMemberToSpace({ params }: any) {
   const formSchema = z
@@ -12,6 +14,10 @@ export default function AddMemberToSpace({ params }: any) {
       email: z.string().email().trim().toLowerCase(),
     })
     .required();
+
+  const { isLoading, data: spaceDetails } = trpc.space.getSpace.useQuery({
+    spaceId: parseInt(params.space),
+  });
 
   const router = useRouter();
   const pathname = usePathname();
@@ -28,7 +34,7 @@ export default function AddMemberToSpace({ params }: any) {
       toast(`Invited ${inviteeEmail} to your space`);
       const previousPath = pathname.split("/").slice(0, -1).join("/");
       console.log(previousPath);
-      
+
       router.push(`${previousPath}`);
       router.refresh();
     },
@@ -41,15 +47,22 @@ export default function AddMemberToSpace({ params }: any) {
     });
   }
 
+  if (isLoading) {
+    return <LoaderListItem />;
+  }
+
   return (
-    <HocForm
-      formSchema={formSchema}
-      title="Create Space"
-      onSubmit={onSubmit}
-      formMeta={formMeta}
-      defaultValues={{ spaceName: "" }}
-      mutation={mutation}
-    />
+    <>
+      <ListItem variant="header">{spaceDetails?.name}</ListItem>
+      <HocForm
+        formSchema={formSchema}
+        title="Add Member"
+        onSubmit={onSubmit}
+        formMeta={formMeta}
+        defaultValues={{ spaceName: "" }}
+        mutation={mutation}
+      />
+    </>
   );
 }
 

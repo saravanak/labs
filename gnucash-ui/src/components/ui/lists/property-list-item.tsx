@@ -4,6 +4,7 @@ import { Case } from "change-case-all";
 
 export default function PropertyListItem({
   property,
+  propertyRenderer,
   value,
   asTag,
   tagColor,
@@ -11,7 +12,11 @@ export default function PropertyListItem({
 }: any) {
   return (
     <ListItem {...props} drawBorder={true}>
-      <div className="font-bold mr-8">{Case.title(property)}</div>
+      {propertyRenderer ? (
+        propertyRenderer()
+      ) : (
+        <div className="font-bold mr-8">{Case.title(property)}</div>
+      )}
       <div
         className={cn(
           "align-right px-4 py-2 rounded-md mx-2",

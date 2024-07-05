@@ -7,7 +7,6 @@ import { useCallback, useContext, useEffect } from "react";
 import { Form } from "../form";
 import FormErrorContainer from "./form-error-container";
 import HocInput from "./hoc-input";
-import { clone } from "lodash";
 
 export default function HocForm({
   formSchema,
