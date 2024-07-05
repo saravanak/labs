@@ -1,19 +1,17 @@
 "use client";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
+  DrawerTitle
 } from "@/components/ui/drawer";
-import { Button } from "../ui/button";
-import { useEffect, useState } from "react";
 import { Delete } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
 
-export default function ({ recognition }: any) {
+export default function ChatListener({ recognition }: any) {
   const [started, setStarted] = useState(false);
   const [transcript, setTranscript] = useState("");
   useEffect(() => {

@@ -5,7 +5,9 @@ import { TabBarContext } from "@/components/todo/app-wrapper";
 import { getPropertyPaths } from "@/utils/zod/extract-keys-from-type";
 import { useCallback, useContext, useEffect } from "react";
 import { Form } from "../form";
+import FormErrorContainer from "./form-error-container";
 import HocInput from "./hoc-input";
+import { clone } from "lodash";
 
 export default function HocForm({
   formSchema,
@@ -13,15 +15,22 @@ export default function HocForm({
   formMeta,
   defaultValues,
   mutation,
-  title
+  title,
 }: any) {
+ 
+  const propertyPaths = getPropertyPaths(formSchema);
+
+  console.log({defaultValues});
+  
+
   const form = useForm({
-    resolver: zodResolver(formSchema),
-    mode: "all",
+    resolver: zodResolver({...formSchema, mode: "sync"}),
+    mode: "onSubmit",
     defaultValues,
   });
 
-  const { formState } = form;
+
+  const { formState, setError } = form;
 
   const { setForm } = useContext(TabBarContext);
 
@@ -34,18 +43,26 @@ export default function HocForm({
     [form]
   );
 
+  const nameWatcher = form.watch("spaceName");
+
   useEffect(() => {
-    console.log("Setting form on context", formState.isSubmitting);
+    if (mutation?.error) {
+      mutation.error.shape.cause.errors.forEach(({ key, error }: any) => {
+        setError(key, error);
+      });
+    }
     setForm({
       hookForm: form,
       formState: form.formState,
       mutation,
-      status: mutation.isLoading ? "Saving changes..." : "",
-      title, 
+      status: mutation?.isLoading ? "Saving changes..." : "",
+      title,
       onSubmit: formSubmitHandler,
       onCancel: () => {},
     });
-    
+    return () => {
+      setForm(null);
+    }
   }, [
     form,
     formState.submitCount,
@@ -53,34 +70,37 @@ export default function HocForm({
     formState.isSubmitted,
     formState.isSubmitting,
     mutation,
-    title
+    title,
   ]);
 
   const additionalContext = {
     ...form,
     formMeta,
   };
-  const propertyPaths = getPropertyPaths(formSchema);
-
+  
+  
   return (
-    <Form {...additionalContext} >
-      <form 
-        onSubmit={form.handleSubmit((d) => {
-          console.log("Handle submit");
+    <div className="grid  grid-cols-1 ">
+      <Form {...additionalContext}>
+        <form
+          onSubmit={form.handleSubmit((d) => {
+            console.log("Handle submit");
 
-          onSubmit(d);
-        })}
-        className="space-y-8 container mx-auto"
-      >
-        <fieldset disabled={mutation.isLoading}>
-          {propertyPaths.map((property) => {
-            return (
-              <HocInput key={property} name={property} formMeta={formMeta} />
-            );
+            onSubmit(d);
           })}
-        </fieldset>
-      </form>
-    </Form>
+          className=""
+        >
+          <fieldset disabled={mutation?.isLoading}>
+            {propertyPaths.map((property) => {
+              return (
+                <HocInput key={property} name={property} formMeta={formMeta} trigger={form.trigger} />
+              );
+            })}
+          </fieldset>
+        </form>
+      </Form>
+      <FormErrorContainer></FormErrorContainer>
+    </div>
   );
 }
 

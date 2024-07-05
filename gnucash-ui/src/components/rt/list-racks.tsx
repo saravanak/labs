@@ -1,11 +1,11 @@
+'use client';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
+  TableRow
 } from "@/components/ui/table";
 import { RackModel } from "@/lib/prisma/zod";
 import { usePathname, useRouter } from "next/navigation";

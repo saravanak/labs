@@ -33,7 +33,7 @@ export default function TwoNumberEditor({ maps, twoNumberMeta }: any) {
       <Form {...form}>
         <form className="space-y-8">
           {Object.keys(maps).map((v: any, index: number) => (
-            <FormField
+            <FormField key={index}
               control={form.control}
               name={v}
               render={({ field }) => (

@@ -14,6 +14,8 @@ const buttonVariants = cva(
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
           "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        selected:
+          "border border-input bg-primary text-primary-foreground hover:bg-primary/90 border-yellow-600 border-4",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         formAction: " text-center content-center ",
@@ -23,6 +25,8 @@ const buttonVariants = cva(
       btnColor: {
         userAgree: "bg-green-600 text-secondary-foreground hover:bg-green/80",
         userCancel: "bg-gray-400 text-secondary-foreground hover:bg-gray/80",
+        lightgray: "bg-gray-300 text-secondary-foreground hover:bg-gray/40",
+        default: "",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -30,13 +34,14 @@ const buttonVariants = cva(
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
         icon: "h-10 w-10",
-        formAction: "h-full rounded-none basis-1/4  h-full"
+        list: "w-full grow rounded-none py-4",
+        formAction: "h-full rounded-none basis-1/4  h-full",
       },
     },
     defaultVariants: {
       variant: "default",
       size: "default",
-      btnColor: "userAgree",
+      btnColor: "default",
     },
   }
 );

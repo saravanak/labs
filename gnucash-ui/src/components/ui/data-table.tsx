@@ -18,6 +18,7 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  onRowClick: (row:  any) => {}
 }
 
 export function DataTable<TData, TValue>({

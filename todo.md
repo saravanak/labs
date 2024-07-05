@@ -108,10 +108,37 @@ Write a proper syntax highlighting plugin for 11ty using Prism and JsDom.
 https://github.com/poundifdef/SmoothMQ/tree/main
 
 
-
 Transfer server errors 
 Validate space name if present. 
-Wall time for db saves.
 SCroll to error for a complex error field
 Autofocus on first field on form 
 Accessibilty issues - reader. 
+Wall time for db saves.
+
+
+Spaces 
+   Create new Space
+      Validate existence of space 
+   Add user to space 
+      Check if user is already part of this space 
+      Server error on user not found.
+   Remove user from space 
+      Check if user is already part of this space 
+      Server error on user not found.      
+Todo Page 
+   Create todo on space 
+   View 
+      Add comment    
+      Edit title and description 
+      Change status 
+Todos listing 
+   - Choose space combo
+   - Pagination infinite scrolling 
+   - Filter by combination of statuses
+   - Filter by contains on title and description
+
+
+- Create Todo button on todo listing 
+- Deploy 
+
+Too many clients already...

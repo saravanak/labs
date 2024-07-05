@@ -1,16 +1,13 @@
-import { faker } from "@faker-js/faker";
-import { UserModel } from "@/lib/prisma/zod";
 import prisma from "@/lib/prisma";
-import { z } from "zod";
-import { Space, User } from "@prisma/client";
+import { pgClient } from "@/lib/prisma/client";
+import { UserModel } from "@/lib/prisma/zod";
 import {
   getCommentsForTodo,
-  getTodosWithLatestStatuses,
+  seed_insertManyCommentsIntoTodo,
 } from "@/lib/typed-queries/todo/action";
-import { seed_insertManyCommentsIntoTodo } from "@/lib/typed-queries/todo/action";
-import { pgClient } from "@/lib/prisma/client";
-import { space } from "postcss/lib/list";
-import { orderBy } from "lodash";
+import { faker } from "@faker-js/faker";
+import { Space, User } from "@prisma/client";
+import { z } from "zod";
 
 export const returnPaginatedQuery = (
   baseQuery: any,
@@ -34,13 +31,48 @@ export const returnPaginatedQuery = (
   return queryInput;
 };
 
+export const TodoWhereQueries = {
+  OwnTodosAcrossSpaces: (user: any) => ({
+    where: {
+      space: {
+        is: {
+          user: {
+            is: {
+              email: user.email,
+            },
+          },
+        },
+      },
+    },
+  }),
+  ForSpace: (spaceId: number) => ({
+    where: {
+      space: {
+        is: {
+          id: spaceId,
+        },
+      },
+    },
+  }),
+  ForStatus: (statuses: string[]) => ({
+    where: {
+      StatusTransitions: {
+        some: {
+          status: {
+            in: statuses
+          },
+        }
+      },
+    },
+  }),
+};
+
 export const TodoService = {
   async getTodosForUser(
     user: z.infer<typeof UserModel>,
-    { limit, cursor }: any
+    whereClause: any = { where: {} },
+    { limit, cursor, spaceId }: any
   ) {
-    console.log(user);
-
     const queryInput = returnPaginatedQuery(
       {
         select: {
@@ -68,17 +100,7 @@ export const TodoService = {
             distinct: ["todo_id"],
           },
         },
-        where: {
-          space: {
-            is: {
-              user: {
-                is: {
-                  email: user.email,
-                },
-              },
-            },
-          },
-        },
+        ...whereClause,
       },
       { limit, cursor }
     );
@@ -161,6 +183,7 @@ export const TodoService = {
         StatusTransitions: {
           select: {
             status: true,
+            comment: true,
             created_at: true,
           },
           orderBy: {
@@ -225,6 +248,29 @@ export const TodoService = {
         [field]: value,
       },
     });
+  },
+
+  async getTodo(taskId: number) {
+    return prisma.todo.findFirst({
+      select: {
+        StatusTransitions: {
+          select: {
+            status: true,
+            todo_id: true,
+          },
+          orderBy: {
+            created_at: "desc",
+          },
+          distinct: ["todo_id"],
+        },
+        id: true,
+        title: true,
+        description: true,
+      },
+      where: {
+        id: taskId,
+      },
+    })
   },
 
   async addComment(todoId: number, user: User, commentContent: string) {

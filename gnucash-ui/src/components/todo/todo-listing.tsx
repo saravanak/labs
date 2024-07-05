@@ -5,23 +5,37 @@ import { useRouter } from "next/navigation";
 import { Fragment, useEffect, useRef } from "react";
 import { Button } from "../ui/button";
 
-export default function TodoListing() {
+export default function TodoListing({
+  space = {},
+  statuses,
+}: {
+  space: any;
+  statuses: any;
+}) {
+  const { id: spaceId, name: spaceName } = space || {};
+  const router = useRouter();
+
   const ref = useRef(null);
   const [inView, threshold] = useInViewport(ref, {
     threshold: 1,
   });
 
-  const { fetchNextPage, data, error, hasNextPage } =
-    trpc.todo.getOwnTodos.useInfiniteQuery(
-      {
-        limit: 9,
+  const todoFetchQuery = spaceId
+    ? trpc.todo.getTodosForSpace.useInfiniteQuery
+    : trpc.todo.getOwnTodos.useInfiniteQuery;
+
+  const { fetchNextPage, data, error, hasNextPage } = todoFetchQuery(
+    {
+      limit: 9,
+      spaceId: spaceId ? spaceId : null,
+      statuses,
+    },
+    {
+      getNextPageParam: (lastPage: any) => {
+        return lastPage.nextCursor;
       },
-      {
-        getNextPageParam: (lastPage: any) => {
-          return lastPage.nextCursor;
-        },
-      }
-    );
+    }
+  );
 
   useEffect(() => {
     if (inView) {
@@ -33,7 +47,6 @@ export default function TodoListing() {
     return <h1 data-test-data="not-logged-in"> Please login</h1>;
   }
 
-  const router = useRouter();
   let components = <></>;
   if (data) {
     const todos = data;
@@ -48,33 +61,27 @@ export default function TodoListing() {
     }
 
     return (
-      <div className="w-full  box-border ">
-        <div className="">
-          <div className="text-violet11 text-[15px] leading-[18px] font-medium">
-            Tags
-          </div>
+      <>
+        {todos.pages.map((todo, index) => {
+          return (
+            <Fragment key={index}>
+              {todo.items.map((v: any, itemindex) => {
+                return (
+                  <div
+                    key={itemindex}
+                    className="border-b border-gray-600 py-4 px-2"
+                    onClick={() => router.push(`/todos/${v.id}`)}
+                  >
+                    {v.title}
+                    {v.desciption}
+                    {index * 9 + itemindex + 1} {v.StatusTransitions[0].status}
+                  </div>
+                );
+              })}
+            </Fragment>
+          );
+        })}
 
-          {todos.pages.map((todo, index) => {
-            return (
-              <Fragment key={index}>
-                {todo.items.map((v: any, itemindex) => {
-                  return (
-                    <div
-                      key={itemindex}
-                      className="border-b border-gray-600 py-4 px-2"
-                      onClick={() => router.push(`./todos/${v.id}`)}
-                    >
-                      {v.title}
-                      {v.desciption}
-                      {index * 9 + itemindex + 1}{" "}
-                      {v.StatusTransitions[0].status}
-                    </div>
-                  );
-                })}
-              </Fragment>
-            );
-          })}
-        </div>
         {hasNextPage ? (
           <Button
             ref={ref}
@@ -88,7 +95,7 @@ export default function TodoListing() {
             Load more
           </Button>
         ) : null}
-      </div>
+      </>
     );
   }
 

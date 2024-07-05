@@ -12,18 +12,19 @@ import { FlexJustifySpread } from "@/components/ui/ui-hoc/flex-justify-spread";
 
 export default function PagesIndexPage(props: any) {
   const { owningSpaces, sharedSpaces } = props;
-  const triggerClassNames = "bg-blue-100 p-2 h-[4em] border-blue-200 border-b hover:no-underline";
+  const triggerClassNames =
+    "bg-blue-100 p-2 h-[4em] border-blue-200 border-b hover:no-underline";
   return (
     <>
-      <Accordion type="multiple" collapsible>
+      <Accordion type="multiple">
         <AccordionItem value="item-1">
           <AccordionTrigger className={triggerClassNames}>
             <FlexJustifySpread className="grow pr-4">
               <div>My spaces</div>
-              <CircledNumber value={owningSpaces}/>
+              <CircledNumber value={owningSpaces} />
             </FlexJustifySpread>
           </AccordionTrigger>
-          <AccordionContent className="text-base">
+          <AccordionContent className="text-base pb-0">
             <SpaceListing />
           </AccordionContent>
         </AccordionItem>
@@ -31,10 +32,10 @@ export default function PagesIndexPage(props: any) {
           <AccordionTrigger className={triggerClassNames}>
             <FlexJustifySpread className="grow pr-4">
               <div>Spaces shared with me</div>
-              <CircledNumber value={sharedSpaces}/>              
+              <CircledNumber value={sharedSpaces} />
             </FlexJustifySpread>
           </AccordionTrigger>
-          <AccordionContent className="text-base">
+          <AccordionContent className="text-base pb-0">
             <SharedSpaceListing />
           </AccordionContent>
         </AccordionItem>
@@ -42,3 +43,4 @@ export default function PagesIndexPage(props: any) {
     </>
   );
 }
+

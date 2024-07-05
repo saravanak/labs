@@ -1,4 +1,5 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth-options";
+
 import { getServerSession } from "next-auth";
 import { signIn, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
@@ -9,7 +10,7 @@ export default async function TodoNavbar({ children }: any) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    redirect(`/api/auth/signin/email?callbackUrl="/todos/dashboard"`);
+    redirect(`/api/auth/signin/email?callbackUrl=/todos`);
   } else {
 
     return (

@@ -156,6 +156,7 @@ model SpaceSharing {
   user_id String
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade)    
   @@map(name: "user_space")
+  @@unique([user_id, space_id])
 }
 
 model Account {

@@ -8,6 +8,7 @@ import { Button } from "../button";
 import { Form } from "../form";
 import { FlexJustifySpread } from "./flex-justify-spread";
 import HocInput from "./hoc-input";
+import ListItem from "../lists/list-item";
 
 export default function EditableText({
   model,
@@ -61,11 +62,9 @@ export default function EditableText({
     </Form>
   ) : null;
 
-  console.log({ propertyPaths, formComponent, formMeta, fieldEditorSchema });
-
   return (
-    <div>
-      <FlexJustifySpread className="border-b border-gray-300">
+    <>
+      <ListItem className="pt-2 min-h-[1em]">
         <div className="text-sm text-gray-400 mb-[0.5em]"> {label}</div>
 
         {isEditing ? (
@@ -81,7 +80,7 @@ export default function EditableText({
                     console.log("Handle submit");
                     onSubmit({
                       field: fieldName,
-                      value: d[fieldName]
+                      value: d[fieldName],
                     });
                   },
                   (e) => console.log(e)
@@ -109,9 +108,11 @@ export default function EditableText({
             </Button>
           </div>
         )}
-      </FlexJustifySpread>
-      {isEditing ? <>{formComponent}</> : <>{value}</>}
-    </div>
+      </ListItem>
+      <div className="px-2 border-b border-gray-300 pb-[1px] mb-2">
+        {isEditing ? <>{formComponent}</> : <>{value}</>}
+      </div>
+    </>
   );
 }
 

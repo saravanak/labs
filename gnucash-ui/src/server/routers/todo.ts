@@ -1,9 +1,9 @@
-import { z } from "zod";
-import { TodoService } from "@/server/services/todo";
-import { shieldedProcedure, t } from "@/utils/trpc-server";
 import prisma from "@/lib/prisma";
+import { TodoService, TodoWhereQueries } from "@/server/services/todo";
+import { shieldedProcedure, t } from "@/utils/trpc-server";
 import { Space, User } from "@prisma/client";
-import { last } from "lodash";
+import { last, merge } from "lodash";
+import { z } from "zod";
 
 export const todoRouter = t.router({
   getOwnTodos: shieldedProcedure
@@ -11,11 +11,42 @@ export const todoRouter = t.router({
       z.object({
         limit: z.number(),
         cursor: z.number().nullish(),
+        statuses: z.string().array().optional(),
       })
     )
     .query(async (opts) => {
       const { session } = opts.ctx;
-      const items = await TodoService.getTodosForUser(session.user, opts.input);
+      const whereClause = merge(
+        TodoWhereQueries.OwnTodosAcrossSpaces(session.user),
+        opts.input.statuses
+          ? TodoWhereQueries.ForStatus(opts.input.statuses)
+          : {}
+      );
+      const items = await TodoService.getTodosForUser(
+        session.user,
+        whereClause,
+        opts.input
+      );
+      return {
+        items,
+        nextCursor: last(items)?.id,
+      };
+    }),
+  getTodosForSpace: shieldedProcedure
+    .input(
+      z.object({
+        limit: z.number(),
+        cursor: z.number().nullish(),
+        spaceId: z.number(),
+      })
+    )
+    .query(async (opts) => {
+      const { session } = opts.ctx;
+      const items = await TodoService.getTodosForUser(
+        session.user,
+        TodoWhereQueries.ForSpace(opts.input.spaceId),
+        opts.input
+      );
       return {
         items,
         nextCursor: last(items)?.id,
@@ -31,27 +62,18 @@ export const todoRouter = t.router({
       return {
         comments: await TodoService.getDetailedTodo(opts.input.taskId),
         statusHistory: await TodoService.getStatusHistory(opts.input.taskId),
-        todo: await prisma.todo.findFirst({
-          select: {
-            StatusTransitions: {
-              select: {
-                status: true,
-                todo_id: true,
-              },
-              orderBy: {
-                created_at: "desc",
-              },
-              distinct: ["todo_id"],
-            },
-            id: true,
-            title: true,
-            description: true,
-          },
-          where: {
-            id: opts.input.taskId,
-          },
-        }),
+        todo: await TodoService.getTodo(opts.input.taskId),
       };
+    }),
+
+  getTodo: shieldedProcedure
+    .input(
+      z.object({
+        taskId: z.number(),
+      })
+    )
+    .query(async (opts) => {
+      return TodoService.getTodo(opts.input.taskId);
     }),
   createTodo: shieldedProcedure
     .input(

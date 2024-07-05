@@ -20,7 +20,7 @@ export default function CarbonFootprintCalculator() {
         houseSize: z.coerce.number().min(2.5).max(6),
         householdIncome: z.coerce.number().min(10).max(100),
         vehicles: z.array(
-          EmissionVehiclesModel.omit({ id: true, userId: true })
+          EmissionVehiclesModel.omit({ id: true })
         ),
         unit: z.enum(["metric", "standard"]),
         timespan: z.enum(["yearly", "monthly"]),

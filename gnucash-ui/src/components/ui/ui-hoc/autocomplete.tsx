@@ -24,64 +24,78 @@ export type SearchItem = {
   label: string;
 };
 
-const AutoComplete = React.forwardRef(
-  (
-    {
-      options,
-      onChange,
-      value,
-      placeholder,
-      noMatches
-    }: { options: SearchItem[]; onChange: (v: any) => void; value: unknown,  placeholder: string, noMatches: string } ,
-    ref: any
-  ) => {
-    const [open, setOpen] = React.useState(false);
-    // const [value, setValue] = React.useState("");
+const _AutoComplete = (
+  {
+    options,
+    onChange,
+    value,
+    placeholder,
+    noMatches,
+    onSearchChange,
+    keyComparer = "value",
+  }: {
+    options: any;
+    onChange: (v: any) => void;
+    value: string;
+    placeholder: string;
+    noMatches: string;
+    onSearchChange: (v: any) => void;
+    keyComparer?: string;
+  },
+  ref: any
+) => {
+  const [isOpen, setOpen] = React.useState(false);
 
-    return (
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            role="combobox"
-            aria-expanded={open}
-            className="w-[200px] justify-between"
-          >
-            {value
-              ? options.find((option) => option.value.toLowerCase() === value)?.label
-              : placeholder}
-            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0">
-          <Command>
-            <CommandInput placeholder={placeholder} />
-            <CommandEmpty>{noMatches}</CommandEmpty>
-            <CommandGroup>
-              {options.map((framework) => (
-                <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={(currentValue) => {
-                    onChange(currentValue);
-                    setOpen(false);
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value === framework.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                  {framework.label}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </Command>
-        </PopoverContent>
-      </Popover>
-    );
-  }
-);
+  return (
+    <Popover open={isOpen} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={isOpen}
+          className="w-[200px] justify-between"
+        >
+          {value
+            ? options.find(
+                (option: any) =>
+                  option[keyComparer].toLowerCase() === value.toLowerCase()
+              )?.label
+            : placeholder}
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[200px] p-0">
+        <Command shouldFilter={false}>
+          <CommandInput
+            placeholder={placeholder}
+            onValueChange={onSearchChange}
+          />
+          <CommandEmpty>{noMatches}</CommandEmpty>
+          <CommandGroup>
+            {options.map((framework: any) => (
+              <CommandItem
+                key={framework.value}
+                value={framework.value}
+                onSelect={(currentValue) => {
+                  onChange(currentValue);
+                  setOpen(false);
+                }}
+              >
+                <Check
+                  className={cn(
+                    "mr-2 h-4 w-4",
+                    value === framework.value ? "opacity-100" : "opacity-0"
+                  )}
+                />
+                {framework.label}
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  );
+};
 
-export { AutoComplete };
+export const AutoComplete = React.forwardRef(_AutoComplete);
+

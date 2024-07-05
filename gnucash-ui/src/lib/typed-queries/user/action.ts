@@ -12,7 +12,7 @@ where u.id = $userId and
 `
 
 export const getSharedUserSpaces = sql`
-select u.*, s.*
+select u.email, s.name
 from users u
 inner join user_space us on 
     us.user_id = u.id      

@@ -50,7 +50,7 @@ export const createSSRHelper = () =>
   createServerSideHelpers({
     router: appRouter,
     transformer: SuperJSON,
-    ctx: () => {} 
+    ctx: {}  as any
   } );
 
 export type AppRouter = typeof appRouter;

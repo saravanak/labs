@@ -1,8 +1,19 @@
+import useAsyncValidation from "@/components/ui/ui-hoc/debounced-matcher";
 import { trpc } from "@/utils/trpc";
 import { z } from "zod";
 import HocForm from "../../ui/ui-hoc/hoc-form";
 
 export default function SpaceCreateForm() {
+  const [debouncedAsync, matches] = useAsyncValidation({
+    validatorUrlFor: (spaceName: any) => {
+      console.log("Generating fetch url");
+
+      return `http://localhost:3000/api/trpc/todoUser.findByName?input=${encodeURIComponent(
+        JSON.stringify({ json: { spaceName } })
+      )}`;
+    },
+  });
+
   const formSchema = z
     .object({
       spaceName: z
@@ -14,6 +25,9 @@ export default function SpaceCreateForm() {
         })
         .trim()
         .toLowerCase()
+        .refine(debouncedAsync, {
+          message: "We already have an user by that name",
+        }),
     })
     .required();
 
@@ -21,6 +35,7 @@ export default function SpaceCreateForm() {
     spaceName: {
       label: "Space name",
       type: "text",
+      matches
     },
   };
 
@@ -33,14 +48,16 @@ export default function SpaceCreateForm() {
   }
 
   return (
-    <HocForm
-      formSchema={formSchema}
-      title="Create Space"
-      onSubmit={onSubmit}
-      formMeta={formMeta}
-      defaultValues={{ spaceName: "" }}
-      mutation={mutation}
-    />
+    <>
+      <HocForm
+        formSchema={formSchema}
+        title="Create Space"
+        onSubmit={onSubmit}
+        formMeta={formMeta}
+        defaultValues={{ spaceName: "" }}
+        mutation={mutation}
+      />
+    </>
   );
 }
 

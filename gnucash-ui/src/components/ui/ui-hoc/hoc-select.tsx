@@ -6,10 +6,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export default function HocSelect({ options, selectLabelInline, placeholder, ...props }: any) {
+export default function HocSelect({ options, selectLabelInline, placeholder, className, ...props  }: any) {
   return (
     <Select  {...props}>
-      <SelectTrigger className="w-[200px]">
+      <SelectTrigger className="grow">
         {selectLabelInline ? (
           <span className="text-gray-400">{selectLabelInline}</span>
         ) : null}

@@ -5,6 +5,7 @@ import { TrpcProvider } from "@/utils/trpc-provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
+import { Toaster } from "sonner";
 
 // import { getServerSession } from "next-auth/next"
 
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default async function TodoRootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -66,6 +67,8 @@ export default async function RootLayout({
             </Card>
           </div>
         </TrpcProvider>
+        <Toaster position="top-center"/>
+
       </body>
     </html>
   );

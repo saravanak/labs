@@ -7,9 +7,12 @@ import { useRouter } from "next/navigation";
 import { Fragment, useEffect, useRef } from "react";
 import { Button } from "../../ui/button";
 import { FlexJustifySpread } from "../../ui/ui-hoc/flex-justify-spread";
+import ListItem from "@/components/ui/lists/list-item";
 
 export default function SharedSpaceListing() {
   const ref = useRef(null);
+  const router = useRouter();
+
   const [inView, threshold] = useInViewport(ref, {
     threshold: 1,
   });
@@ -37,17 +40,15 @@ export default function SharedSpaceListing() {
   }
 
   
-  const router = useRouter();
   let components = <></>;
   if (data) {
     const todos = data;
 
     if (todos?.pages[0].items.length == 0) {
       return (
-        <FlexJustifySpread>
-          You have no todos
-          <Button variant="outline" size="sm" onClick={() => {}}><Plus/> Space </Button>
-        </FlexJustifySpread>
+        <ListItem>
+          <div className="items-center grow text-center text-gray-500">No spaces are shared with you </div>
+        </ListItem>
       );
     }
 
@@ -56,7 +57,7 @@ export default function SharedSpaceListing() {
         <div className="">
           {todos.pages.map((todo, index) => {
             return (
-              <Fragment key={index}>
+              <ListItem key={index}>
                 {todo.items.map((v: any, itemindex) => {
                   return (
                     <div
@@ -67,7 +68,7 @@ export default function SharedSpaceListing() {
                     </div>
                   );
                 })}
-              </Fragment>
+              </ListItem>
             );
           })}
         </div>

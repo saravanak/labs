@@ -29,20 +29,8 @@ export interface IGetSharedUserSpacesParams {
 
 /** 'GetSharedUserSpaces' return type */
 export interface IGetSharedUserSpacesResult {
-  api_key: string | null;
-  country_id: number | null;
-  created_at: Date;
   email: string;
-  emailVerified: Date | null;
-  footprint_id: number | null;
-  id: string;
-  id: number;
-  image: string | null;
-  name: string | null;
   name: string;
-  owner_id: string;
-  space_id: number | null;
-  updated_at: Date;
 }
 
 /** 'GetSharedUserSpaces' query type */

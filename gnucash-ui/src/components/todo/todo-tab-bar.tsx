@@ -28,8 +28,8 @@ export default function TodoTabBar() {
             <Link
               href={`/${v}`}
               key={v}
-              className={`pl-4 basis-1/2  h-full text-center ${
-                v == segment ? "bg-blue-500" : "bg-blue-300"
+              className={`pl-4 basis-1/2  h-full text-center font-bold text-primary-foreground ${
+                v == segment ? "bg-primary " : "bg-muted "
               } content-center`}
             >
               {Case.title(v)}
@@ -45,7 +45,7 @@ export default function TodoTabBar() {
           {
             action: "cancel",
             handler: () => {
-              form.reset();
+              hookForm.reset();
               setForm(null);
               history.back();
             },
@@ -83,18 +83,10 @@ export default function TodoTabBar() {
 
         return controls;
     }
-  }, [
-    form,
-    formState?.isSubmitting,
-    formState?.submitCount,
-    mutation?.isLoading,
-    status,
-  ]);
+  }, [form, formState?.isSubmitting, formState?.submitCount, mutation, status]);
 
   return (
     <div className="mb-4 h-full">
-      {status ? status : ""}
-
       <FlexJustifySpread
         className={cn(
           "bg-blue-300 h-full justify-around items-center border-blue-200 border-t",

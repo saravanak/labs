@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default async function SandboxRootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

@@ -17,7 +17,7 @@ export default function AppWrapper({ children, session }: any) {
     <>
       <TabBarContext.Provider value={{ form, setForm}}>
         <div className="grid grid-cols-1 h-svh grid-rows-[3em,1fr,3em]">
-        <FlexJustifySpread className="bg-blue-300 py-4 h-[3em]">
+        <FlexJustifySpread className="bg-primary text-primary-foreground py-4 h-[3em]">
           <div className="pl-4 grow font-bold text-lg">Tinja</div>
           <div className="pr-4">{session.user.email}</div>
         </FlexJustifySpread>

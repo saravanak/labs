@@ -3,12 +3,22 @@ import { pgClient } from "@/lib/prisma/client";
 import { getUserSpaces } from "@/lib/typed-queries/user/action";
 import { User } from "@prisma/client";
 import { returnPaginatedQuery } from "./todo";
-import { orderBy } from "lodash";
+import { merge, orderBy, startsWith } from "lodash";
+import { sleep } from "./utils";
+import { sql_getAllSpaces } from "@/lib/typed-queries/space/action";
 
 const SpaceWhereQueries = {
   ownedBy: (user: User) => ({
     where: {
       owner_id: user.id,
+    },
+  }),
+  name: (value: string) => ({
+    where: {
+      name: {
+        startsWith: value,
+        mode: "insensitive",
+      },
     },
   }),
   shared: (user: User) => {
@@ -32,6 +42,52 @@ export const SpaceService = {
         owner_id: user.id,
       },
     });
+  },
+
+  async getMembers(user: User, spaceId: number) {
+    return prisma.space.findFirst({
+      where: {
+        id: spaceId,
+        owner_id: user.id,
+      },
+      select: {
+        spaceSharing: {
+          select: {
+            user: {
+              select: {
+                email: true,
+                id: true,
+              },
+            },
+          },
+        },
+        name: true,
+        id: true,
+      },
+    });
+  },
+  async removeUserFromSpace(o: { spaceId: number; memberIdRemove: string }) {
+    console.log({ o });
+
+    sleep(3000);
+
+    // await prisma.spaceSharing.deleteMany({
+    //   where: {
+    //     user_id: o.memberIdRemove,
+    //     space_id: o.spaceId,
+    //   },
+    // });
+  },
+
+  async getAllSpaces(user: User, { limit, cursor, email }: any) {
+    return sql_getAllSpaces.run(
+      {
+        email: user.email,
+        limit,
+        cursor,
+      },
+      pgClient
+    );
   },
 
   async addUserToSpace(owner: User, spaceId: number, invitee: string) {
@@ -69,16 +125,21 @@ export const SpaceService = {
       },
     });
   },
-  async getSpaceCounts(user: User) : Promise<{ owningSpaces: number, sharedSpaces: number}>{
+  async getSpaceCounts(
+    user: User
+  ): Promise<{ owningSpaces: number; sharedSpaces: number }> {
     return {
       owningSpaces: await prisma.space.count(SpaceWhereQueries.ownedBy(user)),
       sharedSpaces: await prisma.space.count(SpaceWhereQueries.shared(user)),
     };
   },
-  async getUserSpaces(user: User, { limit, cursor }: any) {
+  async getUserSpaces(user: User, { limit, cursor, nameFilter }: any) {
     const queryInput = returnPaginatedQuery(
       {
-        ...SpaceWhereQueries.ownedBy(user),
+        ...merge(
+          SpaceWhereQueries.ownedBy(user),
+          nameFilter ? SpaceWhereQueries.name(nameFilter) : {}
+        ),
         orderBy: {
           id: "asc",
         },
@@ -92,6 +153,8 @@ export const SpaceService = {
       },
       { limit, cursor }
     );
+    console.log(queryInput);
+
     return prisma.space.findMany(queryInput);
   },
   async getSharedSpaces(user: User, { limit, cursor }: any) {

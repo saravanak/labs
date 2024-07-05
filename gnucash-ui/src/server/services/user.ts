@@ -21,7 +21,7 @@ export const UserService = {
       },
     });
 
-    const todosForUser = await TodoService.getTodosForUser(user, {
+    const todosForUser = await TodoService.getTodosForUser(user, null, {
       limit: 5,
       cursor: undefined,
     });

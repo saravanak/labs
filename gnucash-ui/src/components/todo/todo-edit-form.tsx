@@ -24,8 +24,8 @@ export default function TodoEditForm({ spaceId }: any) {
 
   const defaultValues = {
     title: "",
-    desciption: ""
-  }
+    desciption: "",
+  };
 
   const mutation = trpc.todo.createTodo.useMutation({});
 
@@ -37,7 +37,13 @@ export default function TodoEditForm({ spaceId }: any) {
   }
 
   return (
-    <HocForm formSchema={formSchema} onSubmit={onSubmit} formMeta={formMeta} defaultValues={defaultValues}/>
+    <HocForm
+      formSchema={formSchema}
+      onSubmit={onSubmit}
+      mutation={mutation}
+      formMeta={formMeta}
+      defaultValues={defaultValues}
+    />
   );
 }
 

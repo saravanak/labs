@@ -2,18 +2,21 @@
 import ListItem from "@/components/ui/lists/list-item";
 import { trpc } from "@/utils/trpc";
 import { useInViewport } from "ahooks";
-import { Plus } from "lucide-react";
+import { Plus, TicketSlash } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../../ui/button";
 import SpaceCreateForm from "./space-create-form";
+import { Case } from "change-case-all";
+import ListActionButtons from "@/components/ui/ui-hoc/list-action-buttons";
 
 export default function SpaceListing() {
   const ref = useRef(null);
   const [inView, threshold] = useInViewport(ref, {
     threshold: 1,
   });
-  
+
+  const [currentSpace, setCurrentSpace] = useState<any>(null);
   const router = useRouter();
   const pathname = usePathname();
   const [showTodoForm, setShowTodoForm] = useState(false);
@@ -41,7 +44,7 @@ export default function SpaceListing() {
   if (error) {
     return <h1 data-test-data="not-logged-in"> Please login</h1>;
   }
-  
+
   let components = <></>;
   if (data) {
     const todos = data;
@@ -57,49 +60,88 @@ export default function SpaceListing() {
 
     return (
       <div>
-        <ListItem>
-          <div className="font-bold">Create a new Space</div>
+        <ListItem className="">
           <Button
             variant="outline"
-            size="sm"
+            size="list"
             onClick={() => router.push(`${pathname}/create-space`)}
           >
             <Plus />
-            Space
+            <div className="font-bold">Create a new Space</div>
           </Button>
-        </ListItem>        
+        </ListItem>
         <div className="w-[3/6] max-h-full overflow-hidden">
           <div className="w-full h-full overflow-auto">
-            <div className="">
-              {todos.pages.map((space, index) => {
-                return (
-                  <div key={index}>
-                    {space.items.map((v: any, itemindex) => {
-                      return (
-                        <ListItem key={itemindex}>
-                          <div>{v.name}</div>
-                          <div>{v._count.todos} Todos </div>
-                          <div>{v._count.spaceSharing} Members </div>
+            {currentSpace?.id}
+            {todos.pages.map((space, index) => {
+              return (
+                <div key={index}>
+                  {space.items.map((v: any, itemindex) => {
+                    return (
+                      <>
+                        <ListItem
+                          key={itemindex}
+                          drawBorder={true}
+                          onClick={() => {
+                            console.log("clicking..", space);
+                            setCurrentSpace(v);
+                          }}
+                        >
+                          <div className="flex flex-col p-2 text-[0.75em] rounded-md  bg-gray-200 w-[6em] ">
+                            <div className="flex">
+                              {v._count.todos == 0 ? (
+                                "Empty"
+                              ) : (
+                                <>{v._count.todos} Todos</>
+                              )}
+                            </div>
+                            <div>
+                              {v._count.spaceSharing == 0 ? (
+                                "Private"
+                              ) : (
+                                <>{v._count.spaceSharing} Shares</>
+                              )}{" "}
+                            </div>
+                          </div>
+                          <div className="flex items-start grow mx-2">
+                            <div className="text-sm ">{v.name} </div>
+                          </div>
                           <Button
                             onClick={() => setShowTodoForm(true)}
                             variant="outline"
+                            color="lightgray"
                             size="sm"
                           >
-                            <Plus></Plus>Todo
+                            Add Todo
                           </Button>
                           {/* <AddUserToSpace spaceId={v.id} />
                           {showTodoForm ? (
                             <TodoEditForm spaceId={v.id} />
                           ) : null} */}
                         </ListItem>
-                      );
-                    })}
-                  </div>
-                );
-              })}
-            </div>
-            <div ref={ref}>&nbsp;</div>
+                        {currentSpace?.id == v.id ? (
+                          <ListActionButtons
+                            actions={[
+                              {
+                                onClick: () =>
+                                  router.push(`${pathname}/${v.id}/manage`),
+                                label: "Manage Space",
+                              },
+                              {
+                                onClick: () => {},
+                                label: "View Todos",
+                              },
+                            ]}
+                          />
+                        ) : null}
+                      </>
+                    );
+                  })}
+                </div>
+              );
+            })}
           </div>
+          <div ref={ref}>&nbsp;</div>
         </div>
       </div>
     );

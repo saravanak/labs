@@ -1,8 +1,8 @@
 import PagesIndexPage from "@/components/todo/spaces/spaces-index-page";
 import { SpaceService } from "@/server/services/space";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { User } from "@prisma/client";
+import { authOptions } from "@/lib/auth-options";
 // import { createServertRPCCaller } from "@/server/routers/_app";
 
 

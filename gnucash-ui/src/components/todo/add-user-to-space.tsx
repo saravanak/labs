@@ -27,6 +27,7 @@ export default function AddUserToSpace({ spaceId }: any) {
     <HocForm
       formSchema={formSchema}
       onSubmit={onSubmit}
+      mutation={mutation}
       formMeta={formMeta}
       defaultValues={{ email: "" }}
     />
