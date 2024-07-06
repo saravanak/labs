@@ -101,7 +101,7 @@ export default function ManageSpace({ spaceWithUsers }: any) {
           Add New Todo
         </Button>
       </ListItem>
-      <TodoListing space={spaceWithUsers} statuses={[]} />
+      <TodoListing space={spaceWithUsers} statuses={[]} searchText={null} />
     </>
   );
 }

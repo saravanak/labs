@@ -19,10 +19,10 @@ export const todoRouter = t.router({
       const { session } = opts.ctx;
       const whereClause = merge(
         TodoWhereQueries.OwnTodosAcrossSpaces(session.user),
-        opts.input.statuses
+        opts.input.statuses?.length
           ? TodoWhereQueries.ForStatus(opts.input.statuses)
           : {},
-        opts.input.searchText
+        opts.input.searchText?.trim()?.length
           ? TodoWhereQueries.ForSearchText(opts.input.searchText.trim())
           : {}
       );
@@ -50,8 +50,7 @@ export const todoRouter = t.router({
       const { session } = opts.ctx;
       const whereClause = merge(
         TodoWhereQueries.ForSpace(opts.input.spaceId),
-        TodoWhereQueries.OwnTodosAcrossSpaces(session.user),
-        opts.input.statuses
+        opts.input.statuses?.length
           ? TodoWhereQueries.ForStatus(opts.input.statuses)
           : {},
         opts.input.searchText

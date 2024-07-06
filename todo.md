@@ -147,7 +147,10 @@ View Todos from space listing.
 Add todo not working. 
 auth rights
 Remove public folder from git and prune git size (mp4 , secrets)
-Help screens - reactour
+- Bootstrap example user for demo 
+- Always auto-login with example user 
+- Implement switch between demo user and actual user. 
+- Implement Github login for now. 
 
 LATER:
 deploy
