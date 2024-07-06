@@ -1,4 +1,6 @@
+import Markdowned from "@/components/markdown/md-viewer";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import { Case } from "change-case-all";
 import { Edit, Save, X } from "lucide-react";
 import { useCallback, useState } from "react";
@@ -8,7 +10,6 @@ import { Button } from "../button";
 import { Form } from "../form";
 import ListItem from "../lists/list-item";
 import HocInput from "./hoc-input";
-import { useQueryClient } from "@tanstack/react-query";
 
 export default function EditableText({
   model,
@@ -17,6 +18,7 @@ export default function EditableText({
   mutationFunction,
   queryKey,
   fieldName,
+  useMarkdown = false,
 }: any) {
   const [isEditing, setIsEditing] = useState(false);
   const iconSize = 15;
@@ -55,6 +57,7 @@ export default function EditableText({
 
   const label = Case.title(fieldName);
   const value = model[fieldName];
+
   const formMeta = {
     [fieldName]: {
       label: false,
@@ -87,8 +90,6 @@ export default function EditableText({
               variant="ghost"
               size={"xs"}
               onClick={() => {
-                console.log("Button click handler", form.formState.errors);
-
                 form.handleSubmit(
                   (d) => {
                     onSubmit({
@@ -123,7 +124,15 @@ export default function EditableText({
         )}
       </ListItem>
       <div className="px-2 border-b border-gray-300 pb-[1px] mb-2">
-        {isEditing ? <>{formComponent}</> : <>{value}</>}
+        {isEditing ? (
+          <>{formComponent}</>
+        ) : useMarkdown ? (
+          <Markdowned mdText={value}>
+            <div className="bg-yellow-100" />
+          </Markdowned>
+        ) : (
+          value
+        )}
       </div>
     </>
   );

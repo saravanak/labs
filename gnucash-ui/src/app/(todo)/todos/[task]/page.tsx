@@ -30,7 +30,7 @@ export default function TaskDetailPage({ params }: any) {
           model={todo}
           fieldName="title"
           queryKey={[["todo", "getDetailedView"]]}
-          type="text"
+          type="text"          
           mutationFunction={todoFieldUpdateMutation}
           mutationArgs={() => {
             return {
@@ -42,6 +42,7 @@ export default function TaskDetailPage({ params }: any) {
           model={todo}
           fieldName="description"
           type="textarea"
+          useMarkdown={true}
           mutationFunction={todoFieldUpdateMutation}
           queryKey={[["todo", "getDetailedView"]]}
           mutationArgs={() => {

@@ -11,6 +11,7 @@
   @import '@radix-ui/colors/blue-dark.css';
   @import '@radix-ui/colors/green-dark.css';
   @import '@radix-ui/colors/red-dark.css';
+  @import './styles/markdown.css';
   
   @layer base {
     :root {
