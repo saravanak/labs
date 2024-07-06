@@ -30,6 +30,9 @@
       --secondary: 0 0% 96.1%;
       --secondary-foreground: 0 0% 9%;
 
+      --light-bg: 131 15% 90%;
+      --light-bg-foreground: 131 15% 14%;
+
       --muted: 263 100% 60%;
       --muted-foreground: 0 0% 70%;
 

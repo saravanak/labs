@@ -20,7 +20,7 @@ export default function Markdowned({ mdText, children, className }: any) {
   const [html] = useMarkdown(mdText);
   return (
     <Slot
-      className={cn("markdowned", className)}
+      className={cn("markdowned bg-light-bg text-light-bg-foreground", className)}
       dangerouslySetInnerHTML={{ __html: html }}
     >
       {children}

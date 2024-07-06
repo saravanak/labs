@@ -128,7 +128,7 @@ export default function EditableText({
           <>{formComponent}</>
         ) : useMarkdown ? (
           <Markdowned mdText={value}>
-            <div className="bg-yellow-100" />
+            <div/>
           </Markdowned>
         ) : (
           value
