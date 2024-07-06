@@ -54,7 +54,10 @@ export const SpaceService = {
   },
 
   async getMembers(user: User, spaceId: number) {
-    return prisma.space.findFirst({
+    /** First try to get if the spaced is owned by the current user
+     * Else, we try for the shared space
+     * */
+    const ownedSpace = await prisma.space.findFirst({
       where: {
         id: spaceId,
         owner_id: user.id,
@@ -74,6 +77,36 @@ export const SpaceService = {
         id: true,
       },
     });
+    if (ownedSpace) {
+      return { ...ownedSpace, isOwning: true };
+    }
+    const sharedSpace = await prisma.space.findFirst({
+      where: {
+        id: spaceId,
+        spaceSharing: {
+          some: {
+            user: {
+              id: user.id,
+            },
+          },
+        },
+      },
+      select: {
+        spaceSharing: {
+          select: {
+            user: {
+              select: {
+                email: true,
+                id: true,
+              },
+            },
+          },
+        },
+        name: true,
+        id: true,
+      },
+    });
+    return { ...sharedSpace, isOwning: false };
   },
   async removeUserFromSpace(o: { spaceId: number; memberIdRemove: string }) {
     return await prisma.spaceSharing.deleteMany({

@@ -16,8 +16,7 @@ export default function ManageSpace({ spaceWithUsers }: any) {
   const router = useRouter();
   const pathname = usePathname();
 
-  
-  const { id, name } = spaceWithUsers || {};
+  const { id, name, isOwning } = spaceWithUsers || {};
 
   const removeUserMutation = trpc.space.removeUserFromSpace.useMutation({
     onSuccess: () => {
@@ -30,65 +29,70 @@ export default function ManageSpace({ spaceWithUsers }: any) {
   return (
     <>
       <ListItem variant="header">{name}</ListItem>
-      {spaceWithUsers && <ListItem variant="heading2">
-        <div className="flex">
-          <div className="mr-4">Members</div>
-          <CircledNumber value={spaceWithUsers?.spaceSharing.length} />{" "}
-        </div>
-        <Button
-          variant={"outline"}
-          onClick={() => router.push(`${pathname}/add-member`)}
-          data-retour-step="add-member"
-        >
-          Add Member
-        </Button>
-      </ListItem>}
-      {spaceWithUsers && spaceWithUsers?.spaceSharing.map(({ user }: any) => {
-        return (
-          <div
-            key={user.id}
-            className={selectedUser == user ? "border-2 border-yellow-500" : ""}
-          >
-            <ListItem>
-              <div className="flex"> {user.email}</div>
-              <Button variant="outline" onClick={() => setSelectedUser(user)}>
-                <Unlink className="text-gray-700 mr-2 w-[18px]" /> Remove
-              </Button>
-            </ListItem>
-            {selectedUser ? (
-              <ListActionButtons
-                heading={
-                  <span>
-                    Do you really want to remove{" "}
-                    <span className="font-bold">{user.email}</span> from{" "}
-                    <span className="font-bold">{name}</span>?
-                  </span>
-                }
-                actions={[
-                  {
-                    onClick: () => {
-                      removeUserMutation.mutate({
-                        spaceId: parseInt(id),
-                        memberIdRemove: user.id,
-                      });
-                    },
-                    label: "Yes",
-                    variant: "default",
-                    mutation: removeUserMutation,
-                  },
-                  {
-                    onClick: () => {
-                      setSelectedUser(null);
-                    },
-                    variant: "outline",
-                    label: "No",
-                  },
-                ]}
-              />
-            ) : null}
+      {isOwning && (
+        <ListItem variant="heading2">
+          <div className="flex">
+            <div className="mr-4">Members</div>
+            <CircledNumber value={spaceWithUsers?.spaceSharing.length} />{" "}
           </div>
-        );
-      })}
+          <Button
+            variant={"outline"}
+            onClick={() => router.push(`${pathname}/add-member`)}
+            data-retour-step="add-member"
+          >
+            Add Member
+          </Button>
+        </ListItem>
+      )}
+      {isOwning &&
+        spaceWithUsers?.spaceSharing.map(({ user }: any) => {
+          return (
+            <div
+              key={user.id}
+              className={
+                selectedUser == user ? "border-2 border-yellow-500" : ""
+              }
+            >
+              <ListItem>
+                <div className="flex"> {user.email}</div>
+                <Button variant="outline" onClick={() => setSelectedUser(user)}>
+                  <Unlink className="text-gray-700 mr-2 w-[18px]" /> Remove
+                </Button>
+              </ListItem>
+              {selectedUser ? (
+                <ListActionButtons
+                  heading={
+                    <span>
+                      Do you really want to remove{" "}
+                      <span className="font-bold">{user.email}</span> from{" "}
+                      <span className="font-bold">{name}</span>?
+                    </span>
+                  }
+                  actions={[
+                    {
+                      onClick: () => {
+                        removeUserMutation.mutate({
+                          spaceId: parseInt(id),
+                          memberIdRemove: user.id,
+                        });
+                      },
+                      label: "Yes",
+                      variant: "default",
+                      mutation: removeUserMutation,
+                    },
+                    {
+                      onClick: () => {
+                        setSelectedUser(null);
+                      },
+                      variant: "outline",
+                      label: "No",
+                    },
+                  ]}
+                />
+              ) : null}
+            </div>
+          );
+        })}
       <ListItem variant="heading2">
         Todos
         <Button

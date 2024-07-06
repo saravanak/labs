@@ -8,10 +8,6 @@ export default async function ManageSpacePage({ params }: any) {
 
   const caller = await createServertRPCCaller();
 
-  //TODO: REturn spaces, with isOwning so we can
-
-  // 1) not show the manage varieties.
-  // 2) show todo listing always
   const members = await caller.space.getMembers({
     spaceId: parseInt(params.space),
   });
