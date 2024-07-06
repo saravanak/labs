@@ -1,13 +1,12 @@
 "use client";
 import ListItem from "@/components/ui/lists/list-item";
-import ListActionButtons from "@/components/ui/ui-hoc/list-action-buttons";
+import TwoLineListItem from "@/components/ui/lists/two-line-list-item";
 import { trpc } from "@/utils/trpc";
 import { useInViewport } from "ahooks";
 import { Plus } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "../../ui/button";
-import TwoLineListItem from "@/components/ui/lists/two-line-list-item";
 
 export default function SpaceListing({ mode }: any) {
   const ref = useRef(null);
@@ -15,10 +14,8 @@ export default function SpaceListing({ mode }: any) {
     threshold: 1,
   });
 
-  const [currentSpace, setCurrentSpace] = useState<any>(null);
   const router = useRouter();
   const pathname = usePathname();
-  const [showTodoForm, setShowTodoForm] = useState(false);
 
   const isSharing = mode == "shared";
 
@@ -79,18 +76,11 @@ export default function SpaceListing({ mode }: any) {
                 <div key={index}>
                   {space.items.map((v: any, itemindex) => {
                     return (
-                      <div
-                        key={itemindex}
-                        className={
-                          currentSpace?.id == v.id
-                            ? "border-2 border-yellow-500"
-                            : " "
-                        }
-                      >
+                      <div key={itemindex}>
                         <ListItem
                           drawBorder={true}
                           onClick={() => {
-                            setCurrentSpace(v);
+                            router.push(`${pathname}/${v.id}/manage`);
                           }}
                         >
                           <div className="flex flex-col p-2 text-[0.75em] rounded-md  bg-gray-200 w-[6em] ">
@@ -129,26 +119,6 @@ export default function SpaceListing({ mode }: any) {
                             Add Todo
                           </Button>
                         </ListItem>
-                        {currentSpace?.id == v.id ? (
-                          <ListActionButtons
-                            heading="Pick your path"
-                            actions={[
-                              {
-                                onClick: () =>
-                                  router.push(`${pathname}/${v.id}/manage`),
-                                label: "Manage Space",
-                                value: "manage",
-                              },
-                              {
-                                onClick: () => router.push(`${pathname}/${v.id}/manage`),
-                                label: "View Todos",
-                                value: "view-todo",
-                              },
-                            ].filter((v) =>
-                              isSharing ? v.value != "manage" : true
-                            )}
-                          />
-                        ) : null}
                       </div>
                     );
                   })}
