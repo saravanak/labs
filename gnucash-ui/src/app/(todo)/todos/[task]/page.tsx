@@ -1,8 +1,8 @@
 "use client";
 import ListItem from "@/components/ui/lists/list-item";
+import LoaderListItem from "@/components/ui/lists/loader-list";
 import PropertyListItem from "@/components/ui/lists/property-list-item";
 import TwoLineListItem from "@/components/ui/lists/two-line-list-item";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import EditableText from "@/components/ui/ui-hoc/editable-text";
 import { trpc } from "@/utils/trpc";
 import { Case } from "change-case-all";
@@ -18,18 +18,20 @@ export default function TaskDetailPage({ params }: any) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const todoFieldUpdateMutation = trpc.todo.updateTodo.useMutation({});
+  const todoFieldUpdateMutation = trpc.todo.updateTodo;
 
   if (todoDetail.data) {
     const { comments, statusHistory, todo } = todoDetail.data;
     const status = todo?.StatusTransitions[0]?.status;
     return (
       <>
+        <ListItem variant="header">Todo #{todo?.id}</ListItem>
         <EditableText
           model={todo}
           fieldName="title"
+          queryKey={[["todo", "getDetailedView"]]}
           type="text"
-          mutation={todoFieldUpdateMutation}
+          mutationFunction={todoFieldUpdateMutation}
           mutationArgs={() => {
             return {
               todoId: todo?.id,
@@ -40,7 +42,8 @@ export default function TaskDetailPage({ params }: any) {
           model={todo}
           fieldName="description"
           type="textarea"
-          mutation={todoFieldUpdateMutation}
+          mutationFunction={todoFieldUpdateMutation}
+          queryKey={[["todo", "getDetailedView"]]}
           mutationArgs={() => {
             return {
               todoId: todo?.id,
@@ -62,26 +65,30 @@ export default function TaskDetailPage({ params }: any) {
           Comments
         </ListItem>
 
-        {comments.map((c, index) => {
-          return (
-            <TwoLineListItem
-              key={index}
-              firstLine={c.comment}
-              model={c}
-              secondLineGenerator={() => {
-                return (
-                  <>
-                    by <span className="font-bold">{c.commented_by}</span>
-                    ,&nbsp;
-                    <span title={c.created_at}>
-                      {DateTime.fromJSDate(c.created_at).toRelative()}
-                    </span>
-                  </>
-                );
-              }}
-            />
-          );
-        })}
+        {comments.length ? (
+          comments.map((c, index) => {
+            return (
+              <TwoLineListItem
+                key={index}
+                firstLine={c.comment}
+                model={c}
+                secondLineGenerator={() => {
+                  return (
+                    <>
+                      by <span className="font-bold">{c.commented_by}</span>
+                      ,&nbsp;
+                      <span title={c.created_at}>
+                        {DateTime.fromJSDate(c.created_at).toRelative()}
+                      </span>
+                    </>
+                  );
+                }}
+              />
+            );
+          })
+        ) : (
+          <ListItem> There are no comments yet</ListItem>
+        )}
 
         <ListItem variant="heading2">Status History</ListItem>
         {statusHistory &&
@@ -104,7 +111,7 @@ export default function TaskDetailPage({ params }: any) {
       </>
     );
   } else {
-    return <h1>Loading..</h1>;
+    return <LoaderListItem />;
   }
 }
 

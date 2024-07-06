@@ -6,19 +6,33 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../button";
 import { Form } from "../form";
-import { FlexJustifySpread } from "./flex-justify-spread";
-import HocInput from "./hoc-input";
 import ListItem from "../lists/list-item";
+import HocInput from "./hoc-input";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function EditableText({
   model,
   type,
   mutationArgs,
-  mutation,
+  mutationFunction,
+  queryKey,
   fieldName,
 }: any) {
   const [isEditing, setIsEditing] = useState(false);
   const iconSize = 15;
+
+  const queryClient = useQueryClient();
+
+  const mutation = mutationFunction.useMutation({
+    onSuccess: async (d: any, payload: any) => {
+      setIsEditing(false);
+      model[fieldName] = payload[fieldName];
+
+      await queryClient.invalidateQueries({
+        queryKey,
+      });
+    },
+  });
 
   const fieldEditorSchema = z.object({
     [fieldName]: z.string(),
@@ -77,7 +91,6 @@ export default function EditableText({
 
                 form.handleSubmit(
                   (d) => {
-                    console.log("Handle submit");
                     onSubmit({
                       field: fieldName,
                       value: d[fieldName],

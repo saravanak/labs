@@ -19,7 +19,7 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         formAction: " text-center content-center ",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        ghost: "hover:bg-inherit",
         link: "text-primary underline-offset-4 hover:underline",
       },
       btnColor: {

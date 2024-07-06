@@ -1,4 +1,3 @@
-import { debounce } from "lodash";
 import {
   FormControl,
   FormField,
@@ -8,10 +7,8 @@ import {
 } from "../form";
 import { Input } from "../input";
 import { TextArea } from "../text-area";
-import HocSelect from "./hoc-select";
 import { AutoComplete, SearchItem } from "./autocomplete";
-import ListItem from "../lists/list-item";
-import TwoLineListItem from "../lists/two-line-list-item";
+import HocSelect from "./hoc-select";
 
 const inputByType = function ({ formMeta, field, trigger }: any) {
   const fieldMeta = formMeta[field.name];
@@ -30,7 +27,9 @@ const inputByType = function ({ formMeta, field, trigger }: any) {
           type={fieldMeta.type}
           onChange={(v) => {
             field.onChange(v.target.value);
-            trigger(field.name);
+            if (trigger) {
+              trigger(field.name);
+            }
           }}
         />
       );
@@ -43,7 +42,6 @@ const inputByType = function ({ formMeta, field, trigger }: any) {
           options={matches as SearchItem[]}
           placeholder={fieldMeta.searchPlaceholder}
           noMatches={"No matches"}
-          // {...field}
           value={field.value}
           onChange={() => {}}
           onSearchChange={(v) => {
@@ -68,7 +66,6 @@ const inputByType = function ({ formMeta, field, trigger }: any) {
   return <></>;
 };
 
-
 export default function HocInput({ name, formMeta, trigger }: any) {
   return (
     <FormField
@@ -77,14 +74,14 @@ export default function HocInput({ name, formMeta, trigger }: any) {
         return (
           <FormItem>
             <div className="p-2">
-            {formMeta[name].label ? (
-              <FormLabel className=" font-bold pb-2">
-                {formMeta[name].label}
-              </FormLabel>
-            ) : null}
-            <FormControl className="align-right text-sm text-gray-400 mt-2">
-              {inputByType({ formMeta, field, trigger })}
-            </FormControl>
+              {formMeta[name].label ? (
+                <FormLabel className=" font-bold pb-2">
+                  {formMeta[name].label}
+                </FormLabel>
+              ) : null}
+              <FormControl className="align-right text-sm text-gray-400 mt-2">
+                {inputByType({ formMeta, field, trigger })}
+              </FormControl>
             </div>
             {formMeta[name]?.matches
               ? formMeta[name]?.matches.map((v: any) => (
