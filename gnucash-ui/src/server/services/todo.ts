@@ -66,6 +66,24 @@ export const TodoWhereQueries = {
       },
     },
   }),
+  ForSearchText: (searchText: string) => ({
+    where: {
+      OR: [
+        {
+          title: {
+            contains: searchText,
+            mode: "insensitive",
+          },
+        },
+        {
+          description: {
+            contains: searchText,
+            mode: "insensitive",
+          },
+        },
+      ],
+    },
+  }),
 };
 
 export const TodoService = {

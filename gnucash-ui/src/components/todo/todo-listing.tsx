@@ -10,9 +10,11 @@ import PropertyListItem from "../ui/lists/property-list-item";
 export default function TodoListing({
   space = {},
   statuses,
+  searchText,
 }: {
   space: any;
   statuses: any;
+  searchText: any;
 }) {
   const { id: spaceId, name: spaceName } = space || {};
   const router = useRouter();
@@ -31,6 +33,7 @@ export default function TodoListing({
       limit: 9,
       spaceId: spaceId ? spaceId : null,
       statuses,
+      searchText,
     },
     {
       getNextPageParam: (lastPage: any) => {
@@ -66,11 +69,14 @@ export default function TodoListing({
               {todo.items.map((v: any, itemindex) => {
                 return (
                   <PropertyListItem
+                    key={itemindex}
                     propertyRenderer={() => {
                       return (
                         <div className="flex flex-col text-ellipsis overflow-hidden w-3/4">
-                          <div className="font-bold">#{v.id} {v.title} </div>
-                          
+                          <div className="font-bold">
+                            #{v.id} {v.title}{" "}
+                          </div>
+
                           <div>{clamp(v.description, 72)}</div>
                         </div>
                       );
@@ -78,7 +84,7 @@ export default function TodoListing({
                     onClick={() => router.push(`/todos/${v.id}`)}
                     value={v.StatusTransitions[0].status}
                     asTag={true}
-                    tagColor="bg-green-600 text-gray-200 font-bold"
+                    tagColor="bg-green-600 text-gray-200 font-bold text-xs whitespace-nowrap"
                   />
                 );
               })}

@@ -23,7 +23,7 @@ export default function SpacesChooser({
       {isLoading ? <LoaderListItem /> : null}
 
       {allSpaces ? (
-        <ListItem className="sticky top-0" drawBorder={true}>
+        <ListItem drawBorder={true}>
           <HocSelect
             selectLabelInline={spaceViewingLabel}
             placeholder={spaceLabel}

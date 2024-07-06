@@ -1,22 +1,25 @@
 .markdowned {
-    padding: 2em 2em;
+    padding-left: 10px;
+    padding-right: 2em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    
     h1, h2, h3, h4 {
         color: #111111;
-        font-weight: 400;
+        font-weight: 700;
     }
     h1, h2, h3, h4, h5, p {
         margin-bottom: 24px;
         padding: 0;
     }
     h1 {
-        font-size: 48px;
+        font-size: 1.3em;
     }
     h2 {
-        font-size: 36px;
-        margin: 24px 0 6px;
+        font-size: 1.2em;
     }
     h3 {
-        font-size: 24px;
+        font-size: 1.1em;
     }
     h4 {
         font-size: 21px;
@@ -33,18 +36,20 @@
     ul, ol {
         padding: 0;
         margin: 0;
+        list-style-position: inside;
+
     }
     ul {
-        list-style: circle;
+        list-style-type: circle;
     }
-    ul {
-        list-style:decimal;
+    ol {
+        list-style-type:decimal;
     }
     li {
         line-height: 24px;
     }
     li ul, li ul {
-        margin-left: 24px;
+        /* margin-left: 24px; */
     }
     p, ul, ol {
         font-size: 16px;
@@ -56,11 +61,17 @@
         max-width: 800px;
         white-space: pre-wrap;
     }
-    code {
+    /* code {
         font-family: Consolas, Monaco, Andale Mono, monospace;
         line-height: 1.5;
         font-size: 13px;
         background-color: violet;
+      
+    }  */
+    pre:has(> code) {
+        background: #f1f1f1;
+        padding: 1.33em;
+        border-radius: 0.33em;
     }
     aside {
         display: block;

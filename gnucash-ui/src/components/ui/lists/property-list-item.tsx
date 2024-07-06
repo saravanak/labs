@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import ListItem from "./list-item";
 import { Case } from "change-case-all";
+import { clamp } from "@/utils/string";
 
 export default function PropertyListItem({
   property,
@@ -23,7 +24,7 @@ export default function PropertyListItem({
           asTag ? `${tagColor}` : ""
         )}
       >
-        {value}
+        <span title={value}>{clamp(value, 8)}</span>
       </div>
     </ListItem>
   );

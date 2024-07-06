@@ -149,7 +149,9 @@ deploy
 In-progress wrapping
 auth rights
 Remove public folder from git and prune git size (mp4 , secrets)
-Try setting up //https://tanstack.com/query/v4/docs/framework/react/guides/ssr for space removed user updates on the receiver end 
-Help screens
+Help screens - reactour
 More omnisearch Search integration
+Try setting up //https://tanstack.com/query/v4/docs/framework/react/guides/ssr for space removed user updates on the receiver end 
 
+
+https://github.com/elrumordelaluz/reactour

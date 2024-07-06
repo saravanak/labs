@@ -8,9 +8,13 @@ const parser = new Marked({ async: false, gfm: true });
 
 export function useMarkdown(mdText: any) {
   const formatted = useMemo(() => {
-    return DOMPurify.sanitize(parser.parse(mdText) as string, {
-      USE_PROFILES: { html: true },
-    });
+    if (mdText) {
+      return DOMPurify.sanitize(parser.parse(mdText) as string, {
+        USE_PROFILES: { html: true },
+      });
+    } else {
+      return "";
+    }
   }, [mdText]);
 
   return [formatted];
@@ -20,7 +24,10 @@ export default function Markdowned({ mdText, children, className }: any) {
   const [html] = useMarkdown(mdText);
   return (
     <Slot
-      className={cn("markdowned bg-light-bg text-light-bg-foreground", className)}
+      className={cn(
+        "markdowned bg-light-bg text-light-bg-foreground",
+        className
+      )}
       dangerouslySetInnerHTML={{ __html: html }}
     >
       {children}

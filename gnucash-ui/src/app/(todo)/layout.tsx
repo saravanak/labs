@@ -59,7 +59,7 @@ export default async function TodoRootLayout({
   return (
     <html lang="en">
       <head></head>
-      <body className={cn(inter.className, "")}>
+      <body className={cn(inter.className, "min-h-screen bg-gradient-to-b from-zinc-100 to-stone-100")}>
         <TrpcProvider>
           <div className="md:container md:px-auto w-full md:w-4/6 ">
             <Card className="border-none bg-gray-100">

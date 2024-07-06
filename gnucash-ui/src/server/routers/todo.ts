@@ -12,6 +12,7 @@ export const todoRouter = t.router({
         limit: z.number(),
         cursor: z.number().nullish(),
         statuses: z.string().array().optional(),
+        searchText: z.string().nullish(),
       })
     )
     .query(async (opts) => {
@@ -20,6 +21,9 @@ export const todoRouter = t.router({
         TodoWhereQueries.OwnTodosAcrossSpaces(session.user),
         opts.input.statuses
           ? TodoWhereQueries.ForStatus(opts.input.statuses)
+          : {},
+        opts.input.searchText
+          ? TodoWhereQueries.ForSearchText(opts.input.searchText.trim())
           : {}
       );
       const items = await TodoService.getTodosForUser(
@@ -38,13 +42,25 @@ export const todoRouter = t.router({
         limit: z.number(),
         cursor: z.number().nullish(),
         spaceId: z.number(),
+        statuses: z.string().array().optional(),
+        searchText: z.string().nullish(),
       })
     )
     .query(async (opts) => {
       const { session } = opts.ctx;
+      const whereClause = merge(
+        TodoWhereQueries.ForSpace(opts.input.spaceId),
+        TodoWhereQueries.OwnTodosAcrossSpaces(session.user),
+        opts.input.statuses
+          ? TodoWhereQueries.ForStatus(opts.input.statuses)
+          : {},
+        opts.input.searchText
+          ? TodoWhereQueries.ForSearchText(opts.input.searchText.trim())
+          : {}
+      );
       const items = await TodoService.getTodosForUser(
         session.user,
-        TodoWhereQueries.ForSpace(opts.input.spaceId),
+        whereClause,
         opts.input
       );
       return {
