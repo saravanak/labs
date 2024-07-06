@@ -145,11 +145,12 @@ Too many clients already...
 
 View Todos from space listing. 
 Add todo not working. 
-auth rights
+auth rights testing 
+cypress testing 
 Remove public folder from git and prune git size (mp4 , secrets)
 - Bootstrap example user for demo 
-- Always auto-login with example user 
-- Implement switch between demo user and actual user. 
+- Always auto-login with Bootstrap'd user 
+- Implement switch between demo user and actual user on profile page
 - Implement Github login for now. 
 
 LATER:

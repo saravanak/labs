@@ -1,4 +1,3 @@
-import prisma from "@/lib/prisma";
 import { TodoService, TodoWhereQueries } from "@/server/services/todo";
 import { shieldedProcedure, t } from "@/utils/trpc-server";
 import { Space, User } from "@prisma/client";

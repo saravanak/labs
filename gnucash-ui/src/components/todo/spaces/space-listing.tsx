@@ -140,7 +140,7 @@ export default function SpaceListing({ mode }: any) {
                                 value: "manage",
                               },
                               {
-                                onClick: () => {},
+                                onClick: () => router.push(`${pathname}/${v.id}/manage`),
                                 label: "View Todos",
                                 value: "view-todo",
                               },

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Fragment, useEffect, useRef } from "react";
 import { Button } from "../ui/button";
 import PropertyListItem from "../ui/lists/property-list-item";
+import LoaderListItem from "../ui/lists/loader-list";
 
 export default function TodoListing({
   space = {},
@@ -28,7 +29,7 @@ export default function TodoListing({
     ? trpc.todo.getTodosForSpace.useInfiniteQuery
     : trpc.todo.getOwnTodos.useInfiniteQuery;
 
-  const { fetchNextPage, data, error, hasNextPage } = todoFetchQuery(
+  const { fetchNextPage, data, error, hasNextPage, isLoading } = todoFetchQuery(
     {
       limit: 9,
       spaceId: spaceId ? spaceId : null,
@@ -47,6 +48,12 @@ export default function TodoListing({
       fetchNextPage();
     }
   }, [inView]);
+
+  if (isLoading) {
+    return Array(5)
+      .fill(0)
+      .map((v, i) => <LoaderListItem key={i} />);
+  }
 
   let components = <></>;
   if (data) {

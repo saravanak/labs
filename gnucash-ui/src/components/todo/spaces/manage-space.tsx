@@ -16,11 +16,8 @@ export default function ManageSpace({ spaceWithUsers }: any) {
   const router = useRouter();
   const pathname = usePathname();
 
-  if (!spaceWithUsers) {
-    return <LoaderListItem />;
-  }
-
-  const { id, name } = spaceWithUsers;
+  
+  const { id, name } = spaceWithUsers || {};
 
   const removeUserMutation = trpc.space.removeUserFromSpace.useMutation({
     onSuccess: () => {
@@ -33,7 +30,7 @@ export default function ManageSpace({ spaceWithUsers }: any) {
   return (
     <>
       <ListItem variant="header">{name}</ListItem>
-      <ListItem variant="heading2">
+      {spaceWithUsers && <ListItem variant="heading2">
         <div className="flex">
           <div className="mr-4">Members</div>
           <CircledNumber value={spaceWithUsers?.spaceSharing.length} />{" "}
@@ -45,8 +42,8 @@ export default function ManageSpace({ spaceWithUsers }: any) {
         >
           Add Member
         </Button>
-      </ListItem>
-      {spaceWithUsers?.spaceSharing.map(({ user }: any) => {
+      </ListItem>}
+      {spaceWithUsers && spaceWithUsers?.spaceSharing.map(({ user }: any) => {
         return (
           <div
             key={user.id}
