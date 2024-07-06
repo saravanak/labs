@@ -19,7 +19,7 @@ export default function PagesIndexPage(props: any) {
         <AccordionItem value="item-1">
           <AccordionTrigger className={triggerClassNames}>
             <FlexJustifySpread className="grow pr-4">
-              <div>My spaces</div>
+              <div data-retour-step="my-spaces">My spaces</div>
               <CircledNumber value={owningSpaces} />
             </FlexJustifySpread>
           </AccordionTrigger>
@@ -30,7 +30,7 @@ export default function PagesIndexPage(props: any) {
         <AccordionItem value="item-2">
           <AccordionTrigger className={triggerClassNames}>
             <FlexJustifySpread className="grow pr-4">
-              <div>Spaces shared with me</div>
+              <div data-retour-step="shared-spaces">Spaces shared with me</div>
               <CircledNumber value={sharedSpaces} />
             </FlexJustifySpread>
           </AccordionTrigger>

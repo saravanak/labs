@@ -145,11 +145,12 @@ Too many clients already...
 
 View Todos from space listing. 
 Add todo not working. 
-deploy
-In-progress wrapping
 auth rights
 Remove public folder from git and prune git size (mp4 , secrets)
 Help screens - reactour
+
+LATER:
+deploy
 More omnisearch Search integration
 Try setting up //https://tanstack.com/query/v4/docs/framework/react/guides/ssr for space removed user updates on the receiver end 
 

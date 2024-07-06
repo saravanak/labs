@@ -66,7 +66,9 @@ export default function SpaceListing({ mode }: any) {
               onClick={() => router.push(`${pathname}/create-space`)}
             >
               <Plus />
-              <div className="font-bold">Create a new Space</div>
+              <div className="font-bold" data-retour-step="create-space">
+                Create a new Space
+              </div>
             </Button>
           </ListItem>
         )}
@@ -107,16 +109,18 @@ export default function SpaceListing({ mode }: any) {
                               )}{" "}
                             </div>
                           </div>
-                          <TwoLineListItem className="item-start grow"
+                          <TwoLineListItem
+                            className="item-start grow"
                             firstLine={v.name}
                             secondLine={v.owner}
                           />
 
-                          
                           <Button
                             onClick={(e) => {
                               e.stopPropagation();
-                              router.push(`${pathname}/${v.id}/manage/add-todo`)
+                              router.push(
+                                `${pathname}/${v.id}/manage/add-todo`
+                              );
                             }}
                             variant="outline"
                             color="lightgray"
@@ -133,14 +137,16 @@ export default function SpaceListing({ mode }: any) {
                                 onClick: () =>
                                   router.push(`${pathname}/${v.id}/manage`),
                                 label: "Manage Space",
-                                value:"manage"
+                                value: "manage",
                               },
                               {
                                 onClick: () => {},
                                 label: "View Todos",
-                                value:"view-todo"
+                                value: "view-todo",
                               },
-                            ].filter((v) => isSharing ?  v.value !="manage" : true)}
+                            ].filter((v) =>
+                              isSharing ? v.value != "manage" : true
+                            )}
                           />
                         ) : null}
                       </div>

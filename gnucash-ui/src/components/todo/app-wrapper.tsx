@@ -1,32 +1,100 @@
 "use client";
+import { StepType, TourProvider } from "@reactour/tour";
 import { SessionProvider } from "next-auth/react";
 import { createContext, useState } from "react";
-import { FlexJustifySpread } from "../ui/ui-hoc/flex-justify-spread";
-import TodoTabBar from "./todo-tab-bar";
-
+import TourWrapper from "./tour-wrapper";
+import Markdowned from "../markdown/md-viewer";
+import { StepContentTexts } from "./tour/step-content";
+import { useRouter } from "next/navigation";
 export const TabBarContext = createContext({
   form: null,
   setForm: (x: any) => {},
 });
 
+function Content({
+  content,
+  setCurrentStep,
+  transition,
+  isHighlightingObserved,
+  currentStep,
+  setIsOpen,
+}: any) {
+  console.log({
+    content,
+    setCurrentStep,
+    transition,
+    isHighlightingObserved,
+    currentStep,
+    setIsOpen,
+  });
+
+  const stepText = content ? StepContentTexts[content] : "";
+  return (
+    <Markdowned mdText={stepText} className="w-full rounded-md">
+      <div></div>
+    </Markdowned>
+  );
+}
+
 export default function AppWrapper({ children, session }: any) {
+  const router = useRouter();
+
+  const styles = {
+    popover: (base: any) => ({ ...base, maxWidth: "100%" }),
+  };
+
   const [form, setForm] = useState(null);
+  const steps: StepType[] = [
+    {
+      selector: '[data-retour-step="tinja"]',
+      content: "tinja",
+    },
+    {
+      selector: '[data-retour-step="todos"]',
+      content: "todos",
+      actionAfter: () => router.push("/spaces"),
+    },
+    {
+      selector: '[data-retour-step="spaces"]',
+      content: "spaces",
+    },
+    {
+      selector: '[data-retour-step="my-spaces"]',
+      content: "my-spaces",
+      action: (element: any) => element?.click(),
+    },
+    {
+      selector: '[data-retour-step="create-space"]',
+      content: "create-space",
+      actionAfter: () => {
+        document
+          .querySelector<HTMLElement>('[data-retour-step="my-spaces"]')
+          ?.click();
+      },
+    },
+    {
+      selector: '[data-retour-step="shared-spaces"]',
+      content: "shared-spaces",
+    },
+    {
+      selector: '[data-retour-step="login"]',
+      content: "login",
+    },
+  ];
 
   return (
-    <>
-      <SessionProvider>
-        <TabBarContext.Provider value={{ form, setForm }}>
-          <div className="grid grid-cols-1 h-svh grid-rows-[3em,1fr,3em]">
-            <FlexJustifySpread className="bg-primary text-primary-foreground py-4 h-[3em]">
-              <div className="pl-4 grow font-bold text-lg">Tinja</div>
-              <div className="pr-4">{session.user.email}</div>
-            </FlexJustifySpread>
-            <div className="h-full  overflow-y-auto">{children}</div>
-            <TodoTabBar />
-          </div>
-        </TabBarContext.Provider>
-      </SessionProvider>
-    </>
+    <SessionProvider>
+      <TabBarContext.Provider value={{ form, setForm }}>
+        <TourProvider
+          steps={steps}
+          components={{ Content }}
+          className="w-screen md:w-[calc(100vw-50vw)] m-4"
+          styles={styles}
+        >
+          <TourWrapper session={session}>{children}</TourWrapper>
+        </TourProvider>
+      </TabBarContext.Provider>
+    </SessionProvider>
   );
 }
 

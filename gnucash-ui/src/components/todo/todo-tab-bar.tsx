@@ -17,17 +17,15 @@ export default function TodoTabBar() {
   const { hookForm, formState, onSubmit, onCancel, mutation, title, status } =
     form || {};
 
-  console.log({ form, isSubmit: formState?.isSubmitting });
   let tabButtons = useMemo(() => {
-    console.log("Memo running...");
-
     switch (form) {
       case null:
-        return ["spaces", "todos"].map((v) => {
+        return ["todos", "spaces"].map((v) => {
           return (
             <Link
               href={`/${v}`}
               key={v}
+              data-retour-step={v}
               className={`pl-4 basis-1/2  h-full text-center font-bold text-primary-foreground ${
                 v == segment ? "bg-primary " : "bg-muted "
               } content-center`}

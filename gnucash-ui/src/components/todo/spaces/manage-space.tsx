@@ -5,7 +5,7 @@ import ListActionButtons from "@/components/ui/ui-hoc/list-action-buttons";
 import { trpc } from "@/utils/trpc";
 import { Unlink } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import TodoListing from "../todo-listing";
 import LoaderListItem from "@/components/ui/lists/loader-list";
@@ -41,6 +41,7 @@ export default function ManageSpace({ spaceWithUsers }: any) {
         <Button
           variant={"outline"}
           onClick={() => router.push(`${pathname}/add-member`)}
+          data-retour-step="add-member"
         >
           Add Member
         </Button>
