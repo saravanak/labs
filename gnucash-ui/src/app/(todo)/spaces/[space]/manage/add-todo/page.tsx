@@ -1,14 +1,17 @@
 "use client";
 
+import { SessionContext } from "@/components/todo/app-wrapper";
 import ListItem from "@/components/ui/lists/list-item";
 import LoaderListItem from "@/components/ui/lists/loader-list";
 import HocForm from "@/components/ui/ui-hoc/hoc-form";
 import { trpc } from "@/utils/trpc";
+import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
+import { useContext } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 
-export default function AddMemberToSpace({ params }: any) {
+export default function AddTodoToSpace({ params }: any) {
   const formSchema = z
     .object({
       title: z.string(),
@@ -19,6 +22,8 @@ export default function AddMemberToSpace({ params }: any) {
   const { isLoading, data: spaceDetails } = trpc.space.getSpace.useQuery({
     spaceId: parseInt(params.space),
   });
+
+  const { data, status } = useSession();
 
   const router = useRouter();
   const pathname = usePathname();
@@ -36,9 +41,17 @@ export default function AddMemberToSpace({ params }: any) {
 
   const mutation = trpc.todo.createTodo.useMutation({
     onSuccess: (d, { todoCreateArgs: { title } }) => {
+      const spaceOwner = d?.space.user.id;
+      const currentUser = data?.user.id;
+      const isLoggedInUserOwnerOfTodoSpace = spaceOwner == currentUser;
+
       toast(`Created todo with title ${title}`);
       const previousPath = pathname.split("/").slice(0, -1).join("/");
-      router.push(`${previousPath}`);
+      const redirectPath = isLoggedInUserOwnerOfTodoSpace
+        ? previousPath
+        : `/todos/${d?.id}`;
+
+      router.push(redirectPath);
       router.refresh();
     },
   });

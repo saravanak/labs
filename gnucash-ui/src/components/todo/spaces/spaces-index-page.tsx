@@ -1,5 +1,4 @@
 "use client";
-import SharedSpaceListing from "@/components/todo/spaces/shared-space-listing";
 import SpaceListing from "@/components/todo/spaces/space-listing";
 import {
   Accordion,
@@ -36,7 +35,7 @@ export default function PagesIndexPage(props: any) {
             </FlexJustifySpread>
           </AccordionTrigger>
           <AccordionContent className="text-base pb-0">
-            <SharedSpaceListing />
+            <SpaceListing mode="shared" />
           </AccordionContent>
         </AccordionItem>
       </Accordion>

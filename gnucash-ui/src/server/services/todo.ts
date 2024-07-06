@@ -7,6 +7,7 @@ import {
 } from "@/lib/typed-queries/todo/action";
 import { faker } from "@faker-js/faker";
 import { Space, User } from "@prisma/client";
+import { space } from "postcss/lib/list";
 import { z } from "zod";
 
 export const returnPaginatedQuery = (
@@ -59,9 +60,9 @@ export const TodoWhereQueries = {
       StatusTransitions: {
         some: {
           status: {
-            in: statuses
+            in: statuses,
           },
-        }
+        },
       },
     },
   }),
@@ -238,6 +239,8 @@ export const TodoService = {
         comment: `Changed by ${user.email}`,
       },
     });
+
+    return TodoService.getTodo(newTodo.id);
   },
   async updateTodo({ field, value, todoId }: any) {
     return await prisma.todo.update({
@@ -263,6 +266,16 @@ export const TodoService = {
           },
           distinct: ["todo_id"],
         },
+        space: {
+          select: {
+            user: {
+              select: {
+                id: true,
+              },
+            },
+          },
+        },
+
         id: true,
         title: true,
         description: true,
@@ -270,7 +283,7 @@ export const TodoService = {
       where: {
         id: taskId,
       },
-    })
+    });
   },
 
   async addComment(todoId: number, user: User, commentContent: string) {

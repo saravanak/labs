@@ -76,16 +76,12 @@ export const SpaceService = {
     });
   },
   async removeUserFromSpace(o: { spaceId: number; memberIdRemove: string }) {
-    console.log({ o });
-
-    sleep(3000);
-
-    // await prisma.spaceSharing.deleteMany({
-    //   where: {
-    //     user_id: o.memberIdRemove,
-    //     space_id: o.spaceId,
-    //   },
-    // });
+    return await prisma.spaceSharing.deleteMany({
+      where: {
+        user_id: o.memberIdRemove,
+        space_id: o.spaceId,
+      },
+    });
   },
 
   async getAllSpaces(user: User, { limit, cursor, email }: any) {
@@ -175,14 +171,26 @@ export const SpaceService = {
         },
         select: {
           _count: {
-            select: { todos: true },
+            select: { todos: true, spaceSharing: true },
           },
           name: true,
+          id: true,
+          user: {
+            select: {
+              email: true,
+            },
+          },
         },
       },
       { limit, cursor }
     );
-    return prisma.space.findMany(queryInput);
+    const spaces = await prisma.space.findMany(queryInput);
+    return spaces.map((v: any) => ({
+      id: v.id,
+      name: v.name,
+      owner: v.user.email,
+      _count: v._count,
+    }));
   },
 };
 
