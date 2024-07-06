@@ -153,5 +153,3 @@ Try setting up //https://tanstack.com/query/v4/docs/framework/react/guides/ssr f
 Help screens
 More omnisearch Search integration
 
-https://github.com/cure53/DOMPurify
-https://github.com/markedjs/marked

@@ -9,6 +9,7 @@ import { Input } from "../input";
 import { TextArea } from "../text-area";
 import { AutoComplete, SearchItem } from "./autocomplete";
 import HocSelect from "./hoc-select";
+import TextareaAutosize from "react-textarea-autosize";
 
 const inputByType = function ({ formMeta, field, trigger }: any) {
   const fieldMeta = formMeta[field.name];
@@ -35,7 +36,7 @@ const inputByType = function ({ formMeta, field, trigger }: any) {
       );
 
     case "textarea":
-      return <TextArea type={fieldMeta.type} {...field} />;
+      return <TextareaAutosize className="w-full p-4" type={fieldMeta.type} {...field} />;
     case "autocomplete":
       return (
         <AutoComplete
