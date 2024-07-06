@@ -26,8 +26,8 @@ export default function TodoTabBar() {
               href={`/${v}`}
               key={v}
               data-retour-step={v}
-              className={`pl-4 basis-1/2  h-full text-center font-bold text-primary-foreground ${
-                v == segment ? "bg-primary " : "bg-muted "
+              className={`pl-4 basis-1/2  h-full text-center font-bold  ${
+                v == segment ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
               } content-center`}
             >
               {Case.title(v)}
