@@ -6,6 +6,7 @@ declare global {
         GITHUB_CLIENT_ID: string;
         GITHUB_CLIENT_SECRET: string;
         JOB_DATABASE_URL: string
+        CYPRESS_TESTING_E2E:string;
       }
     }    
   }

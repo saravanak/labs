@@ -1,7 +1,6 @@
 
 import prisma from "@/lib/prisma";
 import { initTRPC } from "@trpc/server";
-import { enhance } from "@zenstackhq/runtime";
 import { NextRequest } from "next/server";
 import trpcOptions from "./trpc-options";
 
@@ -85,9 +84,9 @@ export const createTRPCContext = async (opts: { req: NextRequest }) => {
 };
 const t = initTRPC.context<typeof createTRPCContext>().create(trpcOptions);
 
+import { authOptions } from "@/lib/auth-options";
 import { DefaultSession, getServerSession } from "next-auth";
 import { permissions } from "./shield/shield";
-import { authOptions } from "@/lib/auth-options";
 
 
 export type Context = typeof createTRPCContext;
