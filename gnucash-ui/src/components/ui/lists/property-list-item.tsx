@@ -7,6 +7,7 @@ export default function PropertyListItem({
   property,
   propertyRenderer,
   value,
+  valueRenderer,
   asTag,
   tagColor,
   ...props
@@ -24,7 +25,8 @@ export default function PropertyListItem({
           asTag ? `${tagColor}` : ""
         )}
       >
-        <span title={value}>{clamp(value, 8)}</span>
+        {valueRenderer ? valueRenderer() : <span title={value}>{clamp(value, 8)}</span>}
+        
       </div>
     </ListItem>
   );

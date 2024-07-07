@@ -98,12 +98,13 @@ model User {
 
 model Space {
   ///FAKE:faker.number.int()
-  id           Int            @unique() @default(autoincrement())
-  owner_id     String
-  name         String
-  user         User           @relation(fields: [owner_id], references: [id])
-  todos        Todo[]
-  spaceSharing SpaceSharing[]
+  id              Int            @unique() @default(autoincrement())
+  owner_id        String
+  name            String
+  is_system_space Boolean        @default(false)
+  user            User           @relation(fields: [owner_id], references: [id])
+  todos           Todo[]
+  spaceSharing    SpaceSharing[]
 
   @@id([owner_id, name])
   @@map(name: "spaces")
@@ -116,6 +117,7 @@ model SpaceSharing {
   user_id  String
   user     User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
+  @@unique([user_id, space_id])
   @@map(name: "user_space")
 }
 

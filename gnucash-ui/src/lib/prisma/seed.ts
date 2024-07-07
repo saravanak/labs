@@ -29,19 +29,32 @@ async function main() {
   });
 
   const statusMeta = await prisma.statusMeta.findFirst();
-  console.log(fakeUser());
 
-  const user = await prisma.user.create({ data: omit(fakeUser(), ['space_id']) });
+  const newUser = omit(fakeUser(), ["space_id"]);
+  newUser.email = "neo@example.com";
+  const user = await prisma.user.create({ data: newUser });
 
   const userSpace = await prisma.space.create({
-    data: { owner_id: user.id, name: "DEFAULT" },
+    data: {
+      owner_id: user.id,
+      name: "Demo Space for Neo",
+      is_system_space: true,
+    },
   });
   const todo = await db.todo.create({
     data: {
       statusMeta: { connect: { id: statusMeta?.id } },
-      title: "asda",
-      description: "asda",
+      title: "I need to breathe",
+      description: "That is, to live!",
       space: { connect: { id: userSpace?.id } },
+    },
+  });
+
+  await prisma.statusTransitions.create({
+    data: {
+      status: statusMeta?.statuses.split(",")[0] as string,
+      todo_id: todo.id,
+      comment: `Changed by ${user.email}`,
     },
   });
 

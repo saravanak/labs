@@ -3,9 +3,7 @@ import { Context } from "../trpc-server";
 
 const isAuthenticated = rule<Context>()(
   async (ctx, type, path, input, rawInput) => {
-    console.log(`isAuthenticated : ${(ctx as any)?.session?.user?.name}`);
-
-    return !!(ctx as any)?.session?.user?.name;
+    return !!(ctx as any)?.session?.user?.email;
   }
 );
 

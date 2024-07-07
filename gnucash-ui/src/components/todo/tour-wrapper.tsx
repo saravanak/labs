@@ -23,7 +23,10 @@ export default function TourWrapper({ children, session }: any) {
             <TramFront />
           </Button>
         </div>
-        <div className="pr-4" data-retour-step="login">{session.user.email}</div>
+
+        <Button variant="ghost" data-retour-step="login" onClick={() =>router.push("/profile")}>
+          {session.user.email}
+        </Button>
       </FlexJustifySpread>
       <div className="h-full  overflow-y-auto">{children}</div>
       <TodoTabBar />

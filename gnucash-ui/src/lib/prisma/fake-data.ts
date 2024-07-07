@@ -93,6 +93,7 @@ export function fakeSpaceComplete() {
     id: faker.number.int(),
     owner_id: faker.string.uuid(),
     name: faker.person.fullName(),
+    is_system_space: false,
   };
 }
 export function fakeSpaceSharingComplete() {

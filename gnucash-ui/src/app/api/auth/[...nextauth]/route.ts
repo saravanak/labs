@@ -8,7 +8,6 @@ import prisma from "@/lib/prisma";
 import { NextRequest } from "next/server";
 import { authOptions } from "@/lib/auth-options";
 
-authOptions
 
 const githubProvider = GithubProvider({
   clientId: process.env.GITHUB_CLIENT_ID,

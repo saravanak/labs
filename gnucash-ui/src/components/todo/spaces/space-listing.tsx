@@ -7,6 +7,7 @@ import { Plus } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { Button } from "../../ui/button";
+import { useSession } from "next-auth/react";
 
 export default function SpaceListing({ mode }: any) {
   const ref = useRef(null);
@@ -14,10 +15,12 @@ export default function SpaceListing({ mode }: any) {
     threshold: 1,
   });
 
+  const { data: userSession }: any = useSession();
   const router = useRouter();
   const pathname = usePathname();
 
   const isSharing = mode == "shared";
+  const isDemoUser = userSession && userSession.user.isDemoUser;
 
   const pager = isSharing
     ? trpc.space.getSharedSpaces
@@ -56,18 +59,29 @@ export default function SpaceListing({ mode }: any) {
     return (
       <div>
         {isSharing ? null : (
-          <ListItem className="">
-            <Button
-              variant="outline"
-              size="list"
-              onClick={() => router.push(`${pathname}/create-space`)}
-            >
-              <Plus />
-              <div className="font-bold" data-retour-step="create-space">
-                Create a new Space
-              </div>
-            </Button>
-          </ListItem>
+          <>
+            <ListItem className="">
+              <Button
+                variant="outline"
+                size="list"
+                disabled={isDemoUser}
+                onClick={() => router.push(`${pathname}/create-space`)}
+              >
+                <div className="flex flex-col items-center align-middle py-2">
+                  <div className="flex grow">
+                  <Plus />
+                  <div className="font-bold" data-retour-step="create-space">
+                    Create a new Space
+                  </div>
+
+                  </div>
+                  <div className="text-xs text-muted">
+                    You can't create a space while in the demo. Please sign
+                  </div>
+                </div>
+              </Button>
+            </ListItem>
+          </>
         )}
         <div className="w-[3/6] max-h-full overflow-hidden">
           <div className="w-full h-full overflow-auto">

@@ -141,7 +141,8 @@ model Space {
   ///FAKE:faker.number.int()
   id Int            @unique    @default(autoincrement())
   owner_id String 
-  name String 
+  name String
+  is_system_space  Boolean @default(false) 
   user User @relation(fields: [owner_id], references: [id])  
   todos            Todo[]
 	spaceSharing SpaceSharing[]

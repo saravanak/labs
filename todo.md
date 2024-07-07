@@ -143,7 +143,6 @@ Todos listing
 
 Too many clients already...
 
-View Todos from space listing. 
 Add todo not working. 
 auth rights testing 
 cypress testing 
