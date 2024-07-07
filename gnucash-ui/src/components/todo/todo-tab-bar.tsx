@@ -26,9 +26,12 @@ export default function TodoTabBar() {
               href={`/${v}`}
               key={v}
               data-retour-step={v}
-              className={`pl-4 basis-1/2  h-full text-center font-bold  ${
-                v == segment ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
-              } content-center`}
+              className={cn(
+                "pl-4 basis-1/2  h-full text-center font-bold content-center",
+                v == segment
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-card text-muted-foreground"
+              )}
             >
               {Case.title(v)}
             </Link>
@@ -56,6 +59,7 @@ export default function TodoTabBar() {
               variant="formAction"
               size="formAction"
               btnColor={action == "save" ? "userAgree" : "userCancel"}
+              enabledOnDemo={action == "cancel"}
               disabled={
                 action == "save"
                   ? !formState.isValid || mutation.isLoading
@@ -81,7 +85,14 @@ export default function TodoTabBar() {
 
         return controls;
     }
-  }, [form, formState?.isSubmitting, formState?.submitCount, mutation, status]);
+  }, [
+    form,
+    formState?.isSubmitting,
+    formState?.submitCount,
+    mutation,
+    status,
+    segment,
+  ]);
 
   return (
     <div className="mb-4 h-full">

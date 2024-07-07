@@ -7,6 +7,8 @@ import { useCallback, useContext, useEffect } from "react";
 import { Form } from "../form";
 import FormErrorContainer from "./form-error-container";
 import HocInput from "./hoc-input";
+import { useSession } from "next-auth/react";
+import ListItem from "../lists/list-item";
 
 export default function HocForm({
   formSchema,
@@ -16,18 +18,17 @@ export default function HocForm({
   mutation,
   title,
 }: any) {
- 
   const propertyPaths = getPropertyPaths(formSchema);
 
-  console.log({defaultValues});
-  
+  const { data: userSession }: any = useSession();
+
+  const isDemoUser = userSession && userSession.user.isDemoUser;
 
   const form = useForm({
-    resolver: zodResolver({...formSchema, mode: "sync"}),
+    resolver: zodResolver({ ...formSchema, mode: "sync" }),
     mode: "onSubmit",
     defaultValues,
   });
-
 
   const { formState, setError } = form;
 
@@ -61,7 +62,7 @@ export default function HocForm({
     });
     return () => {
       setForm(null);
-    }
+    };
   }, [
     form,
     formState.submitCount,
@@ -76,23 +77,27 @@ export default function HocForm({
     ...form,
     formMeta,
   };
-  
-  
+
+  const isFormDisabled = isDemoUser || mutation?.isLoading;
   return (
     <div className="grid  grid-cols-1 ">
+      <ListItem variant="header">{title}</ListItem>
       <Form {...additionalContext}>
         <form
           onSubmit={form.handleSubmit((d) => {
-            console.log("Handle submit");
-
             onSubmit(d);
           })}
-          className=""
         >
-          <fieldset disabled={mutation?.isLoading}>
+          <fieldset disabled={isFormDisabled}>
             {propertyPaths.map((property) => {
               return (
-                <HocInput key={property} name={property} formMeta={formMeta} trigger={form.trigger} />
+                <HocInput
+                  key={property}
+                  name={property}
+                  formMeta={formMeta}
+                  trigger={form.trigger}
+                  disabled={isFormDisabled}
+                />
               );
             })}
           </fieldset>

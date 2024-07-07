@@ -19,7 +19,7 @@ export default function TodosListingPage() {
   const searchTextInput = useRef<any>(null);
 
   const queryClient = useQueryClient();
-  const [searchText, setSearchText] = useState<any>(null);
+  const [searchText, setSearchText] = useState<any>(undefined);
   const debouncedSearchTerm = useDebounce(searchText, 300);
 
   const space = useMemo(() => {

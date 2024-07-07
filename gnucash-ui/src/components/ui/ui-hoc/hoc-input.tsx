@@ -59,6 +59,7 @@ const inputByType = function ({ formMeta, field, trigger }: any) {
           selectLabelInline={null}
           options={fieldMeta.statusOptions || []}
           value={field.value}
+          disabled={field.disabled}
           onValueChange={(v: any) => field.onChange(v)}
         ></HocSelect>
       );
@@ -67,10 +68,11 @@ const inputByType = function ({ formMeta, field, trigger }: any) {
   return <></>;
 };
 
-export default function HocInput({ name, formMeta, trigger }: any) {
+export default function HocInput({ name, formMeta, trigger, disabled }: any) {
   return (
     <FormField
       name={name}
+      disabled={disabled}
       render={({ field }: any) => {
         return (
           <FormItem>
