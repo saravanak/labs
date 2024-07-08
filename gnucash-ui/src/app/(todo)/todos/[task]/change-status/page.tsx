@@ -15,8 +15,8 @@ export default function ChangeStatus({ params }: any) {
   const todoId = parseInt(params.task);
 
   const [validStatuses, todo] = trpc.useQueries((t) => [
-    t.todo.getValidStatuses({ taskId: todoId }),
-    t.todo.getTodo({ taskId: todoId }),
+    t.todo.getValidStatuses({ todoId: todoId }),
+    t.todo.getTodo({ todoId: todoId }),
   ]);
 
   const formSchema = z.object({
@@ -50,7 +50,7 @@ export default function ChangeStatus({ params }: any) {
 
   function onSubmit(formState: any) {
     mutation.mutate({
-      taskId: todoId,
+      todoId: todoId,
       ...formState,
     });
   }

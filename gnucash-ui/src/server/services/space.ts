@@ -6,6 +6,7 @@ import { returnPaginatedQuery } from "./todo";
 import { merge, orderBy, startsWith } from "lodash";
 import { sleep } from "./utils";
 import { sql_getAllSpaces } from "@/lib/typed-queries/space/action";
+import { TRPCError } from "@trpc/server";
 
 const SpaceWhereQueries = {
   ownedBy: (user: User) => ({
@@ -48,6 +49,10 @@ export const SpaceService = {
     const space = await prisma.space.findFirst({
       where: {
         id: spaceId,
+      },
+      select: {
+        name: true,
+        id: true,
       },
     });
     return space;
@@ -108,14 +113,6 @@ export const SpaceService = {
     });
     return { ...sharedSpace, isOwning: false };
   },
-  async removeUserFromSpace(o: { spaceId: number; memberIdRemove: string }) {
-    return await prisma.spaceSharing.deleteMany({
-      where: {
-        user_id: o.memberIdRemove,
-        space_id: o.spaceId,
-      },
-    });
-  },
 
   async getAllSpaces(user: User, { limit, cursor, email }: any) {
     return sql_getAllSpaces.run(
@@ -126,6 +123,15 @@ export const SpaceService = {
       },
       pgClient
     );
+  },
+
+  async removeUserFromSpace(o: { spaceId: number; memberIdRemove: string }) {
+    return await prisma.spaceSharing.deleteMany({
+      where: {
+        user_id: o.memberIdRemove,
+        space_id: o.spaceId,
+      },
+    });
   },
 
   async addUserToSpace(owner: User, spaceId: number, invitee: string) {
@@ -151,9 +157,10 @@ export const SpaceService = {
     });
 
     if (!inviteeExists) {
-      throw new Error(
-        "The invitee does not exist on the system. Please ask the user to register on this site using the email id you provided"
-      );
+      throw new TRPCError({
+        code: "UNPROCESSABLE_CONTENT",
+        message: "Your request cannot be processed at this time",
+      });
     }
 
     const space = await prisma.spaceSharing.create({
@@ -191,9 +198,18 @@ export const SpaceService = {
       },
       { limit, cursor }
     );
-    console.log(queryInput);
 
-    return prisma.space.findMany(queryInput);
+    const result = await prisma.space.findMany(queryInput);
+
+    return (
+      result &&
+      result.map((v: any) => ({
+        name: v.name,
+        id: v.id,
+        todosCount: v._count.todos,
+        sharedWithCount: v._count.spaceSharing,
+      }))
+    );
   },
   async getSharedSpaces(user: User, { limit, cursor }: any) {
     const queryInput = returnPaginatedQuery(
@@ -224,6 +240,41 @@ export const SpaceService = {
       owner: v.user.email,
       _count: v._count,
     }));
+  },
+
+  async isSharedWithUser(spaceId: number, user: User) {
+    return prisma.space.findFirst({
+      where: {
+        OR: [
+          {
+            spaceSharing: {
+              some: {
+                user: {
+                  id: user.id,
+                },
+              },
+            },
+          },
+          {
+            user: {
+              id: user.id,
+            },
+          },
+        ],
+        id: spaceId,
+      },
+    });
+  },
+  async isOwner(spaceId: number, user: User) {
+    return prisma.space.findFirst({
+      where: {
+        user: {
+          id: user.id,
+        },
+
+        id: spaceId,
+      },
+    });
   },
 };
 

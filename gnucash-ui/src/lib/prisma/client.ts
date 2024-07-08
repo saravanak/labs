@@ -9,7 +9,8 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 export const prisma: PrismaClient = enhance(
-  globalForPrisma.prisma || new PrismaClient({ log: ["query"] }),
+  globalForPrisma.prisma ||
+    new PrismaClient({ log: process.env.ENABLE_QUERY_LOGS ? ["query"] : [] }),
   {},
   { kinds: ["delegate"] }
 );

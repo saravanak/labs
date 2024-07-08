@@ -13,8 +13,12 @@ export default defineConfig({
       "**/cypress/**",
       "**/.{idea,git,cache,output,temp}/**",
       "**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*",
-      "__tests__/**"
+      "__tests__/**",
     ],
+    maxConcurrency: 1,
+    maxWorkers: 1,
+    poolOptions:{threads: {minThreads: 1, maxThreads:1} }
+
   },
 });
 

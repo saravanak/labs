@@ -10,9 +10,9 @@ import { DateTime } from "luxon";
 import { usePathname, useRouter } from "next/navigation";
 
 export default function TaskDetailPage({ params }: any) {
-  const taskIdInput = { taskId: parseInt(params.task) };
+  const todoIdInput = { todoId: parseInt(params.task) };
   const [todoDetail] = trpc.useQueries((t) => [
-    t.todo.getDetailedView(taskIdInput),
+    t.todo.getDetailedView(todoIdInput),
   ]);
 
   const router = useRouter();

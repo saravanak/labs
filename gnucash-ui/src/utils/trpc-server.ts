@@ -1,6 +1,5 @@
-
 import prisma from "@/lib/prisma";
-import { initTRPC } from "@trpc/server";
+import { TRPCError, initTRPC } from "@trpc/server";
 import { NextRequest } from "next/server";
 import trpcOptions from "./trpc-options";
 
@@ -17,7 +16,6 @@ export const getServerAuthSession = () => {
 
   return getServerSession(authOptions);
 };
-
 
 interface CreateContextOptions {
   headers: Headers;
@@ -45,23 +43,21 @@ declare module "next-auth" {
  */
 
 export const createInnerTRPCContext = async (opts: CreateContextOptions) => {
-  
   const magicToken = opts.headers && opts.headers.get("X-MAGIC-TOKEN");
-  
-  let session = await getServerAuthSession() || {} as any;
 
-  
-  if(magicToken) {
+  let session = (await getServerAuthSession()) || ({} as any);
+
+  if (magicToken) {
     const user = await prisma.user.findFirst({
       where: {
-        api_key: magicToken
-      }
-    })
-    if(user) {
-      session.user = user;  
-    }     
+        api_key: magicToken,
+      },
+    });
+    if (user) {
+      session.user = user;
+    }
   }
-  
+
   return {
     session,
     headers: opts.headers,
@@ -87,14 +83,80 @@ const t = initTRPC.context<typeof createTRPCContext>().create(trpcOptions);
 import { authOptions } from "@/lib/auth-options";
 import { DefaultSession, getServerSession } from "next-auth";
 import { permissions } from "./shield/shield";
-
+import { TodoService } from "@/server/services/todo";
+import { SpaceService } from "@/server/services/space";
 
 export type Context = typeof createTRPCContext;
 
-export const globalMiddleware = t.middleware(async ({ ctx, next }) => {
-  console.log("inside middleware!");
-  return next();
-});
+export const globalMiddleware = t.middleware(
+  async ({ next, ctx, type, path, input, rawInput, meta }: any) => {
+    if (!rawInput) {
+      return next();
+    }
+    const { session } = ctx;
+    const spaceId = rawInput.spaceId;
+
+    switch (path) {
+      case "todo.getOwnTodos":
+      case "space.getSpace":
+      case "space.getMembers":
+        if (spaceId) {
+          const sharedSpace = await SpaceService.isSharedWithUser(
+            spaceId,
+            session.user
+          );
+
+          if (!sharedSpace) {
+            throw new TRPCError({
+              code: "FORBIDDEN",
+              message: "Can't access space",
+            });
+          }
+        }
+        break;
+      case "space.addUserToSpace":
+      case "space.removeUserFromSpace":
+        if (spaceId) {
+          const sharedSpace = await SpaceService.isOwner(spaceId, session.user);
+
+          if (!sharedSpace) {
+            throw new TRPCError({
+              code: "FORBIDDEN",
+              message: "Can't access space",
+            });
+          }
+        }
+        break;
+      case "todo.getDetailedView":
+      case "todo.getTodo":
+      case "todo.updateTodo":
+      case "todo.changeStatus":
+      case "todo.getValidStatuses":
+      case "todo.addComment":
+        const todo = await TodoService.getTodo(rawInput.todoId);
+
+        const sharedSpace = await SpaceService.isSharedWithUser(
+          todo?.spaceId || -1,
+          session.user
+        );
+
+        if (!sharedSpace) {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "Can't access space",
+          });
+        }
+        return next({
+          ctx: {
+            ...ctx,
+            todo,
+          },
+        });
+    }
+
+    return next();
+  }
+);
 
 export const permissionsMiddleware = t.middleware(permissions);
 

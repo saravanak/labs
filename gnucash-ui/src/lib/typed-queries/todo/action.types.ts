@@ -56,7 +56,6 @@ export interface IGetCommentsForTodoResult {
   commented_by: string;
   created_at: Date;
   id: number;
-  user_id: string;
 }
 
 /** 'GetCommentsForTodo' query type */

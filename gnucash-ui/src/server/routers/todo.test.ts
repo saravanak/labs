@@ -1,19 +1,16 @@
 import { beforeAll, beforeEach, describe, expect, test } from "vitest";
 
 import { AppRouter, appRouter } from "@/app/api/trpc/trpc-router";
-import { prisma, pgClient } from "@/lib/prisma/client";
+import { pgClient, prisma } from "@/lib/prisma/client";
 import {
   resetDB,
-  seedCreateTodos,
-  seedCreateUsers,
+  seedCreateTodos
 } from "@/lib/prisma/seeds/seed-utils";
+import { seed_shareMany } from "@/lib/typed-queries/space/action";
 import { t } from "@/utils/trpc-server";
 import { type inferProcedureInput } from "@trpc/server";
-import { Case } from "change-case-all";
-import { Space, User } from "@prisma/client";
-import { seed_shareMany } from "@/lib/typed-queries/space/action";
+import { setupUsers, userEmailForColor } from "../tests/setup-utils";
 
-const userEmailForColor = (color: string) => `t-${color}@test.example.com`;
 const sharingMatrix = [
   { giver: "red", receiver: "blue" },
   { giver: "red", receiver: "green" },
@@ -33,32 +30,7 @@ describe("todo routes", async () => {
   const createCaller = t.createCallerFactory<AppRouter>(appRouter);
   beforeAll(async () => {
     await resetDB();
-    usersAndSpaces = await Promise.all<
-      { color: string; user: User; userSpace: Space }[]
-    >(
-      ["red", "blue", "green", "yellow", "brown"].map((v) => {
-        return new Promise<{ color: string; user: User; userSpace: Space }>(
-          async (resolve) => {
-            let ownerEmail = userEmailForColor(v);
-            const { user, userSpace } = await seedCreateUsers({
-              email: ownerEmail,
-              spacename: `${Case.title(v)} Space`,
-            });
-
-            for (var i = 0; i < 5; i++) {
-              await seedCreateTodos({
-                user,
-                commentsCount: 2,
-                title: `title-${v}-${i}`,
-                description: `desc-${v}-${i}`,
-              });
-            }
-
-            resolve({ color: v, user, userSpace });
-          }
-        ) as any;
-      })
-    );
+    usersAndSpaces = await setupUsers();
     /**
      *  Sharing space
      *  R -> B, G, Y
@@ -67,30 +39,6 @@ describe("todo routes", async () => {
      *  Y ->
      *  Br ->
      */
-    userSpaceGivers = [];
-    for (var giver = 0; giver < usersAndSpaces.length; giver++) {
-      for (var receiver = 0; receiver < usersAndSpaces.length - 1; receiver++) {
-        if (receiver > giver) {
-          userSpaceGivers.push({
-            spaceId: usersAndSpaces[giver].userSpace.id,
-            userId: usersAndSpaces[receiver].user.id,
-            giverColor: usersAndSpaces[giver].color,
-            receiverColor: usersAndSpaces[receiver].color,
-          });
-        }
-      }
-    }
-    console.log(userSpaceGivers);
-
-    const spacesInserted = await seed_shareMany.run(
-      {
-        userSpaces: userSpaceGivers.map(({ userId, spaceId }: any) => ({
-          userId,
-          spaceId,
-        })),
-      },
-      pgClient
-    );
   });
 
   describe("getOwnTodos", async () => {
@@ -147,7 +95,7 @@ describe("todo routes", async () => {
           statuses: [],
         };
 
-        todos = await caller.todo.getOwnTodos(input as any);
+        todos = await caller.todo.getOwnTodos(input as any);usersAndSpaces
 
         expect(todos.items.length).toEqual(0);
       });
@@ -240,7 +188,7 @@ describe("todo routes", async () => {
       );
     });
 
-    describe.only("for owned spaces", () => {
+    describe("for owned spaces", () => {
       let user;
       beforeAll(async () => {
         user = usersAndSpaces.find((v: any) => v.color == "red").user;

@@ -1,22 +1,27 @@
-import { shield, allow, deny, rule, and } from "trpc-shield";
+import { TRPCError } from "@trpc/server";
+import { allow, rule, shield } from "trpc-shield";
 import { Context } from "../trpc-server";
 
 const isAuthenticated = rule<Context>()(
-  async (ctx, type, path, input, rawInput) => {
-    return !!(ctx as any)?.session?.user?.email;
+  async (ctx: any, type, path, input, rawInput) => {
+    return (ctx as any)?.session?.user?.email?.length > 0;
   }
 );
 
 export const permissions = shield<Context>(
   {
     query: {
-      listRacks: and(isAuthenticated),
-      getOwnTodos: isAuthenticated,
-      getDetailedView: isAuthenticated,
-      getValidStatuses: isAuthenticated,
+      healthchecker: allow,
     },
     mutation: {},
   },
-  { fallbackRule: isAuthenticated }
+  {
+    fallbackRule: isAuthenticated,
+    allowExternalErrors: true,
+    fallbackError: new TRPCError({
+      code: "UNAUTHORIZED",
+      message: "Not allowed",
+    }),
+  }
 );
 

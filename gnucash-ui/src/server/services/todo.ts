@@ -39,14 +39,14 @@ export const TodoWhereQueries = {
         is: {
           user: {
             is: {
-              email: user.email,
+              id: user.id,
             },
           },
         },
       },
     },
   }),
-  ForSpace: (spaceId: number) => ({
+  ForSpace: (user: User, spaceId: number) => ({
     where: {
       space: {
         is: {
@@ -98,11 +98,7 @@ export const TodoService = {
           space: {
             select: {
               name: true,
-              user: {
-                select: {
-                  email: true,
-                },
-              },
+              id: true,
             },
           },
           id: true,
@@ -124,7 +120,16 @@ export const TodoService = {
       { limit, cursor }
     );
 
-    return await prisma.todo.findMany(queryInput);
+    const todos = await prisma.todo.findMany(queryInput);
+
+    return todos.map((v: any) => ({
+      id: v.id,
+      title: v.title,
+      description: v.description,
+      status: v.StatusTransitions[0].status,
+      spaceName: v.space.name,
+      spaceId: v.space.id,
+    }));
   },
 
   async createDefaultTodos(userSpace: Space, user: User) {
@@ -197,7 +202,7 @@ export const TodoService = {
     return result?.statusMeta?.statuses?.split(",");
   },
   async getStatusHistory(todoId: number) {
-    return prisma.todo.findFirst({
+    const transitions =  await prisma.todo.findFirst({
       select: {
         StatusTransitions: {
           select: {
@@ -214,6 +219,7 @@ export const TodoService = {
         id: todoId,
       },
     });
+    return transitions && transitions.StatusTransitions
   },
   async changeStatus(todoId: number, newStatus: string, user: User) {
     const availableStatuses = await this.getStatuses(todoId);
@@ -271,8 +277,8 @@ export const TodoService = {
     });
   },
 
-  async getTodo(taskId: number) {
-    return prisma.todo.findFirst({
+  async getTodo(todoId: number) {
+    const todo = await prisma.todo.findFirst({
       select: {
         StatusTransitions: {
           select: {
@@ -286,6 +292,7 @@ export const TodoService = {
         },
         space: {
           select: {
+            id: true, 
             user: {
               select: {
                 id: true,
@@ -299,9 +306,20 @@ export const TodoService = {
         description: true,
       },
       where: {
-        id: taskId,
+        id: todoId,
       },
     });
+
+    return (
+      todo && {
+        id: todo.id,
+        title: todo.title,
+        description: todo.description,
+        spaceOwner: todo.space.user.id,
+        spaceId: todo.space.id,
+        status: todo.StatusTransitions[0].status,
+      }
+    );
   },
 
   async addComment(todoId: number, user: User, commentContent: string) {

@@ -7,6 +7,7 @@ declare global {
         GITHUB_CLIENT_SECRET: string;
         JOB_DATABASE_URL: string
         CYPRESS_TESTING_E2E:string;
+        ENABLE_QUERY_LOGS:string;
       }
     }    
   }

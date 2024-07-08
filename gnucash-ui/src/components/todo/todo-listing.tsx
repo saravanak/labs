@@ -25,23 +25,20 @@ export default function TodoListing({
     threshold: 1,
   });
 
-  const todoFetchQuery = spaceId
-    ? trpc.todo.getTodosForSpace.useInfiniteQuery
-    : trpc.todo.getOwnTodos.useInfiniteQuery;
-
-  const { fetchNextPage, data, error, hasNextPage, isLoading } = todoFetchQuery(
-    {
-      limit: 9,
-      spaceId: spaceId ? spaceId : null,
-      statuses,
-      searchText,
-    },
-    {
-      getNextPageParam: (lastPage: any) => {
-        return lastPage.nextCursor;
+  const { fetchNextPage, data, error, hasNextPage, isLoading } =
+    trpc.todo.getOwnTodos.useInfiniteQuery(
+      {
+        limit: 9,
+        spaceId: spaceId ? spaceId : null,
+        statuses,
+        searchText,
       },
-    }
-  );
+      {
+        getNextPageParam: (lastPage: any) => {
+          return lastPage.nextCursor;
+        },
+      }
+    );
 
   useEffect(() => {
     if (inView) {

@@ -6,7 +6,6 @@ import { userRouter } from './user';
 import { countryRouter } from './country';
 import { carbonFootprintRouter } from './carbon-fp';
 import { todoRouter } from './todo';
-import { todoUserRouter } from './todoUser';
 import { createInnerTRPCContext } from "@/utils/trpc-server";
 import { spaceRouter } from './space';
 
@@ -18,7 +17,6 @@ export const appRoutes = t.router({
   country: countryRouter,
   carbonFootprint: carbonFootprintRouter,
   todo: todoRouter,
-  todoUser: todoUserRouter,
   space: spaceRouter
 });
 

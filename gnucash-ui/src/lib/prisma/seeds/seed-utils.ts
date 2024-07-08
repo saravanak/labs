@@ -2,22 +2,24 @@ import { faker } from "@faker-js/faker";
 import { fakeComment, fakeRack, fakeShelf, fakeUser } from "../fake-data";
 import prisma from "../index";
 import { pgClient } from "../client";
-import { omit } from "lodash";
+import { omit, random } from "lodash";
 import { enhance } from "@zenstackhq/runtime";
 import { seed_insertManyCommentsIntoTodo } from "@/lib/typed-queries/todo/action";
 import { User } from "@prisma/client";
 
 const db = enhance(prisma, {}, { kinds: ["delegate"] });
 
-export async function seedCreateUsers({ email, spacename }: any) {
+export async function seedCreateUsers({ email, spacename, apiKey = undefined }: any) {
   const newUser = omit(fakeUser(), ["space_id"]);
   newUser.email = email;
+  newUser.api_key = apiKey;
   const user = await prisma.user.create({ data: newUser });
 
   const userSpace = await prisma.space.create({
     data: {
       owner_id: user.id,
       name: spacename,
+      
       is_system_space: true,
     },
   });
@@ -34,12 +36,14 @@ export async function seedCreateTodos({
   description,
   commentsCount = 10,
   userSpaceId = -1,
+  status ="todo"
 }: {
   user: User;
   title?: string;
   description?: string;
   commentsCount: number;
   userSpaceId?: number;
+  status?: string
 }) {
   const statusMeta = await prisma.statusMeta.findFirst();
   const userSpace =
@@ -66,7 +70,7 @@ export async function seedCreateTodos({
 
   await prisma.statusTransitions.create({
     data: {
-      status: statusMeta?.statuses.split(",")[0] as string,
+      status,
       todo_id: todo.id,
       comment: `Changed by ${user.email}`,
     },

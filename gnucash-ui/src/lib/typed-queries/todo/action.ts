@@ -34,7 +34,7 @@ insert into comments (comment, user_id)
 
 //Get all comments for todos
 export const getCommentsForTodo = sql`
-select c.*, u.email as commented_by  from 
+select c.id, c.comment, c.created_at, u.email as commented_by  from 
  comments c 
 Inner join commentables co on 
     co.comment_id = c.id  and 

@@ -16,7 +16,7 @@ export default function CreateCommentForTodoForm({ params }: any) {
 
   const todoId = parseInt(params.task);
 
-  const [todo] = trpc.useQueries((t) => [t.todo.getTodo({ taskId: todoId })]);
+  const [todo] = trpc.useQueries((t) => [t.todo.getTodo({ todoId: todoId })]);
 
   const formSchema = z.object({
     commentString: z.string(),

@@ -10,14 +10,18 @@ export const todoRouter = t.router({
       z.object({
         limit: z.number(),
         cursor: z.number().nullish(),
+        spaceId: z.number().nullish(),
         statuses: z.string().array().optional(),
         searchText: z.string().nullish(),
       })
     )
     .query(async (opts) => {
       const { session } = opts.ctx;
+
       const whereClause = merge(
-        TodoWhereQueries.OwnTodosAcrossSpaces(session.user),
+        opts.input.spaceId
+          ? TodoWhereQueries.ForSpace(session.user, opts.input.spaceId)
+          : TodoWhereQueries.OwnTodosAcrossSpaces(session.user),
         opts.input.statuses?.length
           ? TodoWhereQueries.ForStatus(opts.input.statuses)
           : {},
@@ -25,37 +29,7 @@ export const todoRouter = t.router({
           ? TodoWhereQueries.ForSearchText(opts.input.searchText.trim())
           : {}
       );
-      const items = await TodoService.getTodosForUser(
-        session.user,
-        whereClause,
-        opts.input
-      );
-      return {
-        items,
-        nextCursor: last(items)?.id,
-      };
-    }),
-  getTodosForSpace: shieldedProcedure
-    .input(
-      z.object({
-        limit: z.number(),
-        cursor: z.number().nullish(),
-        spaceId: z.number(),
-        statuses: z.string().array().optional(),
-        searchText: z.string().nullish(),
-      })
-    )
-    .query(async (opts) => {
-      const { session } = opts.ctx;
-      const whereClause = merge(
-        TodoWhereQueries.ForSpace(opts.input.spaceId),
-        opts.input.statuses?.length
-          ? TodoWhereQueries.ForStatus(opts.input.statuses)
-          : {},
-        opts.input.searchText
-          ? TodoWhereQueries.ForSearchText(opts.input.searchText.trim())
-          : {}
-      );
+
       const items = await TodoService.getTodosForUser(
         session.user,
         whereClause,
@@ -69,25 +43,27 @@ export const todoRouter = t.router({
   getDetailedView: shieldedProcedure
     .input(
       z.object({
-        taskId: z.number(),
+        todoId: z.number(),
       })
     )
     .query(async (opts) => {
+      const { todo }: any = opts.ctx;
       return {
-        comments: await TodoService.getDetailedTodo(opts.input.taskId),
-        statusHistory: await TodoService.getStatusHistory(opts.input.taskId),
-        todo: await TodoService.getTodo(opts.input.taskId),
+        comments: await TodoService.getDetailedTodo(opts.input.todoId),
+        statusHistory: await TodoService.getStatusHistory(opts.input.todoId),
+        todo,
       };
     }),
 
   getTodo: shieldedProcedure
     .input(
       z.object({
-        taskId: z.number(),
+        todoId: z.number(),
       })
     )
     .query(async (opts) => {
-      return TodoService.getTodo(opts.input.taskId);
+      const { todo }: any = opts.ctx;
+      return todo;
     }),
   createTodo: shieldedProcedure
     .input(
@@ -120,13 +96,13 @@ export const todoRouter = t.router({
   changeStatus: shieldedProcedure
     .input(
       z.object({
-        taskId: z.number(),
+        todoId: z.number(),
         newStatus: z.string(),
       })
     )
     .mutation((opts) => {
       TodoService.changeStatus(
-        opts.input.taskId,
+        opts.input.todoId,
         opts.input.newStatus,
         opts.ctx.session.user as User
       );
@@ -134,11 +110,11 @@ export const todoRouter = t.router({
   getValidStatuses: shieldedProcedure
     .input(
       z.object({
-        taskId: z.number(),
+        todoId: z.number(),
       })
     )
     .query(async (opts) => {
-      return TodoService.getStatuses(opts.input.taskId);
+      return TodoService.getStatuses(opts.input.todoId);
     }),
 
   addComment: shieldedProcedure
