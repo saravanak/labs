@@ -31,3 +31,10 @@ with x as (
     limit $limit offset $cursor
     
     `
+
+// Share  a bunch of spaces by returning the ids created. 
+export const seed_shareMany = sql`
+insert into user_space (user_id, space_id)
+    values $$userSpaces(userId, spaceId)
+    returning user_space.id
+`;

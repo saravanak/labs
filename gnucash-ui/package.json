@@ -9,7 +9,7 @@
     "lint": "next lint",
     "test": "jest",
     "test:watch": "jest --watch --collectCoverage=false",
-
+    "test:vitest": "dotenv -e .env.local -- vitest",
     "db:generate-schemas": "npx dotenv -e .env.local -- prisma generate",
     "db:seed": "dotenv -e .env.local -- ts-node --transpile-only ./src/lib/prisma/seed.ts",
     "db:reset": "./src/lib/prisma/dev-flow.sh",
@@ -19,7 +19,6 @@
     "db:studio": "dotenv -e .env.local -- npx prisma  studio",
     "db:repl": "dotenv -e .env.local -- npx prisma-repl",
     "db:pgtyped": "dotenv -e .env.local -- npx pgtyped -v -w -c config.json",
-
     "job:test": "dotenv -e .env.local -- ts-node --transpile-only ./src/task-processor/index.ts",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
@@ -155,6 +154,8 @@
     "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
     "typescript": "^5",
+    "vite-tsconfig-paths": "^4.3.2",
+    "vitest": "^1.6.0",
     "zenstack": "2.2.4",
     "zod": "^3.23.8",
     "zod-prisma": "^0.5.4"

@@ -7,6 +7,7 @@ import getLuggages from "./data";
 import { fakeComment, fakeRack, fakeShelf, fakeUser } from "./fake-data";
 import prisma from "./index";
 import { pgClient } from "./client";
+import { SeedCreateTodos } from "./seeds/seed-utils";
 
 const db = enhance(prisma, {}, { kinds: ["delegate"] });
 
@@ -24,63 +25,14 @@ async function main() {
     });
   });
 
-  await prisma.statusMeta.create({
-    data: { statuses: ["todo", "in-progress", "done"].join(",") },
+  
+
+  return await SeedCreateTodos({
+    email: "neo@example.com",
+    spacename: "Neo's Space",
+    title: "I need to breathe",
+    description: "Thats is, to live.",
   });
-
-  const statusMeta = await prisma.statusMeta.findFirst();
-
-  const newUser = omit(fakeUser(), ["space_id"]);
-  newUser.email = "neo@example.com";
-  const user = await prisma.user.create({ data: newUser });
-
-  const userSpace = await prisma.space.create({
-    data: {
-      owner_id: user.id,
-      name: "Demo Space for Neo",
-      is_system_space: true,
-    },
-  });
-  const todo = await db.todo.create({
-    data: {
-      statusMeta: { connect: { id: statusMeta?.id } },
-      title: "I need to breathe",
-      description: "That is, to live!",
-      space: { connect: { id: userSpace?.id } },
-    },
-  });
-
-  await prisma.statusTransitions.create({
-    data: {
-      status: statusMeta?.statuses.split(",")[0] as string,
-      todo_id: todo.id,
-      comment: `Changed by ${user.email}`,
-    },
-  });
-
-  const insertedComments = await seed_insertManyCommentsIntoTodo.run(
-    {
-      todos: Array(10)
-        .fill(null)
-        .map(() => ({
-          commentContent: faker.lorem.lines(2),
-          userId: user?.id,
-        })),
-    },
-    pgClient
-  );
-
-  return await Promise.all(
-    insertedComments.map(({ id: commentId }) => {
-      return db.commentable.create({
-        data: {
-          commentee_id: todo.id,
-          commentee_type: "Todo",
-          comment_id: commentId,
-        },
-      });
-    })
-  );
 }
 main()
   .then(async () => {
