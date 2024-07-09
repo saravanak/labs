@@ -12,7 +12,7 @@ const pgp = pgPromise(initOptions);
 
 const db = pgp("postgresql://postgres@172.17.0.1:5451/ow_jobs?schema=public");
 
-async function loadDatabase() {
+async function loadDatabase(seq: number) {
   // const result = await db.many("select * from colors");
 
   // console.log(result);
@@ -31,27 +31,26 @@ async function loadDatabase() {
   //     // error;
   //   });
 
-  await executeMassiveInserts();
+  await executeMassiveInserts(seq);
 }
 
-// Generating 10,000 records 1000 times, for the total of 10 million records:
-function getNextData(t: pgPromise.ITask<{}>, pageIndex: number) {
-  let data: { name: string }[] | undefined = undefined;
-  console.log({ pageIndex });
+function executeMassiveInserts(seq: number) {
+  // Generating 10,000 records 1000 times, for the total of 10 million records:
+  function getNextData(t: pgPromise.ITask<{}>, pageIndex: number, seq: number) {
+    let data: { name: string }[] | undefined = undefined;
+    console.log({ pageIndex });
 
-  if (pageIndex < 1000) {
-    data = [];
-    for (let i = 0; i < 10000; i++) {
-      const idx = pageIndex * 10000 + i; // to insert unique product names
-      data.push({
-        name: "product-1",
-      });
+    if (pageIndex < 50) {
+      data = [];
+      for (let i = 0; i < 10000; i++) {
+        const idx = pageIndex * 10000 + i; // to insert unique product names
+        data.push({
+          name: `product-${seq}`,
+        });
+      }
     }
+    return Promise.resolve(data);
   }
-  return Promise.resolve(data);
-}
-
-function executeMassiveInserts() {
   const cs = new pgp.helpers.ColumnSet(
     [
       {
@@ -68,7 +67,9 @@ function executeMassiveInserts() {
           return t.none(insert);
         }
       };
-      return t.sequence((index) => getNextData(t, index).then(processData));
+      return t.sequence((index) =>
+        getNextData(t, index, seq).then(processData)
+      );
     })
     .then((data) => {
       // COMMIT has been executed
@@ -80,7 +81,7 @@ function executeMassiveInserts() {
     });
 }
 
-loadDatabase().then(() => {
+Promise.all([loadDatabase(1), loadDatabase(2)]).then(() => {
   exit(0);
 });
 
