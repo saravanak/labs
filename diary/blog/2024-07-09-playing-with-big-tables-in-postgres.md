@@ -47,7 +47,6 @@ CREATE TABLE COLORS (ID SERIAL, NAME TEXT);
 ----------------
               5
 (1 row)
-
 > select pg_column_size('abcdefghi'::text);
  pg_column_size
 ----------------
@@ -267,7 +266,8 @@ So, as mentioned on the referenced blog, the performance times for the updates a
 
 ## End
 
-Thats the end of story for now. Except that I have a pop quiz for the interested reader
+Thats the end of story for now. Except that I have a pop quiz for the interested reader. Next steps is to read and grok: [Just Use Postgres
+](https://www.amazingcto.com/postgres-for-everything/)
 
 ```javascript
 Promise.all([loadDatabase(1), loadDatabase(2)]).then(() => {

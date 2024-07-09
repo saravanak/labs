@@ -15,12 +15,37 @@
 <div class="page" data-pagefind-body>
   <main class="page__main" id="app-content" >
     <article>
-      <h1 class="page__title">{{ headline or title or page.fileSlug }}</h1>
+      <h1 class="page__title">{{ headline or title or page.fileSlug }}
+      </h1>
+      <div class="nav-section__title">{{page.date | readableDate("DD")}}</div>
+
+        {% include 'modules/notes/prev-next-post.partial.njk' %}
+
       <div class="article">
         {{ content | safe }}
       </div>
     </article>
+      {% include 'modules/notes/prev-next-post.partial.njk' %}
+
+    <div class="giscus"></div>
+      <script src="https://giscus.app/client.js"
+        data-repo="saravanak/oldweaver"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkzOTQ1Mjg0MTU="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOF4QGn84Cgqyq"
+        data-mapping="pathname"
+        data-strict="1"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+  </script>
   </main>
+
+
 
   {% if panel %}
   <div class="page__panel">

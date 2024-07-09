@@ -1,0 +1,20 @@
+{% set previousPost = collections.posts | getPreviousCollectionItem %}
+{% set nextPost = collections.posts | getNextCollectionItem %}
+<div class="blog-prev-next-container">
+    <div>
+        {% if previousPost %}
+            <a href="{{ previousPost.url }}">{{ previousPost.data.title }}
+                {{ previousPost.data.date | readableDate("DD") }}</a>
+        {% else %}
+            &nbsp;
+        {% endif %}
+    </div>
+    <div>
+        {% if nextPost %}
+            <a href="{{ nextPost.url }}">{{ nextPost.data.title }}
+                {{ nextPost.data.date | readableDate("DD") }}</a>
+        {% else %}
+            &nbsp;
+        {% endif %}
+    </div>
+</div>

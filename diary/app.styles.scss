@@ -17,3 +17,29 @@ pre.shiki {
     color: rgba(115, 138, 148, 0.4);
     border-right: 0.1rem solid #fff1;
   } 
+
+  .blog-prev-next-container{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    background: #efecec;
+    div {
+        width: 50%;
+        padding: 0.5rem;
+        font-size: 1rem;
+        color: grey; 
+        border-right: 1px solid white;
+        a {
+            text-decoration: none;    
+        }   
+
+        &:last-child {
+            text-align: right;
+        }
+    }
+  }
+
+  .article {
+    margin-top: 2em;    
+    margin-bottom: 2em;    
+  }
