@@ -1,1 +1,19 @@
 /* Write your custom CSS here */
+
+pre.shiki {
+  
+    counter-reset: linenumber; /* start each codeblock with line 0 */
+  }
+  pre.shiki .line::before {
+    counter-increment: linenumber; /* increment the counter by 1 */
+    content: counter(
+      linenumber
+    ); /* add current counter value as text */ 
+    width: 1.5rem;
+    margin-right: 0.5rem;
+    padding-right: 0.5rem;
+    display: inline-block;
+    text-align: right;
+    color: rgba(115, 138, 148, 0.4);
+    border-right: 0.1rem solid #fff1;
+  } 

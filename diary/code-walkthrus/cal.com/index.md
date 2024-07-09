@@ -35,3 +35,7 @@ dateAdded: 28-11-2023
 ### CalcomThemeProvider
 
     Caters to `embed` and `normal` mode. Uses standard Theme provider
+
+## trpc 
+
+- https://trpc.io/docs/v10/server/routers#initialize-trpc

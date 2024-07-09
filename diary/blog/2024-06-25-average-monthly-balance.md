@@ -18,7 +18,7 @@ Though I have been creating some off the hook commands from StackOverflow for qu
 My savings bank at India| though it might sound surprising for some of you folks| has a concept called Average Monthly Balance(AMB). 
 The intent is to have an average balance of money on your account within a month. Its calculated as 
 
-```BASIC
+```sh
  For each day 
     Get the oldest balance on or before 23:59:59 
     Sum this to the monthly total 
