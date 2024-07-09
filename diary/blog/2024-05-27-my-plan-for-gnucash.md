@@ -1,7 +1,7 @@
 ---
 title: My plan for Gnucash
 date: 2024-05-27T21:59:40+05:30
-tags: ["posts", "gnucash"]
+tags: ["posts", "gnucash", "draft"]
 ---
 
 As an overarching portfolio development; and as a nice tribute to the ever
@@ -21,3 +21,4 @@ The following are the additional benefits of using a web frontend.
 - More flexibility on reporting
 - Larger surface area to experiment on
 - Demoable; popular domain allows for more participation when shared on HN.
+

@@ -16,9 +16,9 @@ customer sizes ?
 Caution: A Rather Pessimistic Rant about Cloud Offerings, with AWS as an example. Being a devil's advocate here.
 </em>
 
-AWS says **DON'T** worry about provisioning and capacity while deciding on the
-solution - you can always scale later. But soon, the costs soon add up - for
-scaling, you need to provision to the minute CloudWatch events and logs.
+AWS says **not to** worry about provisioning and capacity while deciding on the
+solution - you can always scale later. But soon, the costs add up - for
+scaling, you need to provision to-the-minute CloudWatch events and logs.
 
 But the documentation is peppered with quotas, sharing, reserved provisioning of
 concurrency etc. So I am puzzled about how do we equate these Infrastructure

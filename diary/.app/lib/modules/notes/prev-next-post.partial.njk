@@ -9,6 +9,9 @@
             &nbsp;
         {% endif %}
     </div>
+    <div style="text-align: center"> 
+        <a href="{{  "/blog/" | url }}">All Posts</a>
+         </div>
     <div>
         {% if nextPost %}
             <a href="{{ nextPost.url }}">{{ nextPost.data.title }}

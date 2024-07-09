@@ -21,6 +21,12 @@
         </a>
       </li>
       <li>
+        <a href="/feed.xml" {{ '/' | ariaCurrent }} class="nav-list__link">
+          {{ 'file-text' | feather | safe }}          
+          <span>{{ indexNote.data.title if indexNote else 'Feeds' }}</span>
+        </a>
+      </li>
+      <li>
         <a href="/resume" {{ '/' | ariaCurrent }} target="_blank" class="nav-list__link">
           {{ 'aperture' | feather | safe }}
           {% set indexQuery = { filter: [['url', 'isEqual', '/resume' ]] } %}

@@ -19,15 +19,6 @@ module.exports = defineConfig({
     ],
     sections: [
       {
-        groups: [
-          {
-            query: createNotesQuery({
-              tags: ["posts-listing"],              
-            }),
-          },
-        ]
-      },
-      {
         label: "Tech notes",
         groups: [
           {

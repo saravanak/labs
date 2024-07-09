@@ -13,6 +13,10 @@ module.exports = {
     config.addCollection("_notes", this._notesCollection(config));
     config.addCollection("notes", this.notesCollection(config));
 
+    config.addCollection("publishedPosts", function (collectionApi) {
+      return collectionApi.getFilteredByTag("posts").filter(v => !v.data.tags.includes("draft"));
+    });
+
     config.addFilter("editThisNoteLink", this.editThisNoteLinkFilter(config));
     config.addFilter("sortNotesByTitle", this.sortNotesByTitleFilter(config));
   },

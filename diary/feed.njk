@@ -5,13 +5,13 @@
   "layout": "core/rss.njk",
   "panel": false,
   "metadata": {
-    "title": "My Blog about Boats",
-    "subtitle": "I am writing about my experiences as a naval navel-gazer.",
+    "title": "Old Weaver's posts",
+    "subtitle": "My ramblings about software, code and many other things!",
     "language": "en",
-    "url": "https://example.com/",
+    "url": "https://oldweaver.co.in/blog",
     "author": {
-      "name": "Boaty McBoatFace",
-      "email": "me@example.com"
+      "name": "saro",
+      "email": "vsk{parseInt(62)}.gate@gmail.com"
     }
   }
 }
@@ -24,12 +24,12 @@
     <atom:link href="{{ permalink | absoluteUrl(metadata.url) }}" rel="self" type="application/rss+xml" />
     <description>{{ metadata.subtitle }}</description>
     <language>{{ metadata.language }}</language>
-    {%- for post in collections.notes | reverse %}
+    {%- for post in collections.publishedPosts | reverse %}
     {%- set absolutePostUrl = post.url | absoluteUrl(metadata.url) %}
     <item>
       <title>{{ post.data.title }}</title>
       <link>{{ absolutePostUrl }}</link>
-      <description>{{ post.templateContent | htmlToAbsoluteUrls(absolutePostUrl) }}</description>
+      <description>{% excerpt post  %}</description>
       <pubDate>{{ post.date | dateToRfc822 }}</pubDate>
       <dc:creator>{{ metadata.author.name }}</dc:creator>
       <guid>{{ absolutePostUrl }}</guid>
