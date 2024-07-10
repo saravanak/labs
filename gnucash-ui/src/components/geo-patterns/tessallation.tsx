@@ -2,13 +2,12 @@ import { useMemo, useState } from "react";
 import "ses";
 
 import { useSession } from "next-auth/react";
+import CanvasOptions from "./canvas-options";
 import ColorChooser from "./color-chooser";
 import ColorPaletteProvider from "./palette-context-provider";
+import * as parts from "./parts";
 import PatternCanvas from "./pattern-canvas";
 import SymbolChooser from "./symbol-chooser";
-import * as parts from "./parts";
-import { Shuffle } from "react-feather";
-import CanvasOptions from "./canvas-options";
 
 export default function Tessellation() {
   const { data: session, status } = useSession();

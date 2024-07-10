@@ -13,8 +13,6 @@ export default function Sidebar({
 }: any) {
   const { data: session, status } = useSession();
 
-  console.log({session, status});
-  
 
   const links = [
     // {

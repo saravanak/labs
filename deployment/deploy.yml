@@ -20,9 +20,9 @@
       ansible.builtin.shell: iptables -F INPUT && iptables-restore "{{iptables_state_file}}" 
 
   roles:
-    - geerlingguy.swap #sanbox app.
+    - geerlingguy.swap 
     - blog
-    - luther #sanbox app.
+    # - luther #sanbox app.
 
 
   

@@ -158,3 +158,9 @@ More omnisearch Search integration
 Try setting up //https://tanstack.com/query/v4/docs/framework/react/guides/ssr for space removed user updates on the receiver end 
 
 
+
+- X11 coordinate browser for screen 
+ xgc -graphical capabilites
+ xev - events
+- sqlite concurrent 
+https://github.com/brandur/singularity
