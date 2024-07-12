@@ -20,5 +20,6 @@ const AbilifiedButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 
+AbilifiedButton.displayName = "abilified-button";
 export { AbilifiedButton };
 

@@ -1,11 +1,11 @@
 import AwesomeDebouncePromise from "awesome-debounce-promise";
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 export default function useAsyncValidation({ validatorUrlFor }: any) {
   const [matches, setMatches] = useState<any>([]);
 
   const ongoingQueries = useRef<any>([]);
-  
+
   const validator = async (spaceName: string) => {
     try {
       ongoingQueries.current.forEach((ac: any) => ac.abort("old query"));
@@ -24,14 +24,11 @@ export default function useAsyncValidation({ validatorUrlFor }: any) {
     return jsonResponse.result && jsonResponse.result.data.json;
   };
 
-  const debouncedAsync = useCallback(
-    AwesomeDebouncePromise(async (spaceName) => {
-      const result = await validator(spaceName);
+  const debouncedAsync = AwesomeDebouncePromise(async (spaceName) => {
+    const result = await validator(spaceName);
 
-      return result?.length == 0;
-    }, 500),
-    []
-  );
+    return result?.length == 0;
+  }, 500);
 
   return [debouncedAsync, matches];
 }
