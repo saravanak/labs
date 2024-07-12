@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import ListItem from "@/components/ui/lists/list-item";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDebounce, useToggle } from "@uidotdev/usehooks";
+import { Case } from "change-case-all";
 import { Filter } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useRef, useState } from "react";
@@ -92,18 +93,23 @@ export default function TodosListingPage() {
   return (
     <>
       <ListItem variant="header" className="sticky top-0" drawBorder={true}>
-        <Button variant="outline" onClick={() => onFilterViewToggle()}>
+        <Button
+          variant="outline"
+          onClick={() => onFilterViewToggle()}
+          data-test-action="filter"
+        >
           <Filter />
         </Button>
         <div className="grow text-center">
           <span className="text-xl text-muted underline mr-2">
-            {isFitlerViewEnabled ? "Filtering" : ""}{" "}
+            {isFitlerViewEnabled ? "Filtering" : ""}
           </span>
-          {spaceHeader}
+          <div data-test-data="space-header" className="inline-block"> {spaceHeader}</div>
         </div>
         {space ? (
           <Button
             variant="outline"
+            data-test-action="view-all-spaces"
             onClick={() =>
               router.push(pathname + "?" + createQueryString("space", null))
             }
@@ -119,11 +125,13 @@ export default function TodosListingPage() {
             <div className="font-bold"> By Status</div>
             <ListItem className="justify-end">
               {statuses.map(({ value, label, selected }: any) => {
+                const variant = `${selected ? "selected" : "outline"}` as any;
                 return (
                   <Button
                     key={value}
-                    variant={`${selected ? "selected" : "outline"}` as any}
+                    variant={variant}
                     className="mr-2"
+                    data-test-action={`select-status-${variant}-${Case.kebab(value)}`}
                     onClick={() => toggleState(value)}
                   >
                     {label}
@@ -136,6 +144,7 @@ export default function TodosListingPage() {
             <div className="font-bold grow"> Title/Description</div>
             <div className="flex w-1/2">
               <Input
+                data-test-input="search-term"
                 type="text"
                 ref={searchTextInput}
                 value={searchText}

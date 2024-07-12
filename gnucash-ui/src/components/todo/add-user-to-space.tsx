@@ -14,7 +14,7 @@ export default function AddUserToSpace({ spaceId }: any) {
     },
   };
 
-  const mutation = trpc.todoUser.addUserToSpace.useMutation({});
+  const mutation = trpc.space.addUserToSpace.useMutation({});
 
   function onSubmit(formState: any) {
     mutation.mutate({

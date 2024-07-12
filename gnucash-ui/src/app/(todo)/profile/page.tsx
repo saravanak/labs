@@ -15,15 +15,15 @@ export default function ProfilePage() {
   return (
     <>
       <ListItem variant="header">User Profile</ListItem>
-      <ListItem variant="heading2">
+      <ListItem variant="heading2" data-test-data="user-profile-name">
         {data?.user.email}
-        {data?.user && (data?.user as any).isDemoUser ? "Demo" : "Real"}
+        {data?.user && (data?.user as any).isDemoUser ? "Demo" : ""}
       </ListItem>
       <PropertyListItem
         property="Signout"
         valueRenderer={() => {
           return (
-            <Button variant="outline" onClick={() => signOut()}>
+            <Button variant="outline" onClick={() => signOut()} data-test-action="logout-user">
               Signout
             </Button>
           );

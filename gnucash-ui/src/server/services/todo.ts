@@ -36,13 +36,22 @@ export const TodoWhereQueries = {
   OwnTodosAcrossSpaces: (user: any) => ({
     where: {
       space: {
-        is: {
-          user: {
-            is: {
-              id: user.id,
+        OR: [
+          {
+            user: {
+              is: {
+                id: user.id,
+              },
             },
           },
-        },
+          {
+            spaceSharing: {
+              some: {
+                user_id: user.id,
+              },
+            },
+          },
+        ],
       },
     },
   }),
@@ -99,6 +108,7 @@ export const TodoService = {
             select: {
               name: true,
               id: true,
+              owner_id: true,
             },
           },
           id: true,
@@ -116,6 +126,11 @@ export const TodoService = {
           },
         },
         ...whereClause,
+        orderBy: {
+          space: {
+            owner_id: "desc",
+          },
+        },
       },
       { limit, cursor }
     );
@@ -202,7 +217,7 @@ export const TodoService = {
     return result?.statusMeta?.statuses?.split(",");
   },
   async getStatusHistory(todoId: number) {
-    const transitions =  await prisma.todo.findFirst({
+    const transitions = await prisma.todo.findFirst({
       select: {
         StatusTransitions: {
           select: {
@@ -219,7 +234,7 @@ export const TodoService = {
         id: todoId,
       },
     });
-    return transitions && transitions.StatusTransitions
+    return transitions && transitions.StatusTransitions;
   },
   async changeStatus(todoId: number, newStatus: string, user: User) {
     const availableStatuses = await this.getStatuses(todoId);
@@ -292,7 +307,7 @@ export const TodoService = {
         },
         space: {
           select: {
-            id: true, 
+            id: true,
             user: {
               select: {
                 id: true,

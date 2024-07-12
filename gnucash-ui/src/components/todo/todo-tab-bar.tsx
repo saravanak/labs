@@ -26,6 +26,7 @@ export default function TodoTabBar() {
               href={`/${v}`}
               key={v}
               data-retour-step={v}
+              data-test-action={`go-to-${v}`}
               className={cn(
                 "pl-4 basis-1/2  h-full text-center font-bold content-center",
                 v == segment
@@ -57,6 +58,7 @@ export default function TodoTabBar() {
               onClick={handler}
               key={action}
               variant="formAction"
+              data-test-action={`tab-bar-${Case.kebab(action)}`}
               size="formAction"
               btnColor={action == "save" ? "userAgree" : "userCancel"}
               enabledOnDemo={action == "cancel"}

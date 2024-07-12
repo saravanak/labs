@@ -28,6 +28,7 @@ export default function SpacesChooser({
             selectLabelInline={spaceViewingLabel}
             placeholder={spaceLabel}
             value={space}
+            dataTestPrefix="space-chooser"
             onValueChange={(chosenSpaceId: any) => {
               const foundSpace = allSpaces.items.find(
                 (v) => v.id == chosenSpaceId

@@ -41,7 +41,7 @@ export default function AddTodoToSpace({ params }: any) {
 
   const mutation = trpc.todo.createTodo.useMutation({
     onSuccess: (d, { todoCreateArgs: { title } }) => {
-      const spaceOwner = d?.space.user.id;
+      const spaceOwner = d?.spaceOwner;
       const currentUser = data?.user.id;
       const isLoggedInUserOwnerOfTodoSpace = spaceOwner == currentUser;
 

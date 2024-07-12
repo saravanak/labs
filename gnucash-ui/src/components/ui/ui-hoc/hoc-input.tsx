@@ -1,3 +1,4 @@
+import { Case } from "change-case-all";
 import {
   FormControl,
   FormField,
@@ -18,6 +19,7 @@ const inputByType = function ({ formMeta, field, trigger }: any) {
     value: `${v.id}`,
     label: v.name,
   }));
+  const dataTestInput=`${Case.kebab(fieldMeta.label)}`;
 
   switch (fieldMeta.type) {
     case "text":
@@ -26,6 +28,7 @@ const inputByType = function ({ formMeta, field, trigger }: any) {
       return (
         <Input
           type={fieldMeta.type}
+          data-test-input={dataTestInput}
           onChange={(v) => {
             field.onChange(v.target.value);
             if (trigger) {
@@ -36,11 +39,12 @@ const inputByType = function ({ formMeta, field, trigger }: any) {
       );
 
     case "textarea":
-      return <TextareaAutosize className="w-full p-4" type={fieldMeta.type} {...field} />;
+      return <TextareaAutosize data-test-input={dataTestInput} className="w-full p-4" type={fieldMeta.type} {...field} />;
     case "autocomplete":
       return (
         <AutoComplete
           options={matches as SearchItem[]}
+          data-test-input={dataTestInput}
           placeholder={fieldMeta.searchPlaceholder}
           noMatches={"No matches"}
           value={field.value}

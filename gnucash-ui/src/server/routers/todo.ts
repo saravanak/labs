@@ -29,12 +29,14 @@ export const todoRouter = t.router({
           ? TodoWhereQueries.ForSearchText(opts.input.searchText.trim())
           : {}
       );
-
+      
       const items = await TodoService.getTodosForUser(
         session.user,
         whereClause,
         opts.input
-      );
+        );
+        console.log(opts.input,  JSON.stringify(whereClause));
+      console.log({items: JSON.stringify(items)});
       return {
         items,
         nextCursor: last(items)?.id,

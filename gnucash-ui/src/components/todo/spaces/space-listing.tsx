@@ -64,19 +64,19 @@ export default function SpaceListing({ mode }: any) {
               <Button
                 variant="outline"
                 size="list"
+                data-test-action="create-space"
                 disabled={isDemoUser}
                 onClick={() => router.push(`${pathname}/create-space`)}
               >
                 <div className="flex flex-col items-center align-middle py-2">
                   <div className="flex grow">
-                  <Plus />
-                  <div className="font-bold" data-retour-step="create-space">
-                    Create a new Space
+                    <Plus />
+                    <div className="font-bold" data-retour-step="create-space">
+                      Create a new Space
+                    </div>
                   </div>
-
-                  </div>
-                  <div className="text-xs text-muted">
-                    You can't create a space while in the demo. Please sign
+                  <div className="text-xs text-muted" data-test-data="readonly-warning-create-space">
+                    {isDemoUser && "You can't create a space while in the demo. Please sign"}
                   </div>
                 </div>
               </Button>
@@ -99,17 +99,17 @@ export default function SpaceListing({ mode }: any) {
                         >
                           <div className="flex flex-col p-2 text-[0.75em] rounded-md  bg-gray-200 w-[6em] ">
                             <div className="flex">
-                              {v._count.todos == 0 ? (
+                              {v.todosCount == 0 ? (
                                 "Empty"
                               ) : (
-                                <>{v._count.todos} Todos</>
+                                <>{v.todosCount} Todos</>
                               )}
                             </div>
                             <div>
-                              {v._count.spaceSharing == 0 ? (
+                              {v.sharedWithCount == 0 ? (
                                 "Private"
                               ) : (
-                                <>{v._count.spaceSharing} Shares</>
+                                <>{v.sharedWithCount} Shares</>
                               )}{" "}
                             </div>
                           </div>
@@ -126,6 +126,7 @@ export default function SpaceListing({ mode }: any) {
                                 `${pathname}/${v.id}/manage/add-todo`
                               );
                             }}
+                            data-test-action={`add-todo-${v.id}`}
                             variant="outline"
                             color="lightgray"
                             size="sm"

@@ -31,6 +31,7 @@ export default function TourWrapper({ children, session }: any) {
         <Button
           variant="ghost"
           data-retour-step="login"
+          data-test-data="user-logged-in"
           enabledOnDemo={true}
           onClick={() => router.push("/profile")}
         >

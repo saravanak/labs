@@ -28,7 +28,7 @@ export default function ManageSpace({ spaceWithUsers }: any) {
 
   return (
     <>
-      <ListItem variant="header">{name}</ListItem>
+      <ListItem variant="header" data-test-data="heading">Manage {name}</ListItem>
       {isOwning && (
         <ListItem variant="heading2">
           <div className="flex">

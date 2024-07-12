@@ -17,10 +17,10 @@ export default function PagesIndexPage(props: any) {
     <>
       <Accordion type="multiple">
         <AccordionItem value="item-1">
-          <AccordionTrigger className={triggerClassNames}>
+          <AccordionTrigger className={triggerClassNames} data-test-action="expander-my-spaces">
             <FlexJustifySpread className="grow pr-4">
-              <div data-retour-step="my-spaces">My spaces</div>
-              <CircledNumber value={owningSpaces} />
+              <div data-retour-step="my-spaces" >My spaces</div>
+              <CircledNumber value={owningSpaces} data-test-data="heading-my-spaces-count"/>
             </FlexJustifySpread>
           </AccordionTrigger>
           <AccordionContent className="text-base pb-0">
@@ -28,10 +28,10 @@ export default function PagesIndexPage(props: any) {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
-          <AccordionTrigger className={triggerClassNames}>
+          <AccordionTrigger className={triggerClassNames} data-test-action="expander-shared-spaces">
             <FlexJustifySpread className="grow pr-4">
-              <div data-retour-step="shared-spaces">Spaces shared with me</div>
-              <CircledNumber value={sharedSpaces} />
+              <div data-retour-step="shared-spaces" >Spaces shared with me</div>
+              <CircledNumber value={sharedSpaces} data-test-data="heading-shared-spaces-count"/>
             </FlexJustifySpread>
           </AccordionTrigger>
           <AccordionContent className="text-base pb-0">

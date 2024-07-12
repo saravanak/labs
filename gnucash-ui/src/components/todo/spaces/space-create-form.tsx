@@ -14,7 +14,7 @@ export default function SpaceCreateForm() {
     validatorUrlFor: (spaceName: any) => {
       console.log("Generating fetch url");
 
-      return `http://localhost:3000/api/trpc/todoUser.findByName?input=${encodeURIComponent(
+      return `http://localhost:3000/api/trpc/space.findByName?input=${encodeURIComponent(
         JSON.stringify({ json: { spaceName } })
       )}`;
     },
@@ -45,7 +45,7 @@ export default function SpaceCreateForm() {
     },
   };
 
-  const mutation = trpc.todoUser.createSpace.useMutation({
+  const mutation = trpc.space.createSpace.useMutation({
     onSuccess: (d, { spaceName }) => {
       toast(`Created the new space ${spaceName}`);
       navigateToParentRoute({ router, pathname });

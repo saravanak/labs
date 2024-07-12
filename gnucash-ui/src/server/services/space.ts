@@ -238,7 +238,8 @@ export const SpaceService = {
       id: v.id,
       name: v.name,
       owner: v.user.email,
-      _count: v._count,
+      todosCount: v._count.todos,
+      sharedWithCount: v._count.spaceSharing,
     }));
   },
 

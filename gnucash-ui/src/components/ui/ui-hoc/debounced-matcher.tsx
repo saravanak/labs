@@ -1,6 +1,5 @@
 import AwesomeDebouncePromise from "awesome-debounce-promise";
 import { useCallback, useRef, useState } from "react";
-import { unknown } from "zod";
 
 export default function useAsyncValidation({ validatorUrlFor }: any) {
   const [matches, setMatches] = useState<any>([]);
@@ -21,8 +20,8 @@ export default function useAsyncValidation({ validatorUrlFor }: any) {
     });
 
     const jsonResponse = await result.json();
-    setMatches(jsonResponse.result.data.json);
-    return jsonResponse.result.data.json;
+    setMatches(jsonResponse.result && jsonResponse.result?.data.json);
+    return jsonResponse.result && jsonResponse.result.data.json;
   };
 
   const debouncedAsync = useCallback(

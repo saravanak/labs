@@ -47,6 +47,8 @@ export default function HocForm({
 
   useEffect(() => {
     if (mutation?.error) {
+      console.log(mutation?.error);
+      
       mutation.error.shape.cause.errors.forEach(({ key, error }: any) => {
         setError(key, error);
       });
