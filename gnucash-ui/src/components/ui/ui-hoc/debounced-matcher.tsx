@@ -11,7 +11,7 @@ export default function useAsyncValidation({ validatorUrlFor }: any) {
       ongoingQueries.current.forEach((ac: any) => ac.abort('old query'));
       ongoingQueries.current = [];
     } catch (error) {
-      console.log('Cancelled the queries 9');       
+      console.log('Cancelled the queries 8');       
     }
     const ac = new AbortController();
     ongoingQueries.current.push(ac);
