@@ -1,16 +1,16 @@
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
-import { z } from "zod";
+import { z } from 'zod';
 export default function TwoNumberEditor({ maps, twoNumberMeta }: any) {
   const divideMeta = z.coerce.number().gt(0).lt(999999);
 
@@ -21,7 +21,7 @@ export default function TwoNumberEditor({ maps, twoNumberMeta }: any) {
 
   const form = useForm<z.infer<typeof divisionSchema>>({
     resolver: zodResolver(divisionSchema),
-    mode: "onChange",
+    mode: 'onChange',
     defaultValues: {
       firstNumber: twoNumberMeta.firstNumber,
       secondNumber: twoNumberMeta.secondNumber,
@@ -31,9 +31,10 @@ export default function TwoNumberEditor({ maps, twoNumberMeta }: any) {
   return (
     <>
       <Form {...form}>
-        <form className="space-y-8">
+        <form className='space-y-8'>
           {Object.keys(maps).map((v: any, index: number) => (
-            <FormField key={index}
+            <FormField
+              key={index}
               control={form.control}
               name={v}
               render={({ field }) => (
@@ -63,4 +64,3 @@ export default function TwoNumberEditor({ maps, twoNumberMeta }: any) {
     </>
   );
 }
-

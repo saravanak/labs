@@ -1,11 +1,11 @@
-"use client";
-import { StepType, TourProvider } from "@reactour/tour";
-import { SessionProvider } from "next-auth/react";
-import { createContext, useState } from "react";
-import TourWrapper from "./tour-wrapper";
-import Markdowned from "../markdown/md-viewer";
-import { StepContentTexts } from "./tour/step-content";
-import { useRouter } from "next/navigation";
+'use client';
+import { StepType, TourProvider } from '@reactour/tour';
+import { SessionProvider } from 'next-auth/react';
+import { createContext, useState } from 'react';
+import TourWrapper from './tour-wrapper';
+import Markdowned from '../markdown/md-viewer';
+import { StepContentTexts } from './tour/step-content';
+import { useRouter } from 'next/navigation';
 export const TabBarContext = createContext({
   form: null,
   setForm: (x: any) => {},
@@ -28,9 +28,9 @@ function Content({
     setIsOpen,
   });
 
-  const stepText = content ? StepContentTexts[content] : "";
+  const stepText = content ? StepContentTexts[content] : '';
   return (
-    <Markdowned mdText={stepText} className="w-full rounded-md">
+    <Markdowned mdText={stepText} className='w-full rounded-md'>
       <div></div>
     </Markdowned>
   );
@@ -40,32 +40,32 @@ export default function AppWrapper({ children, session }: any) {
   const router = useRouter();
 
   const styles = {
-    popover: (base: any) => ({ ...base, maxWidth: "100%" }),
+    popover: (base: any) => ({ ...base, maxWidth: '100%' }),
   };
 
   const [form, setForm] = useState(null);
   const steps: StepType[] = [
     {
       selector: '[data-retour-step="tinja"]',
-      content: "tinja",
+      content: 'tinja',
     },
     {
       selector: '[data-retour-step="todos"]',
-      content: "todos",
-      actionAfter: () => router.push("/spaces"),
+      content: 'todos',
+      actionAfter: () => router.push('/spaces'),
     },
     {
       selector: '[data-retour-step="spaces"]',
-      content: "spaces",
+      content: 'spaces',
     },
     {
       selector: '[data-retour-step="my-spaces"]',
-      content: "my-spaces",
+      content: 'my-spaces',
       action: (element: any) => element?.click(),
     },
     {
       selector: '[data-retour-step="create-space"]',
-      content: "create-space",
+      content: 'create-space',
       actionAfter: () => {
         document
           .querySelector<HTMLElement>('[data-retour-step="my-spaces"]')
@@ -74,11 +74,11 @@ export default function AppWrapper({ children, session }: any) {
     },
     {
       selector: '[data-retour-step="shared-spaces"]',
-      content: "shared-spaces",
+      content: 'shared-spaces',
     },
     {
       selector: '[data-retour-step="login"]',
-      content: "login",
+      content: 'login',
     },
   ];
 
@@ -88,7 +88,7 @@ export default function AppWrapper({ children, session }: any) {
         <TourProvider
           steps={steps}
           components={{ Content }}
-          className="w-screen md:w-[calc(100vw-50vw)] m-4"
+          className='w-screen md:w-[calc(100vw-50vw)] m-4'
           styles={styles}
         >
           <TourWrapper session={session}>{children}</TourWrapper>
@@ -97,4 +97,3 @@ export default function AppWrapper({ children, session }: any) {
     </SessionProvider>
   );
 }
-

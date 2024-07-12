@@ -1,13 +1,13 @@
 {
-    "compilerOptions": {
-      "moduleResolution": "node",     // add this line.
-      "target": "es5",
-      "lib": ["es5", "dom"],
-      "types": ["cypress", "node"],
-      "baseUrl": "../src", // Set the base directory for resolving modules
-      "paths": {
-        "@/*": ["*"] // Define aliases here
-      }
-    },
-    "include": ["**/*.ts"]
-  }
+  "compilerOptions": {
+    "moduleResolution": "node", // add this line.
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "types": ["cypress", "node"],
+    "baseUrl": "../src", // Set the base directory for resolving modules
+    "paths": {
+      "@/*": ["*"] // Define aliases here
+    }
+  },
+  "include": ["**/*.ts"]
+}

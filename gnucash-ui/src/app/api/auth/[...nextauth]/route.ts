@@ -1,13 +1,12 @@
-import NextAuth from "next-auth";
+import NextAuth from 'next-auth';
 
-import EmailProvider from "next-auth/providers/email";
-import GithubProvider from "next-auth/providers/github";
-import CredentialsProvider from "next-auth/providers/credentials";
-import prisma from "@/lib/prisma";
+import EmailProvider from 'next-auth/providers/email';
+import GithubProvider from 'next-auth/providers/github';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import prisma from '@/lib/prisma';
 
-import { NextRequest } from "next/server";
-import { authOptions } from "@/lib/auth-options";
-
+import { NextRequest } from 'next/server';
+import { authOptions } from '@/lib/auth-options';
 
 const githubProvider = GithubProvider({
   clientId: process.env.GITHUB_CLIENT_ID,
@@ -20,13 +19,13 @@ const emailProvider = EmailProvider({
 });
 
 const credentialProvider = CredentialsProvider({
-  name: "CYPRESS_ONLY",
+  name: 'CYPRESS_ONLY',
   credentials: {
-    email: { label: "email", type: "text", placeholder: "enter your email" },
+    email: { label: 'email', type: 'text', placeholder: 'enter your email' },
   },
   async authorize(credentials, req) {
     console.log('credentialss authorize');
-    
+
     const user = await prisma.user.upsert({
       where: {
         email: credentials?.email,
@@ -34,13 +33,13 @@ const credentialProvider = CredentialsProvider({
       update: {},
       create: {
         email: credentials?.email as string,
-        name: "CYP_" + credentials?.email,
+        name: 'CYP_' + credentials?.email,
       },
     });
 
     if (user) {
       console.log(`CYPRESS_ONLY: ${user}`);
-      
+
       return user;
     }
 
@@ -48,14 +47,13 @@ const credentialProvider = CredentialsProvider({
   },
 });
 
-
 const auth = async (req: NextRequest, ctx: any) => {
   const { params } = ctx;
 
   console.log({ params, url: req.url });
 
   authOptions.providers = [];
-  if (params.nextauth.includes("github")) {
+  if (params.nextauth.includes('github')) {
     authOptions.providers = [githubProvider];
   }
 
@@ -69,4 +67,3 @@ const auth = async (req: NextRequest, ctx: any) => {
 };
 
 export { auth as GET, auth as POST };
-

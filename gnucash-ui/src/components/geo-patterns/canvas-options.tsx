@@ -2,17 +2,17 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { Slider } from "@/components/ui/slider";
-import { Toggle } from "@/components/ui/toggle";
-import { useToggle } from "@uidotdev/usehooks";
-import * as d3 from "d3";
-import { debounce, shuffle } from "lodash";
-import { useContext, useEffect, useRef } from "react";
-import { Shuffle } from "react-feather";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import ColorRow from "./color-row";
-import { ColorPaletteContext } from "./palette-context-provider";
+} from '@/components/ui/popover';
+import { Slider } from '@/components/ui/slider';
+import { Toggle } from '@/components/ui/toggle';
+import { useToggle } from '@uidotdev/usehooks';
+import * as d3 from 'd3';
+import { debounce, shuffle } from 'lodash';
+import { useContext, useEffect, useRef } from 'react';
+import { Shuffle } from 'react-feather';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import ColorRow from './color-row';
+import { ColorPaletteContext } from './palette-context-provider';
 
 export default function CanvasOptions({
   setCurrentZoomLevel,
@@ -54,7 +54,7 @@ export default function CanvasOptions({
     <>
       <Toggle onClick={() => toggleIsAnimating()}>
         <Shuffle></Shuffle>
-        {isAnimating ? "Animating" : "Animate"}
+        {isAnimating ? 'Animating' : 'Animate'}
       </Toggle>
       <Slider
         value={[currentZoomLevel]}
@@ -65,14 +65,15 @@ export default function CanvasOptions({
       />
       <Popover>
         <PopoverTrigger>
-          <button>Change Background Color</button></PopoverTrigger>
+          <button>Change Background Color</button>
+        </PopoverTrigger>
         <PopoverContent>
           <Card>
             <CardHeader>
               <CardTitle> Set background color</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-wrap gap-[0.2em]">
+              <div className='flex flex-wrap gap-[0.2em]'>
                 {[
                   ...colorState.colorSchemes[0].scheme,
                   ...d3.schemePastel1,
@@ -95,4 +96,3 @@ export default function CanvasOptions({
     </>
   );
 }
-

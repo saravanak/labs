@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import * as React from 'react';
+import { Check, ChevronsUpDown } from 'lucide-react';
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
-} from "@/components/ui/command";
+} from '@/components/ui/command';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { InputProps } from "../input";
+} from '@/components/ui/popover';
+import { InputProps } from '../input';
 
 export type SearchItem = {
   value: string;
@@ -32,7 +32,7 @@ const _AutoComplete = (
     placeholder,
     noMatches,
     onSearchChange,
-    keyComparer = "value",
+    keyComparer = 'value',
   }: {
     options: any;
     onChange: (v: any) => void;
@@ -50,10 +50,10 @@ const _AutoComplete = (
     <Popover open={isOpen} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="outline"
-          role="combobox"
+          variant='outline'
+          role='combobox'
           aria-expanded={isOpen}
-          className="w-[200px] justify-between"
+          className='w-[200px] justify-between'
         >
           {value
             ? options.find(
@@ -61,10 +61,10 @@ const _AutoComplete = (
                   option[keyComparer].toLowerCase() === value.toLowerCase()
               )?.label
             : placeholder}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className='w-[200px] p-0'>
         <Command shouldFilter={false}>
           <CommandInput
             placeholder={placeholder}
@@ -83,8 +83,8 @@ const _AutoComplete = (
               >
                 <Check
                   className={cn(
-                    "mr-2 h-4 w-4",
-                    value === framework.value ? "opacity-100" : "opacity-0"
+                    'mr-2 h-4 w-4',
+                    value === framework.value ? 'opacity-100' : 'opacity-0'
                   )}
                 />
                 {framework.label}
@@ -98,4 +98,3 @@ const _AutoComplete = (
 };
 
 export const AutoComplete = React.forwardRef(_AutoComplete);
-

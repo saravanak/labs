@@ -1,8 +1,8 @@
-import Blockly from "blockly";
-import { useEffect } from "react";
-import configureBlocks from "./blockly/blocks";
-import { WorkspaceUtils } from "./blockly/workspace-utils";
-import ModuloCodeGenerator from "./blockly/modulo-language-generator";
+import Blockly from 'blockly';
+import { useEffect } from 'react';
+import configureBlocks from './blockly/blocks';
+import { WorkspaceUtils } from './blockly/workspace-utils';
+import ModuloCodeGenerator from './blockly/modulo-language-generator';
 
 let workspace: any;
 
@@ -21,13 +21,13 @@ export default function BlocklyComponent({
   console.log(initialBlocks);
 
   configureBlocks(Blockly, colors);
-useEffect(() => {
-    workspace = Blockly.inject("blocklyDiv", {
+  useEffect(() => {
+    workspace = Blockly.inject('blocklyDiv', {
       comments: true,
       collapse: false,
     });
-    const blocklyArea: any = document.getElementById("blocklyArea");
-    const blocklyDiv: any = document.getElementById("blocklyDiv");
+    const blocklyArea: any = document.getElementById('blocklyArea');
+    const blocklyDiv: any = document.getElementById('blocklyDiv');
 
     const onresize = function () {
       // Compute the absolute coordinates and dimensions of blocklyArea.
@@ -40,14 +40,14 @@ useEffect(() => {
         element = element.offsetParent;
       } while (element);
       // Position blocklyDiv over blocklyArea.
-      blocklyDiv.style.left = x + "px";
-      blocklyDiv.style.top = y + "px";
-      blocklyDiv.style.width = blocklyArea.offsetWidth + "px";
-      blocklyDiv.style.height = blocklyArea.offsetHeight + "px";
+      blocklyDiv.style.left = x + 'px';
+      blocklyDiv.style.top = y + 'px';
+      blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+      blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
       Blockly.svgResize(workspace);
       workspace.zoomToFit();
     };
-    window.addEventListener("resize", onresize, false);
+    window.addEventListener('resize', onresize, false);
     onresize();
 
     if (initialBlocks) {
@@ -59,9 +59,9 @@ useEffect(() => {
       console.log(event.type);
 
       let code = ModuloCodeGenerator.workspaceToCode(workspace);
-      console.log("Got code", code);
+      console.log('Got code', code);
       if (code.length) {
-        code = code.replace(/\s+/g, " ");
+        code = code.replace(/\s+/g, ' ');
         setModuloProgram(code);
       }
     }
@@ -73,9 +73,8 @@ useEffect(() => {
   }, [setModuloProgram]);
 
   return (
-    <div id="blocklyArea" style={{ width: "100%", height: "100vh" }}>
-      <div id="blocklyDiv" style={{ position: "absolute" }}></div>
+    <div id='blocklyArea' style={{ width: '100%', height: '100vh' }}>
+      <div id='blocklyDiv' style={{ position: 'absolute' }}></div>
     </div>
   );
 }
-

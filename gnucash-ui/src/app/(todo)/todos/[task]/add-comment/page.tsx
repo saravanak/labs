@@ -1,14 +1,14 @@
-"use client";
-import { trpc } from "@/utils/trpc";
-import { z } from "zod";
-import HocForm from "@/components/ui/ui-hoc/hoc-form";
-import { toast } from "sonner";
-import { navigateToParentRoute } from "@/utils/router/parent-go-back";
-import { usePathname, useRouter } from "next/navigation";
-import { Skeleton } from "@/components/ui/skeleton";
-import ListItem from "@/components/ui/lists/list-item";
-import PropertyListItem from "@/components/ui/lists/property-list-item";
-import LoaderListItem from "@/components/ui/lists/loader-list";
+'use client';
+import { trpc } from '@/utils/trpc';
+import { z } from 'zod';
+import HocForm from '@/components/ui/ui-hoc/hoc-form';
+import { toast } from 'sonner';
+import { navigateToParentRoute } from '@/utils/router/parent-go-back';
+import { usePathname, useRouter } from 'next/navigation';
+import { Skeleton } from '@/components/ui/skeleton';
+import ListItem from '@/components/ui/lists/list-item';
+import PropertyListItem from '@/components/ui/lists/property-list-item';
+import LoaderListItem from '@/components/ui/lists/loader-list';
 
 export default function CreateCommentForTodoForm({ params }: any) {
   const router = useRouter();
@@ -24,14 +24,14 @@ export default function CreateCommentForTodoForm({ params }: any) {
 
   const formMeta: Record<string, any> = {
     commentString: {
-      label: "Enter comment",
-      type: "text",
+      label: 'Enter comment',
+      type: 'text',
     },
   };
 
   const mutation = trpc.todo.addComment.useMutation({
     onSuccess: () => {
-      toast("Comment successfully added");
+      toast('Comment successfully added');
       navigateToParentRoute({ router, pathname });
     },
   });
@@ -44,33 +44,32 @@ export default function CreateCommentForTodoForm({ params }: any) {
   }
 
   if (todo.isLoading) {
-    return <LoaderListItem/>
+    return <LoaderListItem />;
   }
 
   return (
     <>
-      <ListItem variant="header">Add new comment</ListItem>
-      <PropertyListItem property="title" value={todo?.data?.title} />
+      <ListItem variant='header'>Add new comment</ListItem>
+      <PropertyListItem property='title' value={todo?.data?.title} />
 
       <PropertyListItem
-        property="description"
+        property='description'
         value={todo?.data?.description}
       />
       <PropertyListItem
-        property="status"
+        property='status'
         value={todo?.data?.StatusTransitions[0].status}
         asTag={true}
-        tagColor="bg-green-600 text-gray-200 font-bold"
+        tagColor='bg-green-600 text-gray-200 font-bold'
       />
       <HocForm
         formSchema={formSchema}
         onSubmit={onSubmit}
         mutation={mutation}
         formMeta={formMeta}
-        title="Add comment"
-        defaultValues={{ commentString: "" }}
+        title='Add comment'
+        defaultValues={{ commentString: '' }}
       />
     </>
   );
 }
-

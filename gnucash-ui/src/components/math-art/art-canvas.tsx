@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import canvasSketch from "canvas-sketch";
-import { EditorView, basicSetup } from "codemirror";
-import { javascript } from "@codemirror/lang-javascript";
-import { EditorState } from "@codemirror/state";
-import { ViewUpdate, keymap } from "@codemirror/view";
-import { defaultKeymap } from "@codemirror/commands";
-import readOnlyRangesExtension from "codemirror-readonly-ranges";
+import { useCallback, useEffect, useRef, useState } from 'react';
+import canvasSketch from 'canvas-sketch';
+import { EditorView, basicSetup } from 'codemirror';
+import { javascript } from '@codemirror/lang-javascript';
+import { EditorState } from '@codemirror/state';
+import { ViewUpdate, keymap } from '@codemirror/view';
+import { defaultKeymap } from '@codemirror/commands';
+import readOnlyRangesExtension from 'codemirror-readonly-ranges';
 
 // Specify some output parameters
 const settings: any = {
@@ -24,9 +24,9 @@ const getReadOnlyRanges = (
       to: targetState.doc.line(3).to,
     },
     {
-        from: targetState.doc.line(targetState.doc.lines -2 ).from,
-        to: targetState.doc.line(targetState.doc.lines).to,
-      },
+      from: targetState.doc.line(targetState.doc.lines - 2).from,
+      to: targetState.doc.line(targetState.doc.lines).to,
+    },
   ];
 };
 
@@ -53,14 +53,14 @@ export default function ArtCanvas({ data }: any) {
       let match = rle.match(regexp);
 
       while (match) {
-        const [letter, ...count] = match[1].split("");
+        const [letter, ...count] = match[1].split('');
 
-        expendedArray.push(...Array(Number(count.join(""))).fill(letter));
+        expendedArray.push(...Array(Number(count.join(''))).fill(letter));
         rle = rle.slice(match[1].length);
         match = rle.match(regexp);
       }
 
-      expendedArray = expendedArray.map((v) => (v == "b" ? "gray" : "blue"));
+      expendedArray = expendedArray.map((v) => (v == 'b' ? 'gray' : 'blue'));
 
       // Destructure what we need from props
       const { context, width, height } = props;
@@ -77,14 +77,14 @@ export default function ArtCanvas({ data }: any) {
 
   useEffect(() => {
     if (codeEditorRef?.current) {
-      console.log("instantiating codemirror");
+      console.log('instantiating codemirror');
 
       let startState = EditorState.create({
         doc: userCode,
         extensions: [
           keymap.of(defaultKeymap),
           EditorView.updateListener.of((update: ViewUpdate) => {
-            setUserCode((update.state.doc as any).text.join("\n"));
+            setUserCode((update.state.doc as any).text.join('\n'));
           }),
           readOnlyRangesExtension(getReadOnlyRanges),
         ],
@@ -113,11 +113,10 @@ export default function ArtCanvas({ data }: any) {
     <>
       {isClient ? (
         <div>
-          <div className="w-[500px] h-[500px]" ref={codeEditorRef} />
+          <div className='w-[500px] h-[500px]' ref={codeEditorRef} />
           <canvas ref={canvasRef} />
         </div>
       ) : null}
     </>
   );
 }
-

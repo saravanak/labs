@@ -1,4 +1,4 @@
-import { Block, BlockSvg, inputTypes, Workspace } from "blockly";
+import { Block, BlockSvg, inputTypes, Workspace } from 'blockly';
 
 /*
  var parentBlock = workspace.newBlock(BlockNames.IF_BLOCK);
@@ -115,7 +115,7 @@ export class WorkspaceUtils {
     inputName: string | null
   ) {
     const { inputs, type, fields } = json;
-    const currentBlock = this.workspace.newBlock(type) as BlockSvg; 
+    const currentBlock = this.workspace.newBlock(type) as BlockSvg;
 
     if (currentBlock.initSvg) {
       currentBlock.initSvg();

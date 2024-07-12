@@ -1,8 +1,8 @@
-import { computeDivisionSteps } from "@/components/math-art/division-steps";
-import "@testing-library/jest-dom";
-import { last } from "lodash";
+import { computeDivisionSteps } from '@/components/math-art/division-steps';
+import '@testing-library/jest-dom';
+import { last } from 'lodash';
 
-describe("Division steps ", () => {
+describe('Division steps ', () => {
   [
     // { dividend: 8, divisor: 2 },
     // { dividend: 10, divisor: 2 },
@@ -19,4 +19,3 @@ describe("Division steps ", () => {
     });
   });
 });
-

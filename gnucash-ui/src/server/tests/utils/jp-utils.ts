@@ -1,5 +1,5 @@
-import jp from "jsonpath";
-import { ZodSchema, z } from "zod";
+import jp from 'jsonpath';
+import { ZodSchema, z } from 'zod';
 
 const todoListingSchema = z.object({
   id: z.number(),
@@ -51,12 +51,12 @@ const getUserSpacesSchema = z.object({
 });
 
 export const JPUtils = {
-  firstItem: (body: any) => jp.value(body, "result.data.json.items[0]"),
-  returnValue: (body: any) => jp.value(body, "result.data.json"),
-  itemLength: (body: any) => jp.value(body, "result.data.json.items.length"),
+  firstItem: (body: any) => jp.value(body, 'result.data.json.items[0]'),
+  returnValue: (body: any) => jp.value(body, 'result.data.json'),
+  itemLength: (body: any) => jp.value(body, 'result.data.json.items.length'),
   getPathInItems: (body: any, path: string) =>
     jp.value(body, `result.data.json.items${path}`),
-  getErrorStatus: (body: any) => jp.value(body, "error.json.data.httpStatus"),
+  getErrorStatus: (body: any) => jp.value(body, 'error.json.data.httpStatus'),
   parseFirstItem: (body: any, schema: ZodSchema) =>
     schema.safeParse(JPUtils.firstItem(body)),
   parseReturnValue: (body: any, schema: ZodSchema) =>
@@ -64,10 +64,9 @@ export const JPUtils = {
 };
 
 export const schemasByAPI = {
-  "todo.getOwnTodos": todoListingSchema,
-  "todo.getTodosForSpace": todoListingSchema,
-  "todo.getDetailedView": todoDetailedListingSchema,
-  "space.getSpace": getSpaceSchema,
-  "space.getUserSpaces": getUserSpacesSchema,
+  'todo.getOwnTodos': todoListingSchema,
+  'todo.getTodosForSpace': todoListingSchema,
+  'todo.getDetailedView': todoDetailedListingSchema,
+  'space.getSpace': getSpaceSchema,
+  'space.getUserSpaces': getUserSpacesSchema,
 };
-

@@ -1,10 +1,10 @@
-import useAsyncValidation from "@/components/ui/ui-hoc/debounced-matcher";
-import { trpc } from "@/utils/trpc";
-import { z } from "zod";
-import HocForm from "../../ui/ui-hoc/hoc-form";
-import { toast } from "sonner";
-import { navigateToParentRoute } from "@/utils/router/parent-go-back";
-import { usePathname, useRouter } from "next/navigation";
+import useAsyncValidation from '@/components/ui/ui-hoc/debounced-matcher';
+import { trpc } from '@/utils/trpc';
+import { z } from 'zod';
+import HocForm from '../../ui/ui-hoc/hoc-form';
+import { toast } from 'sonner';
+import { navigateToParentRoute } from '@/utils/router/parent-go-back';
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function SpaceCreateForm() {
   const router = useRouter();
@@ -12,7 +12,7 @@ export default function SpaceCreateForm() {
 
   const [debouncedAsync, matches] = useAsyncValidation({
     validatorUrlFor: (spaceName: any) => {
-      console.log("Generating fetch url");
+      console.log('Generating fetch url');
 
       return `http://localhost:3000/api/trpc/space.findByName?input=${encodeURIComponent(
         JSON.stringify({ json: { spaceName } })
@@ -24,23 +24,23 @@ export default function SpaceCreateForm() {
     .object({
       spaceName: z
         .string()
-        .min(3, { message: "Too short" })
-        .max(20, { message: "Too long" })
+        .min(3, { message: 'Too short' })
+        .max(20, { message: 'Too long' })
         .regex(/^[\u0000-\u0019\u0021-\uFFFF\s0-9\-']+$/, {
-          message: "Not all special characters are allowed!",
+          message: 'Not all special characters are allowed!',
         })
         .trim()
         .toLowerCase()
         .refine(debouncedAsync, {
-          message: "We already have an user by that name",
+          message: 'We already have an user by that name',
         }),
     })
     .required();
 
   const formMeta: Record<string, any> = {
     spaceName: {
-      label: "Space name",
-      type: "text",
+      label: 'Space name',
+      type: 'text',
       matches,
     },
   };
@@ -62,13 +62,12 @@ export default function SpaceCreateForm() {
     <>
       <HocForm
         formSchema={formSchema}
-        title="Create Space"
+        title='Create Space'
         onSubmit={onSubmit}
         formMeta={formMeta}
-        defaultValues={{ spaceName: "" }}
+        defaultValues={{ spaceName: '' }}
         mutation={mutation}
       />
     </>
   );
 }
-

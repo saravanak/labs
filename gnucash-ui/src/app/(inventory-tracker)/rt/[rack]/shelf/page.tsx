@@ -1,6 +1,6 @@
-"use client";
-import ListShelves from "@/components/rt/list-shelves";
-import { trpc } from "@/utils/trpc";
+'use client';
+import ListShelves from '@/components/rt/list-shelves';
+import { trpc } from '@/utils/trpc';
 
 export default function ShelfListingPage({ params }: any) {
   const [shelvesResult] = trpc.useQueries((t) => [
@@ -14,4 +14,3 @@ export default function ShelfListingPage({ params }: any) {
     </h1>
   );
 }
-

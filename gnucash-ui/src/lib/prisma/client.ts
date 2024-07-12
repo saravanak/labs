@@ -1,6 +1,6 @@
-import { PrismaClient } from "@prisma/client";
-import { enhance } from "@zenstackhq/runtime";
-import pg from "pg";
+import { PrismaClient } from '@prisma/client';
+import { enhance } from '@zenstackhq/runtime';
+import pg from 'pg';
 const { Client } = pg;
 
 const globalForPrisma = globalThis as unknown as {
@@ -10,12 +10,12 @@ const globalForPrisma = globalThis as unknown as {
 
 export const prisma: PrismaClient = enhance(
   globalForPrisma.prisma ||
-    new PrismaClient({ log: process.env.ENABLE_QUERY_LOGS ? ["query"] : [] }),
+    new PrismaClient({ log: process.env.ENABLE_QUERY_LOGS ? ['query'] : [] }),
   {},
-  { kinds: ["delegate"] }
+  { kinds: ['delegate'] }
 );
 
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== 'production') {
   globalForPrisma.prisma = prisma;
 }
 
@@ -25,9 +25,8 @@ client.connect();
 
 export const pgClient = client;
 
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== 'production') {
   globalForPrisma.pgClient = pgClient;
 }
 
 //Ref https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections#prevent-hot-reloading-from-creating-new-instances-of-prismaclient
-

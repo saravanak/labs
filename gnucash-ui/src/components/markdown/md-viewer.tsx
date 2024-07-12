@@ -1,8 +1,8 @@
-import { Marked } from "marked";
-import DOMPurify from "dompurify";
-import { useMemo } from "react";
-import { Slot } from "@radix-ui/react-slot";
-import { cn } from "@/lib/utils";
+import { Marked } from 'marked';
+import DOMPurify from 'dompurify';
+import { useMemo } from 'react';
+import { Slot } from '@radix-ui/react-slot';
+import { cn } from '@/lib/utils';
 
 const parser = new Marked({ async: false, gfm: true });
 
@@ -13,7 +13,7 @@ export function useMarkdown(mdText: any) {
         USE_PROFILES: { html: true },
       });
     } else {
-      return "";
+      return '';
     }
   }, [mdText]);
 
@@ -25,7 +25,7 @@ export default function Markdowned({ mdText, children, className }: any) {
   return (
     <Slot
       className={cn(
-        "markdowned bg-light-bg text-light-bg-foreground",
+        'markdowned bg-light-bg text-light-bg-foreground',
         className
       )}
       dangerouslySetInnerHTML={{ __html: html }}
@@ -34,4 +34,3 @@ export default function Markdowned({ mdText, children, className }: any) {
     </Slot>
   );
 }
-

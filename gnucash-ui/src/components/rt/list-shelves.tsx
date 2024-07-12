@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import {
   Table,
   TableBody,
@@ -6,9 +6,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { ShelfModel } from "@/lib/prisma/zod";
-import { useRouter } from "next/navigation";
+} from '@/components/ui/table';
+import { ShelfModel } from '@/lib/prisma/zod';
+import { useRouter } from 'next/navigation';
 
 export default function ListShelves({ shelves }: any) {
   const { data } = shelves;
@@ -20,7 +20,7 @@ export default function ListShelves({ shelves }: any) {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">Your Shelves</TableHead>
+          <TableHead className='w-[100px]'>Your Shelves</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

@@ -1,15 +1,15 @@
-import clsx from "clsx";
+import clsx from 'clsx';
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Slider } from "../ui/slider";
-import { AutoComplete, SearchItem } from "../ui/ui-hoc/autocomplete";
-import HocFormSlider from "../ui/ui-hoc/hoc-form-slider";
-import { useFormContext } from "react-hook-form";
+} from '../ui/form';
+import { Slider } from '../ui/slider';
+import { AutoComplete, SearchItem } from '../ui/ui-hoc/autocomplete';
+import HocFormSlider from '../ui/ui-hoc/hoc-form-slider';
+import { useFormContext } from 'react-hook-form';
 
 export default function FootprintGeneralQuestions({ countries }: any) {
   const { formMeta } = useFormContext() as any;
@@ -17,7 +17,7 @@ export default function FootprintGeneralQuestions({ countries }: any) {
   return (
     <>
       <FormField
-        name="country"
+        name='country'
         render={({ field }: any) => {
           return (
             <FormItem>
@@ -36,9 +36,8 @@ export default function FootprintGeneralQuestions({ countries }: any) {
         }}
       ></FormField>
 
-      <HocFormSlider min={2} max={6} step={1} name="houseSize" />
-      <HocFormSlider min={10} max={120} step={10} name="householdIncome" />
+      <HocFormSlider min={2} max={6} step={1} name='houseSize' />
+      <HocFormSlider min={10} max={120} step={10} name='householdIncome' />
     </>
   );
 }
-

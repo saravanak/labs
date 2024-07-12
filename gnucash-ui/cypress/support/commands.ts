@@ -25,7 +25,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-Cypress.Commands.add("login", (email: string) => {
+Cypress.Commands.add('login', (email: string) => {
   cy.get('[id="input-email-for-credentials-provider"]', {
     timeout: 10000,
   }).type(email);

@@ -1,21 +1,23 @@
-import { useState } from "react";
-import { digits, getNthDigit, orderNumbers } from "./multiply";
+import { useState } from 'react';
+import { digits, getNthDigit, orderNumbers } from './multiply';
 
-import { CardTitle } from "../ui/card";
+import { CardTitle } from '../ui/card';
 
-import { clone, last } from "lodash";
+import { clone, last } from 'lodash';
 
-import { cn } from "@/lib/utils";
-import TwoNumberEditor from "./two-number-editor";
-import useTwoNumbers from "./two-number-hook";
+import { cn } from '@/lib/utils';
+import TwoNumberEditor from './two-number-editor';
+import useTwoNumbers from './two-number-hook';
 
 function leadingNDigits(value: number, n: number) {
-  return parseInt(value.toString().split("").slice(0, n).join(""));
+  return parseInt(value.toString().split('').slice(0, n).join(''));
 }
 
 function countLeadingZeroes(numberString: string) {
   const numberValue = parseInt(numberString, 10);
-  return numberValue == 0 ? numberString.length -2 : numberString.length - digits(numberValue);
+  return numberValue == 0
+    ? numberString.length - 2
+    : numberString.length - digits(numberValue);
 }
 
 /**
@@ -51,11 +53,11 @@ function singleDivisionStep(
 
   currentDenominatorString = currentDenominator
     .toString(10)
-    .padStart(numeratorString.length, "0");
+    .padStart(numeratorString.length, '0');
   const currentRemainder = parseInt(numeratorString, 10) - currentDenominator;
   let currentRemainderString = currentRemainder
     .toString(10)
-    .padStart(numeratorString.length, "0");
+    .padStart(numeratorString.length, '0');
 
   currentRemainderString = nextSeed.length
     ? `${currentRemainderString}${nextSeed[0]}`
@@ -83,8 +85,11 @@ export function computeDivisionSteps({ dividend, divisor }: any) {
 
 export default function DivisionSteps() {
   const twoNumberMeta = useTwoNumbers(3, 23167);
-  
-  const [dividend, divisor] = orderNumbers(twoNumberMeta.firstNumber, twoNumberMeta.secondNumber);
+
+  const [dividend, divisor] = orderNumbers(
+    twoNumberMeta.firstNumber,
+    twoNumberMeta.secondNumber
+  );
 
   const steps = computeDivisionSteps({ dividend, divisor });
 
@@ -97,22 +102,24 @@ export default function DivisionSteps() {
 
   const maps: any = {
     firstNumber: {
-      label: "A number to divide",
-      type: "number",
-      onValueChange: twoNumberMeta.setFirstNumber
+      label: 'A number to divide',
+      type: 'number',
+      onValueChange: twoNumberMeta.setFirstNumber,
     },
     secondNumber: {
-      label: "Another number to divide",
-      type: "number",
-      onValueChange: twoNumberMeta.setSecondNumber
+      label: 'Another number to divide',
+      type: 'number',
+      onValueChange: twoNumberMeta.setSecondNumber,
     },
   };
   return (
     <>
       <TwoNumberEditor twoNumberMeta={twoNumberMeta} maps={maps} />
 
-      <CardTitle className="bg-gray-300 p-2 mt-2 rounded-md">Solution</CardTitle>
-      <div className="grid place-content-center ">
+      <CardTitle className='bg-gray-300 p-2 mt-2 rounded-md'>
+        Solution
+      </CardTitle>
+      <div className='grid place-content-center '>
         <div
           className={`grid font-mono text-base	tracking-[0.35ch] text-xl box-border gap-0  place-self-center `}
           style={{ gridTemplateColumns: `repeat(${gridColumns},  3ch)` }}
@@ -127,13 +134,13 @@ export default function DivisionSteps() {
             colStart={1}
             rowStart={2}
             applyClasses={(index: any) => index == digits(divisor) - 1}
-            borderClasses={"border-r-[0.25ch] "}
+            borderClasses={'border-r-[0.25ch] '}
           />
           <Digits
             number={dividend}
             colStart={1 + digits(divisor)}
             rowStart={2}
-            borderClasses={"border-t-[0.25ch] "}
+            borderClasses={'border-t-[0.25ch] '}
           />
           {steps.map(
             (
@@ -142,7 +149,7 @@ export default function DivisionSteps() {
             ) => {
               return [stepDividend, multiple, remainder].map(
                 (number, stepIndex) => {
-                  let border = stepIndex == 2 ? " border-t-[0.25ch] " : "";
+                  let border = stepIndex == 2 ? ' border-t-[0.25ch] ' : '';
 
                   if (index >= 0 && stepIndex == 0) {
                     return <div className={`flex `} key={stepIndex}></div>;
@@ -187,7 +194,7 @@ function Digits({
     <>
       {number
         .toString(10)
-        .split("")
+        .split('')
         .map((n: any, index: number) => {
           return (
             <div
@@ -196,8 +203,8 @@ function Digits({
                 gridRowStart: rowStart,
               }}
               className={cn(
-                "items-center content-center aspect-square text-center  border-red-300",
-                applyClasses(index) ? borderClasses : ""
+                'items-center content-center aspect-square text-center  border-red-300',
+                applyClasses(index) ? borderClasses : ''
               )}
               key={index}
             >
@@ -208,4 +215,3 @@ function Digits({
     </>
   );
 }
-

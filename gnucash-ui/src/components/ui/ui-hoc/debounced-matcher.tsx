@@ -1,5 +1,5 @@
-import AwesomeDebouncePromise from "awesome-debounce-promise";
-import { useRef, useState } from "react";
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import { useRef, useState } from 'react';
 
 export default function useAsyncValidation({ validatorUrlFor }: any) {
   const [matches, setMatches] = useState<any>([]);
@@ -8,10 +8,10 @@ export default function useAsyncValidation({ validatorUrlFor }: any) {
 
   const validator = async (spaceName: string) => {
     try {
-      ongoingQueries.current.forEach((ac: any) => ac.abort("old query"));
+      ongoingQueries.current.forEach((ac: any) => ac.abort('old query'));
       ongoingQueries.current = [];
     } catch (error) {
-      console.log("Cancelled the queries");
+      console.log('Cancelled the queries');
     }
     const ac = new AbortController();
     ongoingQueries.current.push(ac);
@@ -32,4 +32,3 @@ export default function useAsyncValidation({ validatorUrlFor }: any) {
 
   return [debouncedAsync, matches];
 }
-

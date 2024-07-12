@@ -1,12 +1,12 @@
-import prisma from "@/lib/prisma";
-import { pgClient } from "@/lib/prisma/client";
-import { getUserSpaces } from "@/lib/typed-queries/user/action";
-import { User } from "@prisma/client";
-import { returnPaginatedQuery } from "./todo";
-import { merge, orderBy, startsWith } from "lodash";
-import { sleep } from "./utils";
-import { sql_getAllSpaces } from "@/lib/typed-queries/space/action";
-import { TRPCError } from "@trpc/server";
+import prisma from '@/lib/prisma';
+import { pgClient } from '@/lib/prisma/client';
+import { getUserSpaces } from '@/lib/typed-queries/user/action';
+import { User } from '@prisma/client';
+import { returnPaginatedQuery } from './todo';
+import { merge, orderBy, startsWith } from 'lodash';
+import { sleep } from './utils';
+import { sql_getAllSpaces } from '@/lib/typed-queries/space/action';
+import { TRPCError } from '@trpc/server';
 
 const SpaceWhereQueries = {
   ownedBy: (user: User) => ({
@@ -18,7 +18,7 @@ const SpaceWhereQueries = {
     where: {
       name: {
         startsWith: value,
-        mode: "insensitive",
+        mode: 'insensitive',
       },
     },
   }),
@@ -146,7 +146,7 @@ export const SpaceService = {
 
     if (!userSpace) {
       throw Error(
-        "the space is not owned by the current user or the space does not exist"
+        'the space is not owned by the current user or the space does not exist'
       );
     }
 
@@ -158,8 +158,8 @@ export const SpaceService = {
 
     if (!inviteeExists) {
       throw new TRPCError({
-        code: "UNPROCESSABLE_CONTENT",
-        message: "Your request cannot be processed at this time",
+        code: 'UNPROCESSABLE_CONTENT',
+        message: 'Your request cannot be processed at this time',
       });
     }
 
@@ -186,7 +186,7 @@ export const SpaceService = {
           nameFilter ? SpaceWhereQueries.name(nameFilter) : {}
         ),
         orderBy: {
-          id: "asc",
+          id: 'asc',
         },
         select: {
           _count: {
@@ -216,7 +216,7 @@ export const SpaceService = {
       {
         ...SpaceWhereQueries.shared(user),
         orderBy: {
-          id: "asc",
+          id: 'asc',
         },
         select: {
           _count: {
@@ -278,4 +278,3 @@ export const SpaceService = {
     });
   },
 };
-

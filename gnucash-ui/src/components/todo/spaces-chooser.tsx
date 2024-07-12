@@ -1,7 +1,7 @@
-import { trpc } from "@/utils/trpc";
-import ListItem from "../ui/lists/list-item";
-import HocSelect from "../ui/ui-hoc/hoc-select";
-import LoaderListItem from "../ui/lists/loader-list";
+import { trpc } from '@/utils/trpc';
+import ListItem from '../ui/lists/list-item';
+import HocSelect from '../ui/ui-hoc/hoc-select';
+import LoaderListItem from '../ui/lists/loader-list';
 
 export default function SpacesChooser({
   setSpace,
@@ -28,7 +28,7 @@ export default function SpacesChooser({
             selectLabelInline={spaceViewingLabel}
             placeholder={spaceLabel}
             value={space}
-            dataTestPrefix="space-chooser"
+            dataTestPrefix='space-chooser'
             onValueChange={(chosenSpaceId: any) => {
               const foundSpace = allSpaces.items.find(
                 (v) => v.id == chosenSpaceId
@@ -47,4 +47,3 @@ export default function SpacesChooser({
     </>
   );
 }
-

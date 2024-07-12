@@ -1,15 +1,15 @@
-import { faker } from "@faker-js/faker";
-import { seed_insertManyCommentsIntoTodo } from "./../typed-queries/todo/action";
-import { Shelf } from "@prisma/client";
-import { enhance } from "@zenstackhq/runtime";
-import { omit, times } from "lodash";
-import getLuggages from "./data";
-import { fakeComment, fakeRack, fakeShelf, fakeUser } from "./fake-data";
-import prisma from "./index";
-import { pgClient } from "./client";
-import { SeedCreateTodos } from "./seeds/seed-utils";
+import { faker } from '@faker-js/faker';
+import { seed_insertManyCommentsIntoTodo } from './../typed-queries/todo/action';
+import { Shelf } from '@prisma/client';
+import { enhance } from '@zenstackhq/runtime';
+import { omit, times } from 'lodash';
+import getLuggages from './data';
+import { fakeComment, fakeRack, fakeShelf, fakeUser } from './fake-data';
+import prisma from './index';
+import { pgClient } from './client';
+import { SeedCreateTodos } from './seeds/seed-utils';
 
-const db = enhance(prisma, {}, { kinds: ["delegate"] });
+const db = enhance(prisma, {}, { kinds: ['delegate'] });
 
 async function main() {
   times(5, async () => {
@@ -25,13 +25,11 @@ async function main() {
     });
   });
 
-  
-
   return await SeedCreateTodos({
-    email: "neo@example.com",
+    email: 'neo@example.com',
     spacename: "Neo's Space",
-    title: "I need to breathe",
-    description: "Thats is, to live.",
+    title: 'I need to breathe',
+    description: 'Thats is, to live.',
   });
 }
 main()
@@ -52,4 +50,3 @@ BEGIN
       EXECUTE 'TRUNCATE TABLE ' || quote_ident(r.tablename) || ' CASCADE';
   END LOOP;
 END $$;`;
-

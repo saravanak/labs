@@ -1,7 +1,7 @@
-import { prisma } from "@/lib/prisma/client";
-import { UserModel } from "@/lib/prisma/zod";
-import { t } from "@/utils/trpc-server";
-import { z } from "zod";
+import { prisma } from '@/lib/prisma/client';
+import { UserModel } from '@/lib/prisma/zod';
+import { t } from '@/utils/trpc-server';
+import { z } from 'zod';
 
 export const userRouter = t.router({
   findBy: t.procedure
@@ -22,7 +22,7 @@ export const userRouter = t.router({
       return { count: userCount };
     }),
   register: t.procedure
-    .input(UserModel.pick({ name: true, email: true }))    
+    .input(UserModel.pick({ name: true, email: true }))
     .mutation(async (opts) => {
       const user = await prisma.user.create({
         data: {
@@ -30,9 +30,8 @@ export const userRouter = t.router({
           name: opts.input.name,
         },
       });
-      
+
       return { user };
     }),
 });
 // export type definition of API
-

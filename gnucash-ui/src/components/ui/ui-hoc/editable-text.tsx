@@ -1,15 +1,15 @@
-import Markdowned from "@/components/markdown/md-viewer";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useQueryClient } from "@tanstack/react-query";
-import { Case } from "change-case-all";
-import { Edit, Save, X } from "lucide-react";
-import { useCallback, useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Button } from "../button";
-import { Form } from "../form";
-import ListItem from "../lists/list-item";
-import HocInput from "./hoc-input";
+import Markdowned from '@/components/markdown/md-viewer';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useQueryClient } from '@tanstack/react-query';
+import { Case } from 'change-case-all';
+import { Edit, Save, X } from 'lucide-react';
+import { useCallback, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { Button } from '../button';
+import { Form } from '../form';
+import ListItem from '../lists/list-item';
+import HocInput from './hoc-input';
 
 export default function EditableText({
   model,
@@ -73,7 +73,7 @@ export default function EditableText({
 
   const formComponent = isEditing ? (
     <Form {...additionalContext}>
-      <form className="space-y-8">
+      <form className='space-y-8'>
         <HocInput key={fieldName} name={fieldName} formMeta={formMeta} />
       </form>
     </Form>
@@ -81,14 +81,14 @@ export default function EditableText({
 
   return (
     <>
-      <ListItem className="pt-2 min-h-[1em]">
-        <div className="text-sm text-gray-400 mb-[0.5em]"> {label}</div>
+      <ListItem className='pt-2 min-h-[1em]'>
+        <div className='text-sm text-gray-400 mb-[0.5em]'> {label}</div>
 
         {isEditing ? (
           <div>
             <Button
-              variant="ghost"
-              size={"xs"}
+              variant='ghost'
+              size={'xs'}
               onClick={() => {
                 form.handleSubmit(
                   (d) => {
@@ -104,8 +104,8 @@ export default function EditableText({
               <Save size={iconSize} />
             </Button>
             <Button
-              variant="ghost"
-              size={"xs"}
+              variant='ghost'
+              size={'xs'}
               onClick={() => setIsEditing(false)}
             >
               <X size={iconSize} />
@@ -114,8 +114,8 @@ export default function EditableText({
         ) : (
           <div>
             <Button
-              variant="ghost"
-              size={"xs"}
+              variant='ghost'
+              size={'xs'}
               onClick={() => setIsEditing(true)}
             >
               <Edit size={iconSize}></Edit>
@@ -123,12 +123,12 @@ export default function EditableText({
           </div>
         )}
       </ListItem>
-      <div className="px-2 border-b border-gray-300 pb-[1px] mb-2">
+      <div className='px-2 border-b border-gray-300 pb-[1px] mb-2'>
         {isEditing ? (
           <>{formComponent}</>
         ) : useMarkdown ? (
           <Markdowned mdText={value}>
-            <div/>
+            <div />
           </Markdowned>
         ) : (
           value
@@ -137,4 +137,3 @@ export default function EditableText({
     </>
   );
 }
-

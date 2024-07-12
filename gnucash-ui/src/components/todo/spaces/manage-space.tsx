@@ -1,15 +1,15 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import ListItem from "@/components/ui/lists/list-item";
-import ListActionButtons from "@/components/ui/ui-hoc/list-action-buttons";
-import { trpc } from "@/utils/trpc";
-import { Unlink } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
-import { Fragment, useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
-import TodoListing from "../todo-listing";
-import LoaderListItem from "@/components/ui/lists/loader-list";
-import CircledNumber from "@/components/ui/minions/circled-number";
+'use client';
+import { Button } from '@/components/ui/button';
+import ListItem from '@/components/ui/lists/list-item';
+import ListActionButtons from '@/components/ui/ui-hoc/list-action-buttons';
+import { trpc } from '@/utils/trpc';
+import { Unlink } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import { Fragment, useEffect, useRef, useState } from 'react';
+import { toast } from 'sonner';
+import TodoListing from '../todo-listing';
+import LoaderListItem from '@/components/ui/lists/loader-list';
+import CircledNumber from '@/components/ui/minions/circled-number';
 
 export default function ManageSpace({ spaceWithUsers }: any) {
   const [selectedUser, setSelectedUser] = useState<any>(null);
@@ -28,17 +28,19 @@ export default function ManageSpace({ spaceWithUsers }: any) {
 
   return (
     <>
-      <ListItem variant="header" data-test-data="heading">Manage {name}</ListItem>
+      <ListItem variant='header' data-test-data='heading'>
+        Manage {name}
+      </ListItem>
       {isOwning && (
-        <ListItem variant="heading2">
-          <div className="flex">
-            <div className="mr-4">Members</div>
-            <CircledNumber value={spaceWithUsers?.spaceSharing.length} />{" "}
+        <ListItem variant='heading2'>
+          <div className='flex'>
+            <div className='mr-4'>Members</div>
+            <CircledNumber value={spaceWithUsers?.spaceSharing.length} />{' '}
           </div>
           <Button
-            variant={"outline"}
+            variant={'outline'}
             onClick={() => router.push(`${pathname}/add-member`)}
-            data-retour-step="add-member"
+            data-retour-step='add-member'
           >
             Add Member
           </Button>
@@ -50,22 +52,22 @@ export default function ManageSpace({ spaceWithUsers }: any) {
             <div
               key={user.id}
               className={
-                selectedUser == user ? "border-2 border-yellow-500" : ""
+                selectedUser == user ? 'border-2 border-yellow-500' : ''
               }
             >
               <ListItem>
-                <div className="flex"> {user.email}</div>
-                <Button variant="outline" onClick={() => setSelectedUser(user)}>
-                  <Unlink className="text-gray-700 mr-2 w-[18px]" /> Remove
+                <div className='flex'> {user.email}</div>
+                <Button variant='outline' onClick={() => setSelectedUser(user)}>
+                  <Unlink className='text-gray-700 mr-2 w-[18px]' /> Remove
                 </Button>
               </ListItem>
               {selectedUser ? (
                 <ListActionButtons
                   heading={
                     <span>
-                      Do you really want to remove{" "}
-                      <span className="font-bold">{user.email}</span> from{" "}
-                      <span className="font-bold">{name}</span>?
+                      Do you really want to remove{' '}
+                      <span className='font-bold'>{user.email}</span> from{' '}
+                      <span className='font-bold'>{name}</span>?
                     </span>
                   }
                   actions={[
@@ -76,16 +78,16 @@ export default function ManageSpace({ spaceWithUsers }: any) {
                           memberIdRemove: user.id,
                         });
                       },
-                      label: "Yes",
-                      variant: "default",
+                      label: 'Yes',
+                      variant: 'default',
                       mutation: removeUserMutation,
                     },
                     {
                       onClick: () => {
                         setSelectedUser(null);
                       },
-                      variant: "outline",
-                      label: "No",
+                      variant: 'outline',
+                      label: 'No',
                     },
                   ]}
                 />
@@ -93,10 +95,10 @@ export default function ManageSpace({ spaceWithUsers }: any) {
             </div>
           );
         })}
-      <ListItem variant="heading2">
+      <ListItem variant='heading2'>
         Todos
         <Button
-          variant={"outline"}
+          variant={'outline'}
           onClick={() => router.push(`${pathname}/add-todo`)}
         >
           Add New Todo
@@ -106,4 +108,3 @@ export default function ManageSpace({ spaceWithUsers }: any) {
     </>
   );
 }
-

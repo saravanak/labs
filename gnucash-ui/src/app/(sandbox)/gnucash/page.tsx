@@ -1,4 +1,3 @@
 export default function GnucashPage() {
-  return <h1>Hello, Gnucash Page!</h1>
+  return <h1>Hello, Gnucash Page!</h1>;
 }
-

@@ -1,13 +1,13 @@
-"use client";
-import { clamp } from "@/utils/string";
-import { trpc } from "@/utils/trpc";
-import { useInViewport } from "ahooks";
-import { useRouter } from "next/navigation";
-import { Fragment, useEffect, useRef } from "react";
-import { Button } from "../ui/button";
-import PropertyListItem from "../ui/lists/property-list-item";
-import LoaderListItem from "../ui/lists/loader-list";
-import { Case } from "change-case-all";
+'use client';
+import { clamp } from '@/utils/string';
+import { trpc } from '@/utils/trpc';
+import { useInViewport } from 'ahooks';
+import { useRouter } from 'next/navigation';
+import { Fragment, useEffect, useRef } from 'react';
+import { Button } from '../ui/button';
+import PropertyListItem from '../ui/lists/property-list-item';
+import LoaderListItem from '../ui/lists/loader-list';
+import { Case } from 'change-case-all';
 
 export default function TodoListing({
   space = {},
@@ -67,29 +67,36 @@ export default function TodoListing({
     }
 
     return (
-      <div data-test-data="todo-listing">
-        {todos.pages.map((todo:any, index:any) => {
+      <div data-test-data='todo-listing'>
+        {todos.pages.map((todo: any, index: any) => {
           return (
             <Fragment key={index}>
-              {todo.items.map((v: any, itemindex:any) => {
+              {todo.items.map((v: any, itemindex: any) => {
                 return (
                   <PropertyListItem
                     key={itemindex}
                     propertyRenderer={() => {
                       return (
-                        <div className="flex flex-col text-ellipsis overflow-hidden w-3/4">
-                          <div className="font-bold" data-test-data={`todo-row-${Case.kebab(v.title)}`}>
+                        <div className='flex flex-col text-ellipsis overflow-hidden w-3/4'>
+                          <div
+                            className='font-bold'
+                            data-test-data={`todo-row-${Case.kebab(v.title)}`}
+                          >
                             #{v.id} {v.title}
                           </div>
 
-                          <div data-test-data={`todo-desc-${Case.kebab(v.title)}`}>{clamp(v.description, 72)}</div>
+                          <div
+                            data-test-data={`todo-desc-${Case.kebab(v.title)}`}
+                          >
+                            {clamp(v.description, 72)}
+                          </div>
                         </div>
                       );
                     }}
                     onClick={() => router.push(`/todos/${v.id}`)}
                     value={v.status}
                     asTag={true}
-                    tagColor="bg-green-600 text-gray-200 font-bold text-xs whitespace-nowrap"
+                    tagColor='bg-green-600 text-gray-200 font-bold text-xs whitespace-nowrap'
                   />
                 );
               })}
@@ -103,7 +110,7 @@ export default function TodoListing({
             onClick={() => {
               fetchNextPage();
             }}
-            className="mb-8"
+            className='mb-8'
           >
             Load more
           </Button>
@@ -114,4 +121,3 @@ export default function TodoListing({
 
   return <>{components}</>;
 }
-

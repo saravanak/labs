@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { Case } from "change-case-all";
-import { Loader } from "lucide-react";
-import Link from "next/link";
-import { useSelectedLayoutSegment } from "next/navigation";
-import { useContext, useMemo } from "react";
-import { Button } from "../ui/button";
-import { FlexJustifySpread } from "../ui/ui-hoc/flex-justify-spread";
-import { TabBarContext } from "./app-wrapper";
-import { cn } from "@/lib/utils";
+import { Case } from 'change-case-all';
+import { Loader } from 'lucide-react';
+import Link from 'next/link';
+import { useSelectedLayoutSegment } from 'next/navigation';
+import { useContext, useMemo } from 'react';
+import { Button } from '../ui/button';
+import { FlexJustifySpread } from '../ui/ui-hoc/flex-justify-spread';
+import { TabBarContext } from './app-wrapper';
+import { cn } from '@/lib/utils';
 
 export default function TodoTabBar() {
   const segment = useSelectedLayoutSegment();
@@ -20,7 +20,7 @@ export default function TodoTabBar() {
   let tabButtons = useMemo(() => {
     switch (form) {
       case null:
-        return ["todos", "spaces"].map((v) => {
+        return ['todos', 'spaces'].map((v) => {
           return (
             <Link
               href={`/${v}`}
@@ -28,10 +28,10 @@ export default function TodoTabBar() {
               data-retour-step={v}
               data-test-action={`go-to-${v}`}
               className={cn(
-                "pl-4 basis-1/2  h-full text-center font-bold content-center",
+                'pl-4 basis-1/2  h-full text-center font-bold content-center',
                 v == segment
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-card text-muted-foreground"
+                  ? 'bg-primary text-primary-foreground'
+                  : 'bg-card text-muted-foreground'
               )}
             >
               {Case.title(v)}
@@ -41,11 +41,11 @@ export default function TodoTabBar() {
       default:
         const controls = [
           {
-            action: "save",
+            action: 'save',
             handler: onSubmit,
           },
           {
-            action: "cancel",
+            action: 'cancel',
             handler: () => {
               hookForm.reset();
               setForm(null);
@@ -57,18 +57,18 @@ export default function TodoTabBar() {
             <Button
               onClick={handler}
               key={action}
-              variant="formAction"
+              variant='formAction'
               data-test-action={`tab-bar-${Case.kebab(action)}`}
-              size="formAction"
-              btnColor={action == "save" ? "userAgree" : "userCancel"}
-              enabledOnDemo={action == "cancel"}
+              size='formAction'
+              btnColor={action == 'save' ? 'userAgree' : 'userCancel'}
+              enabledOnDemo={action == 'cancel'}
               disabled={
-                action == "save"
+                action == 'save'
                   ? !formState.isValid || mutation.isLoading
                   : false
               }
             >
-              {action == "save" && mutation.isLoading ? <Loader /> : null}{" "}
+              {action == 'save' && mutation.isLoading ? <Loader /> : null}{' '}
               {Case.title(action)}
             </Button>
           );
@@ -78,8 +78,8 @@ export default function TodoTabBar() {
           1,
           0,
           <div
-            key="form-title"
-            className="grow h-full text-center content-center font-bold"
+            key='form-title'
+            className='grow h-full text-center content-center font-bold'
           >
             {title}
           </div>
@@ -97,11 +97,11 @@ export default function TodoTabBar() {
   ]);
 
   return (
-    <div className="mb-4 h-full">
+    <div className='mb-4 h-full'>
       <FlexJustifySpread
         className={cn(
-          "bg-blue-300 h-full justify-around items-center border-blue-200 border-t",
-          ` ${form ? "justify-center" : ""}`
+          'bg-blue-300 h-full justify-around items-center border-blue-200 border-t',
+          ` ${form ? 'justify-center' : ''}`
         )}
       >
         {tabButtons}
@@ -109,4 +109,3 @@ export default function TodoTabBar() {
     </div>
   );
 }
-

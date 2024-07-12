@@ -1,4 +1,4 @@
-import { sql } from "@pgtyped/runtime";
+import { sql } from '@pgtyped/runtime';
 
 //Get OWNER space names for userId and space name filter
 export const getUserSpaces = sql`
@@ -9,7 +9,7 @@ inner join spaces s on
 where u.id = $userId and 
 ($spaceName :: TEXT is null or s.name ILIKE  '%'||$spaceName||'%' ) and
 ($spaceId :: NUMERIC is null or s.id = $spaceId )
-`
+`;
 
 export const getSharedUserSpaces = sql`
 select u.email, s.name
@@ -21,5 +21,4 @@ inner join spaces s on
 where u.id = $userId and 
 ($spaceName :: TEXT is null or s.name ILIKE  '%'||$spaceName||'%' ) and
 ($spaceId :: NUMERIC is null or s.id = $spaceId )
-`
-
+`;

@@ -1,5 +1,5 @@
-import ManageSpace from "@/components/todo/spaces/manage-space";
-import { createServertRPCCaller } from "@/server/routers/_app";
+import ManageSpace from '@/components/todo/spaces/manage-space';
+import { createServertRPCCaller } from '@/server/routers/_app';
 
 export default async function ManageSpacePage({ params }: any) {
   if (!params) {
@@ -14,4 +14,3 @@ export default async function ManageSpacePage({ params }: any) {
 
   return <ManageSpace spaceWithUsers={members} />;
 }
-

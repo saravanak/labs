@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useFuzzySearchList, Highlight } from "@nozbe/microfuzz/react";
+import { useState } from 'react';
+import { useFuzzySearchList, Highlight } from '@nozbe/microfuzz/react';
 
 const cache = new WeakMap();
 
 export default function Filter({ data }: any) {
-  const [queryText, setQueryText] = useState("");
+  const [queryText, setQueryText] = useState('');
   const [accounts, setAccounts]: any = useState([]);
 
   // `useFuzzySearchList` simply wraps `createFuzzySearch` with memoization built in
@@ -26,9 +26,9 @@ export default function Filter({ data }: any) {
 
   // Render `filteredList`'s labels with matching characters highlighted
   return (
-    <div className="p-2 border border-indigo-600">
+    <div className='p-2 border border-indigo-600'>
       <input onChange={(v) => setQueryText(v.target.value)} value={queryText} />
-      <div className="pt-4 overflow-auto max-h-48">
+      <div className='pt-4 overflow-auto max-h-48'>
         {filteredList.map(({ item, highlightRanges }) => (
           <div
             key={item.guid}
@@ -40,11 +40,10 @@ export default function Filter({ data }: any) {
           </div>
         ))}
       </div>
-      <h2 className=""> The selected list.</h2>
+      <h2 className=''> The selected list.</h2>
       {accounts.map((v: any) => {
         return <div key={v.guid}> {v.name}</div>;
       })}
     </div>
   );
 }
-

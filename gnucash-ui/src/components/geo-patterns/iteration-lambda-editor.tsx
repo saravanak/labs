@@ -1,32 +1,29 @@
-"use client";
-import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
-import { defaultKeymap } from "@codemirror/commands";
-import { javascript } from "@codemirror/lang-javascript";
-import { EditorState, Compartment } from "@codemirror/state";
-import { HighlightStyle } from "@codemirror/language";
-import { ViewUpdate, keymap } from "@codemirror/view";
-import { EditorView, basicSetup } from "codemirror";
-import { syntaxHighlighting } from "@codemirror/language";
-import readOnlyRangesExtension from "codemirror-readonly-ranges";
-import { tags } from "@lezer/highlight";
-import {cobalt} from 'thememirror';
-import {indentWithTab} from "@codemirror/commands"
-
+'use client';
+import dynamic from 'next/dynamic';
+import { useEffect, useRef, useState } from 'react';
+import { defaultKeymap } from '@codemirror/commands';
+import { javascript } from '@codemirror/lang-javascript';
+import { EditorState, Compartment } from '@codemirror/state';
+import { HighlightStyle } from '@codemirror/language';
+import { ViewUpdate, keymap } from '@codemirror/view';
+import { EditorView, basicSetup } from 'codemirror';
+import { syntaxHighlighting } from '@codemirror/language';
+import readOnlyRangesExtension from 'codemirror-readonly-ranges';
+import { tags } from '@lezer/highlight';
+import { cobalt } from 'thememirror';
+import { indentWithTab } from '@codemirror/commands';
 
 const myHighlightStyle = HighlightStyle.define([
-  { tag: tags.keyword, color: "#fc6" },
-  { tag: tags.comment, color: "#f5d", fontStyle: "italic" },
+  { tag: tags.keyword, color: '#fc6' },
+  { tag: tags.comment, color: '#f5d', fontStyle: 'italic' },
 ]);
 
 const customTheme = EditorView.theme({
   '&': {
-      font:"'JetBrains Mono', monospace",
-      fontSize: "1.2em"
-  }
-})
-
-
+    font: "'JetBrains Mono', monospace",
+    fontSize: '1.2em',
+  },
+});
 
 const getReadOnlyRanges = (
   targetState: EditorState
@@ -43,15 +40,18 @@ const getReadOnlyRanges = (
   ];
 };
 
-export default function IterationLambdaEditor({ setUserCode, userCode, codeError }: any) {
+export default function IterationLambdaEditor({
+  setUserCode,
+  userCode,
+  codeError,
+}: any) {
   const codeEditorRef = useRef(null);
   const [edtiorView, setEditorView] = useState<any>(null);
 
-  console.log({codeError});
-  
+  console.log({ codeError });
 
   useEffect(() => {
-    console.log("wtf");
+    console.log('wtf');
 
     let language = new Compartment(),
       tabSize = new Compartment();
@@ -63,7 +63,7 @@ export default function IterationLambdaEditor({ setUserCode, userCode, codeError
           keymap.of(defaultKeymap),
           keymap.of([indentWithTab]),
           EditorView.updateListener.of((update: ViewUpdate) => {
-            setUserCode((update.state.doc as any).text.join("\n"));
+            setUserCode((update.state.doc as any).text.join('\n'));
           }),
           basicSetup,
           cobalt,
@@ -73,7 +73,6 @@ export default function IterationLambdaEditor({ setUserCode, userCode, codeError
           readOnlyRangesExtension(getReadOnlyRanges),
         ],
       });
-
 
       const editorView = new EditorView({
         state: startState,
@@ -89,9 +88,10 @@ export default function IterationLambdaEditor({ setUserCode, userCode, codeError
 
   return (
     <>
-      {codeError ? <div className="text-red-400 font-bold"> {codeError.message}</div> : null}
-      <div className="w-full h-[500px]" ref={codeEditorRef} />
+      {codeError ? (
+        <div className='text-red-400 font-bold'> {codeError.message}</div>
+      ) : null}
+      <div className='w-full h-[500px]' ref={codeEditorRef} />
     </>
   );
 }
-

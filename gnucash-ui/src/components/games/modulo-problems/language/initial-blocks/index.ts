@@ -1,8 +1,8 @@
-import { BlockNames } from "../blockly-constants";
+import { BlockNames } from '../blockly-constants';
 
 export default {
   IfRowEqualsFive: {
-    kind: "block",
+    kind: 'block',
     type: BlockNames.IF_BLOCK,
     inputs: {
       CONDITION: {
@@ -13,7 +13,7 @@ export default {
               block: {
                 type: BlockNames.ROW_COL,
                 fields: {
-                  ROW_COLUMN: "Row",
+                  ROW_COLUMN: 'Row',
                 },
               },
             },
@@ -21,7 +21,7 @@ export default {
               block: {
                 type: BlockNames.MATH_NUMBER,
                 fields: {
-                  NUM: "5",
+                  NUM: '5',
                 },
               },
             },
@@ -32,7 +32,7 @@ export default {
         block: {
           type: BlockNames.RETURN_COLOR,
           fields: {
-            COLOUR: "blue",
+            COLOUR: 'blue',
           },
         },
       },

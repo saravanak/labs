@@ -1,11 +1,11 @@
-import { shuffle } from "lodash";
-import { createContext, useEffect, useRef, useState } from "react";
-import ButtonGroup from "../ui/button-group";
-import AlphabetConfigurer from "./skins/alphabet-configurer";
-import AlphabetSkin from "./skins/alphabets";
-import NumberManager from "./skins/number-manager";
-import NumberSkin from "./skins/numbers";
-import Image from "next/image";
+import { shuffle } from 'lodash';
+import { createContext, useEffect, useRef, useState } from 'react';
+import ButtonGroup from '../ui/button-group';
+import AlphabetConfigurer from './skins/alphabet-configurer';
+import AlphabetSkin from './skins/alphabets';
+import NumberManager from './skins/number-manager';
+import NumberSkin from './skins/numbers';
+import Image from 'next/image';
 
 const initPuzzle = () => {
   return shuffle(
@@ -27,8 +27,8 @@ export default function Puzzle15Component() {
 
   const [numbers, setNumbers] = useState(initPuzzle());
   const [alphabetSkin, setAlphabetSkin] = useState(null as any);
-  const [selectedStrategy, setSelectedStrategy] = useState("numbers");
-  const [alphabetWinType, setAlphabetWinType] = useState("order");
+  const [selectedStrategy, setSelectedStrategy] = useState('numbers');
+  const [alphabetWinType, setAlphabetWinType] = useState('order');
   const [isGameWon, setGameWon] = useState(() => false);
 
   console.log(`Render ${isGameWon}`);
@@ -36,22 +36,22 @@ export default function Puzzle15Component() {
   const imageSequence: any = [];
 
   useEffect(() => {
-    console.log("Adding event listener");
+    console.log('Adding event listener');
 
     switch (selectedStrategy) {
-      case "numbers":
+      case 'numbers':
         setNumbers(initPuzzle());
         break;
-      case "alphabets":
+      case 'alphabets':
         const image = sourceImage.current;
         (image as any).onload = () => {
           for (var i = 0; i < 16; i++) {
-            var canvas = document.createElement("canvas");
+            var canvas = document.createElement('canvas');
             var pieceWidth = 152;
             canvas.width = pieceWidth;
             canvas.height = pieceWidth;
 
-            var context: any = canvas.getContext("2d");
+            var context: any = canvas.getContext('2d');
             context.drawImage(
               image,
               150 + pieceWidth * Math.round(i % 5),
@@ -95,14 +95,14 @@ export default function Puzzle15Component() {
   };
   useEffect(() => {
     if (isGameWon) {
-      console.log("Removing event listener");
-      document.removeEventListener("keydown", handleKeyDown);
+      console.log('Removing event listener');
+      document.removeEventListener('keydown', handleKeyDown);
     } else {
-      document.addEventListener("keydown", handleKeyDown);
+      document.addEventListener('keydown', handleKeyDown);
     }
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   });
 
@@ -114,7 +114,7 @@ export default function Puzzle15Component() {
   };
 
   function handleKeyDown(e: any) {
-    console.log("Inside keyhandler");
+    console.log('Inside keyhandler');
 
     e.stopPropagation();
     e.preventDefault();
@@ -123,56 +123,55 @@ export default function Puzzle15Component() {
 
     let numberToMove = null;
     switch (e.key) {
-      case "ArrowDown":
+      case 'ArrowDown':
         numberToMove = top;
         break;
-      case "ArrowUp":
+      case 'ArrowUp':
         numberToMove = bottom;
         break;
-      case "ArrowLeft":
+      case 'ArrowLeft':
         numberToMove = right;
         break;
-      case "ArrowRight":
+      case 'ArrowRight':
         numberToMove = left;
         break;
     }
     if (numberToMove) {
       swap(numberToMove[0] * 4 + numberToMove[1], indexOfEmptySpace);
     } else {
-      console.log("No element to move to..");
+      console.log('No element to move to..');
     }
   }
 
-
   let SkinComponent;
-  if (selectedStrategy == "numbers") {
+  if (selectedStrategy == 'numbers') {
     SkinComponent = NumberSkin;
   } else {
     SkinComponent = AlphabetSkin;
   }
   return (
-    <div className="flex flex-col w-full">
+    <div className='flex flex-col w-full'>
       <LettersContext.Provider value={alphabetSkin}>
-        <div className="grid align-center row-span-5 place-content-center	 w-full basis-5/12">
+        <div className='grid align-center row-span-5 place-content-center	 w-full basis-5/12'>
           <table
-            className="grid grid-cols-4 outline-none	text-center  aspect-square grow "
+            className='grid grid-cols-4 outline-none	text-center  aspect-square grow '
             tabIndex={0}
           >
-            <tbody className="contents ">
+            <tbody className='contents '>
               {Array(4)
                 .fill(false)
                 .map((_, row) => {
                   return (
-                    <tr key={row} className="  contents">
+                    <tr key={row} className='  contents'>
                       {Array(4)
                         .fill(false)
                         .map((_, column) => {
                           return (
                             <td
                               className={` block ${
-                                isGameWon ? "bg-lime-500" : "bg-gray-300"
+                                isGameWon ? 'bg-lime-500' : 'bg-gray-300'
                               } text-red-800 m-2 rounded-sm md:text-2xl lg:text-5xl table`}
-                              key={`${row + "," + column}`}
+                              key={`${row + ',' + column}`}
                               onClick={() => {
                                 const {
                                   indexOfEmptySpace,
@@ -183,14 +182,16 @@ export default function Puzzle15Component() {
                                 } = getRLTB();
                                 const allowedMoves = [top, left, bottom, right];
 
-                                const canClickedElementMove = allowedMoves.filter( v=> v).find(
-                                  ([moveableRow, moveableColumn]: any) => {
-                                    return (
-                                      moveableRow == row &&
-                                      moveableColumn == column
-                                    );
-                                  }
-                                );
+                                const canClickedElementMove = allowedMoves
+                                  .filter((v) => v)
+                                  .find(
+                                    ([moveableRow, moveableColumn]: any) => {
+                                      return (
+                                        moveableRow == row &&
+                                        moveableColumn == column
+                                      );
+                                    }
+                                  );
 
                                 if (canClickedElementMove) {
                                   swap(row * 4 + column, indexOfEmptySpace);
@@ -211,32 +212,32 @@ export default function Puzzle15Component() {
           </table>
         </div>
       </LettersContext.Provider>
-      <div className="basis-7/12">
-        {selectedStrategy == "alphabets" ? (
+      <div className='basis-7/12'>
+        {selectedStrategy == 'alphabets' ? (
           <Image
-            alt=""
+            alt=''
             ref={sourceImage}
-            src="/letters-resized.png"
-            style={{ display: "none" }}
+            src='/letters-resized.png'
+            style={{ display: 'none' }}
           />
         ) : null}
         <ButtonGroup
           options={[
             {
-              value: "numbers",
-              label: "Arrange numbers",
+              value: 'numbers',
+              label: 'Arrange numbers',
               subText: "The gud 'old that we've always enjoyed",
             },
             {
-              value: "alphabets",
-              label: "Arrange alphabets",
-              subText: "Also form words while you arrange",
+              value: 'alphabets',
+              label: 'Arrange alphabets',
+              subText: 'Also form words while you arrange',
             },
           ]}
           selectedOption={selectedStrategy}
           onSelectedChange={(v: any) => setSelectedStrategy(v)}
         />
-        {selectedStrategy == "alphabets" ? (
+        {selectedStrategy == 'alphabets' ? (
           <AlphabetConfigurer
             ref={sourceImage}
             winType={alphabetWinType}
@@ -256,4 +257,3 @@ export default function Puzzle15Component() {
     </div>
   );
 }
-

@@ -1,4 +1,4 @@
-import { sql } from "@pgtyped/runtime";
+import { sql } from '@pgtyped/runtime';
 
 //Get OWNER space names for userId and space name filter
 export const sql_getAllSpaces = sql`
@@ -30,9 +30,9 @@ with x as (
     order by x.id 
     limit $limit offset $cursor
     
-    `
+    `;
 
-// Share  a bunch of spaces by returning the ids created. 
+// Share  a bunch of spaces by returning the ids created.
 export const seed_shareMany = sql`
 insert into user_space (user_id, space_id)
     values $$userSpaces(userId, spaceId)

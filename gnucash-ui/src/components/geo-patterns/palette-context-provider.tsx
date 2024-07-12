@@ -1,7 +1,7 @@
-import { useToggle } from "@uidotdev/usehooks";
-import * as d3 from "d3";
-import { without } from "lodash";
-import { createContext, useCallback, useMemo, useRef, useState } from "react";
+import { useToggle } from '@uidotdev/usehooks';
+import * as d3 from 'd3';
+import { without } from 'lodash';
+import { createContext, useCallback, useMemo, useRef, useState } from 'react';
 const schemes = [
   d3.schemeAccent,
   d3.schemePaired,
@@ -20,9 +20,14 @@ export default function ColorPaletteProvider({ children }: any) {
 
   const previousColorSchemes = useRef(
     schemes.map(
-      (scheme, i) => ({ index: i, scheme, selectedColorIndices: Array(4)
-        .fill(0)
-        .map((_, index) => index) } as any)
+      (scheme, i) =>
+        ({
+          index: i,
+          scheme,
+          selectedColorIndices: Array(4)
+            .fill(0)
+            .map((_, index) => index),
+        } as any)
     )
   );
 
@@ -32,7 +37,7 @@ export default function ColorPaletteProvider({ children }: any) {
       let currentSchema = previousColorSchemes.current[schemaIndex];
 
       if (schemaIndex != colorSchemeIndex) {
-        schemaChanged = true;        
+        schemaChanged = true;
         currentSchema = previousColorSchemes.current[colorSchemeIndex];
       }
 
@@ -62,7 +67,7 @@ export default function ColorPaletteProvider({ children }: any) {
   );
 
   const colorState = useMemo(() => {
-    console.log("Use memo of provider called");
+    console.log('Use memo of provider called');
 
     const newColorSchemeState = previousColorSchemes.current.map(
       (schemeState, index) => {
@@ -80,14 +85,18 @@ export default function ColorPaletteProvider({ children }: any) {
 
     previousColorSchemes.current = newColorSchemeState;
 
-    const currentColorScheme = newColorSchemeState[colorSchemeIndex]
+    const currentColorScheme = newColorSchemeState[colorSchemeIndex];
 
     return {
       colorSchemeIndex,
-      selectedColorIndices:
-        currentColorScheme.selectedColorIndices,
-      currentColors: userColors.length > 0 ?  userColors : currentColorScheme.scheme.filter((_:any, i:any) => currentColorScheme.selectedColorIndices.includes(i)),
-      colorSchemes: newColorSchemeState,      
+      selectedColorIndices: currentColorScheme.selectedColorIndices,
+      currentColors:
+        userColors.length > 0
+          ? userColors
+          : currentColorScheme.scheme.filter((_: any, i: any) =>
+              currentColorScheme.selectedColorIndices.includes(i)
+            ),
+      colorSchemes: newColorSchemeState,
     };
   }, [
     colorSchemeIndex,
@@ -104,12 +113,11 @@ export default function ColorPaletteProvider({ children }: any) {
         setColorSchemeIndex,
         toggleColor,
         contextRefresh,
-        userColors, 
-        setUserColors,        
+        userColors,
+        setUserColors,
       }}
     >
       {children}
     </ColorPaletteContext.Provider>
   );
 }
-

@@ -6,10 +6,10 @@ import { userRouter } from './user';
 import { countryRouter } from './country';
 import { carbonFootprintRouter } from './carbon-fp';
 import { todoRouter } from './todo';
-import { createInnerTRPCContext } from "@/utils/trpc-server";
+import { createInnerTRPCContext } from '@/utils/trpc-server';
 import { spaceRouter } from './space';
 
-export const appRoutes = t.router({  
+export const appRoutes = t.router({
   rack: rackRouter,
   shelf: shelfRouter,
   luggage: luggageRouter,
@@ -17,13 +17,13 @@ export const appRoutes = t.router({
   country: countryRouter,
   carbonFootprint: carbonFootprintRouter,
   todo: todoRouter,
-  space: spaceRouter
+  space: spaceRouter,
 });
 
 export async function createServertRPCCaller() {
   const createCaller = t.createCallerFactory(appRoutes);
 
   const trpcContext = await createInnerTRPCContext({} as any);
-  
+
   return createCaller(trpcContext);
 }

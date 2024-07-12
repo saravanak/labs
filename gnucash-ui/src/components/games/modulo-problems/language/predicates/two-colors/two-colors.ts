@@ -1,6 +1,6 @@
 /**
- * BiColor[0]: Highlight Color, 
- * BiColor[1]: Default Color, 
+ * BiColor[0]: Highlight Color,
+ * BiColor[1]: Default Color,
  */
 export type BiColor = [string, string];
 

@@ -1,5 +1,5 @@
-import { animated, useTransition } from "@react-spring/web";
-import { Square } from "./square";
+import { animated, useTransition } from '@react-spring/web';
+import { Square } from './square';
 
 export default function SquareRows({
   rows,
@@ -31,10 +31,10 @@ export default function SquareRows({
     enter: { opacity: 1 },
     leave: { opacity: 0 },
     exitBeforeEnter: true,
-    config: { duration: 1000},
+    config: { duration: 1000 },
 
     key: function (value: any, index: any) {
-      return (value ? value : "~") + ":" + index;
+      return (value ? value : '~') + ':' + index;
     },
   });
 

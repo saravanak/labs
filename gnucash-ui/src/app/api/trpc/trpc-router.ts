@@ -4,28 +4,27 @@ import { createServerSideHelpers } from '@trpc/react-query/server';
 import SuperJSON from 'superjson';
 import { appRoutes } from '@/server/routers/_app';
 
-
-import createSubscriber from "pg-listen"
+import createSubscriber from 'pg-listen';
 
 // Accepts the same connection config object that the "pg" package would take
-const subscriber = createSubscriber({ connectionString: process.env.DATABASE_URL })
-const CHANNEL_NAME = "my-channel";
-
+const subscriber = createSubscriber({
+  connectionString: process.env.DATABASE_URL,
+});
+const CHANNEL_NAME = 'my-channel';
 
 subscriber.notifications.on(CHANNEL_NAME, (payload) => {
   // Payload as passed to subscriber.notify() (see below)
-  console.log("Received notification in 'my-channel':", payload)
-})
+  console.log("Received notification in 'my-channel':", payload);
+});
 
-subscriber.events.on("error", (error) => {
-  console.error("Fatal database connection error:", error)
-  process.exit(1)
-})
+subscriber.events.on('error', (error) => {
+  console.error('Fatal database connection error:', error);
+  process.exit(1);
+});
 
-process.on("exit", () => {
-  subscriber.close()
-})
-
+process.on('exit', () => {
+  subscriber.close();
+});
 
 const healthCheckerRouter = t.router({
   healthchecker: shieldedProcedure.query(({ ctx }) => {
@@ -36,13 +35,13 @@ const healthCheckerRouter = t.router({
   }),
 });
 
-export const appRouter = t.mergeRouters( appRoutes, healthCheckerRouter);
+export const appRouter = t.mergeRouters(appRoutes, healthCheckerRouter);
 
 export const createSSRHelper = () =>
   createServerSideHelpers({
     router: appRouter,
     transformer: SuperJSON,
-    ctx: {}  as any
-  } );
+    ctx: {} as any,
+  });
 
 export type AppRouter = typeof appRouter;

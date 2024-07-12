@@ -5,17 +5,16 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow
-} from "@/components/ui/table";
-import { RackModel } from "@/lib/prisma/zod";
-import { usePathname, useRouter } from "next/navigation";
+  TableRow,
+} from '@/components/ui/table';
+import { RackModel } from '@/lib/prisma/zod';
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function ListRacks({ racks }: any) {
   const { data } = racks;
   console.log(data);
   const router = useRouter();
-  const pathname = usePathname()
-
+  const pathname = usePathname();
 
   const listedRacks: (typeof RackModel)[] = data?.racks;
 
@@ -23,7 +22,7 @@ export default function ListRacks({ racks }: any) {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">Your Racks</TableHead>
+          <TableHead className='w-[100px]'>Your Racks</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -46,4 +45,3 @@ export default function ListRacks({ racks }: any) {
     </Table>
   );
 }
-

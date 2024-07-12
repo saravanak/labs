@@ -1,43 +1,43 @@
-import { JPUtils, schemasByAPI } from "@/server/tests/utils/jp-utils";
-import { clone } from "lodash";
-import { beforeAll, describe, expect, test } from "vitest";
+import { JPUtils, schemasByAPI } from '@/server/tests/utils/jp-utils';
+import { clone } from 'lodash';
+import { beforeAll, describe, expect, test } from 'vitest';
 import {
   HTTP_ERRORS,
   TASK_STATUSES,
   apiCaller,
   setupUsers,
-} from "../../../tests/setup-utils";
+} from '../../../tests/setup-utils';
 
 const BEFORE_ALL_TIMEOUT = 30000; // 30 sec
 
-describe("todo apis", () => {
+describe('todo apis', () => {
   let limit = 5;
   let usersAndSpaces: any;
   beforeAll(async () => {
     usersAndSpaces = await setupUsers();
   }, BEFORE_ALL_TIMEOUT);
 
-  test("healthchecker does not need authentication", async () => {
+  test('healthchecker does not need authentication', async () => {
     const { response } = await apiCaller({
-      path: "healthchecker",
+      path: 'healthchecker',
     });
     expect(response.status).toBe(200);
   });
 
-  describe("getOwnTodos", () => {
-    test("requires authenticated user", async () => {
+  describe('getOwnTodos', () => {
+    test('requires authenticated user', async () => {
       const { response, responseJson, responseText } = await apiCaller({
-        path: "todo.getOwnTodos",
+        path: 'todo.getOwnTodos',
       });
       expect(JPUtils.getErrorStatus(responseJson)).toEqual(
         HTTP_ERRORS.UNAUTHORIZED
       );
     });
 
-    test("red gets their todos", async () => {
+    test('red gets their todos', async () => {
       const { response, responseJson, responseText } = await apiCaller({
-        path: "todo.getOwnTodos",
-        userColor: "red",
+        path: 'todo.getOwnTodos',
+        userColor: 'red',
         getParams: {
           limit,
           cursor: null,
@@ -50,7 +50,7 @@ describe("todo apis", () => {
 
       const parsedObject = JPUtils.parseFirstItem(
         responseJson,
-        schemasByAPI["todo.getOwnTodos"]
+        schemasByAPI['todo.getOwnTodos']
       );
       expect(parsedObject.success).toBeTruthy();
       expect(response.status).toBe(200);
@@ -59,18 +59,18 @@ describe("todo apis", () => {
 
   test.each([
     {
-      user: "red",
+      user: 'red',
     },
     {
-      user: "blue",
+      user: 'blue',
     },
     {
-      user: "green",
+      user: 'green',
     },
-  ])("yellow gets to see todos for $user", async ({ user }: any) => {
+  ])('yellow gets to see todos for $user', async ({ user }: any) => {
     const expected = `title-${user}`;
     const { response, responseJson, responseText } = await apiCaller({
-      path: "todo.getOwnTodos",
+      path: 'todo.getOwnTodos',
       userColor: user,
       getParams: {
         limit,
@@ -84,15 +84,15 @@ describe("todo apis", () => {
     );
   });
 
-  test("yellow can see todos on red space", async () => {
-    const expected = "title-red";
+  test('yellow can see todos on red space', async () => {
+    const expected = 'title-red';
     const { response, responseJson, responseText } = await apiCaller({
-      path: "todo.getOwnTodos",
-      userColor: "yellow",
+      path: 'todo.getOwnTodos',
+      userColor: 'yellow',
       getParams: {
         limit,
         cursor: null,
-        spaceId: usersAndSpaces.find(({ color }: any) => color == "red")
+        spaceId: usersAndSpaces.find(({ color }: any) => color == 'red')
           .userSpace.id,
         statuses: [],
       },
@@ -102,28 +102,26 @@ describe("todo apis", () => {
     );
   });
 
-  test("red cannot see todos on yellow space", async () => {
-    const expected = "title-yellow";
+  test('red cannot see todos on yellow space', async () => {
+    const expected = 'title-yellow';
     const { response, responseJson, responseText } = await apiCaller({
-      path: "todo.getOwnTodos",
-      userColor: "red",
+      path: 'todo.getOwnTodos',
+      userColor: 'red',
       getParams: {
         limit,
         cursor: null,
-        spaceId: usersAndSpaces.find(({ color }: any) => color == "yellow")
+        spaceId: usersAndSpaces.find(({ color }: any) => color == 'yellow')
           .userSpace.id,
         statuses: [],
       },
     });
-    expect(JPUtils.getErrorStatus(responseJson)).toEqual(
-      HTTP_ERRORS.FORBIDDEN
-    );
+    expect(JPUtils.getErrorStatus(responseJson)).toEqual(HTTP_ERRORS.FORBIDDEN);
   });
 
-  test("red does not see yellow", async ({ user }: any) => {
+  test('red does not see yellow', async ({ user }: any) => {
     const { response, responseJson, responseText } = await apiCaller({
-      path: "todo.getOwnTodos",
-      userColor: "red",
+      path: 'todo.getOwnTodos',
+      userColor: 'red',
       getParams: {
         limit,
         cursor: null,
@@ -135,16 +133,16 @@ describe("todo apis", () => {
   });
 
   test.each([
-    { searchText: "title-red", expected: "title-red", path: "title" },
+    { searchText: 'title-red', expected: 'title-red', path: 'title' },
     {
-      searchText: "desc-red",
-      expected: "desc-red",
-      path: "description",
+      searchText: 'desc-red',
+      expected: 'desc-red',
+      path: 'description',
     },
-  ])("search by $path works", async ({ searchText, expected, path }) => {
+  ])('search by $path works', async ({ searchText, expected, path }) => {
     const { response, responseJson, responseText } = await apiCaller({
-      path: "todo.getOwnTodos",
-      userColor: "red",
+      path: 'todo.getOwnTodos',
+      userColor: 'red',
       getParams: {
         limit,
         cursor: null,
@@ -161,10 +159,10 @@ describe("todo apis", () => {
     { status: clone(TASK_STATUSES).slice(-2), index: 1 },
     { status: clone(TASK_STATUSES).slice(-1), index: 2 },
     { status: clone(TASK_STATUSES), index: 3 },
-  ])("search by status: Test#$index works", async ({ status }) => {
+  ])('search by status: Test#$index works', async ({ status }) => {
     const { response, responseJson, responseText } = await apiCaller({
-      path: "todo.getOwnTodos",
-      userColor: "red",
+      path: 'todo.getOwnTodos',
+      userColor: 'red',
       getParams: {
         limit,
         cursor: null,
@@ -180,4 +178,3 @@ describe("todo apis", () => {
     });
   });
 });
-

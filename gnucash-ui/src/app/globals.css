@@ -1,94 +1,92 @@
 @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+@tailwind components;
+@tailwind utilities;
 
+@import '@radix-ui/colors/gray.css';
+@import '@radix-ui/colors/blue.css';
+@import '@radix-ui/colors/green.css';
+@import '@radix-ui/colors/red.css';
+@import '@radix-ui/colors/gray-dark.css';
+@import '@radix-ui/colors/blue-dark.css';
+@import '@radix-ui/colors/green-dark.css';
+@import '@radix-ui/colors/red-dark.css';
+@import './styles/markdown.css';
 
-  @import '@radix-ui/colors/gray.css';
-  @import '@radix-ui/colors/blue.css';
-  @import '@radix-ui/colors/green.css';
-  @import '@radix-ui/colors/red.css';
-  @import '@radix-ui/colors/gray-dark.css';
-  @import '@radix-ui/colors/blue-dark.css';
-  @import '@radix-ui/colors/green-dark.css';
-  @import '@radix-ui/colors/red-dark.css';
-  @import './styles/markdown.css';
-  
-  @layer base {
-    :root {
-      --background: 0 0% 100%;
-      --foreground: 0 0% 3.9%;
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
 
-      --card: 0 0% 100%;
-      --card-foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
 
-      --popover: 0 0% 100%;
-      --popover-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
 
-      --primary: 263 100% 38%;
-      --primary-foreground: 0 0% 98%;
+    --primary: 263 100% 38%;
+    --primary-foreground: 0 0% 98%;
 
-      --secondary: 0 0% 96.1%;
-      --secondary-foreground: 0 0% 9%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
 
-      --light-bg: 131 15% 90%;
-      --light-bg-foreground: 131 15% 14%;
+    --light-bg: 131 15% 90%;
+    --light-bg-foreground: 131 15% 14%;
 
-      --muted: 263 100% 60%;
-      --muted-foreground: 0 0% 60%;
+    --muted: 263 100% 60%;
+    --muted-foreground: 0 0% 60%;
 
-      --accent: 263 100% 60%;
-      --accent-foreground: 0 0% 9%;
+    --accent: 263 100% 60%;
+    --accent-foreground: 0 0% 9%;
 
-      --destructive: 0 84.2% 60.2%;
-      --destructive-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
 
-      --border: 0 0% 89.8%;
-      --input: 0 0% 89.8%;
-      --ring: 0 0% 3.9%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
 
-      --radius: 0.5rem;
-    }
-
-    .dark {
-      --background: 0 0% 3.9%;
-      --foreground: 0 0% 98%;
-
-      --card: 0 0% 3.9%;
-      --card-foreground: 0 0% 98%;
-
-      --popover: 0 0% 3.9%;
-      --popover-foreground: 0 0% 98%;
-
-      --primary: 0 0% 98%;
-      --primary-foreground: 0 0% 9%;
-
-      --secondary: 0 0% 14.9%;
-      --secondary-foreground: 0 0% 98%;
-
-      --muted: 0 0% 14.9%;
-      --muted-foreground: 0 0% 63.9%;
-
-      --accent: 0 0% 14.9%;
-      --accent-foreground: 0 0% 98%;
-
-      --destructive: 0 62.8% 30.6%;
-      --destructive-foreground: 0 0% 98%;
-
-      --border: 0 0% 14.9%;
-      --input: 0 0% 14.9%;
-      --ring: 0 0% 83.1%;
-    }
+    --radius: 0.5rem;
   }
 
-  @layer base {
-    * {
-      @apply border-border;
-    }
-    body {
-      @apply bg-background text-foreground;
-    }
-  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
 
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
 
 @layer utilities {
   .text-balance {
@@ -99,24 +97,23 @@
     @apply bg-sky-800 text-gray-200;
   }
   .inverted-color-hover {
-    @apply bg-sky-700 
+    @apply bg-sky-700;
   }
 
-  
   /* 2048 Animation tries */
   .example-enter {
     opacity: 0.01;
   }
-  
+
   .example-enter.example-enter-active {
     opacity: 1;
     transition: opacity 500ms ease-in;
   }
-  
+
   .example-exit {
     opacity: 1;
   }
-  
+
   .example-exit.example-exit-active {
     opacity: 0.01;
     transition: opacity 300ms ease-in;
@@ -139,11 +136,7 @@
     }
   }
   /* 2048 Animation tries ends */
-
-
-  
 }
-
 
 @layer base {
   h1 {
@@ -151,31 +144,29 @@
   }
   h2 {
     @apply text-xl font-bold;
-  } 
+  }
   h3 {
     @apply text-lg font-bold;
-  } 
-  p{
+  }
+  p {
     @apply py-2;
   }
   code {
-    @apply bg-gray-300 text-gray-700 rounded p-1 text-wrap max-w-[72ch]
+    @apply bg-gray-300 text-gray-700 rounded p-1 text-wrap max-w-[72ch];
   }
 }
 
 .cell-2 {
-  @apply bg-sky-700 
+  @apply bg-sky-700;
 }
 
 .cell-4 {
-  @apply bg-sky-500
+  @apply bg-sky-500;
 }
-
 
 .cell-8 {
-  @apply bg-sky-400
+  @apply bg-sky-400;
 }
-
 
 .square.winning {
   background: rgb(240, 173, 73);

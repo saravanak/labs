@@ -1,6 +1,6 @@
-import { trpc } from "@/utils/trpc";
-import { z } from "zod";
-import HocForm from "../ui/ui-hoc/hoc-form";
+import { trpc } from '@/utils/trpc';
+import { z } from 'zod';
+import HocForm from '../ui/ui-hoc/hoc-form';
 
 export default function TodoEditForm({ spaceId }: any) {
   const formSchema = z.object({
@@ -10,21 +10,21 @@ export default function TodoEditForm({ spaceId }: any) {
 
   const formMeta: Record<string, any> = {
     title: {
-      label: "Title",
-      type: "text",
+      label: 'Title',
+      type: 'text',
     },
     description: {
-      label: "Description",
-      type: "text",
+      label: 'Description',
+      type: 'text',
     },
     submit: {
-      label: "Create Todo",
+      label: 'Create Todo',
     },
   };
 
   const defaultValues = {
-    title: "",
-    desciption: "",
+    title: '',
+    desciption: '',
   };
 
   const mutation = trpc.todo.createTodo.useMutation({});
@@ -46,4 +46,3 @@ export default function TodoEditForm({ spaceId }: any) {
     />
   );
 }
-

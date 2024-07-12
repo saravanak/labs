@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { t, shieldedProcedure, publicProcedure } from "@/utils/trpc-server";
-import { prisma } from "@/lib/prisma/client";
-import { RackModel } from "@/lib/prisma/zod";
+import { z } from 'zod';
+import { t, shieldedProcedure, publicProcedure } from '@/utils/trpc-server';
+import { prisma } from '@/lib/prisma/client';
+import { RackModel } from '@/lib/prisma/zod';
 
 export const rackRouter = t.router({
   count: publicProcedure
@@ -38,4 +38,3 @@ export const rackRouter = t.router({
     }),
 });
 // export type definition of API
-

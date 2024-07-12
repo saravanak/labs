@@ -1,6 +1,6 @@
-"use client";
-import ListBags from "@/components/rt/list-bags";
-import { trpc } from "@/utils/trpc";
+'use client';
+import ListBags from '@/components/rt/list-bags';
+import { trpc } from '@/utils/trpc';
 
 export default function ShelfsBagListingPage({ params }: any) {
   const [luggageResult] = trpc.useQueries((t) => [

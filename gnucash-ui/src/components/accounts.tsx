@@ -1,4 +1,4 @@
-import Filter from "./filter";
+import Filter from './filter';
 
 export default async function AccountsListing() {
   // const res = await fetch(
@@ -12,4 +12,3 @@ export default async function AccountsListing() {
 
   return <Filter data={[]} />;
 }
-

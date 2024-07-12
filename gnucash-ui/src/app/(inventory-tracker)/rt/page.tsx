@@ -1,17 +1,17 @@
-"use client";
-import queryClient from "@/utils/query-client";
-import { trpc } from "@/utils/trpc";
-import { ErrorMessage } from "@hookform/error-message";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { getQueryKey } from "@trpc/react-query";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+'use client';
+import queryClient from '@/utils/query-client';
+import { trpc } from '@/utils/trpc';
+import { ErrorMessage } from '@hookform/error-message';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { getQueryKey } from '@trpc/react-query';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-import ListRacks from "@/components/rt/list-racks";
-import { RackModel } from "@/lib/prisma/zod";
+import ListRacks from '@/components/rt/list-racks';
+import { RackModel } from '@/lib/prisma/zod';
 
 export default function RTPageComponent() {
-  const [searchFor, setSearchFor] = useState("");
+  const [searchFor, setSearchFor] = useState('');
 
   const [count, racks] = trpc.useQueries((t) => [
     t.rack.count({ s: searchFor }),
@@ -26,7 +26,7 @@ export default function RTPageComponent() {
     resolver: zodResolver(RackModel.omit({ id: true })),
   });
 
-  const queryKey = getQueryKey(trpc.rack.listRacks, undefined, "query");
+  const queryKey = getQueryKey(trpc.rack.listRacks, undefined, 'query');
 
   const { mutate: rackFormSubmission } = trpc.rack.create.useMutation({
     onSuccess: async () => {
@@ -50,7 +50,7 @@ export default function RTPageComponent() {
         {count?.data?.count}
 
         <input
-          type="text"
+          type='text'
           value={searchFor}
           onChange={(e) => handleChange(e)}
         />
@@ -58,22 +58,21 @@ export default function RTPageComponent() {
       </h1>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <input {...register("name")} />
-          <ErrorMessage errors={errors} name="name" />
+          <input {...register('name')} />
+          <ErrorMessage errors={errors} name='name' />
 
-          <input {...register("type")} />
-          <ErrorMessage errors={errors} name="type" />
+          <input {...register('type')} />
+          <ErrorMessage errors={errors} name='type' />
 
-          <input {...register("comment")} />
-          <ErrorMessage errors={errors} name="comment" />
+          <input {...register('comment')} />
+          <ErrorMessage errors={errors} name='comment' />
 
-          <input {...register("shortName")} />
-          <ErrorMessage errors={errors} name="shortName" />
+          <input {...register('shortName')} />
+          <ErrorMessage errors={errors} name='shortName' />
 
-          <input type="submit" />
+          <input type='submit' />
         </form>
       </div>
     </>
   );
 }
-

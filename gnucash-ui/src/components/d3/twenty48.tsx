@@ -1,7 +1,7 @@
-"use client";
-import { collapseNumbers } from "@/app/utils/utils-2048";
-import { randomInt, max } from "d3";
-import { useCallback, useEffect, useState } from "react";
+'use client';
+import { collapseNumbers } from '@/app/utils/utils-2048';
+import { randomInt, max } from 'd3';
+import { useCallback, useEffect, useState } from 'react';
 
 const randomGenerator = randomInt(0, 16);
 
@@ -27,7 +27,7 @@ export default function Twenty48() {
 
   const handleKeypress = useCallback(
     (e: any) => {
-      console.log("I am the keypress");
+      console.log('I am the keypress');
       e.stopPropagation();
       e.preventDefault();
 
@@ -36,21 +36,21 @@ export default function Twenty48() {
       //1 2 3 4
       let collapseTracks = [];
       switch (e.key) {
-        case "ArrowDown":
-        case "ArrowUp":
+        case 'ArrowDown':
+        case 'ArrowUp':
           for (var i = 0; i < 4; i++) {
             const track = [12 + i, 8 + i, 4 + i, 0 + i];
-            if (e.key == "ArrowUp") {
+            if (e.key == 'ArrowUp') {
               track.reverse();
             }
             collapseTracks.push(track);
           }
           break;
-        case "ArrowLeft":
-        case "ArrowRight":
+        case 'ArrowLeft':
+        case 'ArrowRight':
           for (var i = 0; i < 4; i++) {
             const track = [0 + i * 4, 1 + i * 4, 2 + i * 4, 3 + i * 4];
-            if (e.key == "ArrowRight") {
+            if (e.key == 'ArrowRight') {
               track.reverse();
             }
             collapseTracks.push(track);
@@ -81,38 +81,40 @@ export default function Twenty48() {
   );
 
   useEffect(() => {
-    console.log("Entering useeffect");
-    document.addEventListener("keydown", handleKeypress);
+    console.log('Entering useeffect');
+    document.addEventListener('keydown', handleKeypress);
 
     return () => {
-      document.removeEventListener("keydown", handleKeypress);
+      document.removeEventListener('keydown', handleKeypress);
     };
   }, [handleKeypress]);
 
   return (
-    <div className="flex flex-col">
-      <h2 className="text-red-400 font-bold w-full block p-4"> Bugs Beware!!</h2>
+    <div className='flex flex-col'>
+      <h2 className='text-red-400 font-bold w-full block p-4'>
+        {' '}
+        Bugs Beware!!
+      </h2>
       <div>
-      <div className="relative w-[480px] h-[480px]p-2">
-        {numbers.map((v: any, i: any) => {
-          return (
-            <div
-              className={`absolute w-[120px] h-[120px] text-center leading-[120px] border  text-3xl cell-${v} border-8`}
-              style={{
-                transform: `translate( ${120 * (i % 4)}px, ${
-                  Math.floor(i / 4) * 120
-                }px)`,
-              }}
-              data-action-target={i}
-              key={i}
-            >
-              {v} {/* :{i}  */}
-            </div>
-          );
-        })}
-      </div>
+        <div className='relative w-[480px] h-[480px]p-2'>
+          {numbers.map((v: any, i: any) => {
+            return (
+              <div
+                className={`absolute w-[120px] h-[120px] text-center leading-[120px] border  text-3xl cell-${v} border-8`}
+                style={{
+                  transform: `translate( ${120 * (i % 4)}px, ${
+                    Math.floor(i / 4) * 120
+                  }px)`,
+                }}
+                data-action-target={i}
+                key={i}
+              >
+                {v} {/* :{i}  */}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
 }
-

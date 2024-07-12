@@ -1,6 +1,6 @@
-import * as React from "react";
-import { ButtonProps } from "../button";
-import { useSession } from "next-auth/react";
+import * as React from 'react';
+import { ButtonProps } from '../button';
+import { useSession } from 'next-auth/react';
 
 /**
  * Potential recursive imports to "../button"
@@ -20,6 +20,5 @@ const AbilifiedButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 
-AbilifiedButton.displayName = "abilified-button";
+AbilifiedButton.displayName = 'abilified-button';
 export { AbilifiedButton };
-

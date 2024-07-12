@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export default function useTwoNumbers(_firstNumber: any, _secondNumber: any) {
   const [firstNumber, setFirstNumber] = useState(_firstNumber);

@@ -27,33 +27,32 @@ Life is not easy, and all of us have a long list of todos. This is where you see
 Incase you have 7 lives, you can store todos for each life in it's own space. 
 
 `,
-  "my-spaces": `
+  'my-spaces': `
 # Your spaces
 
 This is where your spaces are. You can have a \`Personal\` space and a \`Work\` space.
 
 `,
-  "create-space": `
+  'create-space': `
  # Interested in \`hobbies\`? 
 
  Go ahead and create a space for it!
 `,
-  "add-member": `
+  'add-member': `
 # Share your sorrows
 
 You can share your todos with friends, families and even foes! Include them in your space by their email.
 `,
-  "shared-spaces": `
+  'shared-spaces': `
 # Spaces others have shared with you 
 
 Your friends, foes and family can share their todos with you! And you can share your spaces too! All you need is the email of your pal.
 
 `,
-"login": `
+  login: `
 # Interested ?
 
 Go ahead and signup with an actual email id or Github login!
 
 `,
 };
-

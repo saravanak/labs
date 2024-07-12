@@ -1,24 +1,24 @@
-import { BlockNames } from "../language/blockly-constants";
+import { BlockNames } from '../language/blockly-constants';
 const toolboxConfig: any = {
-  kind: "flyoutToolbox",
+  kind: 'flyoutToolbox',
   contents: [
     {
-      kind: "block",
-      type: "math_number",
+      kind: 'block',
+      type: 'math_number',
     },
     {
-      kind: "block",
+      kind: 'block',
       type: BlockNames.ROW_COL,
     },
     {
-      kind: "block",
+      kind: 'block',
       type: BlockNames.ADD_SUB,
       inputs: {
         LHS: {
           block: {
             type: BlockNames.ROW_COL,
             fields: {
-              ROW_COLUMN: "Row",
+              ROW_COLUMN: 'Row',
             },
           },
         },
@@ -26,34 +26,34 @@ const toolboxConfig: any = {
           block: {
             type: BlockNames.ROW_COL,
             fields: {
-              ROW_COLUMN: "Col",
+              ROW_COLUMN: 'Col',
             },
           },
         },
       },
     },
     {
-      kind: "block",
+      kind: 'block',
       type: BlockNames.RETURN_COLOR,
     },
 
     {
-      kind: "block",
+      kind: 'block',
       type: BlockNames.LGE_CONDITION,
       inputs: {
         LHS: {
           block: {
             type: BlockNames.ROW_COL,
             fields: {
-              ROW_COLUMN: "Row",
+              ROW_COLUMN: 'Row',
             },
           },
         },
         RHS: {
           block: {
-            type: "math_number",
+            type: 'math_number',
             fields: {
-              NUM: "5",
+              NUM: '5',
             },
           },
         },
@@ -61,41 +61,41 @@ const toolboxConfig: any = {
     },
 
     {
-      kind: "block",
+      kind: 'block',
       type: BlockNames.DIV_CONDITION,
       inputs: {
         DIVIDEND: {
           block: {
             type: BlockNames.ROW_COL,
             fields: {
-              ROW_COLUMN: "Row",
+              ROW_COLUMN: 'Row',
             },
           },
         },
         DIVISOR: {
           block: {
-            type: "math_number",
+            type: 'math_number',
             fields: {
-              NUM: "2",
+              NUM: '2',
             },
           },
         },
         RHS: {
           block: {
-            type: "math_number",
+            type: 'math_number',
             fields: {
-              NUM: "1",
+              NUM: '1',
             },
           },
         },
       },
     },
     {
-      kind: "block",
+      kind: 'block',
       type: BlockNames.AND_CONDITION,
     },
     {
-      kind: "block",
+      kind: 'block',
       type: BlockNames.IF_BLOCK,
       inputs: {
         CONDITION: {
@@ -106,15 +106,15 @@ const toolboxConfig: any = {
                 block: {
                   type: BlockNames.ROW_COL,
                   fields: {
-                    ROW_COLUMN: "Row",
+                    ROW_COLUMN: 'Row',
                   },
                 },
               },
               RHS: {
                 block: {
-                  type: "math_number",
+                  type: 'math_number',
                   fields: {
-                    NUM: "5",
+                    NUM: '5',
                   },
                 },
               },
@@ -130,4 +130,4 @@ const toolboxConfig: any = {
     },
   ],
 };
-export { toolboxConfig  };
+export { toolboxConfig };

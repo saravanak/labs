@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import SevenSegmentDigit from "./digit";
+import { useEffect, useState } from 'react';
+import SevenSegmentDigit from './digit';
 
-function pad(num:any, size:any) {
-    num = num.toString();
-    while (num.length < size) num = "0" + num;
-    return num;
+function pad(num: any, size: any) {
+  num = num.toString();
+  while (num.length < size) num = '0' + num;
+  return num;
 }
 
 export function ClockLED() {
@@ -24,19 +24,19 @@ export function ClockLED() {
   }, []);
 
   const formattedTime = [
-    `${pad(currentTime.getHours(),2)}`,
-    ":",
+    `${pad(currentTime.getHours(), 2)}`,
+    ':',
     `${pad(currentTime.getMinutes(), 2)}`,
-    ":",
-    `${pad(currentTime.getSeconds(),2)}`,
+    ':',
+    `${pad(currentTime.getSeconds(), 2)}`,
   ];
 
   return (
-    <div className="flex">
+    <div className='flex'>
       {formattedTime.map((time, timeIndex) => {
         return (
-          <div className="flex" key={timeIndex}>
-            {time.split("").map((digit, digitIndex) => {
+          <div className='flex' key={timeIndex}>
+            {time.split('').map((digit, digitIndex) => {
               return <SevenSegmentDigit key={digitIndex} input={digit} />;
             })}
           </div>

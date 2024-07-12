@@ -1,6 +1,6 @@
-import { trpc } from "@/utils/trpc";
-import { z } from "zod";
-import HocForm from "../ui/ui-hoc/hoc-form";
+import { trpc } from '@/utils/trpc';
+import { z } from 'zod';
+import HocForm from '../ui/ui-hoc/hoc-form';
 
 export default function AddUserToSpace({ spaceId }: any) {
   const formSchema = z.object({
@@ -9,8 +9,8 @@ export default function AddUserToSpace({ spaceId }: any) {
 
   const formMeta: Record<string, any> = {
     email: {
-      label: "Enter the email of the person you want to share this space to",
-      type: "email",
+      label: 'Enter the email of the person you want to share this space to',
+      type: 'email',
     },
   };
 
@@ -29,8 +29,7 @@ export default function AddUserToSpace({ spaceId }: any) {
       onSubmit={onSubmit}
       mutation={mutation}
       formMeta={formMeta}
-      defaultValues={{ email: "" }}
+      defaultValues={{ email: '' }}
     />
   );
 }
-

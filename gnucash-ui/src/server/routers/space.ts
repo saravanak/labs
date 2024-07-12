@@ -1,7 +1,7 @@
-import { shieldedProcedure, t } from "@/utils/trpc-server";
-import { last } from "lodash";
-import { z } from "zod";
-import { SpaceService } from "../services/space";
+import { shieldedProcedure, t } from '@/utils/trpc-server';
+import { last } from 'lodash';
+import { z } from 'zod';
+import { SpaceService } from '../services/space';
 
 export const spaceRouter = t.router({
   getSpace: shieldedProcedure
@@ -139,4 +139,3 @@ export const spaceRouter = t.router({
     }),
 });
 // export type definition of API
-

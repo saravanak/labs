@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const getPropertyPaths = (schema: z.ZodType): string[] => {
   // Adjusted: Signature now uses z.ZodType to eliminate null& undefined check
@@ -27,4 +27,3 @@ export const getPropertyPaths = (schema: z.ZodType): string[] => {
   // return empty array
   return [];
 };
-

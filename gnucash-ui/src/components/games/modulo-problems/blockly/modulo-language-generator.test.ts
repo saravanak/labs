@@ -1,29 +1,29 @@
-import { describe, expect, test } from "@jest/globals";
-import Blockly, { Workspace } from "blockly";
-import { BlockNames } from "../language/blockly-constants";
-import configureBlocks from "../blockly/blocks";
-import ModuloCodeGenerator from "../blockly/modulo-language-generator";
-import { WorkspaceUtils } from "./workspace-utils";
+import { describe, expect, test } from '@jest/globals';
+import Blockly, { Workspace } from 'blockly';
+import { BlockNames } from '../language/blockly-constants';
+import configureBlocks from '../blockly/blocks';
+import ModuloCodeGenerator from '../blockly/modulo-language-generator';
+import { WorkspaceUtils } from './workspace-utils';
 
-describe("modulo language", () => {
-  test.only("generates correct language", () => {
-    const colors = ["blue", "white"];
+describe('modulo language', () => {
+  test.only('generates correct language', () => {
+    const colors = ['blue', 'white'];
     configureBlocks(Blockly, colors);
     const workspace = new Workspace();
     const workspaceUtils = new WorkspaceUtils(workspace);
     const configJson = {
-      kind: "block",
+      kind: 'block',
       type: BlockNames.IF_BLOCK,
       inputs: {
         CONDITION: {
           block: {
             type: BlockNames.LGE_CONDITION,
             inputs: {
-              LHS: { 
+              LHS: {
                 block: {
                   type: BlockNames.ROW_COL,
                   fields: {
-                    ROW_COLUMN: "Row",
+                    ROW_COLUMN: 'Row',
                   },
                 },
               },
@@ -31,7 +31,7 @@ describe("modulo language", () => {
                 block: {
                   type: BlockNames.MATH_NUMBER,
                   fields: {
-                    NUM: "5",
+                    NUM: '5',
                   },
                 },
               },
@@ -42,7 +42,7 @@ describe("modulo language", () => {
           block: {
             type: BlockNames.RETURN_COLOR,
             fields: {
-              COLOUR: "BLUE",
+              COLOUR: 'BLUE',
             },
           },
         },
@@ -50,6 +50,6 @@ describe("modulo language", () => {
     };
     workspaceUtils.processBlockDefintion(configJson);
     const code = ModuloCodeGenerator.workspaceToCode(workspace);
-    expect(code).toEqual("IF Row Equal To 5 RETURN BLUE");
+    expect(code).toEqual('IF Row Equal To 5 RETURN BLUE');
   });
 });

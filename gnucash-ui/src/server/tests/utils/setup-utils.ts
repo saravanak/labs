@@ -1,28 +1,28 @@
-import { pgClient } from "@/lib/prisma/client";
+import { pgClient } from '@/lib/prisma/client';
 import {
   resetDB,
   seedCreateTodos,
   seedCreateUsers,
-} from "@/lib/prisma/seeds/seed-utils";
-import { seed_shareMany } from "@/lib/typed-queries/space/action";
-import { Space, User } from "@prisma/client";
-import { Case } from "change-case-all";
+} from '@/lib/prisma/seeds/seed-utils';
+import { seed_shareMany } from '@/lib/typed-queries/space/action';
+import { Space, User } from '@prisma/client';
+import { Case } from 'change-case-all';
 
-const baseUrl = "http://localhost:3000/api/trpc";
+const baseUrl = 'http://localhost:3000/api/trpc';
 
 export const userEmailForColor = (color: string) =>
   `t-${color}@test.example.com`;
 
 export const apiKeyFor = (color: string) => `__key__${color}`;
 
-export const TASK_STATUSES = ["todo", "in-progress", "done"];
+export const TASK_STATUSES = ['todo', 'in-progress', 'done'];
 
 export async function setupUsers() {
   await resetDB();
   const usersAndSpaces = await Promise.all<
     { color: string; user: User; userSpace: Space }[]
   >(
-    ["red", "blue", "green", "yellow", "brown"].map((v) => {
+    ['red', 'blue', 'green', 'yellow', 'brown'].map((v) => {
       return new Promise<{ color: string; user: User; userSpace: Space }>(
         async (resolve) => {
           let ownerEmail = userEmailForColor(v);
@@ -97,7 +97,7 @@ export async function apiCaller({
   getParams,
   userColor,
   payload,
-  method = "GET",
+  method = 'GET',
 }: {
   path: any;
   getParams?: any;
@@ -107,17 +107,17 @@ export async function apiCaller({
 }) {
   const encodedParams = getParams
     ? encodeURIComponent(JSON.stringify({ json: getParams }))
-    : "";
+    : '';
   const inputParams =
-    getParams && method == "GET" ? `?input=${encodedParams}` : "";
+    getParams && method == 'GET' ? `?input=${encodedParams}` : '';
   const headers: Record<string, any> = userColor
     ? {
-        "X-MAGIC-TOKEN": apiKeyFor(userColor),
+        'X-MAGIC-TOKEN': apiKeyFor(userColor),
       }
     : {};
 
-  if (method == "POST") {
-    headers["Content-Type"] = "application/json";
+  if (method == 'POST') {
+    headers['Content-Type'] = 'application/json';
   }
   const url = `${baseUrl}/${path}${inputParams}`;
   console.log({ url });
@@ -125,7 +125,7 @@ export async function apiCaller({
   const response = await fetch(url, {
     headers,
     method,
-    body: method == "POST" ? JSON.stringify({ json: getParams }) : undefined,
+    body: method == 'POST' ? JSON.stringify({ json: getParams }) : undefined,
   });
 
   const responseText = await response.text();
@@ -140,4 +140,3 @@ export async function apiCaller({
 
   return { response, responseJson, responseText, parseError };
 }
-

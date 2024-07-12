@@ -1,111 +1,121 @@
 .markdowned {
-    padding-left: 10px;
-    padding-right: 2em;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    
-    h1, h2, h3, h4 {
-        color: #111111;
-        font-weight: 700;
-    }
-    h1, h2, h3, h4, h5, p {
-        margin-bottom: 24px;
-        padding: 0;
-    }
-    h1 {
-        font-size: 1.3em;
-    }
-    h2 {
-        font-size: 1.2em;
-    }
-    h3 {
-        font-size: 1.1em;
-    }
-    h4 {
-        font-size: 21px;
-    }
-    h5 {
-        font-size: 18px;
-    }
-    a {
-        color: #0099ff;
-        margin: 0;
-        padding: 0;
-        vertical-align: baseline;
-    }
-    ul, ol {
-        padding: 0;
-        margin: 0;
-        list-style-position: inside;
+  padding-left: 10px;
+  padding-right: 2em;
+  padding-top: 1em;
+  padding-bottom: 1em;
 
-    }
-    ul {
-        list-style-type: circle;
-    }
-    ol {
-        list-style-type:decimal;
-    }
-    li {
-        line-height: 24px;
-    }
-    li ul, li ul {
-        /* margin-left: 24px; */
-    }
-    p, ul, ol {
-        font-size: 16px;
-        line-height: 24px;
-        max-width: 540px;
-    }
-    pre {
-        padding: 0px 24px;
-        max-width: 800px;
-        white-space: pre-wrap;
-    }
-    /* code {
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: #111111;
+    font-weight: 700;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  p {
+    margin-bottom: 24px;
+    padding: 0;
+  }
+  h1 {
+    font-size: 1.3em;
+  }
+  h2 {
+    font-size: 1.2em;
+  }
+  h3 {
+    font-size: 1.1em;
+  }
+  h4 {
+    font-size: 21px;
+  }
+  h5 {
+    font-size: 18px;
+  }
+  a {
+    color: #0099ff;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+  }
+  ul,
+  ol {
+    padding: 0;
+    margin: 0;
+    list-style-position: inside;
+  }
+  ul {
+    list-style-type: circle;
+  }
+  ol {
+    list-style-type: decimal;
+  }
+  li {
+    line-height: 24px;
+  }
+  li ul,
+  li ul {
+    /* margin-left: 24px; */
+  }
+  p,
+  ul,
+  ol {
+    font-size: 16px;
+    line-height: 24px;
+    max-width: 540px;
+  }
+  pre {
+    padding: 0px 24px;
+    max-width: 800px;
+    white-space: pre-wrap;
+  }
+  /* code {
         font-family: Consolas, Monaco, Andale Mono, monospace;
         line-height: 1.5;
         font-size: 13px;
         background-color: violet;
       
     }  */
-    pre:has(> code) {
-        background: #f1f1f1;
-        padding: 1.33em;
-        border-radius: 0.33em;
-    }
-    aside {
-        display: block;
-        float: right;
-        width: 390px;
-    }
-    blockquote {
-        margin: 1em 2em;
-        max-width: 476px;
-    }
-    blockquote p {
-        color: #666;
-        max-width: 460px;
-    }
-    hr {
-        width: 540px;
-        text-align: left;
-        margin: 0 auto 0 0;
-        color: #999;
-    }
-    table {
-        border-collapse: collapse;
-        margin: 1em 1em;
-        border: 1px solid #CCC;
-    }
-    table thead {
-        background-color: #EEE;
-    }
-    table thead td {
-        color: #666;
-    }
-    table td {
-        padding: 0.5em 1em;
-        border: 1px solid #CCC;
-    }
-
+  pre:has(> code) {
+    background: #f1f1f1;
+    padding: 1.33em;
+    border-radius: 0.33em;
+  }
+  aside {
+    display: block;
+    float: right;
+    width: 390px;
+  }
+  blockquote {
+    margin: 1em 2em;
+    max-width: 476px;
+  }
+  blockquote p {
+    color: #666;
+    max-width: 460px;
+  }
+  hr {
+    width: 540px;
+    text-align: left;
+    margin: 0 auto 0 0;
+    color: #999;
+  }
+  table {
+    border-collapse: collapse;
+    margin: 1em 1em;
+    border: 1px solid #ccc;
+  }
+  table thead {
+    background-color: #eee;
+  }
+  table thead td {
+    color: #666;
+  }
+  table td {
+    padding: 0.5em 1em;
+    border: 1px solid #ccc;
+  }
 }

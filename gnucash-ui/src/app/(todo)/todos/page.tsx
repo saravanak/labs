@@ -1,15 +1,15 @@
-"use client";
-import SpacesChooser from "@/components/todo/spaces-chooser";
-import TodoListing from "@/components/todo/todo-listing";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import ListItem from "@/components/ui/lists/list-item";
-import { useQueryClient } from "@tanstack/react-query";
-import { useDebounce, useToggle } from "@uidotdev/usehooks";
-import { Case } from "change-case-all";
-import { Filter } from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useMemo, useRef, useState } from "react";
+'use client';
+import SpacesChooser from '@/components/todo/spaces-chooser';
+import TodoListing from '@/components/todo/todo-listing';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import ListItem from '@/components/ui/lists/list-item';
+import { useQueryClient } from '@tanstack/react-query';
+import { useDebounce, useToggle } from '@uidotdev/usehooks';
+import { Case } from 'change-case-all';
+import { Filter } from 'lucide-react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useMemo, useRef, useState } from 'react';
 
 export default function TodosListingPage() {
   const [isFitlerViewEnabled, onFilterViewToggle] = useToggle(false);
@@ -26,7 +26,7 @@ export default function TodosListingPage() {
   const space = useMemo(() => {
     const queryParams = new URLSearchParams(searchParams.toString());
 
-    const spaceNames = queryClient.getQueryData([["space", "getAllSpaces"]], {
+    const spaceNames = queryClient.getQueryData([['space', 'getAllSpaces']], {
       exact: false,
     }) as any;
 
@@ -34,7 +34,7 @@ export default function TodosListingPage() {
       return null;
     }
 
-    return spaceNames.items.find((v: any) => v.id == queryParams.get("space"));
+    return spaceNames.items.find((v: any) => v.id == queryParams.get('space'));
   }, [searchParams]);
 
   const spaceHeader = space ? `Todos in ${space.name}` : `All todos`;
@@ -59,18 +59,18 @@ export default function TodosListingPage() {
 
   const [statuses, setStatuses] = useState([
     {
-      label: "Todo",
-      value: "todo",
+      label: 'Todo',
+      value: 'todo',
       selected: true,
     },
     {
-      label: "In-Progress",
-      value: "in-progress",
+      label: 'In-Progress',
+      value: 'in-progress',
       selected: true,
     },
     {
-      label: "Done",
-      value: "done",
+      label: 'Done',
+      value: 'done',
       selected: true,
     },
   ]);
@@ -92,26 +92,29 @@ export default function TodosListingPage() {
 
   return (
     <>
-      <ListItem variant="header" className="sticky top-0" drawBorder={true}>
+      <ListItem variant='header' className='sticky top-0' drawBorder={true}>
         <Button
-          variant="outline"
+          variant='outline'
           onClick={() => onFilterViewToggle()}
-          data-test-action="filter"
+          data-test-action='filter'
         >
           <Filter />
         </Button>
-        <div className="grow text-center">
-          <span className="text-xl text-muted underline mr-2">
-            {isFitlerViewEnabled ? "Filtering" : ""}
+        <div className='grow text-center'>
+          <span className='text-xl text-muted underline mr-2'>
+            {isFitlerViewEnabled ? 'Filtering' : ''}
           </span>
-          <div data-test-data="space-header" className="inline-block"> {spaceHeader}</div>
+          <div data-test-data='space-header' className='inline-block'>
+            {' '}
+            {spaceHeader}
+          </div>
         </div>
         {space ? (
           <Button
-            variant="outline"
-            data-test-action="view-all-spaces"
+            variant='outline'
+            data-test-action='view-all-spaces'
             onClick={() =>
-              router.push(pathname + "?" + createQueryString("space", null))
+              router.push(pathname + '?' + createQueryString('space', null))
             }
           >
             All Spaces
@@ -120,18 +123,20 @@ export default function TodosListingPage() {
       </ListItem>
 
       {isFitlerViewEnabled ? (
-        <div className="sticky top-[70px] bg-card border-2 border-border">
-          <ListItem className="justify-spread" drawBorder={true}>
-            <div className="font-bold"> By Status</div>
-            <ListItem className="justify-end">
+        <div className='sticky top-[70px] bg-card border-2 border-border'>
+          <ListItem className='justify-spread' drawBorder={true}>
+            <div className='font-bold'> By Status</div>
+            <ListItem className='justify-end'>
               {statuses.map(({ value, label, selected }: any) => {
-                const variant = `${selected ? "selected" : "outline"}` as any;
+                const variant = `${selected ? 'selected' : 'outline'}` as any;
                 return (
                   <Button
                     key={value}
                     variant={variant}
-                    className="mr-2"
-                    data-test-action={`select-status-${variant}-${Case.kebab(value)}`}
+                    className='mr-2'
+                    data-test-action={`select-status-${variant}-${Case.kebab(
+                      value
+                    )}`}
                     onClick={() => toggleState(value)}
                   >
                     {label}
@@ -140,16 +145,16 @@ export default function TodosListingPage() {
               })}
             </ListItem>
           </ListItem>
-          <ListItem className="justify-spread" drawBorder={true}>
-            <div className="font-bold grow"> Title/Description</div>
-            <div className="flex w-1/2">
+          <ListItem className='justify-spread' drawBorder={true}>
+            <div className='font-bold grow'> Title/Description</div>
+            <div className='flex w-1/2'>
               <Input
-                data-test-input="search-term"
-                type="text"
+                data-test-input='search-term'
+                type='text'
                 ref={searchTextInput}
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value.trim())}
-                className=""
+                className=''
               />
             </div>
           </ListItem>
@@ -158,7 +163,7 @@ export default function TodosListingPage() {
         <SpacesChooser
           space={space}
           setSpace={(v: any) => {
-            router.push(pathname + "?" + createQueryString("space", v.id));
+            router.push(pathname + '?' + createQueryString('space', v.id));
           }}
           spaceLabel={spaceLabel}
           spaceViewingLabel={spaceViewingLabel}
@@ -173,4 +178,3 @@ export default function TodosListingPage() {
     </>
   );
 }
-

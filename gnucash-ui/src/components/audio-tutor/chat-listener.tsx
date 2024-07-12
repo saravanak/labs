@@ -1,19 +1,19 @@
-"use client";
+'use client';
 import {
   Drawer,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,
-  DrawerTitle
-} from "@/components/ui/drawer";
-import { Delete } from "lucide-react";
-import { useEffect, useState } from "react";
-import { Button } from "../ui/button";
+  DrawerTitle,
+} from '@/components/ui/drawer';
+import { Delete } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Button } from '../ui/button';
 
 export default function ChatListener({ recognition }: any) {
   const [started, setStarted] = useState(false);
-  const [transcript, setTranscript] = useState("");
+  const [transcript, setTranscript] = useState('');
   useEffect(() => {
     if (started) {
       recognition.onresult = (event: any) => {
@@ -23,7 +23,7 @@ export default function ChatListener({ recognition }: any) {
           transcript.push(event.results[i][0].transcript);
         }
 
-        setTranscript(transcript.join("."));
+        setTranscript(transcript.join('.'));
       };
 
       recognition.onend = (event: any) => {
@@ -33,12 +33,12 @@ export default function ChatListener({ recognition }: any) {
       };
 
       recognition.onaudiostart = () => {
-        console.log("audio started");
+        console.log('audio started');
       };
       recognition.onsoundstart = () => {
-        console.log("sound started");
+        console.log('sound started');
       };
-      console.log("starting recognition");
+      console.log('starting recognition');
     }
     return () => {
       recognition.onend = null;
@@ -49,11 +49,11 @@ export default function ChatListener({ recognition }: any) {
   }, [started]);
 
   function trimLastWord() {
-    setTranscript(transcript.split(" ").slice(0, -1).join(' '));
+    setTranscript(transcript.split(' ').slice(0, -1).join(' '));
     recognition.stop();
     setTimeout(() => {
       recognition.start();
-    }, 0)
+    }, 0);
   }
 
   function startRecording() {
@@ -71,15 +71,21 @@ export default function ChatListener({ recognition }: any) {
         <DrawerContent>
           <DrawerHeader>
             <DrawerTitle>Ask Elica...</DrawerTitle>
-            <DrawerDescription>
-              {transcript}
-            </DrawerDescription>
+            <DrawerDescription>{transcript}</DrawerDescription>
           </DrawerHeader>
           <DrawerFooter>
-            <div className="flex justify-between">
-
-              <Button className={`grow mx-2 ${started ? "hover:bg-green-400 bg-green-400" : "bg-gray-700"}`} onClick={startRecording}>{started ? "Listening" : "Click to speak"}</Button>
-              <Button onClick={trimLastWord}><Delete/></Button>
+            <div className='flex justify-between'>
+              <Button
+                className={`grow mx-2 ${
+                  started ? 'hover:bg-green-400 bg-green-400' : 'bg-gray-700'
+                }`}
+                onClick={startRecording}
+              >
+                {started ? 'Listening' : 'Click to speak'}
+              </Button>
+              <Button onClick={trimLastWord}>
+                <Delete />
+              </Button>
             </div>
           </DrawerFooter>
         </DrawerContent>
@@ -87,4 +93,3 @@ export default function ChatListener({ recognition }: any) {
     </>
   );
 }
-

@@ -1,4 +1,4 @@
-import { findLastIndex, isEqual } from "lodash";
+import { findLastIndex, isEqual } from 'lodash';
 
 export function collapseNumbers(initialSequence: any) {
   let workArray = [...initialSequence];
@@ -8,14 +8,14 @@ export function collapseNumbers(initialSequence: any) {
       workArray[i] = null;
     }
     let passes = 0;
-    while (workArray[i] == null && workArray.slice(i+1).find(v => v)) {
-      workArray = [...workArray.slice(0, i), ...workArray.slice(i + 1), null];   
-      passes++
+    while (workArray[i] == null && workArray.slice(i + 1).find((v) => v)) {
+      workArray = [...workArray.slice(0, i), ...workArray.slice(i + 1), null];
+      passes++;
     }
 
-    if(passes) {
-        i --;
+    if (passes) {
+      i--;
     }
-  }  
+  }
   return workArray;
 }

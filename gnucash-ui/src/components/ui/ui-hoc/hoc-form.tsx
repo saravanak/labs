@@ -1,14 +1,14 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
-import { TabBarContext } from "@/components/todo/app-wrapper";
-import { getPropertyPaths } from "@/utils/zod/extract-keys-from-type";
-import { useCallback, useContext, useEffect } from "react";
-import { Form } from "../form";
-import FormErrorContainer from "./form-error-container";
-import HocInput from "./hoc-input";
-import { useSession } from "next-auth/react";
-import ListItem from "../lists/list-item";
+import { TabBarContext } from '@/components/todo/app-wrapper';
+import { getPropertyPaths } from '@/utils/zod/extract-keys-from-type';
+import { useCallback, useContext, useEffect } from 'react';
+import { Form } from '../form';
+import FormErrorContainer from './form-error-container';
+import HocInput from './hoc-input';
+import { useSession } from 'next-auth/react';
+import ListItem from '../lists/list-item';
 
 export default function HocForm({
   formSchema,
@@ -25,8 +25,8 @@ export default function HocForm({
   const isDemoUser = userSession && userSession.user.isDemoUser;
 
   const form = useForm({
-    resolver: zodResolver({ ...formSchema, mode: "sync" }),
-    mode: "onSubmit",
+    resolver: zodResolver({ ...formSchema, mode: 'sync' }),
+    mode: 'onSubmit',
     defaultValues,
   });
 
@@ -36,19 +36,19 @@ export default function HocForm({
 
   const formSubmitHandler = useCallback(
     form.handleSubmit(async (d) => {
-      console.log("Handle submit");
+      console.log('Handle submit');
 
       return await onSubmit(d);
     }),
     [form]
   );
 
-  const nameWatcher = form.watch("spaceName");
+  const nameWatcher = form.watch('spaceName');
 
   useEffect(() => {
     if (mutation?.error) {
       console.log(mutation?.error);
-      
+
       mutation.error.shape.cause.errors.forEach(({ key, error }: any) => {
         setError(key, error);
       });
@@ -57,7 +57,7 @@ export default function HocForm({
       hookForm: form,
       formState: form.formState,
       mutation,
-      status: mutation?.isLoading ? "Saving changes..." : "",
+      status: mutation?.isLoading ? 'Saving changes...' : '',
       title,
       onSubmit: formSubmitHandler,
       onCancel: () => {},
@@ -82,8 +82,8 @@ export default function HocForm({
 
   const isFormDisabled = isDemoUser || mutation?.isLoading;
   return (
-    <div className="grid  grid-cols-1 ">
-      <ListItem variant="header">{title}</ListItem>
+    <div className='grid  grid-cols-1 '>
+      <ListItem variant='header'>{title}</ListItem>
       <Form {...additionalContext}>
         <form
           onSubmit={form.handleSubmit((d) => {
@@ -109,4 +109,3 @@ export default function HocForm({
     </div>
   );
 }
-

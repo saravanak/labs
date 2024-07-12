@@ -1,9 +1,9 @@
-"use client";
-import { cn } from "@/lib/utils";
-import { useState } from "react";
-import TwoNumberEditor from "./two-number-editor";
-import { CardTitle } from "../ui/card";
-import useTwoNumbers from "./two-number-hook";
+'use client';
+import { cn } from '@/lib/utils';
+import { useState } from 'react';
+import TwoNumberEditor from './two-number-editor';
+import { CardTitle } from '../ui/card';
+import useTwoNumbers from './two-number-hook';
 
 export const digits = (num: number) => {
   return num == 0 ? 1 : Math.floor(Math.log10(num)) + 1;
@@ -22,7 +22,7 @@ export function getNthDigit(
   pos: number,
   fromRight: boolean = true
 ): number {
-  const array = String(number).split("");
+  const array = String(number).split('');
   return Number(fromRight ? array.reverse()[pos] : array[pos]);
 }
 
@@ -45,13 +45,13 @@ export default function MultiplicationSteps() {
   const { rows } = multiplicationSteps(topNumber, bottomNumber);
   const maps: any = {
     firstNumber: {
-      label: "A number to multiply",
-      type: "number",
+      label: 'A number to multiply',
+      type: 'number',
       onValueChange: twoNumberMeta.setSecondNumber,
     },
     secondNumber: {
-      label: "Another number to multiply",
-      type: "number",
+      label: 'Another number to multiply',
+      type: 'number',
       onValueChange: twoNumberMeta.setFirstNumber,
     },
   };
@@ -59,14 +59,14 @@ export default function MultiplicationSteps() {
   return (
     <>
       <TwoNumberEditor twoNumberMeta={twoNumberMeta} maps={maps} />
-      <CardTitle className="bg-gray-300 p-2 mt-2 rounded-md">
+      <CardTitle className='bg-gray-300 p-2 mt-2 rounded-md'>
         Solution
       </CardTitle>
-      <div className="flex">
-        <div className="flex-grow">&nbsp;</div>
-        <div className="rounded-md border-2 p-4 mt-4 text-2xl">
+      <div className='flex'>
+        <div className='flex-grow'>&nbsp;</div>
+        <div className='rounded-md border-2 p-4 mt-4 text-2xl'>
           <NumberWithDigits number={topNumber} />
-          <NumberWithDigits number={bottomNumber} prefix="x" border="b" />
+          <NumberWithDigits number={bottomNumber} prefix='x' border='b' />
 
           {rows.map(({ multiplier, product, tenthPlace }, index) => {
             return (
@@ -81,11 +81,11 @@ export default function MultiplicationSteps() {
           })}
           <NumberWithDigits
             number={topNumber * bottomNumber}
-            border="bt"
-            className="font-bold"
+            border='bt'
+            className='font-bold'
           />
         </div>
-        <div className="flex-grow">&nbsp;</div>
+        <div className='flex-grow'>&nbsp;</div>
       </div>
     </>
   );
@@ -96,22 +96,22 @@ export function NumberWithDigits({ number, prefix, border, className }: any) {
   const digitElements = [];
   for (var i = bottomDigits - 1; i >= 0; i--) {
     digitElements.push(
-      <div key={i} className="p-1 ">
+      <div key={i} className='p-1 '>
         {getNthDigit(number, i)}
       </div>
     );
   }
   const dynamicClassNames = `${
-    border?.indexOf("t") >= 0 ? "border-t-red-500 border-t-[1px]" : ""
+    border?.indexOf('t') >= 0 ? 'border-t-red-500 border-t-[1px]' : ''
   }
-  ${border?.indexOf("l") >= 0 ? "border-l-red-500 border-l-[1px]" : ""}
+  ${border?.indexOf('l') >= 0 ? 'border-l-red-500 border-l-[1px]' : ''}
   ${
-    border?.indexOf("b") >= 0 ? "border-b-red-500 border-b-[1px]" : ""
+    border?.indexOf('b') >= 0 ? 'border-b-red-500 border-b-[1px]' : ''
   } ${className}`;
   return (
     <div>
-      <div className={cn("flex justify-end", dynamicClassNames)}>
-        {prefix ? <div className="p-1 "> X </div> : null}
+      <div className={cn('flex justify-end', dynamicClassNames)}>
+        {prefix ? <div className='p-1 '> X </div> : null}
         {digitElements}
       </div>
     </div>
@@ -135,4 +135,3 @@ function multiplicationSteps(top: number, bottom: number) {
     rows,
   };
 }
-

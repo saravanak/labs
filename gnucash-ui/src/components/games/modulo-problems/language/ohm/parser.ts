@@ -15,23 +15,23 @@
 //     ReturnValue = Color
 //     Condition = BiCondition | MonoCondition
 //     BiCondition = Condition "And" Condition
-//     MonoCondition = AddExp Operator 
-    
+//     MonoCondition = AddExp Operator
+
 //     AddExp = Number "+" Number  -- plus
 //            | Number "-" Number  -- minus
 //            | Number
-    
-//     Operator = BiOperator | MonoOperator 
-//     MonoOperator = MonoOpName Number 
-//     MonoOpName = "Greater Than" 
-//              | "Lesser Than" 
-//              | "Equal To"              
+
+//     Operator = BiOperator | MonoOperator
+//     MonoOperator = MonoOpName Number
+//     MonoOpName = "Greater Than"
+//              | "Lesser Than"
+//              | "Equal To"
 //     BiOperator  = "When Divided By" Number "Leaves Reminder" Number
 //                 | "When Divided By" Number "Gives Quotient" Number
 //     Literal = "Row"
 //             | "Col"
 //     Color = ${colorsAtom}
-//     Number = Literal 
+//     Number = Literal
 //             | digit+
 //     eol = "\r"? "\n"
 //   }

@@ -1,7 +1,9 @@
-"use client";
-import { useState, useEffect } from "react";
+'use client';
+import { useState, useEffect } from 'react';
 
-export default function GamesLayout({ children }:Readonly<{
+export default function GamesLayout({
+  children,
+}: Readonly<{
   children: React.ReactNode;
 }>) {
   const [isClient, setIsClient] = useState(false);
@@ -9,8 +11,8 @@ export default function GamesLayout({ children }:Readonly<{
     setIsClient(true);
   }, []);
   return (
-    <div className="w-full flex flex-col justify-center align-center items-center">
-      {isClient ?  children  : null as any}
+    <div className='w-full flex flex-col justify-center align-center items-center'>
+      {isClient ? children : (null as any)}
     </div>
   );
 }

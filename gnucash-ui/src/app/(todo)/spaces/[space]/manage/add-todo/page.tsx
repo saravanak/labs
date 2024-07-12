@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { SessionContext } from "@/components/todo/app-wrapper";
-import ListItem from "@/components/ui/lists/list-item";
-import LoaderListItem from "@/components/ui/lists/loader-list";
-import HocForm from "@/components/ui/ui-hoc/hoc-form";
-import { trpc } from "@/utils/trpc";
-import { useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
-import { useContext } from "react";
-import { toast } from "sonner";
-import { z } from "zod";
+import { SessionContext } from '@/components/todo/app-wrapper';
+import ListItem from '@/components/ui/lists/list-item';
+import LoaderListItem from '@/components/ui/lists/loader-list';
+import HocForm from '@/components/ui/ui-hoc/hoc-form';
+import { trpc } from '@/utils/trpc';
+import { useSession } from 'next-auth/react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useContext } from 'react';
+import { toast } from 'sonner';
+import { z } from 'zod';
 
 export default function AddTodoToSpace({ params }: any) {
   const formSchema = z
@@ -30,12 +30,12 @@ export default function AddTodoToSpace({ params }: any) {
 
   const formMeta: Record<string, any> = {
     title: {
-      label: "Todo title",
-      type: "text",
+      label: 'Todo title',
+      type: 'text',
     },
     description: {
-      label: "Describe what needs to be done",
-      type: "text",
+      label: 'Describe what needs to be done',
+      type: 'text',
     },
   };
 
@@ -46,7 +46,7 @@ export default function AddTodoToSpace({ params }: any) {
       const isLoggedInUserOwnerOfTodoSpace = spaceOwner == currentUser;
 
       toast(`Created todo with title ${title}`);
-      const previousPath = pathname.split("/").slice(0, -1).join("/");
+      const previousPath = pathname.split('/').slice(0, -1).join('/');
       const redirectPath = isLoggedInUserOwnerOfTodoSpace
         ? previousPath
         : `/todos/${d?.id}`;
@@ -69,17 +69,16 @@ export default function AddTodoToSpace({ params }: any) {
 
   return (
     <>
-      <ListItem variant="header">{spaceDetails?.name}</ListItem>
+      <ListItem variant='header'>{spaceDetails?.name}</ListItem>
 
       <HocForm
         formSchema={formSchema}
-        title="New Todo"
+        title='New Todo'
         onSubmit={onSubmit}
         formMeta={formMeta}
-        defaultValues={{ spaceName: "" }}
+        defaultValues={{ spaceName: '' }}
         mutation={mutation}
       />
     </>
   );
 }
-

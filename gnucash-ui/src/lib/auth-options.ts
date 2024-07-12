@@ -1,14 +1,14 @@
-import { AuthOptions } from "next-auth";
-import type { Adapter } from "next-auth/adapters";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import prisma from "@/lib/prisma";
-import { UserService } from "@/server/services/user";
+import { AuthOptions } from 'next-auth';
+import type { Adapter } from 'next-auth/adapters';
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import prisma from '@/lib/prisma';
+import { UserService } from '@/server/services/user';
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
 
   session: {
-    strategy: process.env.CYPRESS_TESTING_E2E ? "jwt" : "database",
+    strategy: process.env.CYPRESS_TESTING_E2E ? 'jwt' : 'database',
   },
   providers: [],
   callbacks: {
@@ -36,8 +36,8 @@ export const authOptions: AuthOptions = {
     // },
     async session({ session, token, user }: any) {
       session.user.id = token ? token.sub : user.id;
-      session.user.isDemoUser = session?.user.email == "neo@example.com";
-      if(!session.user.isDemoUser) {
+      session.user.isDemoUser = session?.user.email == 'neo@example.com';
+      if (!session.user.isDemoUser) {
         //We do the setup for the demo user on seeding.
         await UserService.defaultOrCreateOwnerSpace(session.user);
       }

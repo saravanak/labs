@@ -48,7 +48,7 @@
     // Add this! Doing so adds WebWorker and ServiceWorker types to the global.
     "webworker"
   ],
-  
+
   "exclude": ["node_modules", "public/sw.js"],
 
   "ts-node": {
@@ -58,4 +58,3 @@
     }
   }
 }
-

@@ -1,4 +1,4 @@
-import { sql } from "@pgtyped/runtime";
+import { sql } from '@pgtyped/runtime';
 
 // Get all OWNED todos for $userEmail along with the latest status and the latest comment on
 export const getTodosWithLatestStatuses = sql`
@@ -25,7 +25,7 @@ limit $limit
 offset $offset    ;
 `;
 
-// Insert a bunch of comments by returning the ids created. 
+// Insert a bunch of comments by returning the ids created.
 export const seed_insertManyCommentsIntoTodo = sql`
 insert into comments (comment, user_id)
     values $$todos(commentContent, userId)
@@ -45,4 +45,3 @@ Inner join commentables co on
 inner join todos t on 
     t.id = $todoId
 `;
-

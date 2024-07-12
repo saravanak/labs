@@ -1,6 +1,5 @@
-import PagesIndexPage from "@/components/todo/spaces/spaces-index-page";
-import { createServertRPCCaller } from "@/server/routers/_app";
-
+import PagesIndexPage from '@/components/todo/spaces/spaces-index-page';
+import { createServertRPCCaller } from '@/server/routers/_app';
 
 //https://tanstack.com/query/v4/docs/framework/react/guides/ssr
 export default async function SpacesPage() {
@@ -10,4 +9,3 @@ export default async function SpacesPage() {
 
   return <PagesIndexPage {...counts} />;
 }
-

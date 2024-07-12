@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 function cellIndex([row, col]: [number, number], arraySize: number): any {
   return row * arraySize + col;
@@ -29,20 +29,20 @@ function GenerateCheckerBoard({
   currentAnimatedCell: [number, number];
   setCurrentAnimatedCell: any;
 }): any {
-  const divBorder = "1px solid grey";
-  const divSizeComputed = cellSize || "10px";
+  const divBorder = '1px solid grey';
+  const divSizeComputed = cellSize || '10px';
   const divStlyes = {
     width: divSizeComputed,
     height: divSizeComputed,
     borderTop: divBorder,
     borderRight: divBorder,
-    padding: "3px",
-    margin: "0px",
-    divSizing: "border-div",
-    textAlign: "middle",
-    display: "div",
-    alignItems: "center",
-    fontSize: "large",
+    padding: '3px',
+    margin: '0px',
+    divSizing: 'border-div',
+    textAlign: 'middle',
+    display: 'div',
+    alignItems: 'center',
+    fontSize: 'large',
   };
   const gridSize = colorMap.length;
 
@@ -78,7 +78,7 @@ function GenerateCheckerBoard({
   }, [currentAnimatedCell]);
 
   useEffect(() => {
-    console.log("Resetting animations...");
+    console.log('Resetting animations...');
 
     if (timeoutHandle) {
       clearTimeout(timeoutHandle);
@@ -93,13 +93,13 @@ function GenerateCheckerBoard({
         return [
           col == 0 ? (
             <div
-              key={"rb" + row.toString()}
+              key={'rb' + row.toString()}
               // sx={{ ...divStlyes, borderLeft: divBorder }}
             ></div>
           ) : null,
           row == 0 ? (
             <div
-              key={"cm" + row.toString() + col.toString()}
+              key={'cm' + row.toString() + col.toString()}
               onClick={() => (onSelect ? onSelect(row, col) : null)}
               onMouseMove={() => (onHover ? onHover(row, col) : null)}
               // sx={{
@@ -114,10 +114,10 @@ function GenerateCheckerBoard({
       });
     }
     return (
-      <div key={"container" + row.toString()}>
+      <div key={'container' + row.toString()}>
         {row == 0 ? (
           <div
-            key={"rm" + row.toString()}
+            key={'rm' + row.toString()}
             // justify="div-start"
             // align="div-start"
             // direction="row"
@@ -128,7 +128,7 @@ function GenerateCheckerBoard({
         ) : null}
 
         <div
-          key={"r" + row.toString()}
+          key={'r' + row.toString()}
           // justify="div-start"
           // align="div-start"
           // direction="row"
@@ -136,7 +136,7 @@ function GenerateCheckerBoard({
         >
           {showAxes && (
             <div
-              key={"rb" + row.toString()}
+              key={'rb' + row.toString()}
               // sx={{
               //   ...divStlyes,
               //   borderLeft: divBorder,
@@ -163,14 +163,14 @@ function GenerateCheckerBoard({
                 currentCellIndex == currentAnimatedCellIndex &&
                 currentCellIndex != lastCellIndex
               ) {
-                bgColor = "yellow";
+                bgColor = 'yellow';
               } else if (currentCellIndex > currentAnimatedCellIndex) {
-                bgColor = "gray";
+                bgColor = 'gray';
               }
             }
             return (
               <div
-                key={"c" + col.toString()}
+                key={'c' + col.toString()}
                 onClick={() => (onSelect ? onSelect(row, col) : null)}
                 onMouseMove={() => (onHover ? onHover(row, col) : null)}
                 // sx={{
@@ -205,25 +205,27 @@ export default function CheckerBoard({
     [number, number]
   >([0, 0]);
 
-  const listItems = <GenerateCheckerBoard
-    colorMap={colorMap}
-    onSelect={onSelect}
-    onHover={onHover}
-    showAxes={showAxes}
-    aliasColor={aliasColor}
-    cellSize={cellSize}
-    showEvaluationAnimations={showEvaluationAnimations}
-    currentAnimatedCell={currentAnimatedCell}
-    setCurrentAnimatedCell={setCurrentAnimatedCell}
-    onCompletedRender={onCompletedRender}
-  />
+  const listItems = (
+    <GenerateCheckerBoard
+      colorMap={colorMap}
+      onSelect={onSelect}
+      onHover={onHover}
+      showAxes={showAxes}
+      aliasColor={aliasColor}
+      cellSize={cellSize}
+      showEvaluationAnimations={showEvaluationAnimations}
+      currentAnimatedCell={currentAnimatedCell}
+      setCurrentAnimatedCell={setCurrentAnimatedCell}
+      onCompletedRender={onCompletedRender}
+    />
+  );
 
   return (
     <div
       style={{
-        fontFamily: "system-ui, sans-serif",
-        lineHeight: "1.4",
-        userSelect: "none",
+        fontFamily: 'system-ui, sans-serif',
+        lineHeight: '1.4',
+        userSelect: 'none',
       }}
     >
       {listItems}

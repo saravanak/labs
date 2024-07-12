@@ -1,13 +1,13 @@
-"use client";
-import ListItem from "@/components/ui/lists/list-item";
-import LoaderListItem from "@/components/ui/lists/loader-list";
-import PropertyListItem from "@/components/ui/lists/property-list-item";
-import TwoLineListItem from "@/components/ui/lists/two-line-list-item";
-import EditableText from "@/components/ui/ui-hoc/editable-text";
-import { trpc } from "@/utils/trpc";
-import { Case } from "change-case-all";
-import { DateTime } from "luxon";
-import { usePathname, useRouter } from "next/navigation";
+'use client';
+import ListItem from '@/components/ui/lists/list-item';
+import LoaderListItem from '@/components/ui/lists/loader-list';
+import PropertyListItem from '@/components/ui/lists/property-list-item';
+import TwoLineListItem from '@/components/ui/lists/two-line-list-item';
+import EditableText from '@/components/ui/ui-hoc/editable-text';
+import { trpc } from '@/utils/trpc';
+import { Case } from 'change-case-all';
+import { DateTime } from 'luxon';
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function TaskDetailPage({ params }: any) {
   const todoIdInput = { todoId: parseInt(params.task) };
@@ -25,12 +25,12 @@ export default function TaskDetailPage({ params }: any) {
     const status = todo?.StatusTransitions[0]?.status;
     return (
       <>
-        <ListItem variant="header">Todo #{todo?.id}</ListItem>
+        <ListItem variant='header'>Todo #{todo?.id}</ListItem>
         <EditableText
           model={todo}
-          fieldName="title"
-          queryKey={[["todo", "getDetailedView"]]}
-          type="text"          
+          fieldName='title'
+          queryKey={[['todo', 'getDetailedView']]}
+          type='text'
           mutationFunction={todoFieldUpdateMutation}
           mutationArgs={() => {
             return {
@@ -40,11 +40,11 @@ export default function TaskDetailPage({ params }: any) {
         />
         <EditableText
           model={todo}
-          fieldName="description"
-          type="textarea"
+          fieldName='description'
+          type='textarea'
           useMarkdown={true}
           mutationFunction={todoFieldUpdateMutation}
-          queryKey={[["todo", "getDetailedView"]]}
+          queryKey={[['todo', 'getDetailedView']]}
           mutationArgs={() => {
             return {
               todoId: todo?.id,
@@ -53,15 +53,15 @@ export default function TaskDetailPage({ params }: any) {
         />
         <PropertyListItem
           onClick={() => router.push(`${pathname}/change-status`)}
-          property="status"
+          property='status'
           value={status}
           asTag={true}
-          tagColor="bg-green-600 text-gray-200 font-bold"
+          tagColor='bg-green-600 text-gray-200 font-bold'
         />
 
         <ListItem
           onClick={() => router.push(`${pathname}/add-comment`)}
-          variant="heading2"
+          variant='heading2'
         >
           Comments
         </ListItem>
@@ -76,7 +76,7 @@ export default function TaskDetailPage({ params }: any) {
                 secondLineGenerator={() => {
                   return (
                     <>
-                      by <span className="font-bold">{c.commented_by}</span>
+                      by <span className='font-bold'>{c.commented_by}</span>
                       ,&nbsp;
                       <span title={c.created_at}>
                         {DateTime.fromJSDate(c.created_at).toRelative()}
@@ -91,7 +91,7 @@ export default function TaskDetailPage({ params }: any) {
           <ListItem> There are no comments yet</ListItem>
         )}
 
-        <ListItem variant="heading2">Status History</ListItem>
+        <ListItem variant='heading2'>Status History</ListItem>
         {statusHistory &&
           statusHistory.StatusTransitions.map((statusLine, index) => {
             return (
@@ -102,7 +102,7 @@ export default function TaskDetailPage({ params }: any) {
                 secondLineGenerator={() => {
                   return (
                     statusLine.comment +
-                    ", " +
+                    ', ' +
                     DateTime.fromJSDate(statusLine.created_at).toRelative()
                   );
                 }}
@@ -115,4 +115,3 @@ export default function TaskDetailPage({ params }: any) {
     return <LoaderListItem />;
   }
 }
-

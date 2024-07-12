@@ -1,8 +1,8 @@
-import { z } from "zod";
-import { prisma } from "@/lib/prisma/client";
-import { ShelfModel } from "@/lib/prisma/zod";
-import { t } from "@/utils/trpc-server";
-import { TRPCError } from "@trpc/server";
+import { z } from 'zod';
+import { prisma } from '@/lib/prisma/client';
+import { ShelfModel } from '@/lib/prisma/zod';
+import { t } from '@/utils/trpc-server';
+import { TRPCError } from '@trpc/server';
 
 export const shelfRouter = t.router({
   list: t.procedure
@@ -16,20 +16,18 @@ export const shelfRouter = t.router({
       // const take = limit || 10;
       // const skip = (page - 1) * limit;
 
-
-      console.log(opts.input.rackId)
+      console.log(opts.input.rackId);
       try {
         const shelves = await prisma.shelf.findMany({
           where: {
-            rackId: opts.input.rackId
-          }
-
+            rackId: opts.input.rackId,
+          },
         });
 
         return { shelves };
       } catch (err: any) {
         throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
+          code: 'INTERNAL_SERVER_ERROR',
           message: err.message,
         });
       }
@@ -42,4 +40,3 @@ export const shelfRouter = t.router({
   //     });
   //   }),
 });
-

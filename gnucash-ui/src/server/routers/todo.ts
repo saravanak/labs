@@ -1,8 +1,8 @@
-import { TodoService, TodoWhereQueries } from "@/server/services/todo";
-import { shieldedProcedure, t } from "@/utils/trpc-server";
-import { Space, User } from "@prisma/client";
-import { last, merge } from "lodash";
-import { z } from "zod";
+import { TodoService, TodoWhereQueries } from '@/server/services/todo';
+import { shieldedProcedure, t } from '@/utils/trpc-server';
+import { Space, User } from '@prisma/client';
+import { last, merge } from 'lodash';
+import { z } from 'zod';
 
 export const todoRouter = t.router({
   getOwnTodos: shieldedProcedure
@@ -29,14 +29,14 @@ export const todoRouter = t.router({
           ? TodoWhereQueries.ForSearchText(opts.input.searchText.trim())
           : {}
       );
-      
+
       const items = await TodoService.getTodosForUser(
         session.user,
         whereClause,
         opts.input
-        );
-        console.log(opts.input,  JSON.stringify(whereClause));
-      console.log({items: JSON.stringify(items)});
+      );
+      console.log(opts.input, JSON.stringify(whereClause));
+      console.log({ items: JSON.stringify(items) });
       return {
         items,
         nextCursor: last(items)?.id,
@@ -134,4 +134,3 @@ export const todoRouter = t.router({
       );
     }),
 });
-

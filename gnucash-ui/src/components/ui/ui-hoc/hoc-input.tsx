@@ -1,16 +1,16 @@
-import { Case } from "change-case-all";
+import { Case } from 'change-case-all';
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "../form";
-import { Input } from "../input";
-import { TextArea } from "../text-area";
-import { AutoComplete, SearchItem } from "./autocomplete";
-import HocSelect from "./hoc-select";
-import TextareaAutosize from "react-textarea-autosize";
+} from '../form';
+import { Input } from '../input';
+import { TextArea } from '../text-area';
+import { AutoComplete, SearchItem } from './autocomplete';
+import HocSelect from './hoc-select';
+import TextareaAutosize from 'react-textarea-autosize';
 
 const inputByType = function ({ formMeta, field, trigger }: any) {
   const fieldMeta = formMeta[field.name];
@@ -19,12 +19,12 @@ const inputByType = function ({ formMeta, field, trigger }: any) {
     value: `${v.id}`,
     label: v.name,
   }));
-  const dataTestInput=`${Case.kebab(fieldMeta.label)}`;
+  const dataTestInput = `${Case.kebab(fieldMeta.label)}`;
 
   switch (fieldMeta.type) {
-    case "text":
-    case "email":
-    case "number":
+    case 'text':
+    case 'email':
+    case 'number':
       return (
         <Input
           type={fieldMeta.type}
@@ -38,26 +38,33 @@ const inputByType = function ({ formMeta, field, trigger }: any) {
         />
       );
 
-    case "textarea":
-      return <TextareaAutosize data-test-input={dataTestInput} className="w-full p-4" type={fieldMeta.type} {...field} />;
-    case "autocomplete":
+    case 'textarea':
+      return (
+        <TextareaAutosize
+          data-test-input={dataTestInput}
+          className='w-full p-4'
+          type={fieldMeta.type}
+          {...field}
+        />
+      );
+    case 'autocomplete':
       return (
         <AutoComplete
           options={matches as SearchItem[]}
           data-test-input={dataTestInput}
           placeholder={fieldMeta.searchPlaceholder}
-          noMatches={"No matches"}
+          noMatches={'No matches'}
           value={field.value}
           onChange={() => {}}
           onSearchChange={(v) => {
             field.onChange(v);
             trigger(field.name);
           }}
-          keyComparer="label"
+          keyComparer='label'
         />
       );
 
-    case "select":
+    case 'select':
       return (
         <HocSelect
           selectLabelInline={null}
@@ -80,13 +87,13 @@ export default function HocInput({ name, formMeta, trigger, disabled }: any) {
       render={({ field }: any) => {
         return (
           <FormItem>
-            <div className="p-2">
+            <div className='p-2'>
               {formMeta[name].label ? (
-                <FormLabel className=" font-bold pb-2">
+                <FormLabel className=' font-bold pb-2'>
                   {formMeta[name].label}
                 </FormLabel>
               ) : null}
-              <FormControl className="align-right text-sm text-gray-400 mt-2">
+              <FormControl className='align-right text-sm text-gray-400 mt-2'>
                 {inputByType({ formMeta, field, trigger })}
               </FormControl>
             </div>
@@ -102,4 +109,3 @@ export default function HocInput({ name, formMeta, trigger, disabled }: any) {
     ></FormField>
   );
 }
-

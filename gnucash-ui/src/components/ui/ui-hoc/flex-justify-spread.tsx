@@ -1,7 +1,12 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
-export function FlexJustifySpread({ children, className, onClick, ...props }: any) {
-  const defaultClassNames = "flex flex-1 items-center justify-between";
+export function FlexJustifySpread({
+  children,
+  className,
+  onClick,
+  ...props
+}: any) {
+  const defaultClassNames = 'flex flex-1 items-center justify-between';
   return (
     <div
       className={cn(defaultClassNames, className)}
@@ -12,4 +17,3 @@ export function FlexJustifySpread({ children, className, onClick, ...props }: an
     </div>
   );
 }
-

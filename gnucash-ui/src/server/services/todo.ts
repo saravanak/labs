@@ -1,14 +1,14 @@
-import prisma from "@/lib/prisma";
-import { pgClient } from "@/lib/prisma/client";
-import { UserModel } from "@/lib/prisma/zod";
+import prisma from '@/lib/prisma';
+import { pgClient } from '@/lib/prisma/client';
+import { UserModel } from '@/lib/prisma/zod';
 import {
   getCommentsForTodo,
   seed_insertManyCommentsIntoTodo,
-} from "@/lib/typed-queries/todo/action";
-import { faker } from "@faker-js/faker";
-import { Space, User } from "@prisma/client";
-import { space } from "postcss/lib/list";
-import { z } from "zod";
+} from '@/lib/typed-queries/todo/action';
+import { faker } from '@faker-js/faker';
+import { Space, User } from '@prisma/client';
+import { space } from 'postcss/lib/list';
+import { z } from 'zod';
 
 export const returnPaginatedQuery = (
   baseQuery: any,
@@ -18,7 +18,7 @@ export const returnPaginatedQuery = (
     take: limit,
     skip: 0,
     orderBy: {
-      id: "asc",
+      id: 'asc',
     },
     ...baseQuery,
   } as any;
@@ -81,13 +81,13 @@ export const TodoWhereQueries = {
         {
           title: {
             contains: searchText,
-            mode: "insensitive",
+            mode: 'insensitive',
           },
         },
         {
           description: {
             contains: searchText,
-            mode: "insensitive",
+            mode: 'insensitive',
           },
         },
       ],
@@ -120,15 +120,15 @@ export const TodoService = {
               todo_id: true,
             },
             orderBy: {
-              created_at: "desc",
+              created_at: 'desc',
             },
-            distinct: ["todo_id"],
+            distinct: ['todo_id'],
           },
         },
         ...whereClause,
         orderBy: {
           space: {
-            owner_id: "desc",
+            owner_id: 'desc',
           },
         },
       },
@@ -155,8 +155,8 @@ export const TodoService = {
     };
     const todo = await prisma.todo.create({
       data: {
-        title: "Explore todo UI",
-        description: "Explore the various todo features",
+        title: 'Explore todo UI',
+        description: 'Explore the various todo features',
         ...defaultTodoOptions,
       } as any,
     });
@@ -164,8 +164,8 @@ export const TodoService = {
     await prisma.statusTransitions.create({
       data: {
         todo_id: todo.id,
-        status: "todo",
-        comment: "Created..",
+        status: 'todo',
+        comment: 'Created..',
       },
     });
 
@@ -186,7 +186,7 @@ export const TodoService = {
         return prisma.commentable.create({
           data: {
             commentee_id: todo.id,
-            commentee_type: "Todo",
+            commentee_type: 'Todo',
             comment_id: commentId,
           },
         });
@@ -214,7 +214,7 @@ export const TodoService = {
         id: todoId,
       },
     });
-    return result?.statusMeta?.statuses?.split(",");
+    return result?.statusMeta?.statuses?.split(',');
   },
   async getStatusHistory(todoId: number) {
     const transitions = await prisma.todo.findFirst({
@@ -226,7 +226,7 @@ export const TodoService = {
             created_at: true,
           },
           orderBy: {
-            created_at: "desc",
+            created_at: 'desc',
           },
         },
       },
@@ -246,7 +246,7 @@ export const TodoService = {
     if (!availableStatuses?.includes(newStatus)) {
       throw Error(
         `Invalid status for this todo. Choose one of : ${availableStatuses?.join(
-          ","
+          ','
         )}`
       );
     }
@@ -273,7 +273,7 @@ export const TodoService = {
 
     await prisma.statusTransitions.create({
       data: {
-        status: statusMeta?.statuses.split(",")[0] as string,
+        status: statusMeta?.statuses.split(',')[0] as string,
         todo_id: newTodo.id,
         comment: `Changed by ${user.email}`,
       },
@@ -301,9 +301,9 @@ export const TodoService = {
             todo_id: true,
           },
           orderBy: {
-            created_at: "desc",
+            created_at: 'desc',
           },
-          distinct: ["todo_id"],
+          distinct: ['todo_id'],
         },
         space: {
           select: {
@@ -353,10 +353,9 @@ export const TodoService = {
     return prisma.commentable.create({
       data: {
         commentee_id: todoId,
-        commentee_type: "Todo",
+        commentee_type: 'Todo',
         comment_id: insertedComment[0].id,
       },
     });
   },
 };
-

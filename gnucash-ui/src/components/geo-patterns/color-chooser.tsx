@@ -1,7 +1,7 @@
-import { useContext } from "react";
-import { ColorPaletteContext } from "./palette-context-provider";
-import { Check } from "react-feather";
-import ColorRow from "./color-row";
+import { useContext } from 'react';
+import { ColorPaletteContext } from './palette-context-provider';
+import { Check } from 'react-feather';
+import ColorRow from './color-row';
 
 export default function ColorChooser() {
   const colorContextState = useContext(ColorPaletteContext);
@@ -20,10 +20,10 @@ export default function ColorChooser() {
     <div>
       {colorSchemes.map((schemeMeta: any, thisColorSchemaIndex: number) => {
         return (
-          <div className="flex flex-wrap p-[3px]" key={thisColorSchemaIndex}>
+          <div className='flex flex-wrap p-[3px]' key={thisColorSchemaIndex}>
             <div
               onClick={() => setColorSchemeIndex(thisColorSchemaIndex)}
-              className="aspect-square w-[2rem] h-[2rem]"
+              className='aspect-square w-[2rem] h-[2rem]'
             >
               {thisColorSchemaIndex == colorSchemeIndex ? <Check /> : null}
             </div>
@@ -49,4 +49,3 @@ export default function ColorChooser() {
     </div>
   );
 }
-

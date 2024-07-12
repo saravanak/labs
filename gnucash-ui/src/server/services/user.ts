@@ -1,8 +1,8 @@
-import { TodoService } from "@/server/services/todo";
-import { UserModel } from "@/lib/prisma/zod";
-import prisma from "@/lib/prisma";
-import { z } from "zod";
-import { User } from "@prisma/client";
+import { TodoService } from '@/server/services/todo';
+import { UserModel } from '@/lib/prisma/zod';
+import prisma from '@/lib/prisma';
+import { z } from 'zod';
+import { User } from '@prisma/client';
 
 export const UserService = {
   async defaultOrCreateOwnerSpace(user: User) {
@@ -27,7 +27,6 @@ export const UserService = {
     });
 
     console.log(`defaultOrCreateOwnerSpace:${todosForUser}`);
-    
 
     if (todosForUser?.length == 0) {
       for (var i = 1; i < 5; i++) {
@@ -36,4 +35,3 @@ export const UserService = {
     }
   },
 };
-

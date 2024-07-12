@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import HocForm from "@/components/ui/ui-hoc/hoc-form";
-import { navigateToParentRoute } from "@/utils/router/parent-go-back";
-import { trpc } from "@/utils/trpc";
-import { Case } from "change-case-all";
-import { usePathname, useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { z } from "zod";
+import HocForm from '@/components/ui/ui-hoc/hoc-form';
+import { navigateToParentRoute } from '@/utils/router/parent-go-back';
+import { trpc } from '@/utils/trpc';
+import { Case } from 'change-case-all';
+import { usePathname, useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { z } from 'zod';
 
 export default function ChangeStatus({ params }: any) {
   const router = useRouter();
@@ -26,8 +26,8 @@ export default function ChangeStatus({ params }: any) {
 
   const formMeta: Record<string, any> = {
     newStatus: {
-      label: "Choose status",
-      type: "select",
+      label: 'Choose status',
+      type: 'select',
       statusOptions: validStatuses?.data?.map((v) => {
         return {
           value: v,
@@ -36,8 +36,8 @@ export default function ChangeStatus({ params }: any) {
       }),
     },
     comment: {
-      label: "Enter comment",
-      type: "text",
+      label: 'Enter comment',
+      type: 'text',
     },
   };
 
@@ -59,14 +59,13 @@ export default function ChangeStatus({ params }: any) {
     <HocForm
       formSchema={formSchema}
       onSubmit={onSubmit}
-      title="Change Status"
+      title='Change Status'
       mutation={mutation}
       formMeta={formMeta}
       defaultValues={{
         newStatus: todo.data?.StatusTransitions[0].status,
-        comment: "",
+        comment: '',
       }}
     />
   );
 }
-

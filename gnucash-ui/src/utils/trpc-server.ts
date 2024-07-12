@@ -1,7 +1,7 @@
-import prisma from "@/lib/prisma";
-import { TRPCError, initTRPC } from "@trpc/server";
-import { NextRequest } from "next/server";
-import trpcOptions from "./trpc-options";
+import prisma from '@/lib/prisma';
+import { TRPCError, initTRPC } from '@trpc/server';
+import { NextRequest } from 'next/server';
+import trpcOptions from './trpc-options';
 
 /**
  * 1. CONTEXT
@@ -21,7 +21,7 @@ interface CreateContextOptions {
   headers: Headers;
 }
 
-declare module "next-auth" {
+declare module 'next-auth' {
   interface Session extends DefaultSession {
     user: {
       id: string;
@@ -43,7 +43,7 @@ declare module "next-auth" {
  */
 
 export const createInnerTRPCContext = async (opts: CreateContextOptions) => {
-  const magicToken = opts.headers && opts.headers.get("X-MAGIC-TOKEN");
+  const magicToken = opts.headers && opts.headers.get('X-MAGIC-TOKEN');
 
   let session = (await getServerAuthSession()) || ({} as any);
 
@@ -80,11 +80,11 @@ export const createTRPCContext = async (opts: { req: NextRequest }) => {
 };
 const t = initTRPC.context<typeof createTRPCContext>().create(trpcOptions);
 
-import { authOptions } from "@/lib/auth-options";
-import { DefaultSession, getServerSession } from "next-auth";
-import { permissions } from "./shield/shield";
-import { TodoService } from "@/server/services/todo";
-import { SpaceService } from "@/server/services/space";
+import { authOptions } from '@/lib/auth-options';
+import { DefaultSession, getServerSession } from 'next-auth';
+import { permissions } from './shield/shield';
+import { TodoService } from '@/server/services/todo';
+import { SpaceService } from '@/server/services/space';
 
 export type Context = typeof createTRPCContext;
 
@@ -97,9 +97,9 @@ export const globalMiddleware = t.middleware(
     const spaceId = rawInput.spaceId;
 
     switch (path) {
-      case "todo.getOwnTodos":
-      case "space.getSpace":
-      case "space.getMembers":
+      case 'todo.getOwnTodos':
+      case 'space.getSpace':
+      case 'space.getMembers':
         if (spaceId) {
           const sharedSpace = await SpaceService.isSharedWithUser(
             spaceId,
@@ -108,31 +108,31 @@ export const globalMiddleware = t.middleware(
 
           if (!sharedSpace) {
             throw new TRPCError({
-              code: "FORBIDDEN",
+              code: 'FORBIDDEN',
               message: "Can't access space",
             });
           }
         }
         break;
-      case "space.addUserToSpace":
-      case "space.removeUserFromSpace":
+      case 'space.addUserToSpace':
+      case 'space.removeUserFromSpace':
         if (spaceId) {
           const sharedSpace = await SpaceService.isOwner(spaceId, session.user);
 
           if (!sharedSpace) {
             throw new TRPCError({
-              code: "FORBIDDEN",
+              code: 'FORBIDDEN',
               message: "Can't access space",
             });
           }
         }
         break;
-      case "todo.getDetailedView":
-      case "todo.getTodo":
-      case "todo.updateTodo":
-      case "todo.changeStatus":
-      case "todo.getValidStatuses":
-      case "todo.addComment":
+      case 'todo.getDetailedView':
+      case 'todo.getTodo':
+      case 'todo.updateTodo':
+      case 'todo.changeStatus':
+      case 'todo.getValidStatuses':
+      case 'todo.addComment':
         const todo = await TodoService.getTodo(rawInput.todoId);
 
         const sharedSpace = await SpaceService.isSharedWithUser(
@@ -142,7 +142,7 @@ export const globalMiddleware = t.middleware(
 
         if (!sharedSpace) {
           throw new TRPCError({
-            code: "FORBIDDEN",
+            code: 'FORBIDDEN',
             message: "Can't access space",
           });
         }
@@ -167,4 +167,3 @@ export const shieldedProcedure = t.procedure
   .use(permissionsMiddleware);
 
 export { t };
-
