@@ -14,15 +14,51 @@ export default function SpinnerPage() {
     if (!svgRoot.current) {
       return;
     }
-    var interpol_rotate = d3.interpolateString("rotate(0)", "rotate(360)");
+    var interpol_rotate: any,
+      interpolateTime: any,
+      durationEasing: any = null,
+      steps: any = null,
+      totalSteps: any,
+      stepIncrement: any,
+      angleEasing: any;
 
-    var interpolateTime = d3.interpolateNumberArray([0, 0.25,5,0.75,1], [800, 850, 1000, 1500, 2000]);
-    const  durationEasing  = d3.easeSinIn;
-    let steps = 0;
-    const totalSteps = 20;
-    const stepIncrement = 1/totalSteps;
-    console.log(stepIncrement);
-    const angleEasing = d3.easeLinear;
+    function initInterpolators() {
+      interpol_rotate = d3.interpolateString("rotate(0)", "rotate(360)");
+
+      interpolateTime = d3.interpolateNumberArray(
+        [0, 0.25, 5, 0.75, .85 , .90, .95,  1],
+        [1000, 1250, 1500, 2100, 2500, 5500, 15000, 20000]
+      );
+      durationEasing = d3.easeSinOut;
+      steps = 0;
+      totalSteps = 20;
+      stepIncrement = 1 / totalSteps;
+      angleEasing = d3.easeLinear;
+    }
+
+    initInterpolators();
+
+    function animator(selection: any) {
+      d3.select(selection)
+        .transition()
+        .duration(interpolateTime(0)[1])
+        .ease(angleEasing)
+        .attrTween("transform", (d: any) => interpol_rotate)
+        .on("start", function repeat() {
+          steps += stepIncrement;
+
+          const easedStep = durationEasing(steps);
+          const currentDuration = interpolateTime(easedStep)[1];
+          console.log({ steps, currentDuration });
+
+          (d3.active(this as any) as any)
+            .transition()
+            .duration(currentDuration)
+            .ease(angleEasing)
+            .attrTween("transform", (d: any) => interpol_rotate)
+            .on("start", steps > 1 ? () => {initInterpolators()} : repeat);
+        });
+    }
 
     var svg = d3.select(svgRoot.current);
 
@@ -57,30 +93,15 @@ export default function SpinnerPage() {
       .on("mousedown", () => {
         mouseClickStart.current = new Date();
       })
-      .on("mouseup", () => {
+      .on("mouseup", function (event, datum) {
         const duration = d3.timeMillisecond.count(
           mouseClickStart.current,
           new Date()
         );
-        console.log({ duration });
-      })
-      .transition()
-      .duration(interpolateTime(0)[1])
-      .ease(angleEasing)
-      .attrTween("transform", (d: any) => interpol_rotate)
-      .on("start", function repeat() {
-        steps += stepIncrement;
-        
-        const easedStep = durationEasing(steps);
-        const currentDuration = interpolateTime(easedStep)[1];
-        console.log({steps, currentDuration});
 
-        (d3.active(this as any) as any)
-          .transition()
-          .duration(currentDuration)
-          .ease(angleEasing)
-          .attrTween("transform", (d: any) => interpol_rotate)
-          .on("start", steps > 1 ? () => {} : repeat);
+        console.log({ datum, event, foo: this });
+
+        animator(this);
       });
 
     selection.exit().remove();
