@@ -10,6 +10,7 @@ import { Button } from '../button';
 import { Form } from '../form';
 import ListItem from '../lists/list-item';
 import HocInput from './hoc-input';
+import { cn } from '@/lib/utils';
 
 export default function EditableText({
   model,
@@ -19,6 +20,7 @@ export default function EditableText({
   queryKey,
   fieldName,
   useMarkdown = false,
+  helpText
 }: any) {
   const [isEditing, setIsEditing] = useState(false);
   const iconSize = 15;
@@ -62,6 +64,7 @@ export default function EditableText({
     [fieldName]: {
       label: false,
       type,
+      helpText
     },
   };
 
@@ -69,11 +72,10 @@ export default function EditableText({
     ...form,
     formMeta,
   };
-  const propertyPaths = [fieldName];
 
   const formComponent = isEditing ? (
     <Form {...additionalContext}>
-      <form className='space-y-8'>
+      <form className={cn('space-y-8', useMarkdown ? 'font-mono' : '')}>
         <HocInput key={fieldName} name={fieldName} formMeta={formMeta} />
       </form>
     </Form>
