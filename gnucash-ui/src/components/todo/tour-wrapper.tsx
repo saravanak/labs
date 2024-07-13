@@ -21,22 +21,22 @@ export default function TourWrapper({ children, session }: any) {
     to: [
       {
         borderColor: 'green',
-        filter: "brightness(2)"
+        filter: 'brightness(2)',
       },
       {
         borderColor: 'yellow',
-        filter: "brightness(1.1)"
+        filter: 'brightness(1.1)',
       },
     ],
     config: { ...config.molasses },
-    loop:  true,    
-    reset:true
+    loop: true,
+    reset: true,
   };
   let springs = useSpring({
     ...toConfig,
   });
   return (
-    <div className='grid grid-cols-1 h-svh grid-rows-[3em,1fr,3em]'>
+    <div className='grid grid-cols-1 h-svh grid-rows-[3em,1fr,3em]  border-2 border-primary '>
       <FlexJustifySpread className='bg-primary text-primary-foreground py-4 h-[3em]'>
         <div className='pl-4 grow font-bold text-lg flex items-center'>
           <div data-retour-step='tinja'> Tinja</div>
@@ -69,7 +69,7 @@ export default function TourWrapper({ children, session }: any) {
           {session && session.user.email}
         </Button>
       </FlexJustifySpread>
-      <div className='h-full  overflow-y-auto border-2 border-primary box-border bg-gradient-to-br from-gray-200 to-zinc-100'>
+      <div className='h-full  overflow-y-auto box-border bg-gradient-to-br from-gray-200 to-zinc-100 '>
         {userSession && userSession.user.isDemoUser && (
           <>
             <ListItem
