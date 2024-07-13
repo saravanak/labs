@@ -26,6 +26,7 @@ export default function AboutApp() {
   return (
     <>
       <PropertyListItem
+        valueClassNames='min-w-[70%] max-w-[70%]'
         drawBorder={true}
         property='About'
         valueRenderer={() =>
@@ -33,6 +34,7 @@ export default function AboutApp() {
         }
       ></PropertyListItem>
       <PropertyListItem
+        valueClassNames='min-w-[70%] max-w-[70%]'
         drawBorder={true}
         property='Space and Todos'
         valueRenderer={() => (
@@ -54,11 +56,14 @@ export default function AboutApp() {
                 imagination is the limit!! Enjoy!!
               </li>
             </ul>
-            <Button className='mt-4' onClick={() => router.push('/login')}>Login</Button>
+            <Button className='mt-4' onClick={() => router.push('/login')}>
+              Login
+            </Button>
           </div>
         )}
       ></PropertyListItem>
       <PropertyListItem
+        valueClassNames='min-w-[70%] max-w-[70%]'
         property='Terms and GPDR'
         drawBorder={true}
         valueRenderer={() =>
@@ -66,6 +71,7 @@ export default function AboutApp() {
         }
       ></PropertyListItem>
       <PropertyListItem
+        valueClassNames='min-w-[70%] max-w-[70%]'
         property='Web'
         drawBorder={true}
         valueRenderer={() => (
@@ -75,6 +81,7 @@ export default function AboutApp() {
         )}
       ></PropertyListItem>
       <PropertyListItem
+        valueClassNames='min-w-[70%] max-w-[70%]'
         property='API'
         drawBorder={true}
         valueRenderer={() => (
@@ -94,6 +101,7 @@ export default function AboutApp() {
         )}
       ></PropertyListItem>
       <PropertyListItem
+        valueClassNames='min-w-[70%] max-w-[70%]'
         property='Authentication'
         drawBorder={true}
         valueRenderer={() => (
@@ -107,6 +115,7 @@ export default function AboutApp() {
         )}
       ></PropertyListItem>
       <PropertyListItem
+        valueClassNames='min-w-[70%] max-w-[70%]'
         property='Styling'
         drawBorder={true}
         valueRenderer={() => (
@@ -120,6 +129,7 @@ export default function AboutApp() {
         )}
       ></PropertyListItem>
       <PropertyListItem
+        valueClassNames='min-w-[70%] max-w-[70%]'
         property='Components'
         drawBorder={true}
         valueRenderer={() => (
@@ -133,6 +143,7 @@ export default function AboutApp() {
         )}
       ></PropertyListItem>
       <PropertyListItem
+        valueClassNames='min-w-[70%] max-w-[70%]'
         property='Icons'
         drawBorder={true}
         valueRenderer={() => (
@@ -142,6 +153,7 @@ export default function AboutApp() {
         )}
       ></PropertyListItem>
       <PropertyListItem
+        valueClassNames='min-w-[70%] max-w-[70%]'
         property='ORM/SQL'
         drawBorder={true}
         valueRenderer={() => (
@@ -155,6 +167,7 @@ export default function AboutApp() {
         )}
       ></PropertyListItem>
       <PropertyListItem
+        valueClassNames='min-w-[70%] max-w-[70%]'
         property='Tour'
         drawBorder={true}
         valueRenderer={() => (
@@ -164,6 +177,7 @@ export default function AboutApp() {
         )}
       ></PropertyListItem>
       <PropertyListItem
+        valueClassNames='min-w-[70%] max-w-[70%]'
         property='Forms'
         drawBorder={true}
         valueRenderer={() => (
@@ -178,6 +192,7 @@ export default function AboutApp() {
         )}
       ></PropertyListItem>
       <PropertyListItem
+        valueClassNames='min-w-[70%] max-w-[70%]'
         property='Source'
         drawBorder={true}
         valueRenderer={() => (
@@ -192,6 +207,7 @@ export default function AboutApp() {
         )}
       ></PropertyListItem>
       <PropertyListItem
+        valueClassNames='min-w-[70%] max-w-[70%]'
         property='Server'
         drawBorder={true}
         valueRenderer={() => (
@@ -206,6 +222,7 @@ export default function AboutApp() {
         )}
       ></PropertyListItem>
       <PropertyListItem
+        valueClassNames='min-w-[70%] max-w-[70%]'
         property='Deployment and Provisioning'
         drawBorder={true}
         valueRenderer={() => (
@@ -215,6 +232,7 @@ export default function AboutApp() {
         )}
       ></PropertyListItem>
       <PropertyListItem
+        valueClassNames='min-w-[70%] max-w-[70%]'
         property='Hugs for Misses'
         drawBorder={true}
         valueRenderer={() =>
