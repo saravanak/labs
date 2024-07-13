@@ -38,7 +38,7 @@ export default function TourWrapper({ children, session }: any) {
           {session && session.user.email}
         </Button>
       </FlexJustifySpread>
-      <div className='h-full  overflow-y-auto border-2 border-primary box-border'>
+      <div className='h-full  overflow-y-auto border-2 border-primary box-border bg-gradient-to-br from-gray-200 to-zinc-100'>
         {userSession && userSession.user.isDemoUser && (
           <>
             <ListItem

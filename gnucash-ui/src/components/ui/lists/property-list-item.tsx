@@ -21,7 +21,7 @@ export default function PropertyListItem({
       )}
       <div
         className={cn(
-          'align-right px-4 py-2 rounded-md mx-2',
+          'align-right px-4 py-2 rounded-md mx-2 min-w-[70%] max-w-[70%]',
           asTag ? `${tagColor}` : ''
         )}
       >

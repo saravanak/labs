@@ -1,0 +1,211 @@
+import ListItem from '@/components/ui/lists/list-item';
+import PropertyListItem from '@/components/ui/lists/property-list-item';
+import { cn } from '@/lib/utils';
+const anchorClass = 'underline underline-offset-2 font-bold text-primary';
+
+const ProjectRefs = ({ links }: any) => {
+  return links.map(({ label, url }: any) => {
+    return (
+      <a
+        key={label}
+        className={cn(anchorClass, 'pr-2')}
+        href={url}
+        target='_blank'
+      >
+        {label}
+      </a>
+    );
+  });
+};
+
+export default function AboutApp() {
+  return (
+    <>
+      <PropertyListItem
+        drawBorder={true}
+        property='About'
+        valueRenderer={() =>
+          'This is a demo app for todos, to showcase my skills in Frontend and Backend development'
+        }
+      ></PropertyListItem>
+      <PropertyListItem
+        drawBorder={true}
+        property='Space and Todos'
+        valueRenderer={() => (
+          <ul className='list-disc'>
+            <li>
+              <b>Todos</b> are your todos. With title, description and a status.{' '}
+            </li>
+            <li>
+              You can group a collection of todos as a <b>Space</b>
+            </li>
+            <li> You can share your space to someone</li>
+            <li> Someone can also add you to their spaces</li>
+            <li>
+              {' '}
+              This simple arragment, in my view can double up as many things:
+              todos, office tasks, message board, private groups, etc. Your
+              imagination is the limit!! Enjoy!!
+            </li>
+          </ul>
+        )}
+      ></PropertyListItem>
+      <PropertyListItem
+        property='Web'
+        drawBorder={true}
+        valueRenderer={() => (
+          <a className={anchorClass} href='https://nextjs.org/' target='_blank'>
+            Next.js
+          </a>
+        )}
+      ></PropertyListItem>
+      <PropertyListItem
+        property='API'
+        drawBorder={true}
+        valueRenderer={() => (
+          <>
+            <a className={anchorClass} href='https://trpc.io/' target='_blank'>
+              tRPC
+            </a>
+            &nbsp;over&nbsp;
+            <a
+              className={anchorClass}
+              href='https://react-query.tanstack.com/'
+              target='_blank'
+            >
+              React Query
+            </a>
+          </>
+        )}
+      ></PropertyListItem>
+      <PropertyListItem
+        property='Authentication'
+        drawBorder={true}
+        valueRenderer={() => (
+          <a
+            className={anchorClass}
+            href='https://next-auth.js.org/'
+            target='_blank'
+          >
+            Next Auth aka Auth.js
+          </a>
+        )}
+      ></PropertyListItem>
+      <PropertyListItem
+        property='Styling'
+        drawBorder={true}
+        valueRenderer={() => (
+          <a
+            className={anchorClass}
+            href='https://tailwindcss.com/'
+            target='_blank'
+          >
+            Tailwind CSS
+          </a>
+        )}
+      ></PropertyListItem>
+      <PropertyListItem
+        property='Components'
+        drawBorder={true}
+        valueRenderer={() => (
+          <ProjectRefs
+            links={[
+              { label: 'shadcn', url: 'https://ui.shadcn.com/' },
+              { label: 'cva', url: 'https://cva.style/' },
+              { label: 'radix-ui', url: 'https://www.radix-ui.com/primitives' },
+            ]}
+          />
+        )}
+      ></PropertyListItem>
+      <PropertyListItem
+        property='Icons'
+        drawBorder={true}
+        valueRenderer={() => (
+          <a className={anchorClass} href='https://lucide.dev/' target='_blank'>
+            Lucid React
+          </a>
+        )}
+      ></PropertyListItem>
+      <PropertyListItem
+        property='ORM/SQL'
+        drawBorder={true}
+        valueRenderer={() => (
+          <ProjectRefs
+            links={[
+              { label: 'Prisma', url: 'https://www.prisma.io/' },
+              { label: 'pg-typed', url: 'https://github.com/adelsz/pgtyped' },
+              { label: 'Postgres', url: 'https://postgresql.org/' },
+            ]}
+          />
+        )}
+      ></PropertyListItem>
+      <PropertyListItem
+        property='Tour'
+        drawBorder={true}
+        valueRenderer={() => (
+          <ProjectRefs
+            links={[{ label: 'reactour', url: 'https://docs.react.tours/' }]}
+          />
+        )}
+      ></PropertyListItem>
+      <PropertyListItem
+        property='Forms'
+        drawBorder={true}
+        valueRenderer={() => (
+          <ProjectRefs
+            links={[
+              {
+                label: 'React Hook Forms',
+                url: 'https://react-hook-form.com/',
+              },
+            ]}
+          />
+        )}
+      ></PropertyListItem>
+      <PropertyListItem
+        property='Source'
+        drawBorder={true}
+        valueRenderer={() => (
+          <ProjectRefs
+            links={[
+              {
+                label: 'Github',
+                url: 'https://github.com/saravanak/labs/tree/gnuplot-go-bridge/gnucash-ui/',
+              },
+            ]}
+          />
+        )}
+      ></PropertyListItem>
+      <PropertyListItem
+        property='Server'
+        drawBorder={true}
+        valueRenderer={() => (
+          <ProjectRefs
+            links={[
+              {
+                label: 'DigitalOcean Droplets',
+                url: 'https://www.digitalocean.com/',
+              },
+            ]}
+          />
+        )}
+      ></PropertyListItem>
+      <PropertyListItem
+        property='Deployment and Provisioning'
+        drawBorder={true}
+        valueRenderer={() => (
+          <ProjectRefs
+            links={[{ label: 'Ansible', url: 'https://docs.ansible.com/' }]}
+          />
+        )}
+      ></PropertyListItem>
+      <PropertyListItem
+        property='Hugs for Misses'
+        drawBorder={true}
+        valueRenderer={() =>
+          'There are a lot more projects and references that I got from a lot of places. Thanks to those of you!'
+        }
+      ></PropertyListItem>
+    </>
+  );
+}

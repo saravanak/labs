@@ -21,17 +21,17 @@ export default function TodoTabBar() {
     form || {};
 
   let tabButtons = useMemo(() => {
-    if (pathname == '/login') {
+    if (['/login', '/credits/about-tinja'].includes(pathname)) {
       return [
-        { key: 'what', label: "What's this?", path: 'about-tinja' },
-        { key: 'spaces', label: 'About me', path: 'sandbox' },
+        { key: 'what', label: "What's this?", path: 'credits/about-tinja' },
+        { key: 'spaces', label: 'About me', path: '/' },
       ].map(({ key, label, path }) => {
         return (
           <Link
-            href={`/${path}`}
+            href={`${path}`}
             key={key}
             className={cn(
-              'pl-4 basis-1/2  h-full text-center font-bold content-center border-r-2 border-primary ml-[1px] box-border first:border-l-2 border-b-2'
+              'pl-4 basis-1/2  h-full text-center font-bold content-center first:border-r-[1px] border-primary-foreground ml-[1px] box-border '
             )}
           >
             {label}
@@ -122,7 +122,7 @@ export default function TodoTabBar() {
     <div className='mb-4 h-full'>
       <FlexJustifySpread
         className={cn(
-          'bg-blue-300 h-full justify-around items-center border-blue-200',
+          'bg-primary text-primary-foreground h-full justify-around items-center ',
           ` ${form ? 'justify-center' : ''}`
         )}
       >

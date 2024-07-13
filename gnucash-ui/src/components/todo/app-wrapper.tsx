@@ -84,7 +84,7 @@ export default function AppWrapper({ children, session }: any) {
   ];
 
   if (!session) {
-    if (pathname != '/login') {
+    if (!['/login', '/credits/about-tinja'].includes(pathname)) {
       router.push('/login');
     }
   }
