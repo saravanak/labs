@@ -66,10 +66,8 @@ export default function AudioTutor() {
   const [chatMessages, setChatMessages] = useState(chatList);
 
   useEffect(() => {
-    console.log('Effect');
 
     navigator.mediaDevices.ondevicechange = (event) => {
-      console.log('device changed', event);
     };
     if (
       !('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)

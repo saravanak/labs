@@ -41,7 +41,6 @@ export default function SevenSegmentDigit({
       isLit: v == '1',
     };
   });
-  console.log({ segments });
 
   let content: any = null;
 

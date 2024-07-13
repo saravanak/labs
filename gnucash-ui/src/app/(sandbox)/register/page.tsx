@@ -29,7 +29,6 @@ export default function RegisterPage() {
           queryKey: [email],
         }
       );
-      console.log({ result });
       return result?.count == 0;
     }, 500),
     []

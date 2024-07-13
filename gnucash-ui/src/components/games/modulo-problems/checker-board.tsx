@@ -78,7 +78,6 @@ function GenerateCheckerBoard({
   }, [currentAnimatedCell]);
 
   useEffect(() => {
-    console.log('Resetting animations...');
 
     if (timeoutHandle) {
       clearTimeout(timeoutHandle);

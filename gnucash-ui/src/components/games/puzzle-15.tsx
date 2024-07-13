@@ -31,12 +31,10 @@ export default function Puzzle15Component() {
   const [alphabetWinType, setAlphabetWinType] = useState('order');
   const [isGameWon, setGameWon] = useState(() => false);
 
-  console.log(`Render ${isGameWon}`);
 
   const imageSequence: any = [];
 
   useEffect(() => {
-    console.log('Adding event listener');
 
     switch (selectedStrategy) {
       case 'numbers':
@@ -95,7 +93,6 @@ export default function Puzzle15Component() {
   };
   useEffect(() => {
     if (isGameWon) {
-      console.log('Removing event listener');
       document.removeEventListener('keydown', handleKeyDown);
     } else {
       document.addEventListener('keydown', handleKeyDown);
@@ -114,7 +111,6 @@ export default function Puzzle15Component() {
   };
 
   function handleKeyDown(e: any) {
-    console.log('Inside keyhandler');
 
     e.stopPropagation();
     e.preventDefault();

@@ -53,6 +53,7 @@ export interface ButtonProps
   asChild?: boolean;
   behaveAs?: any;
   enabledOnDemo?: boolean;
+  showAlways?: boolean
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

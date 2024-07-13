@@ -1,4 +1,2 @@
 cd  gnucash-ui
 npx lint-staged
-echo "Hai"
-exit 1

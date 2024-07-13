@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react';
  */
 
 const AbilifiedButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ disabled, enabledOnDemo, ...props }, ref) => {
+  ({ disabled, enabledOnDemo, showAlways, ...props }, ref) => {
     const { data: userSession }: any = useSession();
 
     const isDemoMode = userSession && userSession.user.isDemoUser;
@@ -16,6 +16,9 @@ const AbilifiedButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ? false
         : true
       : disabled;
+    if (showAlways) {
+      calculatedDisabled = false
+    }
     return <button ref={ref} disabled={calculatedDisabled} {...props} />;
   }
 );
