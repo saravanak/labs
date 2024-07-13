@@ -33,8 +33,6 @@ export default function AddMemberToSpace({ params }: any) {
     onSuccess: (d, { inviteeEmail }) => {
       toast(`Invited ${inviteeEmail} to your space`);
       const previousPath = pathname.split('/').slice(0, -1).join('/');
-      console.log(previousPath);
-
       router.push(`${previousPath}`);
       router.refresh();
     },

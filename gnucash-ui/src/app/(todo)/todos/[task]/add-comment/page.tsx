@@ -58,7 +58,7 @@ export default function CreateCommentForTodoForm({ params }: any) {
       />
       <PropertyListItem
         property='status'
-        value={todo?.data?.StatusTransitions[0].status}
+        value={todo?.data?.status}
         asTag={true}
         tagColor='bg-green-600 text-gray-200 font-bold'
       />

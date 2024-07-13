@@ -63,7 +63,7 @@ export default function ChangeStatus({ params }: any) {
       mutation={mutation}
       formMeta={formMeta}
       defaultValues={{
-        newStatus: todo.data?.StatusTransitions[0].status,
+        newStatus: todo.data?.status,
         comment: '',
       }}
     />
