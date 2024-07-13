@@ -153,8 +153,9 @@ export default function TodosListingPage() {
                 type='text'
                 ref={searchTextInput}
                 value={searchText}
-                onChange={(e) => setSearchText(e.target.value.trim())}
-                className=''
+                onChange={(e) =>
+                  setSearchText(e.target.value ? e.target.value.trim() : undefined)
+                }
               />
             </div>
           </ListItem>
