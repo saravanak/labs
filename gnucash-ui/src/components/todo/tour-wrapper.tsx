@@ -7,27 +7,55 @@ import TodoTabBar from './todo-tab-bar';
 import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import ListItem from '../ui/lists/list-item';
-
+import { animated, useSpring, easings, config } from '@react-spring/web';
 export default function TourWrapper({ children, session }: any) {
   const { setIsOpen } = useTour();
   const { data: userSession }: any = useSession();
   const isDemoUser = userSession && userSession.user.isDemoUser;
   const router = useRouter();
+  const toConfig = {
+    // from: {
+    //   borderColor: 'pink',
+    // },
+
+    to: [
+      {
+        borderColor: 'green',
+        filter: "brightness(2)"
+      },
+      {
+        borderColor: 'yellow',
+        filter: "brightness(1.1)"
+      },
+    ],
+    config: { ...config.molasses },
+    loop:  true,    
+    reset:true
+  };
+  let springs = useSpring({
+    ...toConfig,
+  });
   return (
     <div className='grid grid-cols-1 h-svh grid-rows-[3em,1fr,3em]'>
       <FlexJustifySpread className='bg-primary text-primary-foreground py-4 h-[3em]'>
         <div className='pl-4 grow font-bold text-lg flex items-center'>
           <div data-retour-step='tinja'> Tinja</div>
           {isDemoUser && (
-            <Button
-              enabledOnDemo={true}
-              onClick={() => {
-                router.push('/todos');
-                setIsOpen(true);
-              }}
+            <animated.div
+              className='border-2 mx-4 rounded-md bg-primary'
+              style={{ ...springs }}
             >
-              <TramFront />
-            </Button>
+              <Button
+                className='text-pink-400'
+                enabledOnDemo={true}
+                onClick={() => {
+                  router.push('/todos');
+                  setIsOpen(true);
+                }}
+              >
+                <TramFront />
+              </Button>
+            </animated.div>
           )}
         </div>
 

@@ -49,7 +49,7 @@ export default function TodoTabBar() {
               data-retour-step={v}
               data-test-action={`go-to-${v}`}
               className={cn(
-                'pl-4 basis-1/2  h-full text-center font-bold content-center',
+                'pl-4 basis-1/2  h-full text-center font-bold content-center bg-primary text-primary-foreground',
                 v == segment
                   ? 'bg-primary text-primary-foreground'
                   : 'bg-card text-muted-foreground'
