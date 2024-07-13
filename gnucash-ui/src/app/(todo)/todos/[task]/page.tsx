@@ -1,4 +1,5 @@
 'use client';
+import { Button } from '@/components/ui/button';
 import ListItem from '@/components/ui/lists/list-item';
 import LoaderListItem from '@/components/ui/lists/loader-list';
 import PropertyListItem from '@/components/ui/lists/property-list-item';
@@ -6,6 +7,7 @@ import TwoLineListItem from '@/components/ui/lists/two-line-list-item';
 import EditableText from '@/components/ui/ui-hoc/editable-text';
 import { trpc } from '@/utils/trpc';
 import { Case } from 'change-case-all';
+import { Plus, Rows3 } from 'lucide-react';
 import { DateTime } from 'luxon';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -22,10 +24,23 @@ export default function TaskDetailPage({ params }: any) {
 
   if (todoDetail.data) {
     const { comments, statusHistory, todo } = todoDetail.data;
-    const status = todo?.StatusTransitions[0]?.status;
+    const status = todo?.status;
     return (
       <>
-        <ListItem variant='header'>Todo #{todo?.id}</ListItem>
+        <ListItem variant='header' className="justify-between">
+          <div> Todo #{todo?.id} </div>
+          <Button
+            variant='outline'
+            onClick={() => {
+              const previousPath = pathname.split('/').slice(0, -1).join('/');
+              router.push(`${previousPath}`);
+              router.refresh();
+            }}
+          >
+            {' '}
+            <Rows3 />
+          </Button>
+        </ListItem>
         <EditableText
           model={todo}
           fieldName='title'
@@ -42,6 +57,7 @@ export default function TaskDetailPage({ params }: any) {
           model={todo}
           fieldName='description'
           type='textarea'
+          helpText='Github Flavoured Markdown'
           useMarkdown={true}
           mutationFunction={todoFieldUpdateMutation}
           queryKey={[['todo', 'getDetailedView']]}
@@ -52,6 +68,7 @@ export default function TaskDetailPage({ params }: any) {
           }}
         />
         <PropertyListItem
+          variant='heading2'
           onClick={() => router.push(`${pathname}/change-status`)}
           property='status'
           value={status}
@@ -64,6 +81,9 @@ export default function TaskDetailPage({ params }: any) {
           variant='heading2'
         >
           Comments
+          <Button variant='ghost'>
+            <Plus />
+          </Button>
         </ListItem>
 
         {comments.length ? (
@@ -92,8 +112,8 @@ export default function TaskDetailPage({ params }: any) {
         )}
 
         <ListItem variant='heading2'>Status History</ListItem>
-        {statusHistory &&
-          statusHistory.StatusTransitions.map((statusLine, index) => {
+        {statusHistory ? (
+          statusHistory.map((statusLine, index) => {
             return (
               <TwoLineListItem
                 key={index}
@@ -108,7 +128,10 @@ export default function TaskDetailPage({ params }: any) {
                 }}
               />
             );
-          })}
+          })
+        ) : (
+          <ListItem> There are no comments yet</ListItem>
+        )}
       </>
     );
   } else {
