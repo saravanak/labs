@@ -1,6 +1,9 @@
+'use client';
+import { Button } from '@/components/ui/button';
 import ListItem from '@/components/ui/lists/list-item';
 import PropertyListItem from '@/components/ui/lists/property-list-item';
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 const anchorClass = 'underline underline-offset-2 font-bold text-primary';
 
 const ProjectRefs = ({ links }: any) => {
@@ -19,6 +22,7 @@ const ProjectRefs = ({ links }: any) => {
 };
 
 export default function AboutApp() {
+  const router = useRouter();
   return (
     <>
       <PropertyListItem
@@ -32,23 +36,34 @@ export default function AboutApp() {
         drawBorder={true}
         property='Space and Todos'
         valueRenderer={() => (
-          <ul className='list-disc'>
-            <li>
-              <b>Todos</b> are your todos. With title, description and a status.{' '}
-            </li>
-            <li>
-              You can group a collection of todos as a <b>Space</b>
-            </li>
-            <li> You can share your space to someone</li>
-            <li> Someone can also add you to their spaces</li>
-            <li>
-              {' '}
-              This simple arragment, in my view can double up as many things:
-              todos, office tasks, message board, private groups, etc. Your
-              imagination is the limit!! Enjoy!!
-            </li>
-          </ul>
+          <div className='flex items-center flex-col'>
+            <ul className='list-disc'>
+              <li>
+                <b>Todos</b> are your todos. With title, description and a
+                status.{' '}
+              </li>
+              <li>
+                You can group a collection of todos as a <b>Space</b>
+              </li>
+              <li> You can share your space to someone</li>
+              <li> Someone can also add you to their spaces</li>
+              <li>
+                {' '}
+                This simple arragment, in my view can double up as many things:
+                todos, office tasks, message board, private groups, etc. Your
+                imagination is the limit!! Enjoy!!
+              </li>
+            </ul>
+            <Button className='mt-4' onClick={() => router.push('/login')}>Login</Button>
+          </div>
         )}
+      ></PropertyListItem>
+      <PropertyListItem
+        property='Terms and GPDR'
+        drawBorder={true}
+        valueRenderer={() =>
+          'This is a toy right now, as claimed on the login page. So no personal information is sought. Only session cookies are used for login and no marketing/analytical cookies are used'
+        }
       ></PropertyListItem>
       <PropertyListItem
         property='Web'

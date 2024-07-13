@@ -11,21 +11,24 @@ import ListItem from '../ui/lists/list-item';
 export default function TourWrapper({ children, session }: any) {
   const { setIsOpen } = useTour();
   const { data: userSession }: any = useSession();
+  const isDemoUser = userSession && userSession.user.isDemoUser;
   const router = useRouter();
   return (
     <div className='grid grid-cols-1 h-svh grid-rows-[3em,1fr,3em]'>
       <FlexJustifySpread className='bg-primary text-primary-foreground py-4 h-[3em]'>
         <div className='pl-4 grow font-bold text-lg flex items-center'>
           <div data-retour-step='tinja'> Tinja</div>
-          <Button
-            enabledOnDemo={true}
-            onClick={() => {
-              router.push('/todos');
-              setIsOpen(true);
-            }}
-          >
-            <TramFront />
-          </Button>
+          {isDemoUser && (
+            <Button
+              enabledOnDemo={true}
+              onClick={() => {
+                router.push('/todos');
+                setIsOpen(true);
+              }}
+            >
+              <TramFront />
+            </Button>
+          )}
         </div>
 
         <Button

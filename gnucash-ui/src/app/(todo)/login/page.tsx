@@ -27,7 +27,7 @@ export default function TodoLoginPage() {
     email: {
       label: 'Enter email for logging in',
       type: 'text',
-      helpText: 'Hit login if you want a walkthrough.  Walkthrough will be readonly and you can\'t do any modifications on the demo.  Read below to know more'
+      helpText: 'Hit login if you want a walkthrough.  Walkthrough will be readonly and you can\'t do any modifications. Read below to know more'
     },
     csrfToken: {
       type: 'hidden',
@@ -54,7 +54,7 @@ export default function TodoLoginPage() {
           <li className='p-2 text-sm'>
             You can also use your/any email to login. &nbsp;
             <span className='text-destructive'>
-              No passwords will be asked and no verification mails will be sent
+              No passwords will be asked and no verification mails will be sent. Use with caution. Don't enter any personal information. This is a toy right now. You've been warned.
             </span>
           </li>
 
@@ -65,7 +65,7 @@ export default function TodoLoginPage() {
             that it will be world-viewable for whoever knows your email and whoever wants
             to snoop at you. When you login first, system will create a default
             set of todo's and spaces to get you started. So be careful creating todos. 
-            No delete functionality is provided for todos at the moment
+            No delete functionality is provided for todos/spaces at the moment
           </li>
         </ul>
         </div>
