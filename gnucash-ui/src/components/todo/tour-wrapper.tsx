@@ -35,10 +35,10 @@ export default function TourWrapper({ children, session }: any) {
           enabledOnDemo={true}
           onClick={() => router.push('/profile')}
         >
-          {session.user.email}
+          {session && session.user.email}
         </Button>
       </FlexJustifySpread>
-      <div className='h-full  overflow-y-auto'>
+      <div className='h-full  overflow-y-auto border-2 border-primary box-border'>
         {userSession && userSession.user.isDemoUser && (
           <>
             <ListItem

@@ -28,6 +28,12 @@ export default async function Home() {
       label: 'games for you to play!',
     },
   ];
+  const todoLink = [
+    {
+      href: '/todos',
+      label: 'Organize your life!',
+    },
+  ];
   const blogLinks = [
     {
       href: `${process.env.NEXT_PUBLIC_DIARY_URL}/blog`,
@@ -54,16 +60,18 @@ export default async function Home() {
           Welcome to my sandbox environment where I keep by hobby projects. And
           yes, none of this was borrowed from AI.
         </p>
+        <p className='bg-light-bg text-destructive text-lg p-4 rounded-md'>
+          If you've come for the TODO APP, please click here to{' '}
+          <LinksListing isSimpleLinks={true} links={todoLink} />
+        </p>
         <p>
           If you are a recruiter, see{' '}
           <LinksListing isSimpleLinks={true} links={recruiterLinks} />.
-          {/* You can also &nbsp;
-        <LinksListing isSimpleLinks={true} links={[{ href: "bts", label: "look through "}]} /> 
-        how my online presence is setup */}
         </p>
         <p>
           If you are feeling bored, there are some&nbsp;
-          <LinksListing isSimpleLinks={true} links={gameLinks} />
+          <LinksListing isSimpleLinks={true} links={gameLinks} />, but beware:
+          most of them are work in progress!
         </p>
       </div>
     </Hydrate>

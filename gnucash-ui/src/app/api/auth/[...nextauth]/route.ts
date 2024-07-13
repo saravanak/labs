@@ -19,7 +19,7 @@ const emailProvider = EmailProvider({
 });
 
 const credentialProvider = CredentialsProvider({
-  name: 'CYPRESS_ONLY',
+  name: 'cypress_only',
   credentials: {
     email: { label: 'email', type: 'text', placeholder: 'enter your email' },
   },

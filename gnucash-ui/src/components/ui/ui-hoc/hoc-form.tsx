@@ -9,6 +9,7 @@ import FormErrorContainer from './form-error-container';
 import HocInput from './hoc-input';
 import { useSession } from 'next-auth/react';
 import ListItem from '../lists/list-item';
+import { Button } from '../button';
 
 export default function HocForm({
   formSchema,
@@ -17,6 +18,8 @@ export default function HocForm({
   defaultValues,
   mutation,
   title,
+  mode = 'global',
+  action,
 }: any) {
   const propertyPaths = getPropertyPaths(formSchema);
 
@@ -43,8 +46,6 @@ export default function HocForm({
     [form]
   );
 
-  const nameWatcher = form.watch('spaceName');
-
   useEffect(() => {
     if (mutation?.error) {
       console.log(mutation?.error);
@@ -53,15 +54,17 @@ export default function HocForm({
         setError(key, error);
       });
     }
-    setForm({
-      hookForm: form,
-      formState: form.formState,
-      mutation,
-      status: mutation?.isLoading ? 'Saving changes...' : '',
-      title,
-      onSubmit: formSubmitHandler,
-      onCancel: () => {},
-    });
+    if (mode == 'global') {
+      setForm({
+        hookForm: form,
+        formState: form.formState,
+        mutation,
+        status: mutation?.isLoading ? 'Saving changes...' : '',
+        title,
+        onSubmit: formSubmitHandler,
+        onCancel: () => {},
+      });
+    }
     return () => {
       setForm(null);
     };
@@ -86,9 +89,15 @@ export default function HocForm({
       <ListItem variant='header'>{title}</ListItem>
       <Form {...additionalContext}>
         <form
-          onSubmit={form.handleSubmit((d) => {
-            onSubmit(d);
-          })}
+          onSubmit={
+            action
+              ? (null as any)
+              : form.handleSubmit((d) => {
+                  onSubmit(d);
+                })
+          }
+          action={action}
+          method={action ? 'POST' : (null as any)}
         >
           <fieldset disabled={isFormDisabled}>
             {propertyPaths.map((property) => {
@@ -103,6 +112,14 @@ export default function HocForm({
               );
             })}
           </fieldset>
+          <div className='flex justify-center'>
+            {action && (
+              <Button type='submit' disabled={!formState.isValid}>
+                {' '}
+                Login
+              </Button>
+            )}
+          </div>
         </form>
       </Form>
       <FormErrorContainer></FormErrorContainer>

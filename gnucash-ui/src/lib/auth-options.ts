@@ -10,6 +10,9 @@ export const authOptions: AuthOptions = {
   session: {
     strategy: process.env.CYPRESS_TESTING_E2E ? 'jwt' : 'database',
   },
+  pages: {
+    signIn: '/login',
+  },
   providers: [],
   callbacks: {
     // async signIn({ user, account, email }: any) {

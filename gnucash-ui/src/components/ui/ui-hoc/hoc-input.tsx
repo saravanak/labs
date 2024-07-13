@@ -19,7 +19,7 @@ const inputByType = function ({ formMeta, field, trigger }: any) {
     value: `${v.id}`,
     label: v.name,
   }));
-  const dataTestInput = `${Case.kebab(fieldMeta.label)}`;
+  const dataTestInput = fieldMeta.label && `${Case.kebab(fieldMeta.label)}`;
 
   switch (fieldMeta.type) {
     case 'text':
@@ -28,6 +28,8 @@ const inputByType = function ({ formMeta, field, trigger }: any) {
       return (
         <Input
           type={fieldMeta.type}
+          name={field.name}
+          value={field.value}
           data-test-input={dataTestInput}
           onChange={(v) => {
             field.onChange(v.target.value);
@@ -37,7 +39,10 @@ const inputByType = function ({ formMeta, field, trigger }: any) {
           }}
         />
       );
-
+    case 'hidden':
+      return (
+        <input name={field.name} type='hidden' defaultValue={field.value} />
+      );
     case 'textarea':
       return (
         <TextareaAutosize
@@ -93,9 +98,12 @@ export default function HocInput({ name, formMeta, trigger, disabled }: any) {
                   {formMeta[name].label}
                 </FormLabel>
               ) : null}
-              <FormControl className='align-right text-sm text-gray-400 mt-2'>
+              <FormControl className='align-right text-sm mt-2'>
                 {inputByType({ formMeta, field, trigger })}
               </FormControl>
+              {formMeta[field.name].type == 'hidden' ? null : (
+                <div className='text-sm font-light-bg p-2'>{formMeta[field.name].helpText} </div>
+              )}
             </div>
             {formMeta[name]?.matches
               ? formMeta[name]?.matches.map((v: any) => (

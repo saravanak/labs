@@ -5,7 +5,7 @@ import { createContext, useState } from 'react';
 import TourWrapper from './tour-wrapper';
 import Markdowned from '../markdown/md-viewer';
 import { StepContentTexts } from './tour/step-content';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 export const TabBarContext = createContext({
   form: null,
   setForm: (x: any) => {},
@@ -38,6 +38,7 @@ function Content({
 
 export default function AppWrapper({ children, session }: any) {
   const router = useRouter();
+  const pathname = usePathname();
 
   const styles = {
     popover: (base: any) => ({ ...base, maxWidth: '100%' }),
@@ -81,6 +82,12 @@ export default function AppWrapper({ children, session }: any) {
       content: 'login',
     },
   ];
+
+  if (!session) {
+    if (pathname != '/login') {
+      router.push('/login');
+    }
+  }
 
   return (
     <SessionProvider>
