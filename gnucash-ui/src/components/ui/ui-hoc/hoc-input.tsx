@@ -102,7 +102,9 @@ export default function HocInput({ name, formMeta, trigger, disabled }: any) {
                 {inputByType({ formMeta, field, trigger })}
               </FormControl>
               {formMeta[field.name].type == 'hidden' ? null : (
-                <div className='text-sm font-light-bg p-2'>{formMeta[field.name].helpText} </div>
+                <div className='text-sm font-light-bg p-2 font-sans text-gray-600'>
+                  {formMeta[field.name].helpText}
+                </div>
               )}
             </div>
             {formMeta[name]?.matches
