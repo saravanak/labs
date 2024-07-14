@@ -13,7 +13,10 @@ export default function SpaceCreateForm() {
   const [debouncedAsync, matches] = useAsyncValidation({
     validatorUrlFor: (spaceName: any) => {
 
-      return `http://localhost:3000/api/trpc/space.findByName?input=${encodeURIComponent(
+      const baseUrl = process.env.NEXT_PUBLIC_DEPLOY_URL || 'http://localhost:3000';
+      
+
+      return `${baseUrl}/api/trpc/space.findByName?input=${encodeURIComponent(
         JSON.stringify({ json: { spaceName } })
       )}`;
     },

@@ -20,14 +20,16 @@
   apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
     
 - name: Install nodejs and npm
-  apt: 
-    pkg:
+  apt: "name={{ item }} state=present"    
+  with_items:
     - nodejs
     - npm
 
 - name: Install PM2 
   community.general.npm:
-    name: pm2
+    name: 
+     - pm2
+     - yarn 
     global: true
     
 - name: Rsync files
@@ -37,7 +39,7 @@
     src: ../gnucash-ui/
     dest: "{{app_dir}}"
     rsync_opts: 
-      - "-FF"
+      - "-FF --delete"
 
 - name: Copy ecosystem file
   become: true
@@ -58,7 +60,7 @@
 - name: Start pm2
   become: true
   become_user: "{{app_user_name}}"
-  ansible.builtin.shell: pm2 start     
+  ansible.builtin.shell: pm2 restart     
   args:
     chdir: "{{app_dir}}"
      

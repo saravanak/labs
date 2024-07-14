@@ -8,7 +8,7 @@ import { seed_shareMany } from '@/lib/typed-queries/space/action';
 import { Space, User } from '@prisma/client';
 import { Case } from 'change-case-all';
 
-const baseUrl = 'http://localhost:3000/api/trpc';
+const baseUrl = `${process.env.DEPLOY_URL ? process.env.DEPLOY_URL : "http://localhost:3000"}/api/trpc`;
 
 export const userEmailForColor = (color: string) =>
   `t-${color}@test.example.com`;
