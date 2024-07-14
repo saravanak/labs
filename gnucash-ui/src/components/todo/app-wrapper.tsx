@@ -6,6 +6,8 @@ import TourWrapper from './tour-wrapper';
 import Markdowned from '../markdown/md-viewer';
 import { StepContentTexts } from './tour/step-content';
 import { usePathname, useRouter } from 'next/navigation';
+import NextTopLoader from 'nextjs-toploader';
+
 export const TabBarContext = createContext({
   form: null,
   setForm: (x: any) => {},
@@ -91,6 +93,7 @@ export default function AppWrapper({ children, session }: any) {
 
   return (
     <SessionProvider>
+      <NextTopLoader />
       <TabBarContext.Provider value={{ form, setForm }}>
         <TourProvider
           steps={steps}
