@@ -1,15 +1,14 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import ListItem from '@/components/ui/lists/list-item';
+import CircledNumber from '@/components/ui/minions/circled-number';
 import ListActionButtons from '@/components/ui/ui-hoc/list-action-buttons';
 import { trpc } from '@/utils/trpc';
 import { Unlink } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'sonner';
 import TodoListing from '../todo-listing';
-import LoaderListItem from '@/components/ui/lists/loader-list';
-import CircledNumber from '@/components/ui/minions/circled-number';
 
 export default function ManageSpace({ spaceWithUsers }: any) {
   const [selectedUser, setSelectedUser] = useState<any>(null);
@@ -61,11 +60,11 @@ export default function ManageSpace({ spaceWithUsers }: any) {
                   <Unlink className='text-gray-700 mr-2 w-[18px]' /> Remove
                 </Button>
               </ListItem>
-              {selectedUser ? (
+              {selectedUser && selectedUser == user ? (
                 <ListActionButtons
                   heading={
                     <span>
-                      Do you really want to remove{' '}
+                      <span className='mr-2'>Do you really want to remove</span>
                       <span className='font-bold'>{user.email}</span> from{' '}
                       <span className='font-bold'>{name}</span>?
                     </span>
