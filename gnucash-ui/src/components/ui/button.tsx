@@ -19,13 +19,14 @@ const buttonVariants = cva(
           'border border-input bg-primary text-primary-foreground hover:bg-primary/90 border-yellow-600 border-4',
         secondary:
           'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        formAction: ' text-center content-center ',
+        formAction:
+          ' text-center content-center font-bold border-r-2 border-white border-t-primary border-t-2',
         ghost: 'hover:bg-inherit',
         link: 'text-primary underline-offset-4 hover:underline',
       },
       btnColor: {
-        userAgree: 'bg-green-600 text-secondary-foreground hover:bg-green/80',
-        userCancel: 'bg-gray-400 text-secondary-foreground hover:bg-gray/80',
+        userAgree: 'bg-primary text-primary-foreground hover:bg-primary ',
+        userCancel: 'bg-card text-secondary-foreground hover:bg-card',
         lightgray: 'bg-gray-300 text-secondary-foreground hover:bg-gray/40',
         default: '',
       },
@@ -53,7 +54,7 @@ export interface ButtonProps
   asChild?: boolean;
   behaveAs?: any;
   enabledOnDemo?: boolean;
-  showAlways?: boolean
+  showAlways?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
