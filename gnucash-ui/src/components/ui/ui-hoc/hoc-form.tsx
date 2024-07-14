@@ -86,7 +86,7 @@ export default function HocForm({
   const isFormDisabled = isDemoUser || mutation?.isLoading;
   return (
     <div className='grid  grid-cols-1 '>
-      <ListItem variant='header'>{title}</ListItem>
+      <ListItem variant='heading2' className="justify-center text-sm">{title}</ListItem>
       <Form {...additionalContext}>
         <form
           onSubmit={

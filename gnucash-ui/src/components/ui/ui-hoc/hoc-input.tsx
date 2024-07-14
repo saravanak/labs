@@ -11,6 +11,7 @@ import { TextArea } from '../text-area';
 import { AutoComplete, SearchItem } from './autocomplete';
 import HocSelect from './hoc-select';
 import TextareaAutosize from 'react-textarea-autosize';
+import { cn } from '@/lib/utils';
 
 const inputByType = function ({ formMeta, field, trigger }: any) {
   const fieldMeta = formMeta[field.name];
@@ -20,6 +21,7 @@ const inputByType = function ({ formMeta, field, trigger }: any) {
     label: v.name,
   }));
   const dataTestInput = fieldMeta.label && `${Case.kebab(fieldMeta.label)}`;
+  const useMarkdown = fieldMeta.useMarkdown;
 
   switch (fieldMeta.type) {
     case 'text':
@@ -47,8 +49,9 @@ const inputByType = function ({ formMeta, field, trigger }: any) {
       return (
         <TextareaAutosize
           data-test-input={dataTestInput}
-          className='w-full p-4'
+          className={cn('w-full p-4', useMarkdown ? 'font-mono' : '')}
           type={fieldMeta.type}
+          minRows={fieldMeta.rows || 4}
           {...field}
         />
       );

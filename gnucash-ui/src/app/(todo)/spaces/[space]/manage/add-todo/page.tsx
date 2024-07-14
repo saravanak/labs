@@ -35,7 +35,10 @@ export default function AddTodoToSpace({ params }: any) {
     },
     description: {
       label: 'Describe what needs to be done',
-      type: 'text',
+      type: 'textarea',
+      useMarkdown:true,
+      helpText:'Github Flavoured Markdown',
+      rows: 4,
     },
   };
 
