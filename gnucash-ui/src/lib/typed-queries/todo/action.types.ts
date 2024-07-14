@@ -28,10 +28,10 @@ export interface IGetTodosWithLatestStatusesQuery {
 
 /** 'SeedInsertManyCommentsIntoTodo' parameters type */
 export interface ISeedInsertManyCommentsIntoTodoParams {
-  todos: readonly {
-    commentContent: string | null | void;
-    userId: string | null | void;
-  }[];
+  todos: readonly ({
+    commentContent: string | null | void,
+    userId: string | null | void
+  })[];
 }
 
 /** 'SeedInsertManyCommentsIntoTodo' return type */
@@ -63,3 +63,4 @@ export interface IGetCommentsForTodoQuery {
   params: IGetCommentsForTodoParams;
   result: IGetCommentsForTodoResult;
 }
+

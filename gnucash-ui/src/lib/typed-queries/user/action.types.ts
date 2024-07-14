@@ -38,3 +38,4 @@ export interface IGetSharedUserSpacesQuery {
   params: IGetSharedUserSpacesParams;
   result: IGetSharedUserSpacesResult;
 }
+

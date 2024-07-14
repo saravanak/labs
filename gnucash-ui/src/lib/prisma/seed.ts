@@ -4,7 +4,7 @@ import { times } from 'lodash';
 import getLuggages from './data';
 import { fakeRack, fakeShelf } from './fake-data';
 import prisma from './index';
-import { seedCreateTodos } from './seeds/seed-utils';
+import { seedCreateTodos, seedCreateUsers } from './seeds/seed-utils';
 
 const db = enhance(prisma, {}, { kinds: ['delegate'] });
 
@@ -22,12 +22,24 @@ async function main() {
     });
   });
 
-  return await seedCreateTodos({
+  await prisma.statusMeta.create({
+    data: {
+      statuses: 'todo,in-progress,done'
+    }
+  })
+
+  const { user, userSpace } = await seedCreateUsers({
     email: 'neo@example.com',
     spacename: "Neo's Space",
+  });
+
+  return await seedCreateTodos({
+    user,
     title: 'I need to breathe',
     description: 'Thats is, to live.',
-  } as any);
+    commentsCount: 1,
+    userSpaceId: userSpace.id,
+  });
 }
 main()
   .then(async () => {

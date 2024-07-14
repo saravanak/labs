@@ -1,2 +1,2 @@
-npm ci 
-npm run build
+yarn run ci 
+yarn build

@@ -23,10 +23,10 @@ export interface ISqlGetAllSpacesQuery {
 
 /** 'SeedShareMany' parameters type */
 export interface ISeedShareManyParams {
-  userSpaces: readonly {
-    userId: string | null | void;
-    spaceId: number | null | void;
-  }[];
+  userSpaces: readonly ({
+    userId: string | null | void,
+    spaceId: number | null | void
+  })[];
 }
 
 /** 'SeedShareMany' return type */
@@ -39,3 +39,4 @@ export interface ISeedShareManyQuery {
   params: ISeedShareManyParams;
   result: ISeedShareManyResult;
 }
+

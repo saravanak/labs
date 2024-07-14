@@ -1,11 +1,11 @@
+import { seed_insertManyCommentsIntoTodo } from '../../typed-queries/todo/action';
 import { faker } from '@faker-js/faker';
-import { fakeComment, fakeRack, fakeShelf, fakeUser } from '../fake-data';
-import prisma from '../index';
-import { pgClient } from '../client';
-import { omit, random } from 'lodash';
-import { enhance } from '@zenstackhq/runtime';
-import { seed_insertManyCommentsIntoTodo } from '@/lib/typed-queries/todo/action';
 import { User } from '@prisma/client';
+import { enhance } from '@zenstackhq/runtime';
+import { omit } from 'lodash';
+import { pgClient } from '../client';
+import { fakeUser } from '../fake-data';
+import prisma from '../index';
 
 const db = enhance(prisma, {}, { kinds: ['delegate'] });
 

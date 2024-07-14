@@ -26,7 +26,8 @@
     "cy:open": "cypress open",
     "app:cy-run": "start-server-and-test dev http://localhost:3000 cy:run",
     "app:cy-open": "dotenv -e .env.local -- start-server-and-test dev http://localhost:3000 cy:open",
-    "prepare": "cd .. && husky gnucash-ui/.husky"
+    "prepare": "cd .. && husky gnucash-ui/.husky",
+    "ci": "yarn install --frozen-lockfile"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.2.0",
