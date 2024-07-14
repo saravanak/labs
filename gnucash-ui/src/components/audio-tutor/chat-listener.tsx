@@ -17,7 +17,6 @@ export default function ChatListener({ recognition }: any) {
   useEffect(() => {
     if (started) {
       recognition.onresult = (event: any) => {
-        console.log(event.results.length);
         let transcript = [];
         for (var i = 0; i < event.results.length; i++) {
           transcript.push(event.results[i][0].transcript);
@@ -27,18 +26,14 @@ export default function ChatListener({ recognition }: any) {
       };
 
       recognition.onend = (event: any) => {
-        console.log('onend', event.results);
         setStarted(false);
         // const { transcript } = event.results[0][0];
       };
 
       recognition.onaudiostart = () => {
-        console.log('audio started');
       };
       recognition.onsoundstart = () => {
-        console.log('sound started');
       };
-      console.log('starting recognition');
     }
     return () => {
       recognition.onend = null;
@@ -75,7 +70,7 @@ export default function ChatListener({ recognition }: any) {
           </DrawerHeader>
           <DrawerFooter>
             <div className='flex justify-between'>
-              <Button
+              <Button behaveAs="button"
                 className={`grow mx-2 ${
                   started ? 'hover:bg-green-400 bg-green-400' : 'bg-gray-700'
                 }`}
@@ -83,7 +78,7 @@ export default function ChatListener({ recognition }: any) {
               >
                 {started ? 'Listening' : 'Click to speak'}
               </Button>
-              <Button onClick={trimLastWord}>
+              <Button behaveAs="button" onClick={trimLastWord}>
                 <Delete />
               </Button>
             </div>

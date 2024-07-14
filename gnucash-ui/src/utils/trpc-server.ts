@@ -12,7 +12,6 @@ import trpcOptions from './trpc-options';
  */
 
 export const getServerAuthSession = () => {
-  console.log(`getServerAuthSession`);
 
   return getServerSession(authOptions);
 };

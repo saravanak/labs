@@ -16,7 +16,6 @@ export const shelfRouter = t.router({
       // const take = limit || 10;
       // const skip = (page - 1) * limit;
 
-      console.log(opts.input.rackId);
       try {
         const shelves = await prisma.shelf.findMany({
           where: {

@@ -16,7 +16,6 @@ export const luggageRouter = t.router({
       // const take = limit || 10;
       // const skip = (page - 1) * limit;
 
-      console.log(opts.input.shelfId);
       try {
         const luggages = await prisma.luggage.findMany({
           where: {

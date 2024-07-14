@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import '../globals.css';
 import AppContainer from '@/components/layout/app-container';
 import { TrpcProvider } from '@/utils/trpc-provider';
+import { Suspense } from 'react';
 
 // import { getServerSession } from "next-auth/next"
 
@@ -58,7 +59,9 @@ export default async function SandboxRootLayout({
       <head></head>
       <body className={inter.className}>
         <TrpcProvider>
-          <AppContainer>{children}</AppContainer>
+          <Suspense>
+            <AppContainer>{children}</AppContainer>
+          </Suspense>
         </TrpcProvider>
       </body>
     </html>

@@ -120,7 +120,6 @@ export async function apiCaller({
     headers['Content-Type'] = 'application/json';
   }
   const url = `${baseUrl}/${path}${inputParams}`;
-  console.log({ url });
 
   const response = await fetch(url, {
     headers,

@@ -61,7 +61,7 @@ export default async function Home() {
           yes, none of this was borrowed from AI.
         </p>
         <p className='bg-light-bg text-destructive text-lg p-4 rounded-md'>
-          If you've come for the TODO APP, please click here to{' '}
+          If you&apos;ve come for the TODO APP, please click here to &nbsp;
           <LinksListing isSimpleLinks={true} links={todoLink} />
         </p>
         <p>

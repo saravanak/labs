@@ -27,7 +27,8 @@ export default function TodoLoginPage() {
     email: {
       label: 'Enter email for logging in',
       type: 'text',
-      helpText: 'Hit login if you want a walkthrough.  Walkthrough will be readonly and you can\'t do any modifications. Read below to know more'
+      helpText:
+        "Hit login if you want a walkthrough.  Walkthrough will be readonly and you can't do any modifications. Read below to know more",
     },
     csrfToken: {
       type: 'hidden',
@@ -38,36 +39,41 @@ export default function TodoLoginPage() {
     <>
       <div className='flex flex-col pt-8 items-center justify-center'>
         <div className='w-3/4 md:w-1/2'>
-        {csrfToken && (
-          <HocForm
-            formSchema={formSchema}
-            title='Login to Tinja'
-            mode='internal'
-            formMeta={formMeta}
-            defaultValues={{ csrfToken, email: 'neo@example.com' }}
-            action='/api/auth/callback/credentials'
-          />
-        )}
-        
-        <ListItem variant="heading2" className="justify-center mt-2">Using any email</ListItem>
-        <ul >
-          <li className='p-2 text-sm'>
-            You can also use your/any email to login. &nbsp;
-            <span className='text-destructive'>
-              No passwords will be asked and no verification mails will be sent. Use with caution. Don't enter any personal information. This is a toy right now. You've been warned.
-            </span>
-          </li>
+          {csrfToken && (
+            <HocForm
+              formSchema={formSchema}
+              title='Login to Tinja'
+              mode='internal'
+              formMeta={formMeta}
+              defaultValues={{ csrfToken, email: 'neo@example.com' }}
+              action='/api/auth/callback/credentials'
+            />
+          )}
 
-          <li className='p-2 text-sm'>
-            This is so because this is just a MVP and I am still
-            figuring out email provider for sending verification emails! When you
-            login using your email, the system will be fully functional, except
-            that it will be world-viewable for whoever knows your email and whoever wants
-            to snoop at you. When you login first, system will create a default
-            set of todo's and spaces to get you started. So be careful creating todos. 
-            No delete functionality is provided for todos/spaces at the moment
-          </li>
-        </ul>
+          <ListItem variant='heading2' className='justify-center mt-2'>
+            Using any email
+          </ListItem>
+          <ul>
+            <li className='p-2 text-sm'>
+              You can also use your/any email to login. &nbsp;
+              <span className='text-destructive'>
+                No passwords will be asked and no verification mails will be
+                sent. Use with caution. Don&apos;t enter any personal
+                information. This is a toy right now. You&apos;ve been warned.
+              </span>
+            </li>
+
+            <li className='p-2 text-sm'>
+              This is so because this is just a MVP and I am still figuring out
+              email provider for sending verification emails! When you login
+              using your email, the system will be fully functional, except that
+              it will be world-viewable for whoever knows your email and whoever
+              wants to snoop at you. When you login first, system will create a
+              default set of todo&apos;s and spaces to get you started. So be
+              careful creating todos. No delete functionality is provided for
+              todos/spaces at the moment
+            </li>
+          </ul>
         </div>
       </div>
     </>

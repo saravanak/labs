@@ -12,7 +12,6 @@ import { usePathname, useRouter } from 'next/navigation';
 
 export default function ListRacks({ racks }: any) {
   const { data } = racks;
-  console.log(data);
   const router = useRouter();
   const pathname = usePathname();
 

@@ -8,7 +8,6 @@ export default function ColorChooser() {
 
   const { colorState, setColorSchemeIndex, toggleColor } = colorContextState;
 
-  console.log({ colorState });
 
   const { colorSchemes, selectedColorIndices, colorSchemeIndex } = colorState;
 

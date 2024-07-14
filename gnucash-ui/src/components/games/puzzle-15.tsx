@@ -135,7 +135,6 @@ export default function Puzzle15Component() {
     if (numberToMove) {
       swap(numberToMove[0] * 4 + numberToMove[1], indexOfEmptySpace);
     } else {
-      console.log('No element to move to..');
     }
   }
 

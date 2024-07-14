@@ -77,7 +77,6 @@ export default function ArtCanvas({ data }: any) {
 
   useEffect(() => {
     if (codeEditorRef?.current) {
-      console.log('instantiating codemirror');
 
       let startState = EditorState.create({
         doc: userCode,

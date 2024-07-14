@@ -39,7 +39,6 @@ export default function HocForm({
 
   const formSubmitHandler = useCallback(
     form.handleSubmit(async (d) => {
-      console.log('Handle submit');
 
       return await onSubmit(d);
     }),
@@ -48,7 +47,6 @@ export default function HocForm({
 
   useEffect(() => {
     if (mutation?.error) {
-      console.log(mutation?.error);
 
       mutation.error.shape.cause.errors.forEach(({ key, error }: any) => {
         setError(key, error);

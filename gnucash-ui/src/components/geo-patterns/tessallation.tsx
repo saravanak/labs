@@ -38,7 +38,6 @@ export default function Tessellation() {
       const functionInstance = f1()();
       return [functionInstance, null];
     } catch (e) {
-      console.log('Got Error', e);
 
       return [null, e];
     }

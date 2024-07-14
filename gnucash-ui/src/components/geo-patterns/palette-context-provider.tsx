@@ -67,7 +67,6 @@ export default function ColorPaletteProvider({ children }: any) {
   );
 
   const colorState = useMemo(() => {
-    console.log('Use memo of provider called');
 
     const newColorSchemeState = previousColorSchemes.current.map(
       (schemeState, index) => {
@@ -104,7 +103,6 @@ export default function ColorPaletteProvider({ children }: any) {
     contextRefresh,
   ]);
 
-  console.log(contextRefresh);
 
   return (
     <ColorPaletteContext.Provider

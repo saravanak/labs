@@ -13,7 +13,6 @@ export default function HtmlExtractorComponent() {
 
   const onUpdateValue = (event: any) => {
     const textValue = event?.currentTarget?.value;
-    console.log(textValue);
     setValue(textValue);
   };
 
@@ -32,26 +31,19 @@ export default function HtmlExtractorComponent() {
   }: any) => {
     while (instructionPointer < selectorParts.length) {
       const instruction = selectorParts[instructionPointer].trim();
-      console.log({
-        instruction,
-        currentNodes,
-        output,
-      });
+     
 
       if (instruction.startsWith('map')) {
         const matches = instruction.match(/map\((.*)\).*/);
         if (!matches) {
-          console.log(`Instruction ${instruction} is invalid`, matches);
           throw new Error('Hi');
         }
         for (var idx = 0; idx < currentNodes.length; idx++) {
           const printStatement = matches[1];
-          console.log({ printStatement });
 
           outputCurrent +=
             '<br/>' +
             fillTemplate(printStatement, { idx, item: currentNodes[idx] });
-          console.log({ outputCurrent });
 
           constructOutput({
             instructionPointer: instructionPointer + 1,

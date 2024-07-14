@@ -27,7 +27,6 @@ export default function Twenty48() {
 
   const handleKeypress = useCallback(
     (e: any) => {
-      console.log('I am the keypress');
       e.stopPropagation();
       e.preventDefault();
 
@@ -81,7 +80,6 @@ export default function Twenty48() {
   );
 
   useEffect(() => {
-    console.log('Entering useeffect');
     document.addEventListener('keydown', handleKeypress);
 
     return () => {

@@ -99,7 +99,7 @@ export default function EditableText({
                       value: d[fieldName],
                     });
                   },
-                  (e) => console.log(e)
+                  (e) => {}
                 )();
               }}
             >

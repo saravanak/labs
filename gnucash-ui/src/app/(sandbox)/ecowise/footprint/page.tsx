@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 const queryClient = new QueryClient();
 
-export default function FoorPrintPage() {
+export default function FootprintPage() {
   const router = useRouter();
   const pathName = usePathname();
 
@@ -17,7 +17,7 @@ export default function FoorPrintPage() {
   }
 
   if (status == 'unauthenticated') {
-    router.push(`/api/auth/signin/email?callbackUrl=${pathName}`);
+    router.push(`/login?callbackUrl=${pathName}`);
   }
 
   if (status == 'authenticated') {

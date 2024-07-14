@@ -1,7 +1,6 @@
 'use client';
 import Tessellation from '@/components/geo-patterns/tessallation';
 import SpinnerPage from '@/components/spinners/spinner-page';
-import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 

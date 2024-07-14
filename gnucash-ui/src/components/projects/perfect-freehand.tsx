@@ -43,7 +43,6 @@ export default function PerfectFreeHandDemo() {
   const [points, setPoints] = useState([[] as any[]]);
 
   const handlePointerDown = (e: PointerEvent<SVGSVGElement>) => {
-    console.log('handlePointerMove');
 
     (e.target as Element).setPointerCapture(e.pointerId);
     setPoints([[e.pageX - 300, e.pageY - 100, e.pressure]]);
@@ -64,7 +63,6 @@ export default function PerfectFreeHandDemo() {
   });
 
   const pathData = getSvgPathFromStroke(stroke);
-  console.log({ points, stroke, pathData });
 
   return (
     <div className='grid grid-rows-[5%__1fr] gap-4 font-mono text-sm text-center rounded-lg w-full place-content-stretch'>

@@ -48,11 +48,8 @@ export default function IterationLambdaEditor({
   const codeEditorRef = useRef(null);
   const [edtiorView, setEditorView] = useState<any>(null);
 
-  console.log({ codeError });
 
   useEffect(() => {
-    console.log('wtf');
-
     let language = new Compartment(),
       tabSize = new Compartment();
 

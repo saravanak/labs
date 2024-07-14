@@ -75,7 +75,7 @@ export default function CarbonFootprintCalculator() {
       {countries ? (
         <Form {...additionalContext}>
           <form
-            onSubmit={form.handleSubmit((d) => console.log(d))}
+            onSubmit={form.handleSubmit((d) => {})}
             className='space-y-8'
           >
             <Tabs defaultValue='start' className='w-[400px] flex-grow'>

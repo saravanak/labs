@@ -12,7 +12,6 @@ export default function SpaceCreateForm() {
 
   const [debouncedAsync, matches] = useAsyncValidation({
     validatorUrlFor: (spaceName: any) => {
-      console.log('Generating fetch url');
 
       return `http://localhost:3000/api/trpc/space.findByName?input=${encodeURIComponent(
         JSON.stringify({ json: { spaceName } })

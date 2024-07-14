@@ -179,6 +179,7 @@ export default function AudioTutor() {
             <div className='flex justify-between align-center items-center'>
               <div> Microphone </div>
               <Button
+                behaveAs="button"
                 onClick={getMicPermissions}
                 className={`bg-gray-200 hover:bg-gray-300 text-red-700 ${
                   isMikeEnabled

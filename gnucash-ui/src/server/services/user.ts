@@ -26,7 +26,6 @@ export const UserService = {
       cursor: undefined,
     });
 
-    console.log(`defaultOrCreateOwnerSpace:${todosForUser}`);
 
     if (todosForUser?.length == 0) {
       for (var i = 1; i < 5; i++) {

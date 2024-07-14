@@ -880,4 +880,3 @@ const zipped = zip(countries, expandedHdis)
   .map((v) => v.join(','))
   .join('\n');
 
-console.log(zipped);

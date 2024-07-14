@@ -18,7 +18,6 @@ export default function BlocklyComponent({
   setModuloProgram,
   initialBlocks,
 }: Props) {
-  console.log(initialBlocks);
 
   configureBlocks(Blockly, colors);
   useEffect(() => {
@@ -56,10 +55,8 @@ export default function BlocklyComponent({
     }
 
     function generateCode(event: any) {
-      console.log(event.type);
 
       let code = ModuloCodeGenerator.workspaceToCode(workspace);
-      console.log('Got code', code);
       if (code.length) {
         code = code.replace(/\s+/g, ' ');
         setModuloProgram(code);

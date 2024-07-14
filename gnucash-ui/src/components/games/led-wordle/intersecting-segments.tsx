@@ -18,10 +18,7 @@ export default function IntersectingSegments({ answerCoding, word }: any) {
         letterCoding,
         answerCoding[letterIndex]
       );
-      console.log(
-        `for letter ${letter}, interesection: ${intersectingSegments}`
-      );
-
+    
       return (
         <SevenSegmentDigit
           actualCommand={intersectingSegments}

@@ -14,7 +14,6 @@ const CHANNEL_NAME = 'my-channel';
 
 subscriber.notifications.on(CHANNEL_NAME, (payload) => {
   // Payload as passed to subscriber.notify() (see below)
-  console.log("Received notification in 'my-channel':", payload);
 });
 
 subscriber.events.on('error', (error) => {

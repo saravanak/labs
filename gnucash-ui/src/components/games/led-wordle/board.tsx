@@ -17,7 +17,6 @@ export default function LedWordle() {
 
   const handleKeyPress = useCallback(
     (e: any) => {
-      console.log(e.key);
 
       var charCode = e.which ? e.which : e.keyCode;
       var isCapitalAlphabet = charCode >= 65 && charCode <= 90;

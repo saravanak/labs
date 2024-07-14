@@ -53,7 +53,6 @@ export default function Game() {
       };
 
       socket.onmessage = function (event: any) {
-        console.log(`[message] Data received from server: ${event.data}`);
         const message = JSON.parse(event.data);
         switch (message.type) {
           case 'welcome':
@@ -70,12 +69,7 @@ export default function Game() {
             if (message.type == 'you_joined_game') {
               setPlayerId(message.payload.yourId);
             }
-            console.log(
-              'Setting new game state after receiveing',
-              message.type,
-              message.payload
-            );
-
+            
             setGameState({
               ...message.payload,
             });
@@ -87,21 +81,18 @@ export default function Game() {
 
       socket.onclose = function (event: any) {
         if (event.wasClean) {
-          console.log(
-            `[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`
-          );
+          
         } else {
           // e.g. server process killed or network down
           // event.code is usually 1006 in this case
-          console.log('[close] Connection died', event);
+          
         }
       };
     }
     setIsClient(true);
     return () => {
       if (socket) {
-        socket.close();
-        console.log('Clearing event handlers on socket');
+        socket.close();        
         socket.onopen = null;
         socket.onmessage = null;
         socket.onclose = null;
@@ -111,7 +102,7 @@ export default function Game() {
 
   let gameContent;
 
-  console.log('Redner', gameState.yourStatus);
+  
 
   switch (gameState.yourStatus) {
     case 'not_joined':

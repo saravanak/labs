@@ -35,8 +35,6 @@ export const todoRouter = t.router({
         whereClause,
         opts.input
       );
-      console.log(opts.input, JSON.stringify(whereClause));
-      console.log({ items: JSON.stringify(items) });
       return {
         items,
         nextCursor: last(items)?.id,

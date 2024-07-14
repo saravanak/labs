@@ -16,7 +16,6 @@ describe('modulo language', () => {
 
     const matchResult = parser.parse(t);
     if (matchResult.failed()) {
-      console.log(matchResult.message);
     }
     expect(matchResult.succeeded()).toBeTruthy();
   });

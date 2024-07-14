@@ -1,13 +1,10 @@
-import { faker } from '@faker-js/faker';
-import { seed_insertManyCommentsIntoTodo } from './../typed-queries/todo/action';
 import { Shelf } from '@prisma/client';
 import { enhance } from '@zenstackhq/runtime';
-import { omit, times } from 'lodash';
+import { times } from 'lodash';
 import getLuggages from './data';
-import { fakeComment, fakeRack, fakeShelf, fakeUser } from './fake-data';
+import { fakeRack, fakeShelf } from './fake-data';
 import prisma from './index';
-import { pgClient } from './client';
-import { SeedCreateTodos } from './seeds/seed-utils';
+import { seedCreateTodos } from './seeds/seed-utils';
 
 const db = enhance(prisma, {}, { kinds: ['delegate'] });
 
@@ -25,12 +22,12 @@ async function main() {
     });
   });
 
-  return await SeedCreateTodos({
+  return await seedCreateTodos({
     email: 'neo@example.com',
     spacename: "Neo's Space",
     title: 'I need to breathe',
     description: 'Thats is, to live.',
-  });
+  } as any);
 }
 main()
   .then(async () => {

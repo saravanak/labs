@@ -24,7 +24,6 @@ const credentialProvider = CredentialsProvider({
     email: { label: 'email', type: 'text', placeholder: 'enter your email' },
   },
   async authorize(credentials, req) {
-    console.log('credentialss authorize');
 
     const user = await prisma.user.upsert({
       where: {
@@ -38,7 +37,6 @@ const credentialProvider = CredentialsProvider({
     });
 
     if (user) {
-      console.log(`CYPRESS_ONLY: ${user}`);
 
       return user;
     }
@@ -50,7 +48,6 @@ const credentialProvider = CredentialsProvider({
 const auth = async (req: NextRequest, ctx: any) => {
   const { params } = ctx;
 
-  console.log({ params, url: req.url });
 
   authOptions.providers = [];
   if (params.nextauth.includes('github')) {

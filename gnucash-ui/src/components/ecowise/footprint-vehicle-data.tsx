@@ -28,7 +28,6 @@ export default function FootprintVehicleData({ form, dataKey }: any) {
       <FormField
         name={`vehicles`}
         render={({ field, fieldState }) => {
-          console.log(fieldState.error);
 
           return (
             <FlexJustifySpread>

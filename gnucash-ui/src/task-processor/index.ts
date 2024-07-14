@@ -6,11 +6,10 @@ async function readme() {
   boss.on('error', (error: any) => console.error(error));
 
   try {
-    console.log('Starting././');
 
     await boss.start();
   } catch (error) {
-    console.log({ error });
+    console.error({ error });
   }
 
   const queue = 'some-queue';
@@ -22,14 +21,11 @@ async function readme() {
     60
   );
 
-  console.log(`created job in queue ${queue}: ${jobId}`);
 
   await boss.work(queue, someAsyncJobHandler);
 }
 
 async function someAsyncJobHandler(job: any) {
-  console.log(`job ${job.id} received with data:`);
-  console.log(JSON.stringify(job.data));
 }
 
 readme();

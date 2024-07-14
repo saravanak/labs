@@ -29,7 +29,7 @@ export default function AddMemberToSpace({ params }: any) {
     },
   };
 
-  const mutation = trpc.todoUser.addUserToSpace.useMutation({
+  const mutation = trpc.space.addUserToSpace.useMutation({
     onSuccess: (d, { inviteeEmail }) => {
       toast(`Invited ${inviteeEmail} to your space`);
       const previousPath = pathname.split('/').slice(0, -1).join('/');

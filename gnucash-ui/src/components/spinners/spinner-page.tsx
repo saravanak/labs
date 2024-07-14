@@ -9,7 +9,6 @@ export default function SpinnerPage() {
   const [tick, { increment }] = useCounter();
 
   useEffect(() => {
-    console.log({ svgRoot });
 
     if (!svgRoot.current) {
       return;
@@ -49,7 +48,6 @@ export default function SpinnerPage() {
 
           const easedStep = durationEasing(steps);
           const currentDuration = interpolateTime(easedStep)[1];
-          console.log({ steps, currentDuration });
 
           (d3.active(this as any) as any)
             .transition()
@@ -106,7 +104,6 @@ export default function SpinnerPage() {
           new Date()
         );
 
-        console.log({ datum, event, foo: this });
 
         animator(this);
       });

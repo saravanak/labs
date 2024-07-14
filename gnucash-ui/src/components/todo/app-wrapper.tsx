@@ -21,14 +21,7 @@ function Content({
   currentStep,
   setIsOpen,
 }: any) {
-  console.log({
-    content,
-    setCurrentStep,
-    transition,
-    isHighlightingObserved,
-    currentStep,
-    setIsOpen,
-  });
+
 
   const stepText = content ? StepContentTexts[content] : '';
   return (

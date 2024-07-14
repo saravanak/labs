@@ -42,7 +42,7 @@ export default function Board({
         {yourStatus == 'lost' ? 'You lost!! Try again?' : null}
         <div className='grid grid-cols-3 grid-rows-[4em_1fr] w-[90%]'>
           <div>alpha</div>
-          <Countdown seconds={30} onTimer={() => console.log('Timer done')}>
+          <Countdown seconds={30} onTimer={() => {}}>
             {' '}
           </Countdown>
           <div> beta</div>
