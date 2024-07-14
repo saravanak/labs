@@ -54,9 +54,7 @@ module.exports = {
     config.amendLibrary("md", () => {});
 
     config.addPlugin(EleventyHtmlBasePlugin);
-    // config.addPlugin(syntaxHighlightPlugin, {
-    //   alwaysWrapLineHighlights: true,
-    // });
+
 
     config.addPlugin(blogTools);
     config.addPlugin(pluginRss);

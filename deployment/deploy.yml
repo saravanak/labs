@@ -22,7 +22,8 @@
   roles:
     - geerlingguy.swap 
     - blog
-    # - luther #sanbox app.
+    - db
+    - luther #sanbox app.
 
 
   
