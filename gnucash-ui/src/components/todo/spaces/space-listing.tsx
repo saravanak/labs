@@ -8,6 +8,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { Button } from '../../ui/button';
 import { useSession } from 'next-auth/react';
+import { cn } from '@/lib/utils';
 
 export default function SpaceListing({ mode }: any) {
   const ref = useRef(null);
@@ -45,14 +46,15 @@ export default function SpaceListing({ mode }: any) {
 
   let components = <></>;
   if (data) {
-    const todos = data;
+    const spaces = data;
 
-    if (todos?.pages?.length == 0) {
+    if (spaces?.pages[0].items.length == 0) {
       return (
-        <div>
-          you have no todos
-          <Button onClick={() => {}}>Click here to create some!</Button>{' '}
-        </div>
+        <ListItem className={cn('text-muted text-sm justify-center')}>
+          {isSharing
+            ? 'There are no shared spaces for you'
+            : 'You have no spaces yet'}
+        </ListItem>
       );
     }
 
@@ -89,10 +91,10 @@ export default function SpaceListing({ mode }: any) {
         )}
         <div className='w-[3/6] max-h-full overflow-hidden'>
           <div className='w-full h-full overflow-auto'>
-            {todos.pages.map((space, index) => {
+            {spaces.pages.map((space: any, index: any) => {
               return (
                 <div key={index}>
-                  {space.items.map((v: any, itemindex) => {
+                  {space.items.map((v: any, itemindex: any) => {
                     return (
                       <div key={itemindex}>
                         <ListItem
@@ -147,6 +149,7 @@ export default function SpaceListing({ mode }: any) {
           </div>
           <div ref={ref}>&nbsp;</div>
         </div>
+        {/* {isSharing && } */}
       </div>
     );
   }
