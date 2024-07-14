@@ -1,7 +1,6 @@
 import { cn } from '@/lib/utils';
-import ListItem from './list-item';
 import { Case } from 'change-case-all';
-import { clamp } from '@/utils/string';
+import ListItem from './list-item';
 
 export default function PropertyListItem({
   property,
@@ -22,14 +21,17 @@ export default function PropertyListItem({
       )}
       <div
         className={cn(
-          'align-right px-4 py-2 rounded-md mx-2 ',
-          asTag ? `${tagColor}` : '', valueClassNames
+          'align-right p-2 rounded-md max-w-[50%]',
+          asTag ? `${tagColor} opacity-80` : '',
+          valueClassNames
         )}
       >
         {valueRenderer ? (
           valueRenderer()
         ) : (
-          <span title={value}>{clamp(value, 8)}</span>
+          <div title={value} className='text-ellipsis overflow-hidden '>
+            {value}
+          </div>
         )}
       </div>
     </ListItem>
