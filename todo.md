@@ -142,15 +142,9 @@ Todos listing
 - Deploy 
 
 Too many clients already...
-
-Add todo not working. 
-auth rights testing 
 cypress testing 
 Remove public folder from git and prune git size (mp4 , secrets)
 - Bootstrap example user for demo 
-- Always auto-login with Bootstrap'd user 
-- Implement switch between demo user and actual user on profile page
-- Implement Github login for now. 
 
 LATER:
 deploy
