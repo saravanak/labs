@@ -1,9 +1,8 @@
 'use client';
-import { signIn, signOut, useSession } from 'next-auth/react';
-import Link from 'next/link';
+import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import LinksListing from '../ui/links-listing';
 import { Button } from '../ui/button';
+import LinksListing from '../ui/links-listing';
 
 export default function Sidebar({
   sidebarShown,
@@ -34,37 +33,32 @@ export default function Sidebar({
       href: '/games',
       label: 'Games',
     },
+    {
+      href: '/todos',
+      label: 'Tinja',
+    },
   ];
   const router = useRouter();
   return (
     <div
-      className={`inverted-color col-span-2 pl-8 md:pl-4 md:col-span-1 md:block md:left-0 h-[calc(100vh-4rem)] ${
+      className={`col-span-2 border-r-2 border-r-gray-300  md:col-span-1 md:block  h-[calc(100vh-4rem)] ${
         sidebarShown ? 'block' : 'hidden'
       }`}
     >
       <LinksListing
         links={links}
-        additionalStyles='flex w-full justify-stretch pl-2 py-4 md:py-2 hover:inverted-color-hover'
+        additionalStyles='flex w-full justify-stretch  pl-4 py-4 py-4 font-bold text-gray-600'
         markActive={true}
         onClick={() => (burgerClicked ? hideSideBar() : null)}
       />
 
-      {session?.user?.name ? (
-        <button
-          onClick={() => {
-            signOut();
-          }}
-          title='Signout'
-          className='flex w-full justify-stretch pl-2 py-4 md:py-2 hover:inverted-color-hover text-yellow-600 font-bold'
-        >
-          Signout {session?.user?.name}
-        </button>
-      ) : (
+      {session ? null : (
         <Button
-          onClick={() => signIn('github', { callbackUrl: '/todos' })}
+          onClick={() => router.push('/login')}
+          variant='ghost'
           title='Signin'
           data-test-action='login'
-          className='flex w-full justify-stretch pl-2 py-4 md:py-2 hover:inverted-color-hover text-yellow-600 font-bold'
+          className='flex w-full justify-stretch pl-2 py-4 md:py-2 font-bold'
         >
           Login
         </Button>

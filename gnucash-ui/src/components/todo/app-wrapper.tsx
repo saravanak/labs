@@ -1,28 +1,19 @@
 'use client';
 import { StepType, TourProvider } from '@reactour/tour';
 import { SessionProvider } from 'next-auth/react';
-import { createContext, useState } from 'react';
-import TourWrapper from './tour-wrapper';
-import Markdowned from '../markdown/md-viewer';
-import { StepContentTexts } from './tour/step-content';
 import { usePathname, useRouter } from 'next/navigation';
 import NextTopLoader from 'nextjs-toploader';
+import { createContext, useEffect, useState } from 'react';
+import Markdowned from '../markdown/md-viewer';
+import TourWrapper from './tour-wrapper';
+import { StepContentTexts } from './tour/step-content';
 
 export const TabBarContext = createContext({
   form: null,
   setForm: (x: any) => {},
 });
 
-function Content({
-  content,
-  setCurrentStep,
-  transition,
-  isHighlightingObserved,
-  currentStep,
-  setIsOpen,
-}: any) {
-
-
+function Content({ content }: any) {
   const stepText = content ? StepContentTexts[content] : '';
   return (
     <Markdowned mdText={stepText} className='w-full rounded-md'>
@@ -34,7 +25,6 @@ function Content({
 export default function AppWrapper({ children, session }: any) {
   const router = useRouter();
   const pathname = usePathname();
-
   const styles = {
     popover: (base: any) => ({ ...base, maxWidth: '100%' }),
   };
@@ -78,15 +68,25 @@ export default function AppWrapper({ children, session }: any) {
     },
   ];
 
-  if (!session) {
-    if (!['/login', '/credits/about-tinja'].includes(pathname)) {
-      router.push('/login');
+  useEffect(() => {
+    if (!session) {
+      if (!['/login', '/credits/about-tinja'].includes(pathname)) {
+        router.push('/login');
+      }
     }
-  }
+    if (session) {
+      if (['/login'].includes(pathname)) {
+        router.push('/todos');
+      }
+    }
+  }, [session, pathname]);
 
   return (
     <SessionProvider>
-      <NextTopLoader />
+      <NextTopLoader
+          height={10}
+
+      />
       <TabBarContext.Provider value={{ form, setForm }}>
         <TourProvider
           steps={steps}

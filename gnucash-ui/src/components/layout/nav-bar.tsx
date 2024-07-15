@@ -30,7 +30,7 @@ export default function NavbarComponent({
   };
 
   return (
-    <div className='col-span-2 inverted-color p-2 justify-between items-center grid grid-rows-[4rem] md:flex align-center sticky top-0 z-10 '>
+    <div className='col-span-2 bg-primary  text-primary-foreground p-2 justify-between items-center grid grid-rows-[4rem] md:flex align-center sticky top-0 z-10 '>
       <div className='flex items-center'>
         <Menu
           className='m-4 md:hidden'
@@ -42,7 +42,6 @@ export default function NavbarComponent({
 
         <LinksListing additionalStyles='p-4 font-bold' links={[homeLink]} />
         <span className='bg-yellow-200 text-italics text-sky-500 rounded-lg p-2'>
-          {' '}
           <a href='mailto: vsk62.gate@gmail.com'>is open to work!</a>
         </span>
       </div>

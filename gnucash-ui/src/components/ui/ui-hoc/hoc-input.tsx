@@ -1,4 +1,6 @@
+import { cn } from '@/lib/utils';
 import { Case } from 'change-case-all';
+import TextareaAutosize from 'react-textarea-autosize';
 import {
   FormControl,
   FormField,
@@ -7,11 +9,8 @@ import {
   FormMessage,
 } from '../form';
 import { Input } from '../input';
-import { TextArea } from '../text-area';
 import { AutoComplete, SearchItem } from './autocomplete';
 import HocSelect from './hoc-select';
-import TextareaAutosize from 'react-textarea-autosize';
-import { cn } from '@/lib/utils';
 
 const inputByType = function ({ formMeta, field, trigger }: any) {
   const fieldMeta = formMeta[field.name];

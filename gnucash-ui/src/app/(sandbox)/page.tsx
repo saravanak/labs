@@ -31,7 +31,8 @@ export default async function Home() {
   const todoLink = [
     {
       href: '/todos',
-      label: 'Organize your life!',
+      label:
+        "Access Tinja",
     },
   ];
   const blogLinks = [
@@ -60,10 +61,13 @@ export default async function Home() {
           Welcome to my sandbox environment where I keep by hobby projects. And
           yes, none of this was borrowed from AI.
         </p>
-        <p className='bg-light-bg text-destructive text-lg p-4 rounded-md'>
-          If you&apos;ve come for the TODO APP, please click here to &nbsp;
-          <LinksListing isSimpleLinks={true} links={todoLink} />
-        </p>
+
+        <LinksListing
+          additionalStyles='bg-gray-100 text-lg p-4 rounded-md block text-primary-foreground font-bold text-center shadow-sm	'
+          isSimpleLinks={true}
+          links={todoLink}
+        />
+
         <p>
           If you are a recruiter, see{' '}
           <LinksListing isSimpleLinks={true} links={recruiterLinks} />.

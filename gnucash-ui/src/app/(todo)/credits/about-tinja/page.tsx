@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import ListItem from '@/components/ui/lists/list-item';
 import PropertyListItem from '@/components/ui/lists/property-list-item';
 import { cn } from '@/lib/utils';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 const anchorClass = 'underline underline-offset-2 font-bold text-primary';
 
@@ -23,6 +24,7 @@ const ProjectRefs = ({ links }: any) => {
 
 export default function AboutApp() {
   const router = useRouter();
+  const session = useSession();
   return (
     <>
       <PropertyListItem
@@ -56,9 +58,11 @@ export default function AboutApp() {
                 imagination is the limit!! Enjoy!!
               </li>
             </ul>
-            <Button className='mt-4' onClick={() => router.push('/login')}>
-              Login
-            </Button>
+            {!session && (
+              <Button className='mt-4' onClick={() => router.push('/login')}>
+                Login
+              </Button>
+            )}
           </div>
         )}
       ></PropertyListItem>
@@ -67,7 +71,7 @@ export default function AboutApp() {
         property='Terms and GPDR'
         drawBorder={true}
         valueRenderer={() =>
-          'This is a toy right now, as claimed on the login page. So no personal information is sought. Only session cookies are used for login and no marketing/analytical cookies are used'
+          'This is a toy right now. No personal information is sought. Only session cookies are used for login and marketing/tracking cookies are not used'
         }
       ></PropertyListItem>
       <PropertyListItem

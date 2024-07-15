@@ -38,6 +38,7 @@ export default function TodoListing({
         getNextPageParam: (lastPage: any) => {
           return lastPage.nextCursor;
         },
+        refetchOnMount: false
       }
     );
 
@@ -47,7 +48,7 @@ export default function TodoListing({
     }
   }, [inView]);
 
-  if (isLoading) {
+  if (isLoading && !data) {
     return Array(5)
       .fill(0)
       .map((v, i) => <LoaderListItem key={i} />);

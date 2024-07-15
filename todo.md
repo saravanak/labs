@@ -165,7 +165,7 @@ https://github.com/brandur/singularity
 - fix cypress tests. 
 - Change contains to equal for space name search and refine error message
 - write db passwords using vault
+- [x]  Fix db connection timeout problem
+- [ ]
 
-
-
-DATABASE_URL="postgresql://luther:p@localhost/todo"
+- https://harlequin.sh/docs/postgres/index query-watcher

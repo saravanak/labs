@@ -66,7 +66,7 @@ export default async function TodoRootLayout({
         )}
       >
         <TrpcProvider>
-          <div className='md:container md:px-auto w-full md:w-3/6 '>
+          <div className='lg:container lg:px-auto w-full lg:w-4/6 '>
             <Card className='border-none bg-gray-100'>
               <SessionWrapper>{children}</SessionWrapper>
             </Card>

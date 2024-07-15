@@ -143,7 +143,7 @@ model Space {
   owner_id String 
   name String
   is_system_space  Boolean @default(false) 
-  user User @relation(fields: [owner_id], references: [id])  
+  user User @relation(fields: [owner_id], references: [id],  onDelete: Cascade)    
   todos            Todo[]
 	spaceSharing SpaceSharing[]
   @@id([owner_id, name])

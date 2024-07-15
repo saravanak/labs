@@ -1,23 +1,23 @@
 'use client';
+import { animated, config, useSpring } from '@react-spring/web';
 import { useTour } from '@reactour/tour';
 import { TramFront, TriangleAlert } from 'lucide-react';
+import { signOut, useSession } from 'next-auth/react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useCallback } from 'react';
 import { Button } from '../ui/button';
+import ListItem from '../ui/lists/list-item';
 import { FlexJustifySpread } from '../ui/ui-hoc/flex-justify-spread';
 import TodoTabBar from './todo-tab-bar';
-import { useRouter } from 'next/navigation';
-import { signOut, useSession } from 'next-auth/react';
-import ListItem from '../ui/lists/list-item';
-import { animated, useSpring, easings, config } from '@react-spring/web';
-export default function TourWrapper({ children, session }: any) {
+
+export default function TourWrapper({ children, session: userSession }: any) {
   const { setIsOpen } = useTour();
-  const { data: userSession }: any = useSession();
+  const pathname = usePathname();
+  console.log(userSession);
+  
   const isDemoUser = userSession && userSession.user.isDemoUser;
   const router = useRouter();
   const toConfig = {
-    // from: {
-    //   borderColor: 'pink',
-    // },
-
     to: [
       {
         borderColor: 'green',
@@ -32,9 +32,16 @@ export default function TourWrapper({ children, session }: any) {
     loop: true,
     reset: true,
   };
+  const onSigninClick = useCallback(async () => {
+    await signOut();
+    window.location.href = "/login"
+  }, []);
   let springs = useSpring({
     ...toConfig,
   });
+
+  const isLoginRoute = pathname == '/login';
+
   return (
     <div className='grid grid-cols-1 h-svh grid-rows-[3em,1fr,3em]  border-2 border-primary '>
       <FlexJustifySpread className='bg-primary text-primary-foreground py-4 h-[3em]'>
@@ -66,11 +73,11 @@ export default function TourWrapper({ children, session }: any) {
           enabledOnDemo={true}
           onClick={() => router.push('/profile')}
         >
-          {session && session.user.email}
+          {userSession && userSession?.user.email}
         </Button>
       </FlexJustifySpread>
       <div className='h-full  overflow-y-auto box-border bg-gradient-to-br from-gray-200 to-zinc-100 '>
-        {userSession && userSession.user.isDemoUser && (
+        {!isLoginRoute && userSession && userSession.user.isDemoUser && (
           <>
             <ListItem
               className='text-muted text-xs grow text-center justify-center'
@@ -87,9 +94,9 @@ export default function TourWrapper({ children, session }: any) {
               <Button
                 variant='outline'
                 enabledOnDemo={true}
-                onClick={() => signOut({ callbackUrl: '/todos' })}
+                onClick={() => onSigninClick()}
               >
-                Sign in
+                Use my email
               </Button>
             </ListItem>
           </>

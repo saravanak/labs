@@ -2,14 +2,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
 import { TabBarContext } from '@/components/todo/app-wrapper';
+import { cn } from '@/lib/utils';
 import { getPropertyPaths } from '@/utils/zod/extract-keys-from-type';
-import { useCallback, useContext, useEffect } from 'react';
+import { LoaderIcon } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import { Button } from '../button';
 import { Form } from '../form';
+import ListItem from '../lists/list-item';
 import FormErrorContainer from './form-error-container';
 import HocInput from './hoc-input';
-import { useSession } from 'next-auth/react';
-import ListItem from '../lists/list-item';
-import { Button } from '../button';
 
 export default function HocForm({
   formSchema,
@@ -20,6 +22,8 @@ export default function HocForm({
   title,
   mode = 'global',
   action,
+  className,
+  enabledOnDemo,
 }: any) {
   const propertyPaths = getPropertyPaths(formSchema);
 
@@ -39,15 +43,13 @@ export default function HocForm({
 
   const formSubmitHandler = useCallback(
     form.handleSubmit(async (d) => {
-
       return await onSubmit(d);
     }),
-    [form]
+    []
   );
 
   useEffect(() => {
     if (mutation?.error) {
-
       mutation.error.shape.cause.errors.forEach(({ key, error }: any) => {
         setError(key, error);
       });
@@ -81,21 +83,20 @@ export default function HocForm({
     formMeta,
   };
 
-  const isFormDisabled = isDemoUser || mutation?.isLoading;
+  const isLoading = mutation?.isLoading;
+
+  const isFormDisabled = (enabledOnDemo ? false : isDemoUser) || isLoading;
   return (
-    <div className='grid  grid-cols-1 '>
-      <ListItem variant='heading2' className="justify-center text-sm">{title}</ListItem>
+    <div className={cn('grid  grid-cols-1 ', className)}>
+      <ListItem variant='heading2' className='justify-center text-sm'>
+        {title}
+      </ListItem>
       <Form {...additionalContext}>
         <form
-          onSubmit={
-            action
-              ? (null as any)
-              : form.handleSubmit((d) => {
-                  onSubmit(d);
-                })
-          }
-          action={action}
-          method={action ? 'POST' : (null as any)}
+          onSubmit={form.handleSubmit((d) => {
+            console.log('submitting the form');            
+            onSubmit(d);
+          })}
         >
           <fieldset disabled={isFormDisabled}>
             {propertyPaths.map((property) => {
@@ -110,10 +111,16 @@ export default function HocForm({
               );
             })}
           </fieldset>
+
           <div className='flex justify-center'>
-            {action && (
-              <Button type='submit' disabled={!formState.isValid}>
-                {' '}
+            {mode  == "internal" && (
+              <Button
+                type="submit"
+                disabled={!formState.isValid || isLoading}
+                enabledOnDemo={enabledOnDemo}
+                loading={isLoading}
+              >
+                {formState.isSubmitting ? <LoaderIcon /> : null}
                 Login
               </Button>
             )}

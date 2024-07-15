@@ -8,22 +8,29 @@ const globalForPrisma = globalThis as unknown as {
   pgClient?: any;
 };
 
-export const prisma: PrismaClient = enhance(
+export const prisma: PrismaClient =
   globalForPrisma.prisma ||
-    new PrismaClient({ log: process.env.ENABLE_QUERY_LOGS ? ['query'] : [] }),
-  {},
-  { kinds: ['delegate'] }
-);
+  (() => {console.warn("creating prisma client"); return true })() && 
+  enhance(
+    new PrismaClient({ log: process.env.ENABLE_QUERY_LOGS ? ['query'] : ['info'] }),
+    {},
+    { kinds: ['delegate'] }
+  );
 
 if (process.env.NODE_ENV !== 'production') {
   globalForPrisma.prisma = prisma;
 }
 
-const client = new Client({ connectionString: process.env.DATABASE_URL });
-client.connect();
-// const query : IGetTodosWithLatestStatusesQuery;
+export const pgClient =
+  globalForPrisma.pgClient ||
+  new Client({
+    connectionString: process.env.DATABASE_URL,
+    application_name: 'pg_typed_runner',
+  });
 
-export const pgClient = client;
+if (!globalForPrisma.pgClient) {
+  pgClient.connect();
+}
 
 if (process.env.NODE_ENV !== 'production') {
   globalForPrisma.pgClient = pgClient;

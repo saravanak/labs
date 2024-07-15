@@ -5,6 +5,7 @@ import SuperJSON from 'superjson';
 import { appRoutes } from '@/server/routers/_app';
 
 import createSubscriber from 'pg-listen';
+import prisma from '@/lib/prisma';
 
 // Accepts the same connection config object that the "pg" package would take
 const subscriber = createSubscriber({
@@ -26,7 +27,8 @@ process.on('exit', () => {
 });
 
 const healthCheckerRouter = t.router({
-  healthchecker: shieldedProcedure.query(({ ctx }) => {
+  healthchecker: shieldedProcedure.query(async ({ ctx }) => {
+
     return {
       status: 'success',
       message: 'Welcome to trpc with Next.js 14 and React Query',

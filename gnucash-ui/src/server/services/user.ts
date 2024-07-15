@@ -1,4 +1,4 @@
-import { TodoService } from '@/server/services/todo';
+import { TodoService, TodoWhereQueries } from '@/server/services/todo';
 import { UserModel } from '@/lib/prisma/zod';
 import prisma from '@/lib/prisma';
 import { z } from 'zod';
@@ -21,11 +21,14 @@ export const UserService = {
       },
     });
 
-    const todosForUser = await TodoService.getTodosForUser(user, null, {
-      limit: 5,
-      cursor: undefined,
-    });
-
+    const todosForUser = await TodoService.getTodosForUser(
+      user,
+      TodoWhereQueries.OwnTodosAcrossSpaces(user),
+      {
+        limit: 5,
+        cursor: undefined,
+      }
+    );
 
     if (todosForUser?.length == 0) {
       for (var i = 1; i < 5; i++) {

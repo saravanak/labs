@@ -1,27 +1,23 @@
 'use client';
-import { Button } from '@/components/ui/button';
 import ListItem from '@/components/ui/lists/list-item';
+import LoaderListItem from '@/components/ui/lists/loader-list';
 import HocForm from '@/components/ui/ui-hoc/hoc-form';
-import { TramFront } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState} from 'react';
 import { z } from 'zod';
 
 export default function TodoLoginPage() {
-  const [csrfToken, setCsrfToken] = useState();
+  const { data, update } = useSession();
+  const [ loggingIn, setloggingIn ] = useState(false);
   const formSchema = z
     .object({
       email: z.string().email().trim().toLowerCase(),
-      csrfToken: z.string(),
     })
     .required();
 
-  useEffect(() => {
-    (async () => {
-      const response = await fetch('/api/auth/csrf');
-      const data = await response.json();
-      setCsrfToken(data.csrfToken);
-    })();
-  }, []);
+  const router = useRouter();
 
   const formMeta: Record<string, any> = {
     email: {
@@ -30,32 +26,56 @@ export default function TodoLoginPage() {
       helpText:
         "Hit login if you want a walkthrough.  Walkthrough will be readonly and you can't do any modifications. Read below to know more",
     },
-    csrfToken: {
-      type: 'hidden',
-    },
   };
+
+  const mutation = useMutation({
+    mutationFn: async (data: any) => {
+      const response = await fetch('/api/auth/csrf');
+      const csrfToken = await response.json();
+      await fetch('/api/auth/callback/credentials', {
+        method: 'POST',
+        body: JSON.stringify({
+          ...data,
+          ...csrfToken,
+        }),
+        redirect:'manual',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      
+    },
+    onSettled: () => {
+      window.location.href="/todos";
+    },
+  });
+
+  async function onSubmit(data: any) {
+    mutation.mutate({ ...data });
+  }
 
   return (
     <>
-      <div className='flex flex-col pt-8 items-center justify-center'>
-        <div className='w-3/4 md:w-1/2'>
-          {csrfToken && (
+      <div className='flex flex-col items-center justify-center mx-auto container'>
+        <div className='flex flex-col items-center w-full'>
+          {!loggingIn && (
             <HocForm
+              className='w-1/2 border-2 rounded-md my-8 p-4 bg-blue-200'
               formSchema={formSchema}
               title='Login to Tinja'
               mode='internal'
+              enabledOnDemo={true}
               formMeta={formMeta}
-              defaultValues={{ csrfToken, email: 'neo@example.com' }}
-              action='/api/auth/callback/credentials'
+              defaultValues={{ email: 'neo@example.com' }}
+              onSubmit={onSubmit}
+              mutation={mutation}
             />
           )}
 
-          <ListItem variant='heading2' className='justify-center mt-2'>
-            Using any email
+          <ListItem variant='heading2' className='justify-center mt-2 w-full'>
+            Using dummy emails
           </ListItem>
           <ul>
             <li className='p-2 text-sm'>
-              You can also use your/any email to login. &nbsp;
+              You can also use dummy emails to login. &nbsp;
               <span className='text-destructive'>
                 No passwords will be asked and no verification mails will be
                 sent. Use with caution. Don&apos;t enter any personal
@@ -64,7 +84,7 @@ export default function TodoLoginPage() {
             </li>
 
             <li className='p-2 text-sm'>
-              This is so because this is just a MVP and I am still figuring out
+              This is so because this is just a toy and I am still figuring out
               email provider for sending verification emails! When you login
               using your email, the system will be fully functional, except that
               it will be world-viewable for whoever knows your email and whoever

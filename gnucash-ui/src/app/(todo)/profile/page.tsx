@@ -25,7 +25,10 @@ export default function ProfilePage() {
           return (
             <Button
               variant='outline'
-              onClick={() => signOut()}
+              onClick={async () => {
+                await signOut();
+                window.location.href = '/login';
+              }}
               data-test-action='logout-user'
             >
               Signout
