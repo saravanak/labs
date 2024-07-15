@@ -26,8 +26,8 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('login', (email: string) => {
-  cy.get('[id="input-email-for-credentials-provider"]', {
+  cy.get('[data-test-input="enter-email-for-logging-in"]', {
     timeout: 10000,
-  }).type(email);
+  }).type(`{selectAll}{del}${email}`);
   cy.get('button[type="submit"]').click();
 });

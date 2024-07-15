@@ -3,6 +3,7 @@
 import HocForm from '@/components/ui/ui-hoc/hoc-form';
 import { navigateToParentRoute } from '@/utils/router/parent-go-back';
 import { trpc } from '@/utils/trpc';
+import { useQueryClient } from '@tanstack/react-query';
 import { Case } from 'change-case-all';
 import { usePathname, useRouter } from 'next/navigation';
 import { toast } from 'sonner';
@@ -11,7 +12,7 @@ import { z } from 'zod';
 export default function ChangeStatus({ params }: any) {
   const router = useRouter();
   const pathname = usePathname();
-
+  const queryClient = useQueryClient();
   const todoId = parseInt(params.task);
 
   const [validStatuses, todo] = trpc.useQueries((t) => [
@@ -45,6 +46,9 @@ export default function ChangeStatus({ params }: any) {
     onSuccess: (d, { newStatus }) => {
       toast(`Status changed to  ${newStatus} `);
       navigateToParentRoute({ router, pathname });
+      queryClient.invalidateQueries({
+        queryKey: [['todo', 'getDetailedView']],
+      });
     },
   });
 
@@ -60,6 +64,7 @@ export default function ChangeStatus({ params }: any) {
       formSchema={formSchema}
       onSubmit={onSubmit}
       title='Change Status'
+      displayTitle={false}
       mutation={mutation}
       formMeta={formMeta}
       defaultValues={{

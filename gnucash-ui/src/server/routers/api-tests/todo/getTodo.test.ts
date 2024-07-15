@@ -55,7 +55,6 @@ describe('todo GETTERS', () => {
         },
       });
 
-      // console.log(JSON.stringify(responseJson, null, 2));
 
       expect(JPUtils.returnValue(responseJson).todo.id).toEqual(redtodoId);
     });

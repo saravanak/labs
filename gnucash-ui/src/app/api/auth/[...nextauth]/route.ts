@@ -24,7 +24,6 @@ const credentialProvider = CredentialsProvider({
     email: { label: 'email', type: 'text', placeholder: 'enter your email' },
   },
   async authorize(credentials, req) {
-    console.log('Authoriz call for credentials', credentials);
     const user = await prisma.user.upsert({
       where: {
         email: credentials?.email,
@@ -55,7 +54,6 @@ const auth = async (req: NextRequest, ctx: any) => {
   authOptions.providers.push(emailProvider);
 
   if (process.env.CYPRESS_TESTING_E2E) {
-    console.log('Adding dummy cred provider');
 
     authOptions.providers = [credentialProvider];
   }

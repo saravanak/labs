@@ -2,6 +2,8 @@ import { shieldedProcedure, t } from '@/utils/trpc-server';
 import { last } from 'lodash';
 import { z } from 'zod';
 import { SpaceService } from '../services/space';
+import prisma from '@/lib/prisma';
+import { TRPCError } from '@trpc/server';
 
 export const spaceRouter = t.router({
   getSpace: shieldedProcedure
@@ -135,6 +137,15 @@ export const spaceRouter = t.router({
     .mutation(async (opts) => {
       const { session } = opts.ctx;
 
+      const spaceWithSameName = await prisma.space.findFirst({
+        where: { name: opts.input.spaceName },
+      });
+      if (spaceWithSameName) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'Space with that name already exists',
+        });
+      }
       return SpaceService.createSpace(session.user, opts.input.spaceName);
     }),
 });

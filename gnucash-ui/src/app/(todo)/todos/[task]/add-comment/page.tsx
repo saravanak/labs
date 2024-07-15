@@ -1,25 +1,23 @@
 'use client';
-import { trpc } from '@/utils/trpc';
-import { z } from 'zod';
-import HocForm from '@/components/ui/ui-hoc/hoc-form';
-import { toast } from 'sonner';
-import { navigateToParentRoute } from '@/utils/router/parent-go-back';
-import { usePathname, useRouter } from 'next/navigation';
-import { Skeleton } from '@/components/ui/skeleton';
-import ListItem from '@/components/ui/lists/list-item';
-import PropertyListItem from '@/components/ui/lists/property-list-item';
 import LoaderListItem from '@/components/ui/lists/loader-list';
+import HocForm from '@/components/ui/ui-hoc/hoc-form';
+import { navigateToParentRoute } from '@/utils/router/parent-go-back';
+import { trpc } from '@/utils/trpc';
+import { useQueryClient } from '@tanstack/react-query';
+import { usePathname, useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { z } from 'zod';
 
 export default function CreateCommentForTodoForm({ params }: any) {
   const router = useRouter();
   const pathname = usePathname();
-
+  const queryClient = useQueryClient();
   const todoId = parseInt(params.task);
 
   const [todo] = trpc.useQueries((t) => [t.todo.getTodo({ todoId: todoId })]);
 
   const formSchema = z.object({
-    commentString: z.string(),
+    commentString: z.string().min(6),
   });
 
   const formMeta: Record<string, any> = {
@@ -33,6 +31,9 @@ export default function CreateCommentForTodoForm({ params }: any) {
     onSuccess: () => {
       toast('Comment successfully added');
       navigateToParentRoute({ router, pathname });
+      queryClient.invalidateQueries({
+        queryKey: [['todo', 'getDetailedView']],
+      });
     },
   });
 
@@ -49,19 +50,6 @@ export default function CreateCommentForTodoForm({ params }: any) {
 
   return (
     <>
-      <ListItem variant='header'>Add new comment</ListItem>
-      <PropertyListItem property='title' value={todo?.data?.title} />
-
-      <PropertyListItem
-        property='description'
-        value={todo?.data?.description}
-      />
-      <PropertyListItem
-        property='status'
-        value={todo?.data?.status}
-        asTag={true}
-        tagColor='bg-green-600 text-gray-200 font-bold'
-      />
       <HocForm
         formSchema={formSchema}
         onSubmit={onSubmit}

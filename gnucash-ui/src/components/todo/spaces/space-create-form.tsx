@@ -5,21 +5,25 @@ import HocForm from '../../ui/ui-hoc/hoc-form';
 import { toast } from 'sonner';
 import { navigateToParentRoute } from '@/utils/router/parent-go-back';
 import { usePathname, useRouter } from 'next/navigation';
+import { baseUrl } from '@/utils/base-url';
 
 export default function SpaceCreateForm() {
   const router = useRouter();
   const pathname = usePathname();
 
+  const mutation = trpc.space.createSpace.useMutation({
+    onSuccess: (d, { spaceName }) => {
+      toast(`Created the new space ${spaceName}`);
+      navigateToParentRoute({ router, pathname });
+    },
+  });
   const [debouncedAsync, matches] = useAsyncValidation({
     validatorUrlFor: (spaceName: any) => {
-
-      const baseUrl = process.env.NEXT_PUBLIC_DEPLOY_URL || 'http://localhost:3000';
-      
-
       return `${baseUrl}/api/trpc/space.findByName?input=${encodeURIComponent(
         JSON.stringify({ json: { spaceName } })
       )}`;
     },
+    mutation
   });
 
   const formSchema = z
@@ -47,12 +51,7 @@ export default function SpaceCreateForm() {
     },
   };
 
-  const mutation = trpc.space.createSpace.useMutation({
-    onSuccess: (d, { spaceName }) => {
-      toast(`Created the new space ${spaceName}`);
-      navigateToParentRoute({ router, pathname });
-    },
-  });
+
 
   async function onSubmit({ spaceName }: any) {
     mutation.mutate({

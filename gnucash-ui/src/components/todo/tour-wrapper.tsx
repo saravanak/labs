@@ -13,7 +13,6 @@ import TodoTabBar from './todo-tab-bar';
 export default function TourWrapper({ children, session: userSession }: any) {
   const { setIsOpen } = useTour();
   const pathname = usePathname();
-  console.log(userSession);
   
   const isDemoUser = userSession && userSession.user.isDemoUser;
   const router = useRouter();

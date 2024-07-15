@@ -41,7 +41,6 @@ describe('spaces GETTERS', () => {
         responseJson,
         schemasByAPI['space.getSpace']
       );
-      // console.log(JSON.stringify(responseJson, null, 2));
 
       expect(parsedObject.success).toBeTruthy();
 
@@ -59,7 +58,6 @@ describe('spaces GETTERS', () => {
         responseJson,
         schemasByAPI['space.getSpace']
       );
-      // console.log(JSON.stringify(responseJson, null, 2));
 
       expect(parsedObject.success).toBeTruthy();
     });

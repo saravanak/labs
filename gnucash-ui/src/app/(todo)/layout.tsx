@@ -6,6 +6,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../globals.css';
 import { Toaster } from 'sonner';
+import { baseUrl } from '@/utils/base-url';
 
 // import { getServerSession } from "next-auth/next"
 
@@ -40,6 +41,13 @@ export const metadata: Metadata = {
       template: APP_TITLE_TEMPLATE,
     },
     description: APP_DESCRIPTION,
+    images: [
+      {
+        url: `${baseUrl}/favicon.svg`, 
+        width: 800,
+        height: 600,
+      },
+    ],
   },
   twitter: {
     card: 'summary',
@@ -49,6 +57,9 @@ export const metadata: Metadata = {
     },
     description: APP_DESCRIPTION,
   },
+  icons: {
+    icon: '/favicon.svg',
+  }
 };
 
 export default async function TodoRootLayout({
@@ -58,7 +69,8 @@ export default async function TodoRootLayout({
 }>) {
   return (
     <html lang='en'>
-      <head></head>
+      <head>
+      </head>
       <body
         className={cn(
           inter.className,

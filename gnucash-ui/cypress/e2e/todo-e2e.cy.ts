@@ -9,10 +9,7 @@ describe('example to-do app', () => {
   });
 
   it('should take me to the todo app listing', () => {
-    cy.get('[id="input-email-for-credentials-provider"]', {
-      timeout: 10000,
-    }).type('t-red@test.example.com');
-    cy.get('button[type="submit"]').click();
+    cy.login('t-red@test.example.com');        
 
     cy.get('[data-test-data="todo-listing"]', { timeout: 30000 }).should(
       'be.visible'

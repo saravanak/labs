@@ -21,9 +21,10 @@ export default function HocForm({
   mutation,
   title,
   mode = 'global',
-  action,
+
   className,
   enabledOnDemo,
+  displayTitle = true,
 }: any) {
   const propertyPaths = getPropertyPaths(formSchema);
 
@@ -49,11 +50,6 @@ export default function HocForm({
   );
 
   useEffect(() => {
-    if (mutation?.error) {
-      mutation.error.shape.cause.errors.forEach(({ key, error }: any) => {
-        setError(key, error);
-      });
-    }
     if (mode == 'global') {
       setForm({
         hookForm: form,
@@ -88,13 +84,14 @@ export default function HocForm({
   const isFormDisabled = (enabledOnDemo ? false : isDemoUser) || isLoading;
   return (
     <div className={cn('grid  grid-cols-1 ', className)}>
-      <ListItem variant='heading2' className='justify-center text-sm'>
-        {title}
-      </ListItem>
+      {displayTitle && (
+        <ListItem variant='heading2' className='justify-center text-sm'>
+          {title}
+        </ListItem>
+      )}
       <Form {...additionalContext}>
         <form
-          onSubmit={form.handleSubmit((d) => {
-            console.log('submitting the form');            
+          onSubmit={() => form.handleSubmit((d) => {
             onSubmit(d);
           })}
         >
@@ -113,9 +110,9 @@ export default function HocForm({
           </fieldset>
 
           <div className='flex justify-center'>
-            {mode  == "internal" && (
+            {mode == 'internal' && (
               <Button
-                type="submit"
+                type='submit'
                 disabled={!formState.isValid || isLoading}
                 enabledOnDemo={enabledOnDemo}
                 loading={isLoading}

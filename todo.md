@@ -159,13 +159,9 @@ Try setting up //https://tanstack.com/query/v4/docs/framework/react/guides/ssr f
 - sqlite concurrent 
 https://github.com/brandur/singularity
 
-- Migration 
 - Prisma production flow 
 - Deploy 
-- fix cypress tests. 
-- Change contains to equal for space name search and refine error message
 - write db passwords using vault
-- [x]  Fix db connection timeout problem
-- [ ]
+- Pools fo pgTyped pgClient.  Remember to call release.
 
 - https://harlequin.sh/docs/postgres/index query-watcher

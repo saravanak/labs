@@ -7,7 +7,7 @@ import { AbilifiedButton } from './ui-hoc/able-button';
 import { Loader } from 'lucide-react';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-80',
   {
     variants: {
       variant: {
@@ -21,13 +21,13 @@ const buttonVariants = cva(
         secondary:
           'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         formAction:
-          ' text-center content-center font-bold border-r-2 border-white border-t-primary border-t-2',
+          ' text-center content-center font-bold border-r-p border-t-2',
         ghost: 'hover:bg-inherit',
         link: 'text-primary underline-offset-4 hover:underline',
       },
       btnColor: {
-        userAgree: 'bg-primary text-primary-foreground hover:bg-primary ',
-        userCancel: 'bg-card text-secondary-foreground hover:bg-card',
+        userAgree: 'bg-teal-400 text-gray-800 hover:bg-teal-400 border-teal-400 ',
+        userCancel: 'bg-rose-400 text-secondary-foreground hover:bg-rose-400 border-rose-400',
         lightgray: 'bg-gray-300 text-secondary-foreground hover:bg-gray/40',
         default: '',
       },

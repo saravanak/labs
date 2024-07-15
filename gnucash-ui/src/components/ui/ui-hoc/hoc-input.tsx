@@ -11,6 +11,7 @@ import {
 import { Input } from '../input';
 import { AutoComplete, SearchItem } from './autocomplete';
 import HocSelect from './hoc-select';
+import ListItem from '../lists/list-item';
 
 const inputByType = function ({ formMeta, field, trigger }: any) {
   const fieldMeta = formMeta[field.name];
@@ -109,10 +110,14 @@ export default function HocInput({ name, formMeta, trigger, disabled }: any) {
                 </div>
               )}
             </div>
-            {formMeta[name]?.matches
-              ? formMeta[name]?.matches.map((v: any) => (
-                  <div key={v.id}>{v.name}</div>
-                ))
+
+            {formMeta[name]?.matches?.length
+              ? <div className='text-sm'>
+                <div className="px-4 font-bold" key="existing-spaces">We&apos;ve found some existing spaces by that name</div>
+                {formMeta[name]?.matches.map((v: any) => (
+                  <div className="px-4 py-2" key={v.id}>{v.name}</div>
+                ))}
+                </div>
               : null}
             <FormMessage />
           </FormItem>

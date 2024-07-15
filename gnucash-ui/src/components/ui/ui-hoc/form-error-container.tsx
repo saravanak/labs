@@ -9,7 +9,7 @@ export default function FormErrorContainer() {
     return null;
   }
 
-  const { mutation } = form;
+  const { mutation, formState } = form;
 
   return mutation?.error ? (
     <div className='mt-[auto] mb-4'>
