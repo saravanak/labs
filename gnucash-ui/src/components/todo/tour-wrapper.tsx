@@ -9,6 +9,7 @@ import { Button } from '../ui/button';
 import ListItem from '../ui/lists/list-item';
 import { FlexJustifySpread } from '../ui/ui-hoc/flex-justify-spread';
 import TodoTabBar from './todo-tab-bar';
+import { version} from 'package.json'
 
 export default function TourWrapper({ children, session: userSession }: any) {
   const { setIsOpen } = useTour();
@@ -45,7 +46,7 @@ export default function TourWrapper({ children, session: userSession }: any) {
     <div className='grid grid-cols-1 h-svh grid-rows-[3em,1fr,3em]  border-2 border-primary '>
       <FlexJustifySpread className='bg-primary text-primary-foreground py-4 h-[3em]'>
         <div className='pl-4 grow font-bold text-lg flex items-center'>
-          <div data-retour-step='tinja'> Tinja</div>
+          <div data-retour-step='tinja'> Tinja <span className='text-[0.6rem] font-normal font-mono'>{version}</span></div>
           {isDemoUser && (
             <animated.div
               className='border-2 mx-4 rounded-md bg-primary'

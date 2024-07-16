@@ -7,6 +7,7 @@ import prisma from '@/lib/prisma';
 
 import { NextRequest } from 'next/server';
 import { authOptions } from '@/lib/auth-options';
+var debug = require('debug')('cred-prov');
 
 const githubProvider = GithubProvider({
   clientId: process.env.GITHUB_CLIENT_ID,
@@ -34,6 +35,7 @@ const credentialProvider = CredentialsProvider({
         name: 'CYP_' + credentials?.email,
       },
     });
+    debug({credentials, user});
 
     if (user) {
       return user;
@@ -54,7 +56,6 @@ const auth = async (req: NextRequest, ctx: any) => {
   authOptions.providers.push(emailProvider);
 
   if (process.env.CYPRESS_TESTING_E2E) {
-
     authOptions.providers = [credentialProvider];
   }
 

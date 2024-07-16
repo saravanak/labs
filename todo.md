@@ -168,3 +168,6 @@ https://github.com/brandur/singularity
 
 
 DATABASE_URL=postgresql://luther:p@localhost/todos
+
+remove prisma client generation problem on production 
+add correct deployment steps - single click deployment 
