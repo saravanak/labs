@@ -2,15 +2,15 @@ module.exports = {
     apps: [
       {
         name: "luther",
-        script: "npm run start",
+        script: "yarn start",
         env: {
           PORT: "{{luther_deploy_port}}", // See deployment/files/server_nginx_conf,
           NEXTAUTH_SECRET:"94HC1Xv6hG3ABafE/Q3DpwgUt6Mc3ZZzrw6ftsuc+eM=",
           CYPRESS_TESTING_E2E:true,
           ENABLE_QUERY_LOGS:true,
-          DATABASE_URL:"postgresql://luther:p@localhost/todos",
-          DEPLOY_URL:"https://labs.oldweaver.co.in",
+          DATABASE_URL:"postgresql://luther:p@localhost/todos",          
           NEXTAUTH_URL:"https://labs.oldweaver.co.in",
+          NODE_ENV:"production",
         }
       }
     ],

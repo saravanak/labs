@@ -91,7 +91,7 @@ export default function HocForm({
       )}
       <Form {...additionalContext}>
         <form
-          onSubmit={() => form.handleSubmit((d) => {
+          onSubmit={form.handleSubmit((d) => {
             onSubmit(d);
           })}
         >

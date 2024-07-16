@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { enhance } from '@zenstackhq/runtime';
+import { enhance } from '../zenstack/enhance';
 import pg from 'pg';
 const { Client } = pg;
 

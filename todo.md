@@ -165,3 +165,6 @@ https://github.com/brandur/singularity
 - Pools fo pgTyped pgClient.  Remember to call release.
 
 - https://harlequin.sh/docs/postgres/index query-watcher
+
+
+DATABASE_URL=postgresql://luther:p@localhost/todos

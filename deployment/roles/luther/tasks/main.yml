@@ -1,36 +1,37 @@
 # https://github.com/nickjj/ansible-user
 ---
 
-- name: Create user for the app
-  ansible.builtin.import_role:
-    name: "create.user"  
-  tags:
-    - user
-  vars: 
-    - user_groups: 
-      - "{{app_user_group}}"
-    - user_name: "{{app_user_name}}"
-    - user_shell: "/bin/bash"
-    - user_generate_ssh_key: False
-    - user_local_ssh_key_path: ""
-# Do you want to enable running root commands without needing a password?
-    - user_enable_passwordless_sudo: True
+# - name: Create user for the app
+#   ansible.builtin.import_role:
+#     name: "create.user"  
+#   tags:
+#     - user
+#   vars: 
+#     - user_groups: 
+#       - "{{app_user_group}}"
+#     - user_name: "{{app_user_name}}"
+#     - user_shell: "/bin/bash"
+#     - user_generate_ssh_key: False
+#     - user_local_ssh_key_path: ""
+# # Do you want to enable running root commands without needing a password?
+#     - user_enable_passwordless_sudo: True
 
-- name: Update apt repo and cache
-  apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+# - name: Update apt repo and cache
+#   apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
     
-- name: Install nodejs and npm
-  apt: "name={{ item }} state=present"    
-  with_items:
-    - nodejs
-    - npm
+# - name: Install nodejs and npm
+#   apt: "name={{ item }} state=present"    
+#   with_items:
+#     - nodejs
+#     - npm
 
-- name: Install PM2 
-  community.general.npm:
-    name: 
-     - pm2
-     - yarn 
-    global: true
+# - name: Install PM2 
+#   community.general.npm:
+#     name: " {{ item }}"
+#     global: true
+#   with_items: 
+#      - pm2
+#      - yarn 
     
 - name: Rsync files
   become: true
@@ -48,19 +49,19 @@
     src: ecosystem.config.js.j2
     dest: "{{app_dir}}/ecosystem.config.js"
       
-- name: Build luther app
-  become: true
-  become_user: "{{app_user_name}}"
-  ansible.builtin.shell: pwd && ./build-luther.sh
-  args:
-    chdir: "{{app_dir}}"
-  environment:
-    NEXT_PUBLIC_DIARY_URL: "{{next_public_diary_url}}"
+# - name: Build luther app
+#   become: true
+#   become_user: "{{app_user_name}}"
+#   ansible.builtin.shell: pwd && ./build-luther.sh
+#   args:
+#     chdir: "{{app_dir}}"
+#   environment:
+#     NEXT_PUBLIC_DIARY_URL: "{{next_public_diary_url}}"
 
-- name: Start pm2
-  become: true
-  become_user: "{{app_user_name}}"
-  ansible.builtin.shell: pm2 restart     
-  args:
-    chdir: "{{app_dir}}"
+# - name: Start pm2
+#   become: true
+#   become_user: "{{app_user_name}}"
+#   ansible.builtin.shell: pm2 restart     
+#   args:
+#     chdir: "{{app_dir}}"
      

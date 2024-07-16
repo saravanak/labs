@@ -1,7 +1,7 @@
 import { seed_insertManyCommentsIntoTodo } from '../../typed-queries/todo/action';
 import { faker } from '@faker-js/faker';
 import { User } from '@prisma/client';
-import { enhance } from '@zenstackhq/runtime';
+import { enhance } from '../../zenstack/enhance';
 import { omit } from 'lodash';
 import { pgClient } from '../client';
 import { fakeUser } from '../fake-data';

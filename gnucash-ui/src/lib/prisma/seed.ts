@@ -1,5 +1,5 @@
 import { Shelf } from '@prisma/client';
-import { enhance } from '@zenstackhq/runtime';
+import { enhance } from '../zenstack/enhance';
 import { times } from 'lodash';
 import getLuggages from './data';
 import { fakeRack, fakeShelf } from './fake-data';
