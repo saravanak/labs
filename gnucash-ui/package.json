@@ -1,6 +1,6 @@
 {
   "name": "gnucash-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -144,6 +144,7 @@
     "crypto": "^1.0.1",
     "cypress": "^13.12.0",
     "debounce-async": "^0.0.2",
+    "debug": "^4.3.5",
     "dotenv-cli": "^7.4.2",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
