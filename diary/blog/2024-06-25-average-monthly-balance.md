@@ -7,7 +7,7 @@ tags: ['posts','cli']
 
 ## Create/Script your own tools
 
-The crux of learning is doing. And to err is human; to repeat devlish. Hence you learn to create tools for fun and your own profit. 
+The crux of learning is doing. And to err is human; to repeat devilish. Hence you learn to create tools for fun and your own profit. 
 
 ## After 20 years
 
@@ -25,11 +25,11 @@ The intent is to have an average balance of money on your account within a month
 Divide the sum by the number of days 
 ```
 
-The above calcualted AMB should be more than the minimum specified by your bank on your account; else it will attract penalty. 
+The above calculated AMB should be more than the minimum specified by your bank on your account; else it will attract penalty. 
 
 ## GNU Cash 
 
-I use GNU cash for maintaining my accounts. End of month| I pull the statemet from my bank account. Lets assume that the bank statement has the following structure, delimited by comma.
+I use GNU cash for maintaining my accounts. End of month| I pull the statement from my bank account. Lets assume that the bank statement has the following structure, delimited by comma.
 
 
 |Date	|Narration	|Value	Dat|Debit	Amount	|Credit	Amount	|Chq/Ref	Number	|Closing	Balance|
@@ -60,7 +60,7 @@ END{ sum=0; \
 
 ## Explanation 
 
- - Begin by setting FS (Field seperator) to comma. (as it is a csv file)
+ - Begin by setting FS (Field separator) to comma. (as it is a csv file)
  - the `if` statement avoids processing the header line. We could use awk regex matchers like `^\d\d{...}` or the likes, but, ya, hell a lot of liberty for being dirty!
  - inside the `if` statement we keep on overwriting the balance field(`Field #7`) on the date key(`Field #1`) on the associative array (aka `arrays` in awk)
  - After we are done with the `if` statement, the array contains the EOD balances for each date (as the file is sorted by date)

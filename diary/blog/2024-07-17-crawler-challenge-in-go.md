@@ -24,13 +24,13 @@ channel was needed that can wait on the called goroutine. But there were
 recursive calls to `Crawl` from it. Initially I tried to synchronize these
 recursive calls using a single 'global' channel - created from the main
 function. But later I realized that each goroutine needs to have it's own
-synchornizer channel. Once this thought came in, it was easy to implement. This
+synchronizer channel. Once this thought came in, it was easy to implement. This
 was The Moment.
 
-## The `depth` destractor
+## The `depth` distractor
 
 The `depth` parameter for the stub implementation given on the challenge was
-always a eye-sore. It destracted me. I was aiming to find the end condition of
+always a eye-sore. It distracted me. I was aiming to find the end condition of
 the recursive calls both using the channel and respecting the depth variable.
 But on later thought, I realized that we should do only either of the two. And
 hence the solution.

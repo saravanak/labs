@@ -57,7 +57,7 @@ things `substring` and `length`. Date was `strfmt`. Most challenging was that we
 wanted to have a phone number sent in across as a `param`. Since the phone
 number was in the format `ddd-ddd-dddd` , this was actually converting the
 parameter value to a number by doing the subtractions! Eventually overcame this
-by concantenating a character and trimming that character in the query. Might be
+by concatenating a character and trimming that character in the query. Might be
 using a sql driver in a higher level language would have made this easier.
 
 In the process, also learnt to work with the terminal in the new NeoVim case
@@ -74,7 +74,7 @@ The second part of the puzzle stream was that there would be a fast challenge
 repeating the entire game from the start. The intention was to make the user do
 repeatable analysis and hence I was brought in. So I made this simple result
 collection stuff in `jq`. After the execution, a json file will be generated
-which contains the phone numbers for all the problems. This was a nice excerise
+which contains the phone numbers for all the problems. This was a nice exercise
 in configuration and externalization
 
 ### TODO

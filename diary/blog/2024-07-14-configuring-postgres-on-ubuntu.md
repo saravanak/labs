@@ -9,7 +9,7 @@ tags: ["posts", "postgres", "draft"]
 See https://www.postgresql.org/docs/16/storage-file-layout.html
 | Path | Comments |
 | ---------- | --------- |
-| `/etc/postgresql/16/main` | Contains config entries for postgreql |
+| `/etc/postgresql/16/main` | Contains config entries for postgresql |
 
 ```
 ps ax | grep postgres

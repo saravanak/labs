@@ -4,7 +4,7 @@ date: 2018-03-09T00:00:00.000Z
 tags:
   - posts
   - paper
-  - diy
+  - DIY
 ---
 
 ### The idea

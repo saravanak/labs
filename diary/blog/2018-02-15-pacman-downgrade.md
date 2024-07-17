@@ -50,13 +50,13 @@ pacman -U #<path to the old jsonlibtar file in the cache>
 ## Why this post?
 
 This is just a rubber ducking post. Over the course, I learnt to find how to
-find all the packages that are dependant on a given one:
+find all the packages that are dependent on a given one:
 
 ```bash
 pactree -r <package>
 ```
 
-## Dependant packages
+## dependent packages
 
 ```bash
 pacman -Qil #Package Name
@@ -69,4 +69,4 @@ Lists all the files and other meta information for an installed package on the s
 | Date | Comments |
 | ------ | ----------- |
 |2018-02-15|Initial Content|
-|2024-06-04|Add heading `Dependant packages` |
+|2024-06-04|Add heading `dependent packages` |

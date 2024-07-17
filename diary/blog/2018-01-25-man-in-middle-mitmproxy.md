@@ -23,7 +23,7 @@ lines of codes did the trick for me:
 	remote_debugger.set_trace
 ```
 
-Then, on a seperate window, trigger telnet to listen on the port `4444`. Voila,
+Then, on a separate window, trigger telnet to listen on the port `4444`. Voila,
 a clean, non-cluttered debugging environment for you to explore.
 
 ![My helpful screenshot](./images/debug-mitmproxy.jpg)

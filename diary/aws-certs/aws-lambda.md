@@ -11,7 +11,7 @@
 
 **Favour on-demand over batches**  In any scheduled task that processes a batch, there is the potential for the volume of transactions to grow beyond what can be processed within the 15-minute Lambda timeout.
 
-**Orchestration** With AWS Step Functions, you use state machines to manage orchestration. This extracts the error handling, routing, and branching logic from your code, replacing it with state machines declared using JSON.  A workflow can also run for up to 1 year. **Vs EventBridge**: While Step Functions is designed for workflows within a bounded context or microservice, to coordinate state changes across multiple services, instead use Amazon EventBridge. This is a serverless event bus that routes events based upon rules, and simplifies orchestration between microservices.
+**Orchestration** With AWS Step Functions, you use state machines to manage orchestration. This extracts the error handling, routing, and branching logic from your code, REPLacing it with state machines declared using JSON.  A workflow can also run for up to 1 year. **Vs EventBridge**: While Step Functions is designed for workflows within a bounded context or microservice, to coordinate state changes across multiple services, instead use Amazon EventBridge. This is a serverless event bus that routes events based upon rules, and simplifies orchestration between microservices.
 
 **Idempotency** Functions should be designed to be idempotent
 

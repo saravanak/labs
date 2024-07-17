@@ -15,4 +15,4 @@
  |SQS|Payload| 256 KB|
 
  ## Split and manage centrally 
-    Divide into seperate accounts and manage via AWS Organizations. Keep seperate accounts for devs/staging/prod so testings and env are isolated, thus keeping quotas local to each envs.
+    Divide into separate accounts and manage via AWS Organizations. Keep separate accounts for devs/staging/prod so testings and env are isolated, thus keeping quotas local to each envs.

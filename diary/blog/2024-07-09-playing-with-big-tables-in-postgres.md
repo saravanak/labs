@@ -21,8 +21,8 @@ We want to see how Postgres behaves with respect to a `UNLOGGED` table. TL/DR fr
 > [!failure] Pros for an `UNLOGGED` table. We'll discuss the first point here.
 >
 > 1. Tables are truncated on crash recovery. No durability!.
-> 2. Unlogged tables can only be accessed on the primary, not on the replicas.
-> 3. Unlogged tables can NOT be used in logical replication, or physical backups.
+> 2. Unlogged tables can only be accessed on the primary, not on the REPLicas.
+> 3. Unlogged tables can NOT be used in logical REPLication, or physical backups.
 
 ## The experiment
 
@@ -35,7 +35,7 @@ The things that I sought out to measure was
 
 ## The table
 
-Please read through the inline comments as we do a repl here.
+Please read through the inline comments as we do a REPL here.
 
 ```sql
 CREATE TABLE COLORS (ID SERIAL, NAME TEXT);
@@ -164,7 +164,7 @@ Promise.all([loadDatabase(1)]).then(() => {
 400.543212890625
 ```
 
-So by our (rudimentary/back of the envelope/me-not-an-expert-in-this|<insert-your-disclaimer>) calcualtions, it'd take around 400 MB for the rows. Lets see how much PG takes!
+So by our (rudimentary/back of the envelope/me-not-an-expert-in-this|<insert-your-disclaimer>) calculations, it'd take around 400 MB for the rows. Lets see how much PG takes!
 
 ```sh
 $ run-above-script.sh
@@ -206,7 +206,7 @@ UPDATE 10000000
 
 That's bloated for sure. A check up on Postgres manual for `VACUUM`:
 
-> In PostgreSQL, an UPDATE or DELETE of a row does not immediately remove the old version of the row. This approach is necessary to gain the benefits of multiversion concurrency control (MVCC, see Chapter 13): the row version must not be deleted while it is still potentially visible to other transactions. But eventually, an outdated or deleted row version is no longer of interest to any transaction. The space it occupies must then be reclaimed for reuse by new rows, to avoid unbounded growth of disk space requirements. This is done by running VACUUM.
+> In PostgreSQL, an UPDATE or DELETE of a row does not immediately remove the old version of the row. This approach is necessary to gain the benefits of multi-version concurrency control (MVCC, see Chapter 13): the row version must not be deleted while it is still potentially visible to other transactions. But eventually, an outdated or deleted row version is no longer of interest to any transaction. The space it occupies must then be reclaimed for reuse by new rows, to avoid unbounded growth of disk space requirements. This is done by running VACUUM.
 
 > The standard form of VACUUM removes dead row versions in tables and indexes and marks the space available for future reuse. However, **it will not return the space to the operating system**, except in the special case where one or more pages at the end of a table become entirely free and an exclusive table lock can be easily obtained.
 
@@ -232,7 +232,7 @@ CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s.
 
 ```
 
-I have `¯\_(o)_/¯` no idea what that means on the verbose analyze output. Left as an excercise to the reader!
+I have `¯\_(o)_/¯` no idea what that means on the verbose analyze output. Left as an exercise to the reader!
 But it is pretty clear that PG does what it says on the tin: `..VACUUM will not return the space to the operating system`
 
 ```sql
@@ -259,8 +259,8 @@ So with an unlogged table, do we expect the size to be smaller? I thought so, si
 | Type         | Narration       | Value Dat                                                                          |
 | ------------ | --------------- | ---------------------------------------------------------------------------------- |
 | `UNLOGGED`   | insertion       | Takes around the same time                                                         |
-| `UNLOGGED`   | udpate all rows | 9513.656 ms. with respect to table size, it took the same size as the logged table |
-| normal table | udpate all rows | 27466.661 ms                                                                       |
+| `UNLOGGED`   | update all rows | 9513.656 ms. with respect to table size, it took the same size as the logged table |
+| normal table | update all rows | 27466.661 ms                                                                       |
 
 So, as mentioned on the referenced blog, the performance times for the updates are roughly 3 times better for an unlogged table.
 
