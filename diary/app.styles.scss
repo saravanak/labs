@@ -1,45 +1,169 @@
 /* Write your custom CSS here */
 
+
+
 pre.shiki {
-  
-    counter-reset: linenumber; /* start each codeblock with line 0 */
-  }
-  pre.shiki .line::before {
-    counter-increment: linenumber; /* increment the counter by 1 */
-    content: counter(
-      linenumber
-    ); /* add current counter value as text */ 
-    width: 1.5rem;
-    margin-right: 0.5rem;
-    padding-right: 0.5rem;
-    display: inline-block;
-    text-align: right;
-    color: rgba(115, 138, 148, 0.4);
-    border-right: 0.1rem solid #fff1;
-  } 
+  counter-reset: linenumber; /* start each codeblock with line 0 */
+}
+pre.shiki .line::before {
+  counter-increment: linenumber; /* increment the counter by 1 */
+  content: counter(linenumber); /* add current counter value as text */
+  width: 1.5rem;
+  margin-right: 0.5rem;
+  padding-right: 0.5rem;
+  display: inline-block;
+  text-align: right;
+  color: rgba(115, 138, 148, 0.4);
+  border-right: 0.1rem solid #fff1;
+}
 
-  .blog-prev-next-container{
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    background: #efecec;
-    div {
-        width: 50%;
-        padding: 0.5rem;
-        font-size: 1rem;
-        color: grey; 
-        border-right: 1px solid white;
-        a {
-            text-decoration: none;    
-        }   
+.blog-prev-next-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+  gap: 1em;
 
-        &:last-child {
-            text-align: right;
-        }
+  .post-title{
+    border-radius: 5px;
+    border-left: 1px solid transparent;
+    padding: 10px;
+    color: white;
+    flex-basis: 50%;
+    align-self: stretch;
+    font-weight: bold;
+
+    &.muted{
+      color:var(--color-neutral-text);
+      align-content: center;
+
     }
+
+    background: #1E1E1E;
+    text-decoration: none;
+    &:last-child {
+
+      justify-content: right;
+      align-items: center;
+      border-right: 1px solid transparent;
+    }
+
   }
 
-  .article {
-    margin-top: 2em;    
-    margin-bottom: 2em;    
+  .title-row-1 {
+    display: flex;
+    // margin: 1em 0;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    .title-row-1 {
+      flex-direction: row;
+      display: flex;
+      gap: 0.5em;
+    }
+    
+
+    .nav-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      width: 2em;
+      height: 2em;
+
+      &:last-of-type {
+        align-content: end;
+      }
+    }
+
+    .post-text {
+      display: flex;
+      align-items: center;
+      align-content: center;
+    }
+    .post-date {
+      display: flex;
+      justify-content: flex-end;
+      font-size: 0.8rem;
+      font-weight: normal;
+    }
+   
   }
+}
+
+.article {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.post-list-header {
+  display: flex;
+  margin-top: 1em;;
+  background-color: var(--callout-gray-text);
+  padding: 5px;
+  color: var(--color-neutral-line);
+  padding-left: 1rem;
+}
+.postlist {
+  list-style: none;
+  padding-inline: 0;
+  list-style-position: unset;
+  .postlist-item{
+    .postlist-link{
+      margin-left: -1em;
+      font-weight: bold;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: baseline;
+      gap: 5px;
+      padding: 0.5em;
+
+    }    
+    .postlist-date {
+      font-size: x-small;
+    }
+    .excerpt{
+      box-sizing: border-box;
+
+      &::after{
+        content: '';
+        padding-top: 1em;
+        height: 10px;
+        display: block;
+        position: relative;
+        left    : 0;
+        bottom  : 0;
+        height: 10px;;
+        width   : 75%;  /* or 100px */
+        border-bottom:2px solid var(--callout-gray-text);
+        margin:0 auto;
+      }
+    }
+
+  }
+}
+.pl-tags{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+.pl-tag {
+  background-color: var(--callout-mint-bg);
+  color: var(--callout-mint-text);
+  text-transform:uppercase;
+  border: 1px solid var(--callout-mint-text);
+  border-radius: 0.2rem;
+  padding: 2px;      
+  margin-top: auto;
+  font-weight: normal;
+  font-size: x-small;
+  margin-bottom: auto;
+}
+.warning {
+  color: red;
+  font-weight: 500;
+  font-size: 1.5em;
+}

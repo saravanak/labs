@@ -8,6 +8,9 @@ module.exports = defineConfig({
     autoLabel: "title",
     anchorLabel: "arrow",
   },
+  theme: {
+    color: "sky",
+  },
   sidebar: {
     links: [
       {

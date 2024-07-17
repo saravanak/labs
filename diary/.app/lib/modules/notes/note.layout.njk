@@ -17,7 +17,14 @@
     <article>
       <h1 class="page__title">{{ headline or title or page.fileSlug }}
       </h1>
-      <div class="nav-section__title">{{page.date | readableDate("DD")}}</div>
+      <div class="pl-tags">
+                    {% for tag in tags  | reject("", "posts") %}
+                        <span class="pl-tag">{{ tag }}</span>
+                    {% endfor %}
+
+                    {{page.date | readableDate("DD")}}
+      </div>
+      
 
         {% include 'modules/notes/prev-next-post.partial.njk' %}
 

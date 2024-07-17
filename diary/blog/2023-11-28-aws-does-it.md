@@ -1,5 +1,5 @@
 ---
-title: "AWS - Does it?"
+title: AWS - Does it?
 date: 2023-11-28
 draft: false
 tags: ["posts", "aws", "cloud"]

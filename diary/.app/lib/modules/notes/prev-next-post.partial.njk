@@ -1,23 +1,31 @@
-{% set previousPost = collections.posts | getPreviousCollectionItem %}
-{% set nextPost = collections.posts | getNextCollectionItem %}
+{% set previousPost = collections.publishedPosts | getPreviousCollectionItem %}
+{% set nextPost = collections.publishedPosts | getNextCollectionItem %}
 <div class="blog-prev-next-container">
-    <div>
-        {% if previousPost %}
-            <a href="{{ previousPost.url }}">{{ previousPost.data.title }}
-                {{ previousPost.data.date | readableDate("DD") }}</a>
-        {% else %}
-            &nbsp;
-        {% endif %}
-    </div>
-    <div style="text-align: center"> 
-        <a href="{{  "/blog/" | url }}">All Posts</a>
-         </div>
-    <div>
-        {% if nextPost %}
-            <a href="{{ nextPost.url }}">{{ nextPost.data.title }}
-                {{ nextPost.data.date | readableDate("DD") }}</a>
-        {% else %}
-            &nbsp;
-        {% endif %}
-    </div>
+    {% if previousPost %}
+        <a class="post-title" href="{{ previousPost.url }}">
+            <div class="title-row-1">
+                <div class="nav-icon">&lt;</div>
+                <div class="post-text">{{ previousPost.data.title }}
+                </div>
+            </div>
+            <div class="post-date">{{ previousPost.data.date | readableDate("DD") }}</div>
+        </a>
+    {% else %}
+        <div class="post-title muted">This is the beginning of everything!</div>
+    {% endif %}
+    {# <div style="text-align: center">
+                <a href="{{ "/blog/" | url }}">All Posts</a>
+            </div> #}
+    {% if nextPost %}
+        <a class="post-title" href="{{ nextPost.url }}">
+            <div class="title-row-1">
+                <div class="post-text">{{ nextPost.data.title }}</div>
+                <div class="nav-icon">&gt;</div>
+            </div>
+            <div class="post-date">{{ nextPost.data.date | readableDate("DD") }}
+            </div>
+        </a>
+    {% else %}
+        <div class="post-title muted">This is the most recent post</div>
+    {% endif %}
 </div>

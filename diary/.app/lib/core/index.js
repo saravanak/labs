@@ -71,6 +71,17 @@ module.exports = {
       );
     });
 
+    config.addFilter("reject", function (arr=[], key="", value) {
+      console.log(arr, 'key', key, 'value', value);
+      if(key == "") {
+        return arr?.filter(item => item != value);
+      } else {
+        return arr?.filter(item => item[key] != value);
+      }
+      
+    });
+
+    
     config.addFilter("htmlDateString", (dateObj) => {
       // dateObj input: https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
       return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat(

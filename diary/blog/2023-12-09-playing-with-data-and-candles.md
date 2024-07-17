@@ -6,12 +6,9 @@ tags:
   - python
   - data
 ---
-
 A Data Game.
-
 `Advent Of Code : Code :: Hanukkah Of Data : Data`.
-
-<!-- excerpt -->
+This is a who-dun-it via queries on a database. Had quite a bit of fun doing it!
 
 <!-- toc -->
 

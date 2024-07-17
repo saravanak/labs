@@ -5,31 +5,35 @@ tags: ["posts", "go"]
 ---
 
 Better late than never. I've hopped on to [Tour
-OfGo](https://go.dev/tour/concurrency/) now and then, but digress quiet too
+Of Go](https://go.dev/tour/concurrency/) now and then, but digress quiet too
 often. Now I got the time and mind think to actually complete the exercises.
 
-There were multiple stages to solve this one
+So this is about implementing the Crawler using concurrent primitives. See
+[here](https://go.dev/tour/concurrency/10) for a problem description. There
+were multiple stages to solve this one.
 
 ## The urlsSeen `UrlBox` struct
 
-Given the hint to use a Mutext, this was a easy one. Also pretty
+Given the hint to use a Mutex, this was a easy one. Also pretty
 straightforward to implement.
 
 ## Orchestrating each of the goroutines
 
 The `Crawl` function is executed as a goroutine. So it was evident that a
-channel to sync on the called goroutine. But there wewe recursive goroutines
-called from it. Initially I tried to synchronize using a single channel, created
-from the main function. But later I realized that each goroutine needs to have
-it's own synchornizer channel. Once this thought came in, it was easy to
-implement.
+channel was needed that can wait on the called goroutine. But there were
+recursive calls to `Crawl` from it. Initially I tried to synchronize these
+recursive calls using a single 'global' channel - created from the main
+function. But later I realized that each goroutine needs to have it's own
+synchornizer channel. Once this thought came in, it was easy to implement. This
+was The Moment.
 
 ## The `depth` destractor
 
-The `depth` parameter was always a thorn on the eye. It destracted me. I was
-aiming to find the end condition of the recursive calls both using the channel
-and the depth variable. But on later thought process, I realized that we should
-do only either of the two. And hence the solution.
+The `depth` parameter for the stub implementation given on the challenge was
+always a eye-sore. It destracted me. I was aiming to find the end condition of
+the recursive calls both using the channel and respecting the depth variable.
+But on later thought, I realized that we should do only either of the two. And
+hence the solution.
 
 ## Importance of `I am done`
 

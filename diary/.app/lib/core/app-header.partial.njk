@@ -1,18 +1,16 @@
 {% from 'modules/search/search.macro.njk' import searchInput %}
-
 <header class="app-header" x-data x-bind="WindowScroll">
   {% include 'core/nav-toggle.partial.njk' %}
-
   <a href="/" class="app-header__title">
-    {{ app.title }}  
+    {{ app.title }}
   </a>
-
-  <a href="mailto:vsk62.gate@gmail.com" style="background-color: rgb(254 240 138); border-radius: 5px; padding: 1rem; position: relative">
+  <a
+    href="mailto:vsk62.gate@gmail.com"
+    style="background-color:#1E1E1E; ; border-radius: 5px; padding: 1rem; position: relative; color: white; font-weight:
+      bold; text-decoration: none;">
     I am Open to work!
   </a>
-
   {% include 'modules/themes/theme-switcher.partial.njk' %}
-  
   <div class="show-md">
     {{ searchInput('overlay') }}
   </div>

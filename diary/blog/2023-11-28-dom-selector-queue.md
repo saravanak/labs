@@ -1,12 +1,11 @@
 ---
-title: "DOM Selector queue"
+title: DOM Selector queue
 date: 2023-11-28
 tags: ["posts", "javascript", "dsl", "project-ideas"]
 ---
 
 A simple DSL suggestion for a pipeline to extract and format text from HTML. Working demo [here](https://labs.oldweaver.co.in/projects/html-extractor)
 
-<!-- excerpt -->
 
 Consider a html snippet like this:
 

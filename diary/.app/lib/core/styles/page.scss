@@ -31,6 +31,7 @@
   .page {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 300px;
+    padding-left: 2em;
   }
 
   .page__panel {
