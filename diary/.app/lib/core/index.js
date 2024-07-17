@@ -34,6 +34,7 @@ module.exports = {
             import("shiki/langs/html.mjs"),
             import("shiki/langs/markdown.mjs"),
             import("shiki/langs/sql.mjs"),
+            import("shiki/langs/go.mjs"),
           ],
         });
       } catch (error) {
