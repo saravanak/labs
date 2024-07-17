@@ -14,7 +14,7 @@ were multiple stages to solve this one.
 
 ## The urlsSeen `UrlBox` struct
 
-Given the hint to use a Mutex, this was a easy one. Also pretty
+Given the hint to use a Mutex, this was an easy one. Also pretty
 straightforward to implement.
 
 ## Orchestrating each of the goroutines
@@ -27,10 +27,10 @@ function. But later I realized that each goroutine needs to have it's own
 synchronizer channel. Once this thought came in, it was easy to implement. This
 was The Moment.
 
-## The `depth` distractor
+## The `depth` detractor
 
 The `depth` parameter for the stub implementation given on the challenge was
-always a eye-sore. It distracted me. I was aiming to find the end condition of
+always an eye-sore. It distracted me. I was aiming to find the end condition of
 the recursive calls both using the channel and respecting the depth variable.
 But on later thought, I realized that we should do only either of the two. And
 hence the solution.

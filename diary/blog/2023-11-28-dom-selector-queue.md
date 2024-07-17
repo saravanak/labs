@@ -7,7 +7,7 @@ tags: ["posts", "javascript", "dsl", "project-ideas"]
 A simple DSL suggestion for a pipeline to extract and format text from HTML. Working demo [here](https://labs.oldweaver.co.in/projects/html-extractor)
 
 
-Consider a html snippet like this:
+Consider an HTML snippet like this:
 
 ```html
 <table id="w243aab7c19b5">

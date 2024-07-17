@@ -232,8 +232,9 @@ CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s.
 
 ```
 
-I have `¯\_(o)_/¯` no idea what that means on the verbose analyze output. Left as an exercise to the reader!
-But it is pretty clear that PG does what it says on the tin: `..VACUUM will not return the space to the operating system`
+I have `¯\_(o)_/¯` no idea what that means on the verbose analyze output. Left
+as an exercise to the reader! But it is pretty clear that PG does what it says
+on the tin: `..VACUUM will not return the space to the operating system`
 
 ```sql
 > VACUUM full colors;
@@ -246,7 +247,8 @@ VACUUM
 (1 row)
 ```
 
-...and we are back to familiar territory with a`FULL` vacuum. Thats what they call deep cleaning!
+...and we are back to familiar territory with a`FULL` vacuum. Thats what they
+call deep cleaning!
 
 ## UNLOGGED Tables
 
@@ -262,11 +264,13 @@ So with an unlogged table, do we expect the size to be smaller? I thought so, si
 | `UNLOGGED`   | update all rows | 9513.656 ms. with respect to table size, it took the same size as the logged table |
 | normal table | update all rows | 27466.661 ms                                                                       |
 
-So, as mentioned on the referenced blog, the performance times for the updates are roughly 3 times better for an unlogged table.
+So, as mentioned on the referenced blog, the performance times for the updates
+are roughly 3 times better for an unlogged table.
 
 ## End
 
-Thats the end of story for now. Except that I have a pop quiz for the interested reader. Next steps is to read and grok: [Just Use Postgres
+Thats the end of story for now. Except that I have a pop quiz for the interested
+reader. Next steps is to read and grok: [Just Use Postgres
 ](https://www.amazingcto.com/postgres-for-everything/)
 
 ```javascript
@@ -275,12 +279,14 @@ Promise.all([loadDatabase(1), loadDatabase(2)]).then(() => {
 });
 ```
 
-If you note the row generation scripts, you can see that the `colors.name` column is provided a value of `product-${seq}`. The
-`seq` is the number we pass on the `loadDatabase` call above.
+If you note the row generation scripts, you can see that the `colors.name`
+column is provided a value of `product-${seq}`. The `seq` is the number we pass
+on the `loadDatabase` call above.
 
-So the question is, after the bulk rows are created as per the script block above, what will be the order of the rows created?
+So the question is, after the bulk rows are created as per the script block
+above, what will be the order of the rows created?
 
-### Is is A:
+### Is it A:
 
 | id                | name      |
 | ----------------- | --------- |

@@ -21,3 +21,4 @@ altenative,alternative
 Authorisation,Authorization
 Comparision,Comparison
 Dependant,dependent
+autocorretions,auto-corrections

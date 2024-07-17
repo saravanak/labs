@@ -27,9 +27,9 @@ decisions when say, going for a new region ?
 I guess we will be over provisioning all along.
 
 Also AWS seems to be a data-sink with all the CloudWatch|Trail|XRay requirement,
-we'd end up paying more for observability and 'working-in' the platform than for
-the features themselves. Also this is OPEX, so on a longer run, does this mean
-this will eat over the CAPEX?
+we'd end up paying more for the ability to observe and 'working-in' the platform
+than for the features themselves. Also this is OPEX, so on a longer run, does
+this mean this will eat over the CAPEX?
 
 If you want more fun, you'd have enough to worry about vendor lock-in. See for
 example the cost comparison at NeoCities [^1]
