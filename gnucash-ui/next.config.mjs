@@ -21,6 +21,7 @@ const bundleAnalyzer = withBundleAnalyzer({
 
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+  reactStrictMode: false
 };
 
 // export default bundleAnalyzer(withSerwist(withMDX()(nextConfig)));

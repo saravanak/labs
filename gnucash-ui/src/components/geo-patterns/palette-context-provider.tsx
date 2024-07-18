@@ -2,7 +2,7 @@ import { useToggle } from '@uidotdev/usehooks';
 import * as d3 from 'd3';
 import { without } from 'lodash';
 import { createContext, useCallback, useMemo, useRef, useState } from 'react';
-const schemes = [
+export const schemes = [
   d3.schemeAccent,
   d3.schemePaired,
   d3.schemePastel1,

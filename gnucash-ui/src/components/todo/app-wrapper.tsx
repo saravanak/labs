@@ -7,6 +7,13 @@ import { createContext, useEffect, useState } from 'react';
 import Markdowned from '../markdown/md-viewer';
 import TourWrapper from './tour-wrapper';
 import { StepContentTexts } from './tour/step-content';
+import { resetContext } from 'kea'
+
+resetContext({
+  plugins: [
+    // additional kea plugins
+  ],
+})
 
 export const TabBarContext = createContext({
   form: null,
