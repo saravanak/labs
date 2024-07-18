@@ -19,25 +19,6 @@ type UrlBox struct {
 	mapGate  sync.Mutex
 }
 
-func All[T any](ts []T, pred func(T) bool) bool {
-	for _, t := range ts {
-		if !pred(t) {
-			return false
-		}
-	}
-	return true
-}
-
-func Filter[T any](ts []T, pred func(T) bool) []T {
-	s := make([]T, len(ts))
-	for _, t := range ts {
-		if pred(t) {
-			s = append(s, t)
-		}
-	}
-	return s
-}
-
 // Crawl uses fetcher to recursively crawl
 // pages starting with url, to a maximum of depth.
 func Crawl(url string, fetcher Fetcher, urlCollector *UrlBox, doneChannel chan bool) {
