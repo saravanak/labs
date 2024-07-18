@@ -10,7 +10,7 @@ there is vscode. More on that later!
 
 So, a quick google gave me the
 [`spellchecker-cli`](https://github.com/tbroadley/spellchecker-cli) which did
-what is said on the tin. I invoked it with arguments as below
+what it said on the tin. I invoked it with arguments as below
 
 ```bash
 
