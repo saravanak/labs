@@ -20,7 +20,7 @@ const dialect = new PostgresDialect({
 // knows your database structure.
 // Dialect is passed to Kysely's constructor, and from now on, Kysely knows how
 // to communicate with your database.
-export const db = new Kysely<DB>({
+const db = new Kysely<DB>({
   dialect,
 });
 
@@ -32,7 +32,6 @@ export async function GET(request: Request) {
   const cursorParam = urlSps.get('cursor');
   const cursor = cursorParam ? parseInt(cursorParam, 10) : 0;
 
-  console.log({ mode });
   let dbRows;
   switch (mode) {
     case 'date-intervals':

@@ -44,7 +44,6 @@ export default function ShowPaintLog() {
 
   useEffect(() => {
     if (hasNextPage && !isFetching) {
-      console.log('We are page#', data?.pages.length);
       fetchNextPage();
     }
   }, [isFetching, hasNextPage]);

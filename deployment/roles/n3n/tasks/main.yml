@@ -33,31 +33,54 @@
 #      - pm2
 #      - yarn 
 
+- name: Install nvm
+  ansible.builtin.shell: >
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  args:
+    creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+    
+- name: install nvm 
+  ansible.builtin.shell: nvm install 20.15.1
+
+- name: install nvm 
+  ansible.builtin.shell: nvm use node
 
 - name: Rsync files
   become: true
   become_user: "{{app_user_name}}"
   ansible.posix.synchronize:
-    src: ../gnucash-ui/
+    src: ../now3news/    
     dest: "{{app_dir}}"
     rsync_opts: 
-      - "-FF --delete"
+      - "-FF"
+    
+- name: "Create app database"
+  postgresql_db:
+    state: present
+    name: "{{ app_name }}"
+  become: yes
+  become_user: postgres
 
-- name: Copy ecosystem file
+- name: npm ci 
   become: true
   become_user: "{{app_user_name}}"
-  ansible.builtin.template:
-    src: ecosystem.config.js.j2
-    dest: "{{app_dir}}/ecosystem.config.js"
-      
-# - name: Build luther app
+  ansible.builtin.shell: npm ci 
+  args:
+    chdir: "{{app_dir}}"  
+
+- name: run db migrations
+  become: true
+  become_user: "{{app_user_name}}"
+  ansible.builtin.shell: npm run k:migrate
+  args:
+    chdir: "{{app_dir}}"  
+
+# - name: Copy ecosystem file
 #   become: true
 #   become_user: "{{app_user_name}}"
-#   ansible.builtin.shell: pwd && ./build-luther.sh
-#   args:
-#     chdir: "{{app_dir}}"
-#   environment:
-#     NEXT_PUBLIC_DIARY_URL: "{{next_public_diary_url}}"
+#   ansible.builtin.template:
+#     src: ecosystem.config.js.j2
+#     dest: "{{app_dir}}/ecosystem.config.js"
 
 # - name: Start pm2
 #   become: true
